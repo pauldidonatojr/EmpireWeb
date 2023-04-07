@@ -1,0 +1,381 @@
+import React, { useState } from "react";
+import { Switch, Alert, View, Text, StyleSheet, TouchableOpacity, Image, TextInput, SafeAreaView, KeyboardAvoidingView, ScrollView, KeyboardAwareScrollView } from "react-native";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Button, Overlay, ListItem, Avatar } from 'react-native-elements';
+import { SelectList } from 'react-native-dropdown-select-list';
+import Icon from 'react-native-vector-icons/Entypo';
+
+const Members = () => {
+
+    const [selected, setSelected] = React.useState("");
+
+    const StatusDropdown = [
+        { key: '1', value: 'Active', },
+        { key: '2', value: 'Discharged' },
+    ]
+    const CordinatorDropdown =[
+        { key: '1', value: 'All', },
+        { key: '2', value: 'Default' },
+
+    ]
+    const MCODropdown =[
+        
+        { key: '1', value: 'AmeriHealth Caritas of PA'},
+        { key: '2', value: 'Centene PA Health Wellness'},
+        { key: '3', value: 'KEYSTONE FIRST CHC', },
+        { key: '4', value: 'UPMC Health Plan', },
+    ]
+    const OfficeDropdown =[
+        { key: '1', value: 'All'},
+    ]
+    const MemberTeamDropdown =[
+        { key: '1', value: 'All'},
+        { key: '2', value: 'Unasigned'},
+        { key: '3', value: 'Default', },
+    ]
+
+
+    const [index, setIndex] = useState(1);
+    const [visible, setVisible] = useState(false);
+
+    const IntialView = () => {
+        return (
+            <View><Text style={{ alignItems: 'center', justifyContent: 'center', fontSize: 18, padding: 16 }}>Please Select From Filter to Display Items</Text></View>
+        )
+    }
+    const ShowListState = () => {
+        return (<View>
+            {
+                list.map((l, i) => (
+                    <TouchableOpacity>
+                        <ListItem key={i} bottomDivider>
+                            <Avatar source={{ uri: l.avatar_url }} />
+                            <ListItem.Content>
+                                <ListItem.Title>{l.name}</ListItem.Title>
+                                <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+                            </ListItem.Content>
+                        </ListItem>
+                    </TouchableOpacity>
+                ))
+            }
+        </View>)
+    }
+    const SearchClicked = () => {
+        setIndex(2);
+        setVisible(!visible);
+    }
+
+    const toggleOverlay = () => {
+        setVisible(!visible);
+    };
+    const CrossClicked = () =>{
+        setVisible(!visible);
+    
+    };
+
+    const list = [
+        {
+            name: 'Amy Farha',
+            avatar_url: '',
+            subtitle: 'Care Giver'
+        },
+        {
+            name: 'Chris Jackson',
+            avatar_url: '',
+            subtitle: 'Care Giver'
+        }
+    ]
+
+
+    return (
+        <View style={{ width: '100%', height: '100%' }}>
+
+
+            {/*  */}
+            {/* Header */}
+            <View style={{ width: '100%', height: '10%' }}>
+                {/* Greetings */}
+                <View style={styles.greetings}>
+                    <Text style={{ fontSize: 25, color: '#1B365C' }}>Hi,</Text>
+                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1B365C' }}>{' '}Hector</Text>
+                </View>
+                {/* Agency Name */}
+                <View style={styles.agency}>
+                    <Text style={{ fontSize: 20, color: '#1B365C' }}>Empire Home Care Agency LLC.</Text>
+                </View>
+            </View>
+
+            {/* Notifications Part */}
+            <View style={styles.actionsHolder}>
+                <View style={{ width: '50%', height: '100%', alignItems: 'flex-start' }}>
+                    <View style={{ width: '70%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text>Notifications</Text>
+                    </View>
+                </View>
+                <View style={{ width: '50%', height: '100%', alignItems: 'flex-end' }}>
+                    <View style={{ width: '70%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text>Menu</Text>
+                    </View>
+                </View>
+            </View>
+
+
+            <View
+            >
+                <Button title="Select Filters from here" onPress={toggleOverlay} />
+
+
+
+
+
+                <ScrollView>
+                    {index == 1 ? IntialView() : ShowListState()}
+
+
+                </ScrollView>
+
+                <Overlay overlayStyle={{
+                    borderRadius: 15, width: '90%', height: '85%', padding: '10%'
+                }} isVisible={visible} onBackdropPress={toggleOverlay}>
+                    <Icon
+    style={styles.icon}
+              name="cross"
+              size={25}
+              onPress={CrossClicked}>
+              </Icon>
+                    <ScrollView>
+                    
+                        <TextInput style={styles.input}
+                            placeholder='Member ID'
+                        />
+                        <TextInput style={styles.input}
+                            placeholder='Admission ID'
+                        />
+                        <TextInput style={styles.input}
+                            placeholder='First Name'
+                        />
+
+                        <TextInput style={styles.input}
+                            placeholder='Last Name'
+                        />
+
+                        <TextInput style={styles.input}
+                            placeholder='Phone Number'
+                        />
+                        {/* <TextInput style= {styles.input}
+                placeholder='Status'
+            /> */}
+
+                        <View style={styles.dropdown}>
+                            <SelectList
+                                setSelected={(val) => setSelected(val)}
+                                data={StatusDropdown}
+                                placeholder='Status'
+                                save="value"
+                            />
+                        </View>
+
+                        <View style={styles.dropdown}>
+                            <SelectList
+                                setSelected={(val) => setSelected(val)}
+                                data={CordinatorDropdown}
+                                placeholder='Cordinator'
+                                save="value"
+                            />
+                        </View>
+
+                        <View style={styles.dropdown}>
+                            <SelectList
+                                setSelected={(val) => setSelected(val)}
+                                data={MCODropdown}
+                                placeholder='MCO'
+                                save="value"
+                            />
+                        </View>
+                        <View style={styles.dropdown}>
+                            <SelectList
+                                setSelected={(val) => setSelected(val)}
+                                data={OfficeDropdown}
+                                placeholder='Office'
+                                save="value"
+                            />
+                        </View>
+                        <View style={styles.dropdown}>
+                            <SelectList
+                                setSelected={(val) => setSelected(val)}
+                                data={MemberTeamDropdown}
+                                placeholder='Member Team'
+                                save="value"
+                            />
+                        </View>
+                        
+                        <TextInput style={styles.input}
+                            placeholder='Vender Tax ID'
+                        />
+                        
+                        <Button
+                            title="Search"
+                            onPress={SearchClicked}
+                        />
+                    </ScrollView>
+                </Overlay>
+            </View>
+            
+
+            <Footer />
+        </View>
+    )
+};
+
+const styles = StyleSheet.create({
+    greetings: {
+        width: '100%',
+        height: '50%',
+        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    overlay: {
+        width: '100%',
+        height: '100%',
+    },
+    dropdown :{
+        borderWidth: 0,
+        borderColor: '#777',
+        padding: 8,
+        width: 265,
+        borderRadius: 10,
+        marginBottom: '10%'
+    },
+    icon :{
+        marginLeft : 250,
+        color : 'black',
+        marginTop : 0,
+        marginBottom : 15,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#777',
+        padding: 8,
+        marginLeft: '2.5%',
+        width: 250,
+        borderRadius: 10,
+        marginBottom: '10%'
+
+    },
+    fieldholder: {
+
+    },
+
+    agency: {
+        width: '100%',
+        height: '50%',
+        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    actionsHolder: {
+        width: '100%',
+        height: '10%',
+        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    userHeaderButtons: {
+        width: '100%',
+        height: '10%',
+        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    button: {
+        margin: 5,
+        alignItems: "center",
+        paddingVertical: 20,
+        width: '45%',
+        borderRadius: 20,
+        borderWidth: 5,
+        borderColor: 'white',
+        backgroundColor: '#1B365C',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        }
+    },
+    filterHolder: {
+        width: '100%',
+        height: '10%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    button: {
+        margin: 5,
+        alignItems: "center",
+        paddingVertical: 20,
+        width: '50%',
+        borderRadius: 20,
+        borderWidth: 5,
+        borderColor: 'white',
+        backgroundColor: '#1B365C',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
+    },
+    ongoingTreatment: {
+        position: 'relative',
+        width: '90%',
+        height: 300,
+        alignSelf: 'center',
+        borderRadius: 20,
+        shadowColor: "#000",
+        flexDirection: 'column',
+        marginTop: 10,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
+        backgroundColor: '#1B365C',
+    },
+    tableHolder: {
+        marginTop: 10,
+        marginBottom: 10,
+        alignItems: "center",
+        alignSelf: 'center',
+        paddingVertical: 20,
+        width: '90%',
+        height: 300,
+        borderRadius: 20,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+        backgroundColor: 'white',
+    },
+    selectorScrollView: {
+        position: 'relative',
+        width: '100%',
+        height: '65%',
+        marginTop: '10%',
+    },
+});
+
+export default Members;
