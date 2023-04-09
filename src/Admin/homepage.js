@@ -522,8 +522,6 @@ const [open, setOpen] = React.useState(false);
         </Link>
       )
     },
-    { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'Name', headerName: 'Name', width: 200 },
     { field: 'Gender', headerName: 'Gender', width: 100 },
     { field: 'MCOName', headerName: 'MCO Name', width: 200 },
     { field: 'Discipline', headerName: 'discipline', width: 150 },
