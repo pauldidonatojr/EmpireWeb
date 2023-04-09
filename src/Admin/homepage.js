@@ -24,6 +24,7 @@ import Backdrop from '@mui/material/Backdrop';
 import { getMembers } from "../API/membersApi";
 import { ToastContainer, toast } from 'react-toastify';
 import OverlayCustom from "./Overlay";
+import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -509,6 +510,18 @@ const [open, setOpen] = React.useState(false);
   };
 
   const columns = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { 
+      field: 'Name', 
+      headerName: 'Name', 
+      width: 130, 
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'Name', headerName: 'Name', width: 200 },
     { field: 'Gender', headerName: 'Gender', width: 100 },

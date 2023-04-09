@@ -24,6 +24,7 @@ import FileProcessing from "./Admin/Admin/FileProcessing";
 import EDIImports from "./Admin/Admin/EDIImports"
 import { AuthContext, LoginContext } from './components/context';
 import ProtectedRoute from "./utils/ProtectedRoute";
+import MemberDetails from "./Admin/MemberDetails";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -102,6 +103,7 @@ function App() {
           <Route path="/CordinatorSetup" element={<CordinatorSetup />}></Route>
           <Route path="/FileProcessing" element={<FileProcessing />}></Route>
           <Route path="/EDIImports" element={<EDIImports />}></Route>
+          <Route path="/MemberDetails" element={<MemberDetails />}/>
         </Route>
 
 
