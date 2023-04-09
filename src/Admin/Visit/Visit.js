@@ -53,9 +53,217 @@ function Visit() {
   const handleCloseOverlay = () => {
     setIsOverlayOpen(false);
   };
-  const handleCloseOverlay2 = () => {
-    setIsOverlayOpen2(false);
-  };
+
+//Nested Overlay Open
+  const [isOverlayOpen3, setIsOverlayOpen3] = useState(false);
+  const SearchButtonPressed = () =>{
+   
+    setIsOverlayOpen3(true);
+    setOpen3(true);
+  }
+ 
+ //
+ const [open3, setOpen3] = React.useState(false);
+ const handleClose3 = () => {
+   setOpen3(false);
+ };
+ 
+ //
+   function Overlay3() {
+     return (
+       <Backdrop
+       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+       open={open3}
+      
+     >
+       <div className="MemberSearchOverlay">
+         <CloseIcon className="crossIcon"  onClick={handleClose3}/>
+         <h1 style={{ textAlign:"center",color:"black"}}>Set Filter from here !</h1>
+       <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Member Search</p>
+         <div className="searchFieldsDiv">
+        
+         <Grid className="griditem">
+         
+         <TextField
+            
+             id="outlined-basic"
+             label="Member ID"
+             variant="outlined"
+           />
+           
+         </Grid>
+         <Grid className="griditem">
+         
+         <TextField
+            
+             id="outlined-basic"
+             label="Admission ID"
+             variant="outlined"
+           />
+           
+         </Grid>
+         
+          <Grid className="griditem2">
+         
+         <Box >
+       <FormControl fullWidth>
+         <InputLabel >Status</InputLabel>
+         <Select
+         
+           labelId="demo-simple-select-label"
+           id="demo-simple-select"
+           value={age}
+           label="Status"
+           onChange={handleChange}
+         >
+           <MenuItem value={10}>Ten</MenuItem>
+           <MenuItem value={20}>Twenty</MenuItem>
+           <MenuItem value={30}>Thirty</MenuItem>
+         </Select>
+       </FormControl>
+     </Box>
+          </Grid>
+   
+         
+         <Grid className="griditem">
+         
+         <TextField
+            
+             id="outlined-basic"
+             label="Last Name"
+             variant="outlined"
+           />
+           
+         </Grid>
+
+         <Grid className="griditem">
+         
+         <TextField
+            
+             id="outlined-basic"
+             label="First Name"
+             variant="outlined"
+           />
+           
+         </Grid>
+
+         <Grid className="griditem">
+         
+         <TextField
+            
+             id="outlined-basic"
+             label="Phone Number"
+             variant="outlined"
+           />
+           
+         </Grid>
+
+         <Grid className="griditem2">
+         
+         <Box >
+       <FormControl fullWidth>
+         <InputLabel >Member Team</InputLabel>
+         <Select
+         
+           labelId="demo-simple-select-label"
+           id="demo-simple-select"
+           value={age}
+           label="Status"
+           onChange={handleChange}
+         >
+           <MenuItem value={10}>Ten</MenuItem>
+           <MenuItem value={20}>Twenty</MenuItem>
+           <MenuItem value={30}>Thirty</MenuItem>
+         </Select>
+       </FormControl>
+     </Box>
+          </Grid>
+
+          <Grid className="griditem2">
+         
+         <Box >
+       <FormControl fullWidth>
+         <InputLabel >Case Cordinator</InputLabel>
+         <Select
+         
+           labelId="demo-simple-select-label"
+           id="demo-simple-select"
+           value={age}
+           label="Status"
+           onChange={handleChange}
+         >
+           <MenuItem value={10}>Ten</MenuItem>
+           <MenuItem value={20}>Twenty</MenuItem>
+           <MenuItem value={30}>Thirty</MenuItem>
+         </Select>
+       </FormControl>
+     </Box>
+          </Grid>
+          <Grid className="griditem2">
+         
+         <Box >
+       <FormControl fullWidth>
+         <InputLabel >MCO</InputLabel>
+         <Select
+         
+           labelId="demo-simple-select-label"
+           id="demo-simple-select"
+           value={age}
+           label="Status"
+           onChange={handleChange}
+         >
+           <MenuItem value={10}>Ten</MenuItem>
+           <MenuItem value={20}>Twenty</MenuItem>
+           <MenuItem value={30}>Thirty</MenuItem>
+         </Select>
+       </FormControl>
+     </Box>
+          </Grid>
+         
+          
+         </div>
+         <Button className="searchButton">
+           Search
+         </Button>
+         <div style={{ height: "100%", width: '100%',marginTop:"2%" }}>
+      <DataGrid
+        rows={rows10}
+        columns={columns10}
+        pageSize={5}
+        rowsPerPageOptions={[15]}
+        checkboxSelection
+      />
+    </div>
+       </div>
+       </Backdrop>
+     );
+   }
+   // VisitSearchView
+  const columns10 = [
+    { field: 'id', headerName: 'Member ID', width: 50 },
+    { field: 'admissionID', headerName: 'Admission ID', width: 100 }, 
+    { field: 'memberName', headerName: 'Member Name', width: 100 },
+    { field: 'memberTeam', headerName: 'Member Team', width: 150 },
+    { field: 'caseCordinator', headerName: 'Case Cordinator', width: 100 },
+    { field: 'startDate', headerName: 'Start Of Date', width: 100 },
+    { field: 'status', headerName: 'Status', width: 150 },
+    { field: 'phoneNumber', headerName: 'Phone Number', width: 150 },
+    { field: 'dob', headerName: 'DOB', width: 100 },
+    { field: 'mco', headerName: 'MCO', width: 100 },
+    
+  ];
+  //demo data to display
+  const rows10 = [
+    {id:1,admissionID:"Justin",memberName:"Alo",memberTeam:"02457894561",caseCordinator:"XOXO",
+    startDate:"XZXZ",status:"1123456",phoneNumber:"1123456",dob:"Active",mco:"Homecare"},
+    
+    
+  ];
+  //
+//Nested Overlay End
+
+
+
   
   const handleClickIcon = () => {
     
@@ -73,6 +281,11 @@ function Visit() {
     }
 
   };
+
+
+
+
+
   //
 const [open, setOpen] = React.useState(false);
 const handleClose = () => {
@@ -310,7 +523,7 @@ const handleClose2 = () => {
       <div className="overlay2">
         <CloseIcon className="crossIcon"  onClick={handleClose2}/>
         <h1 style={{ textAlign:"center",color:"black"}}>Set Filter from here !</h1>
-      <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Quick Visit Search</p>
+      <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Quick Visit Entry</p>
         <div className="searchFieldsDiv">
        
         
@@ -349,7 +562,7 @@ const handleClose2 = () => {
         </Grid>
          
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay2}>
+        <Button className="searchButton"   onClick={SearchButtonPressed} >
           Search
         </Button>
       </div>
@@ -412,7 +625,7 @@ const list = (anchor) => (
                 CallDashBoardPressed();
               }} style={{color:"#F2B90F"}}>Call Dashboard</h3>
      <h3   onClick={VisitSearchPressed} style={{color:"#F2B90F"}}>Visit Search</h3>
-     <h3   onClick={VisitQuickSearchPressed} style={{color:"#F2B90F"}}>Visit Quick Search</h3>
+     <h3   onClick={VisitQuickSearchPressed} style={{color:"#F2B90F"}}>Visit Quick Entry</h3>
    
      </div>
     
@@ -649,7 +862,7 @@ const list = (anchor) => (
               <p
                 style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
               >
-                Visit Quick Search
+                Visit Quick Entry
               </p>
             </Button>
            
@@ -663,6 +876,7 @@ const list = (anchor) => (
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
           {isOverlayOpen && <Overlay />}
           {isOverlayOpen2 && <Overlay2 />}
+          {isOverlayOpen3 && <Overlay3 />}
           {RenderViews()}
         </Card>
       </div>
@@ -747,6 +961,18 @@ width: 100%;
 
 
 // overlay css end
+.MemberSearchOverlay{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 65%;
+  z-index: 1000;
+  background-color: white;
+  padding: 1%; 
+  overflow:auto;
+}
 .overlay{
   position: fixed;
   top: 50%;
@@ -1127,6 +1353,9 @@ elevation: 14,
     width: 75%;
     height: 60%;
     overflow:auto;
+    }
+    .MemberSearchOverlay{
+      overflow:auto;
     }
   .searchButton {
     margin-top: 5%;
