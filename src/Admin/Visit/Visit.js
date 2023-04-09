@@ -240,14 +240,14 @@ function Visit() {
    }
    // VisitSearchView
   const columns10 = [
-    { field: 'id', headerName: 'Member ID', width: 50 },
+    { field: 'id', headerName: 'Member ID', width: 100 },
     { field: 'admissionID', headerName: 'Admission ID', width: 100 }, 
-    { field: 'memberName', headerName: 'Member Name', width: 100 },
-    { field: 'memberTeam', headerName: 'Member Team', width: 150 },
-    { field: 'caseCordinator', headerName: 'Case Cordinator', width: 100 },
+    { field: 'memberName', headerName: 'Member Name', width: 120 },
+    { field: 'memberTeam', headerName: 'Member Team', width: 120 },
+    { field: 'caseCordinator', headerName: 'Case Cordinator', width: 120 },
     { field: 'startDate', headerName: 'Start Of Date', width: 100 },
-    { field: 'status', headerName: 'Status', width: 150 },
-    { field: 'phoneNumber', headerName: 'Phone Number', width: 150 },
+    { field: 'status', headerName: 'Status', width: 120 },
+    { field: 'phoneNumber', headerName: 'Phone Number', width: 120 },
     { field: 'dob', headerName: 'DOB', width: 100 },
     { field: 'mco', headerName: 'MCO', width: 100 },
     
@@ -736,32 +736,112 @@ const list = (anchor) => (
   //
   const VisitQuickSearchView = () => {
     return (
-      <div style={{ height: "100%", width: '100%' }}>
+      <div>
+        <div>
+        <h1 style={{textAlign:"center"}}> Active Authorization (-90 Days)</h1>
+        <Button className="showAllButton">Show All</Button>
+      <div style={{ height: "100%", width: '100%',marginBottom:"2%" }}>
       <DataGrid
-        rows={rows2}
-        columns={columns2}
+        rows={rows11}
+        columns={columns11}
         pageSize={5}
         rowsPerPageOptions={[15]}
         checkboxSelection
       />
     </div>
+    </div>
+  <hr/>
+    <div className="VisitAddDel">
+   
+         
+         <TextField
+            className="field"
+             id="outlined-basic"
+             label="Visit Date"
+             variant="outlined"
+           />
+
+         <TextField
+            className="field"
+             id="outlined-basic"
+             label="Service Code"
+             variant="outlined"
+           />
+
+         <TextField
+            className="field"
+             id="outlined-basic"
+             label="Visit Start"
+             variant="outlined"
+           />
+
+         
+         <TextField
+            className="field"
+             id="outlined-basic"
+             label="Visit End"
+             variant="outlined"
+           />
+                   
+         <TextField
+            className="field"
+             id="outlined-basic"
+             label="Duration"
+             variant="outlined"
+           />
+ 
+         <TextField
+            className="field"
+             id="outlined-basic"
+             label="Care Giver"
+             variant="outlined"
+           />
+            
+         <TextField
+            className="field"
+             id="Authorization Number"
+             label="Member ID"
+             variant="outlined"
+           />
+           
+       
+    </div>
+    <div >
+      
+    <Button className="delButton"> Delete </Button>
+    <Button className="addButton"> Add </Button>
+    <Button className="PreviewAuthButton"> Preview Authorization </Button>
+
+    </div>
+        <div style={{display:"flex",justifyContent:"center",marginTop:"2%"}}>
+        <Button className="createVisitButton"> Create Visit </Button>
+        </div>
+    </div>
     );
   };
-  // VisitQuickSearchView
-  const columns2 = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'mco', headerName: 'MCO', width: 300 }, 
-    { field: 'member', headerName: 'Member', width: 300 },
+  
+  const columns11 = [
+    { field: 'id', headerName: 'Auth #', width: 75 },
+    { field: 'fromDate', headerName: 'From Date', width: 100 }, 
+    { field: 'toDate', headerName: 'To Date', width: 100 },
+    { field: 'serviceCategory', headerName: 'Service Category', width: 120 },
+    { field: 'serviceType', headerName: 'Service Type', width: 120 }, 
+    { field: 'serviceCode', headerName: 'Service Code', width: 120 },
+    { field: 'authorizationType', headerName: 'Authorization Type', width: 150 },
+    { field: 'mco', headerName: 'MCO', width: 100 }, 
+    { field: 'notes', headerName: 'Notes', width: 100 },
     
     
   ];
-  //demo data to display
-  const rows2 = [
-    {id:1,mco:"Justin",member:"Alo"},
-    {id:2,mco:"Justin",member:"Alo"},
-    {id:3,mco:"Justin",member:"Alo"},
-    {id:4,mco:"Justin",member:"Alo"},
-    {id:5,mco:"Justin",member:"Alo"},
+  
+  const rows11 = [
+    {id:1,fromDate:"Justin",toDate:"Alo",serviceCategory:"Justin",serviceType:"Alo",
+    serviceCode:"Justin",authorizationType:"Justin",mco:"Alo",notes:"Justin"},
+    {id:2,fromDate:"Justin",toDate:"Alo",serviceCategory:"Justin",serviceType:"Alo",
+    serviceCode:"Justin",authorizationType:"Justin",mco:"Alo",notes:"Justin"},
+    {id:3,fromDate:"Justin",toDate:"Alo",serviceCategory:"Justin",serviceType:"Alo",
+    serviceCode:"Justin",authorizationType:"Justin",mco:"Alo",notes:"Justin"},
+    
     
   ];
   //
@@ -893,6 +973,54 @@ const Wrapper = styled.section`
 height: 100%;
 width: 100%;
 
+.showAllButton{
+
+}
+
+.delButton{
+  background-color:#564873;
+  color:white;
+}
+.delButton:hover{
+  color:black;
+}
+.addButton {
+  background-color:#564873;
+  color:white;
+  margin-left:1%;
+}
+.addButton:hover{
+  color:black;
+}
+.PreviewAuthButton{
+  background-color:#564873;
+  color:white;
+  margin-left:1%;
+}
+.PreviewAuthButton:hover{
+  color:black;
+}
+
+.createVisitButton{
+  background-color: #f26e22;
+  color: white;
+  width:25%;
+ 
+}
+.createVisitButton:hover{
+ 
+  color: black;
+ 
+}
+
+.VisitAddDel{
+  display:flex;
+  margin-top:2%;
+
+}
+.field{
+  margin:1%;
+}
 .GoBackButtonHolder{
   display:flex;
   justify-content:center;
