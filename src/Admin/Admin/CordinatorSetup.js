@@ -27,6 +27,11 @@ import Backdrop from '@mui/material/Backdrop';
 
 function CareGiver() {
 
+  function GoBackButtonPressed(){
+    navigate("/Admin");
+
+  }
+
   const [coordNumber, setCoordNumber] = useState(null);
   const [coordName, setCoordName] = useState(null);
   const [coordStatus, setCoordStatus] = useState(null);
@@ -524,7 +529,9 @@ const handleClose = () => {
           {RenderViews()}
         </Card>
       </div>
-
+      <div className="GoBackButtonHolder">
+      <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
+      </div>
       <Footer />
     </Wrapper>
   );
@@ -535,6 +542,31 @@ const Wrapper = styled.section`
 height: 100%;
 width: 100%;
 
+
+.GoBackButtonHolder{
+  display:flex;
+  justify-content:center;
+  margin-top:0;
+  margin-bottom:3%;
+}
+.GoBackButton{
+  background-color: #f26e22;
+  color: white;
+  width: 10%;
+  height: 150%;
+  padding: 0.5%;
+  border-radius: 10px;
+  margin-top:0;
+  jusfity-content:center;
+}
+.GoBackButton:hover {
+  color: black;
+}
+
+.CardHolder{
+    display:flex;
+    flex-direction:row;
+}
 .CardHolder{
     display:flex;
     flex-direction:row;
@@ -739,7 +771,7 @@ width: 100%;
     height:650px;
     background-color:#564873;
     margin-top:3%;
-    margin-bottom:10%;
+    margin-bottom:2%;
     margin-left:2%;
 }
 
@@ -844,7 +876,13 @@ color:black;
 }
 //Header CSS FILES ENDING
 @media only screen and (max-width: 600px) {
-    
+  .GoBackButtonHolder{
+    margin-top:2%;
+  }
+  .GoBackButton{
+    width:30%;
+    height:50px;
+  }
   .TaskBar {
     display:none;
    
