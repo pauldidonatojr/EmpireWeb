@@ -15,6 +15,9 @@ import Grid from "@mui/material/Grid";
 import Footer from "../Footer";
 import { DataGrid } from '@mui/x-data-grid';
 //
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
 
 import Backdrop from '@mui/material/Backdrop';
 import Drawer from "@mui/material/Drawer";
@@ -458,8 +461,7 @@ const handleClose3 = () => {
       case 2:
         return MemberInfoView();
 
-      case 3:
-        return LastAuthView();
+      
       case 4:
         return CalenderView();
 
@@ -504,100 +506,114 @@ const handleClose3 = () => {
   ];
 
   //
-  const CalenderView = () => {
-    return (
-      <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows1}
-        columns={columns1}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
+  const localizer = momentLocalizer(moment);
+const myEventsList = [
+  {
+    start: new Date('2023-04-11T10:00:00'),
+    end: new Date('2023-04-11T12:00:00'),
+    title: 'Event 1',
+    description: 'This is event 1',
+    location: 'New York',
+    organizer: 'John Doe'
+  },
+  {
+    start: new Date('2023-04-13T14:00:00'),
+    end: new Date('2023-04-13T16:00:00'),
+    title: 'Event 2',
+    description: 'This is event 2',
+   
+  }
+];
+
+function myCustomFormat(date, event) {
+  return (
+    <div >
+      <div>{date.getDate()}</div>
+      <div>{event.title}</div>
+      <div>{event.description}</div>
+     
+    </div>
+  );
+}
+
+console.log(myCustomFormat);
+const CalenderView = () => {
+  return (
+    <div style={{ height: "100%", width: '100%' }}>
+      <Calendar
+        events={myEventsList}
+        startAccessor="start"
+        endAccessor="end"
+        localizer={localizer}
+        formats={{ dayFormat: myCustomFormat }}
+        showMultiDayTimes={false}
+        views={['month']}
+        style={{ height: "100%" }}
       />
     </div>
-    );
-  };
-  //
-  // CalenderView
-  const columns1 = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'batchNumber', headerName: 'Batch Number', width: 120 },
-    { field: 'status', headerName: 'Status', width: 110 },
-    { field: 'fromDate', headerName: 'From Date', width: 110 },
-    { field: 'toDate', headerName: 'To Date', width: 110 },
-    { field: 'aRExportFromDate', headerName: 'AR Export From Date', width: 155 },
-    { field: 'aRExportToDate', headerName: 'AR Export To Date', width: 155 },
-    { field: 'billingExport', headerName: 'Billing Export', width: 120 },
-    { field: 'mco', headerName: 'MCO', width: 125 },
-  ];
+  );
+};
   
-  const rows1 = [
-    {id:1,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-    {id:2,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-    {id:3,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-    {id:4,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-    {id:5,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-   
-  ];
   const MemberInfoView = () => {
     return (
-      <div className="DateFieldHolder" style={{ height: "100%", width: '100%' }}>
-      <div style={{display:"flex"}}>
-      <h2 style={{color:"grey",width:"33.33%"}}>Name : <span style={{color:"black"}}>{"ROSADO MARTIZA"}</span></h2>
-      <h2 style={{color:"grey",width:"33.33%"}}>Nurse : <span style={{color:"black"}}>{"ROSADO MARTIZA"}</span></h2>
-      <h2 style={{color:"grey",width:"33.33%"}}>Frequency : <span style={{color:"black"}}>{"ROSADO MARTIZA"}</span></h2>
+      <div className="DateFieldHolder" style={{overflow:"auto",height: "100%", width: '100%' }}>
+<div style={{border: '3px solid #564873',backgroundColor:"#564873",borderRadius:"10px"}}>
+      <div style={{display:"flex",justifyContent:"space-between",marginLeft:"5%",}}>
+      <h2 style={{color:"white"}}>Name : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white"}}>Nurse : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white"}}>Frequency : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
       </div>
 
-      <div style={{display:"flex"}}>
-      <h2 style={{color:"grey",width:"33.33%"}}>MCO Cordinator : <span style={{color:"black"}}>{"ROSADO MARTIZA"}</span></h2>
-      <h2 style={{color:"grey",width:"33.33%"}}>MCO Name : <span style={{color:"black"}}>{"ROSADO MARTIZA"}</span></h2>
-      <h2 style={{color:"grey",width:"33.33%"}}>Admission ID : <span style={{color:"black"}}>{"ROSADO MARTIZA"}</span></h2>
+      <div style={{display:"flex",justifyContent:"space-between"}}>
+      <h2 style={{color:"white",textAlign:"center"}}>MCO Cordinator : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white",textAlign:"center"}}>MCO Name : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white",textAlign:"center"}}>Admission ID : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
       </div>
       
-      <div style={{display:"flex"}}>
-      <h2 style={{color:"grey",width:"50%"}}>Member ID : <span style={{color:"black"}}>{"ROSADO MARTIZA"}</span></h2>
-      <h2 style={{color:"grey",width:"50%"}}>DOB : <span style={{color:"black"}}>{"ROSADO MARTIZA"}</span></h2>
+      <div style={{display:"flex",justifyContent:"space-around"}}>
+      <h2 style={{color:"white",margin:"2%",textAlign:"center"}}>Member ID : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white",margin:"2%",textAlign:"center"}}>DOB : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
       </div>
-
-    </div>
-    );
-  };
- 
-  const LastAuthView = () => {
-    return (
-      <div style={{ height: "100%", width: '100%' }}>
+      </div>
+      <h1 style={{color:"#564873",textAlign:"center"}}>Last 3 Authorization</h1>
+      <div style={{ height:"45%", width: '100%',marginTop:"2%" }}>
       <DataGrid
-        rows={rows4}
-        columns={columns4}
+        rows={rows10}
+        columns={columns10}
         pageSize={5}
         rowsPerPageOptions={[15]}
         checkboxSelection
       />
     </div>
+    </div>
     );
   };
-   // LastAuthView
-   const columns4 = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'memberName', headerName: 'Member Name', width: 120 },
-    { field: 'admissionID', headerName: 'Admission ID', width: 140 },
-    { field: 'fromDate', headerName: 'From Date', width: 125 },
+  const columns10 = [
+    { field: 'id', headerName: 'Auth. #', width: 100 },
+    { field: 'fromDate', headerName: 'From Date', width: 100 }, 
     { field: 'toDate', headerName: 'To Date', width: 120 },
-    { field: 'mco', headerName: 'MCO', width: 125 },
-    { field: 'invoiceNumber', headerName: 'Invoice Number', width: 125 },
-    { field: 'exportStatus', headerName: 'Export Status', width: 125 },
-    { field: 'billingHold', headerName: 'Billing Hold', width: 125 },
-   
+    { field: 'serviceType', headerName: 'Service Type', width: 120 },
+    { field: 'serviceCode', headerName: 'Service Code', width: 120 },
+    { field: 'authType', headerName: 'Authorization Type', width: 100 },
+    { field: 'mco', headerName: 'MCO', width: 120 },
+    { field: 'serviceCat', headerName: 'Service Category', width: 120 },
+    { field: 'notes', headerName: 'Notes', width: 100 },
+    { field: 'visit', headerName: 'Visit / Invoice', width: 100 },
+    
   ];
+  //demo data to display
+  const rows10 = [
+    {id:1,fromDate:"Justin",toDate:"Alo",serviceType:"02457894561",serviceCode:"XOXO",
+    authType:"XZXZ",mco:"1123456",serviceCat:"1123456",notes:"Active",visit:"Homecare"},
+    {id:2,fromDate:"Justin",toDate:"Alo",serviceType:"02457894561",serviceCode:"XOXO",
+    authType:"XZXZ",mco:"1123456",serviceCat:"1123456",notes:"Active",visit:"Homecare"},
+    {id:3,fromDate:"Justin",toDate:"Alo",serviceType:"02457894561",serviceCode:"XOXO",
+    authType:"XZXZ",mco:"1123456",serviceCat:"1123456",notes:"Active",visit:"Homecare"},
+    
+    
+  ];
+ 
   
-  const rows4 = [
-    {id:1,memberName:"4578",admissionID:"Jenifer",fromDate:"Awston",toDate:"02548965478",mco:"Active",invoiceNumber:"Adam Fernandez",exportStatus:"Delta",billingHold:"Delta"},
-    {id:2,memberName:"4578",admissionID:"Jenifer",fromDate:"Awston",toDate:"02548965478",mco:"Active",invoiceNumber:"Adam Fernandez",exportStatus:"Delta",billingHold:"Delta"},
-    {id:3,memberName:"4578",admissionID:"Jenifer",fromDate:"Awston",toDate:"02548965478",mco:"Active",invoiceNumber:"Adam Fernandez",exportStatus:"Delta",billingHold:"Delta"},
-    {id:4,memberName:"4578",admissionID:"Jenifer",fromDate:"Awston",toDate:"02548965478",mco:"Active",invoiceNumber:"Adam Fernandez",exportStatus:"Delta",billingHold:"Delta"},
-     
-  ];
- //
  const [state, setState] = React.useState({
   left: false,
 });
@@ -652,7 +668,7 @@ const list = (anchor) => (
       />
 
       <h3  onClick={MemberInfoPressed} style={{ color: "#F2B90F" }}>Member Info</h3>
-      <h3 onClick={LastAuthPressed} style={{ color: "#F2B90F" }}>Last 3 Authorization</h3>
+    
       <h3  onClick={CalenderPressed}  style={{ color: "#F2B90F" }}>Calender</h3>
     </div>
   </Box>
@@ -743,13 +759,7 @@ function GoBackButtonPressed(){
                 Member Info
               </p>
             </Button>
-            <Button onClick={LastAuthPressed} className="navigationButton">
-              <p
-                style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
-              >
-                Last 3 Authorization
-              </p>
-            </Button>
+         
 
             <Button
               onClick={CalenderPressed}
