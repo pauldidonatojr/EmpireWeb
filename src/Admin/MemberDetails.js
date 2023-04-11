@@ -15,10 +15,21 @@ import Grid from "@mui/material/Grid";
 import Footer from "../Footer";
 import { DataGrid } from '@mui/x-data-grid';
 //
+
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+//
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-
+//
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+// navigation
 import Backdrop from '@mui/material/Backdrop';
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -525,11 +536,452 @@ const myEventsList = [
   }
 ];
 
+
+ 
+const [TimeOverlay, setIsTimeOverlay] = useState(false);
+function handleEventClick(event) {
+  setIsTimeOverlay(true);
+  setOpenTime(true);
+
+}
+
+
+//
+const [opentime, setOpenTime] = React.useState(false);
+const handleCloseTime = () => {
+  setIsTimeOverlay(false);
+  setOpenTime(false);
+};
+
+//
+const [NavigationState,setNavigationState] = React.useState(0);
+function SchedulePressed (){
+  setNavigationState(1);
+}
+function VisitInfoPressed(){
+  setNavigationState(2);
+}
+function BillInfoPreseed(){
+  setNavigationState(3);
+}
+function renderOverlayViews (){
+  switch (NavigationState) {
+    case 1:
+      
+      return ScheduleView();
+    case 2:
+      return VisitInfoView();
+    case 3:
+      return BillingView();
+
+    default:
+      break;
+  }
+}
+const ScheduleView =()=> {
+  return (
+    <div>
+      <h2 style={{textAlign:"center",color:"#564873"}}>Schedule</h2>
+    <div style={{display:"flex",flexDirection:"row"}}>
+      <div style={{width:"50%",display:"flex",flexDirection:"row",alignContent:"center",justifyContent:"center"}}>
+     <h1 style={{color:"grey",textAlign:"center"}}>Schedule Time</h1>
+     <TextField
+                 style={{margin:"5%"}}
+                id="outlined-basic"
+                label="0600"
+                variant="outlined"
+              />
+              <h5 style={{color:"black",marginTop:"10%"}}>-</h5>
+     <TextField
+     style={{margin:"5%"}}
+                id="outlined-basic"
+                label="1400"
+                variant="outlined"
+              />
+     </div>
+     <div style={{width:"50%",display:"flex",flexDirection:"row",alignContent:"center",justifyContent:"center"}}>
+     <h1 style={{color:"grey",textAlign:"center"}}>Care Giver Code</h1>
+     <TextField
+                 style={{margin:"5%"}}
+                id="outlined-basic"
+                label="0600"
+                variant="outlined"
+              />
+             
+     </div>
+
+    </div>
+    
+    <div style={{display:"flex",flexDirection:"row"}}>
+      <div style={{width:"50%",display:"flex",flexDirection:"row",alignContent:"center",justifyContent:"center"}}>
+     <h1 style={{color:"grey",textAlign:"center"}}>POC</h1>
+     <TextField
+                 style={{margin:"2%"}}
+                id="outlined-basic"
+                label="3758456-11/09/21"
+                variant="outlined"
+              />
+             
+     </div>
+     <div style={{width:"50%",display:"flex",flexDirection:"row",alignContent:"center",justifyContent:"center"}}>
+     <h1 style={{color:"grey",textAlign:"center"}}>Admission ID: <span>115524</span></h1>
+    
+     </div>
+     <div style={{width:"50%",display:"flex",flexDirection:"row",alignContent:"center",justifyContent:"center"}}>
+     <h1 style={{color:"grey",textAlign:"center"}}>Service Code</h1>
+     <TextField
+                 style={{margin:"2%"}}
+                id="outlined-basic"
+                label="3758456-11/09/21"
+                variant="outlined"
+              />
+             
+     </div>
+
+    </div>
+  
+   
+    <div style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
+      <div style={{width:"50%",display:"flex",flexDirection:"row",alignContent:"center",justifyContent:"center"}}>
+     <h1 style={{color:"grey",textAlign:"center"}}>H</h1>
+     <TextField
+                 style={{margin:"2%"}}
+                id="outlined-basic"
+                label="0600"
+                variant="outlined"
+              />
+              <h1 style={{color:"grey",textAlign:"center"}}>M:</h1>
+     <TextField
+     style={{margin:"2%"}}
+                id="outlined-basic"
+                label="1400"
+                variant="outlined"
+              />
+     </div>
+    
+    </div>
+    <h1 style={{color:"grey",textAlign:"center"}}>Bill Type: <span>Hourly</span></h1>
+    <div style={{display:"flex",justifyContent:"center",marginTop:"2%"}}>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Save</Button>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Close</Button>
+    </div>
+   
+    </div>
+  )
+}
+//
+
+
+//
+const VisitInfoView =()=> {
+  return (
+    <div style={{width:"100%"}}>
+      <h2 style={{textAlign:"center",color:"#564873"}}>Visit Schedule</h2>
+     <h1 style={{color:"grey",textAlign:"center"}}>Scheduled Time : <span style={{color:"black"}}> 0600 : 1400</span></h1>
+      <div style={{display:"flex",flexDirection:"row"}}>
+      <div style={{width:"50%",display:"flex",flexDirection:"row",alignContent:"center",justifyContent:"center"}}>
+     <h1 style={{color:"grey",textAlign:"center"}}>Visit Start Time</h1>
+     <TextField
+                 style={{margin:"5%"}}
+                id="outlined-basic"
+                label="0600"
+                variant="outlined"
+              />
+              <h5 style={{color:"black",marginTop:"10%"}}>-</h5>
+     <TextField
+     style={{margin:"5%"}}
+                id="outlined-basic"
+                label="1400"
+                variant="outlined"
+              />
+     </div>
+     <div style={{width:"50%",display:"flex",flexDirection:"row",alignContent:"center",justifyContent:"center"}}>
+     <h1 style={{color:"grey",textAlign:"center"}}>Visit End Time</h1>
+     <TextField
+                 style={{margin:"5%"}}
+                id="outlined-basic"
+                label="0600"
+                variant="outlined"
+              />
+              <h5 style={{color:"black",marginTop:"10%"}}>-</h5>
+     <TextField
+     style={{margin:"5%"}}
+                id="outlined-basic"
+                label="1400"
+                variant="outlined"
+              />
+     </div>
+
+    </div>
+    
+    <div>
+    <FormGroup>
+      <FormControlLabel style={{color:"grey",fontSize:"50px"}} control={<Checkbox defaultChecked />}  label="Missed Visit" />
+    </FormGroup>
+    </div>
+    <table style={{color:"black",width:"100%"}}>
+  <tr style={{backgroundColor:"#564873",color:"white"}}>
+    <th>Reason</th>
+    <th>Action Taken</th>
+    <th>Note</th>
+    <th>User</th>
+    <th>Date/Time</th>
+  </tr>
+  <tr>
+    <td style={{textAlign:"center"}}>Other</td>
+    <td style={{textAlign:"center"}}>Supervised approved change</td>
+    <td style={{textAlign:"center"}}>Notes</td>
+    <td style={{textAlign:"center"}}>Hector</td>
+    <td style={{textAlign:"center"}}>2023-04-06</td>
+  </tr>
+</table>
+<div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
+              <Box style={{width:"25%",margin:"2%"}}>
+                <FormControl fullWidth>
+                  <InputLabel>Action Status</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box style={{width:"25%",margin:"2%"}}>
+                <FormControl fullWidth>
+                  <InputLabel>Action Taken</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+         
+              </div>
+              <div style={{display:"flex",justifyContent:"center"}}>
+              <TextField
+     style={{margin:"1%",width:"75%"}}
+                id="outlined-basic"
+                label="New Note"
+                variant="outlined"
+              />
+              </div>
+              <div style={{display:"flex",justifyContent:"center",marginTop:"2%"}}>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Save</Button>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Close</Button>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Print</Button>
+    </div>
+    <hr></hr>
+
+    <h2 style={{textAlign:"center",color:"#564873"}}>Audit</h2>
+    <div style={{display:"flex"}}>
+    
+      <h1 style={{color:"grey"}}>Vertified By :</h1>
+      <FormControlLabel style={{color:"grey",fontSize:"50px",marginLeft:"3%"}} control={<Checkbox defaultChecked />}  label="Member" />
+      <FormControlLabel style={{color:"grey",fontSize:"50px",marginLeft:"3%"}} control={<Checkbox defaultChecked />}  label="Care Giver" />
+      <FormControlLabel style={{color:"grey",fontSize:"50px",marginLeft:"3%"}} control={<Checkbox defaultChecked />}  label="Family Member" />
+      <FormControlLabel style={{color:"grey",fontSize:"50px",marginLeft:"3%"}} control={<Checkbox defaultChecked />}  label="Other" />
+   
+    </div>
+    <div>
+      
+    <TextField
+     style={{margin:"1%",width:"30%"}}
+                id="outlined-basic"
+                label="Date Verified"
+                variant="outlined"
+              />
+               <TextField
+     style={{margin:"1%",width:"30%"}}
+                id="outlined-basic"
+                label="Time Verfied"
+                variant="outlined"
+              />
+               <TextField
+     style={{margin:"1%",width:"30%"}}
+                id="outlined-basic"
+                label="Supervisor"
+                variant="outlined"
+              />
+    </div>
+    <hr></hr>
+    <div>
+
+    </div>
+    <h2 style={{textAlign:"center",color:"#564873"}}>Daily Sheet</h2>
+<FormControlLabel style={{color:"grey",fontSize:"50px",marginLeft:"3%"}} control={<Checkbox defaultChecked />}  label="Timesheet Required" />
+<h4 style={{color:"#564873"}}>POC Duties</h4>
+<div style={{ height:"45%", width: '100%',marginTop:"2%" }}>
+      <DataGrid
+        rows={rows15}
+        columns={columns15}
+        pageSize={5}
+        rowsPerPageOptions={[15]}
+        checkboxSelection
+      />
+    </div>
+    <div style={{display:"flex",justifyContent:"center"}}>
+              <TextField
+     style={{margin:"1%",width:"75%"}}
+                id="outlined-basic"
+                label="Care Giver New Note"
+                variant="outlined"
+              />
+              </div>
+              <div style={{display:"flex",justifyContent:"center",marginTop:"2%"}}>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Save</Button>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Close</Button>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Print</Button>
+    </div>
+    </div>
+  )
+}
+const columns15 = [
+  { field: 'id', headerName: 'Duty Number', width: 250 },
+  { field: 'fromDate', headerName: 'Category', width: 200 }, 
+  { field: 'toDate', headerName: 'Duty', width:400  },
+ 
+
+  
+];
+//demo data to display
+const rows15 = [
+  {id:1,fromDate:"Justin",toDate:"Assist with Home"},
+  {id:2,fromDate:"Justin",toDate:"Assist with Home"},
+  {id:3,fromDate:"Justin",toDate:"Assist with Home"},
+  {id:4,fromDate:"Justin",toDate:"Assist with Home"},
+  {id:5,fromDate:"Justin",toDate:"Assist with Home"},
+  {id:6,fromDate:"Justin",toDate:"Assist with Home"},
+ 
+  
+  
+];
+const BillingView =()=> {
+  return (
+    <div style={{width:"100%"}}>/
+     <h2 style={{textAlign:"center",color:"#564873"}}>Primary Bill To</h2>
+    
+     <table style={{color:"black",width:"100%"}}>
+  <tr style={{backgroundColor:"#564873",color:"white"}}>
+    <th>Primary Bill To</th>
+    <th>Service Code</th>
+    <th>Bill Type</th>
+    <th>Service Hours</th>
+    <th>TT Hours</th>
+  </tr>
+  <tr>
+    <td style={{textAlign:"center"}}>KEYSTONE FIRST CHC</td>
+    <td style={{textAlign:"center"}}>W7125</td>
+    <td style={{textAlign:"center"}}>Hourly</td>
+    <td style={{textAlign:"center"}}>08:00</td>
+    <td style={{textAlign:"center"}}>32.00</td>
+  </tr>
+</table>
+//
+<table style={{color:"black",width:"100%"}}>
+  <tr style={{backgroundColor:"#564873",color:"white"}}>
+    <th>OT Hours</th>
+    <th>Billable Hours</th>
+    <th>Billable rate</th>
+    <th>Total</th>
+    <th>Billed</th>
+  </tr>
+  <tr>
+    <td style={{textAlign:"center"}}>0800</td>
+    <td style={{textAlign:"center"}}>32.00</td>
+    <td style={{textAlign:"center"}}>$ 21.52</td>
+    <td style={{textAlign:"center"}}>$ 171.52</td>
+    <td style={{textAlign:"center"}}>Y</td>
+  </tr>
+</table>
+<table style={{color:"black",width:"100%"}}>
+  <tr style={{backgroundColor:"#564873",color:"white"}}>
+    <th>Invoice Number</th>
+    <th>Invoice Creation Date</th>
+    <th>Billing Hold</th>
+    <th>TRN Number</th>
+    <th>E-Billing Batch #</th>
+    <th>Secondary Billing</th>
+  </tr>
+  <tr>
+    <td style={{textAlign:"center"}}>54SD45</td>
+    <td style={{textAlign:"center"}}>21-4-2023</td>
+    <td style={{textAlign:"center"}}>4564555</td>
+    <td style={{textAlign:"center"}}>5488SSS</td>
+    <td style={{textAlign:"center"}}>656SS</td>
+    <td style={{textAlign:"center"}}>656SS</td>
+  </tr>
+</table>
+     <div style={{display:"flex",justifyContent:"center",marginTop:"2%"}}>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Save</Button>
+      <Button style={{fontWeight:"font",margin:"1%",width:"15%",backgroundColor:"#564873",color:"white"}}>Close</Button>
+     </div>
+
+    </div>
+
+  )
+}
+  function OverlayTime() {
+    return (
+      <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={opentime}
+     
+    >
+      <div className="overlayTime">
+        <CloseIcon className="crossIcon" onClick={handleCloseTime} />
+        <h1 style={{  textAlign: "center",color:"black" }}>Non Skilled Visit</h1>
+        <div style={{border: '3px solid #564873',backgroundColor:"#564873",borderRadius:"10px"}}>
+      <div style={{display:"flex",justifyContent:"space-between",marginLeft:"5%",}}>
+      
+      <h2 style={{color:"white"}}>Member Name : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white"}}>Visit Date : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white",textAlign:"center"}}>Member Phone # : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      </div>
+
+      <div style={{display:"flex",justifyContent:"space-between",marginLeft:"1%"}}>
+      <h2 style={{color:"white"}}>Admission ID : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white",textAlign:"center"}}>Assigment ID : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      <h2 style={{color:"white",textAlign:"center"}}>Cordinator : <span style={{color:"#F2A007"}}>{"ROSADO MARTIZA"}</span></h2>
+      </div>
+      </div>
+      <hr/>
+
+      <div style={{display:"flex",alignContent:"center",marginLeft:"7%",justifyContent:"space-between",width:"85%",textAlign:"center"}}>
+      <Button onClick={SchedulePressed}>Schedule</Button>
+      <Button onClick={VisitInfoPressed}>Visit Info</Button>
+      <Button onClick={BillInfoPreseed}>Bill Info</Button>
+      </div>
+      <hr/>
+      <div style={{width:"100%",height:"100%",display:"flex"}}>
+        {console.log("Navigation State : " + NavigationState)}
+      
+      {renderOverlayViews()}
+     
+      </div>
+      </div>
+      </ Backdrop>
+    );
+  }
+//
+
 function myCustomFormat(date, event) {
   return (
     <div >
       <div>{date.getDate()}</div>
-      <div>{event.title}</div>
+      <Button onClick={() => handleEventClick(event)}>{event.title}</Button>
       <div>{event.description}</div>
      
     </div>
@@ -549,6 +1001,7 @@ const CalenderView = () => {
         showMultiDayTimes={false}
         views={['month']}
         style={{ height: "100%" }}
+        onSelectEvent={handleEventClick} // pass the function as a prop
       />
     </div>
   );
@@ -779,6 +1232,7 @@ function GoBackButtonPressed(){
           {isOverlayOpen && <Overlay />}
           {isOverlayOpen2 && <Overlay2 />}
           {isOverlayOpen3 && <Overlay3 />}
+          {TimeOverlay && <OverlayTime />}
           {RenderViews()}
         </Card>
       </div>
@@ -878,6 +1332,18 @@ const Wrapper = styled.section`
     z-index: 1000;
     background-color: white;
     padding: 1%;
+  }
+  .overlayTime{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 85%;
+    z-index: 1000;
+    background-color: white;
+    padding: 1%;
+    overflow:auto;
   }
   .overlay2 {
     position: fixed;
