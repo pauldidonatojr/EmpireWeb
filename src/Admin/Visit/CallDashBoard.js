@@ -1213,7 +1213,17 @@ function Overlay6() {
     { field: 'id', headerName: 'ID', width: 50 },
     { field: 'firstName', headerName: 'First Name', width: 100 }, 
     { field: 'lastName', headerName: 'Last Name', width: 100 },
-    { field: 'caregiverCode', headerName: 'CareGiver Code', width: 120 },
+    { 
+      field: 'caregiverCode', 
+      headerName: 'CareGiver Code', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
     { field: 'assigmentID', headerName: 'Assigment ID', width: 100 },
     { field: 'admissionID', headerName: 'Admission ID', width: 100 },
     { field: 'memberFirstName', headerName: 'Member First Name', width: 140 },
