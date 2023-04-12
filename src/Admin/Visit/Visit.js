@@ -1058,178 +1058,1203 @@ function Visit() {
 
   const VisitQuickSearchView = () => {
     return (
-      
-      <div style={{overflow: 'scroll'}}>
+
       <div>
         <div>
-          <h1 style={{ textAlign: "center" }}> Active Authorization (-90 Days)</h1>
-          <Button className="showAllButton">Show All</Button>
-          <div style={{ height: "100%", width: '100%', marginBottom: "2%" }}>
-            <DataGrid
-              rows={rows11}
-              columns={columns11}
-              pageSize={5}
-              rowsPerPageOptions={[15]}
-              checkboxSelection
+          <div>
+            <h1 style={{ textAlign: "center" }}> Active Authorization (-90 Days)</h1>
+            <Button className="showAllButton">Show All</Button>
+            <div style={{ height: "100%", width: '100%', marginBottom: "2%" }}>
+              <DataGrid
+                rows={rows11}
+                columns={columns11}
+                pageSize={5}
+                rowsPerPageOptions={[15]}
+                checkboxSelection
+              />
+            </div>
+          </div>
+          <hr />
+
+          {memberForVisitName == null &&
+            <h1 style={{ textAlign: "center" }}>Member Not Selected</h1>
+          }
+          {memberForVisitName != null &&
+            <h1 style={{ textAlign: "center" }}>Create A New Visit for {memberForVisitName}</h1>
+          }
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['DatePicker']}>
+                <DatePicker label="Visit Date" />
+              </DemoContainer>
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['TimePicker', 'TimePicker']}>
+                <TimePicker
+                  label="Visit Start Time"
+                  defaultValue={dayjs('2022-04-17T15:30')}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['TimePicker', 'TimePicker']}>
+                <TimePicker
+                  label="Visit End Time"
+                  defaultValue={dayjs('2022-04-17T15:30')}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+
+          </div>
+          <div className="VisitAddDel">
+
+
+
+            <FormControl style={{ width: '30%' }}>
+              <InputLabel>Service Codes</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedServiceCode}
+                label="Status"
+                onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
+              >
+                {serviceCodes.map((l, i) => (
+                  <MenuItem value={l}>{l}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+
+            <TextField
+              className="field"
+              id="duration"
+              label="Duration"
+              variant="outlined"
+              readOnly
             />
+
+            <TextField
+              className="field"
+              id="outlined-basic"
+              value={careGiverForVisitName}
+            />
+            <div onClick={CareGiverIconClick} style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
+              <PersonSearchIcon />
+            </div>
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Member ID"
+              variant="outlined"
+            />
+
           </div>
-        </div>
-        <hr />
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
 
-        {memberForVisitName == null &&
-          <h1 style={{ textAlign: "center" }}>Member Not Selected</h1>
-        }
-        {memberForVisitName != null &&
-          <h1 style={{ textAlign: "center" }}>Create A New Visit for {memberForVisitName}</h1>
-        }
-        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-          <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['DatePicker']}>
-              <DatePicker label="Visit Date" />
-            </DemoContainer>
-          </LocalizationProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['TimePicker', 'TimePicker']}>
-              <TimePicker
-                label="Visit Start Time"
-                defaultValue={dayjs('2022-04-17T15:30')}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
 
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['TimePicker', 'TimePicker']}>
-              <TimePicker
-                label="Visit End Time"
-                defaultValue={dayjs('2022-04-17T15:30')}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
-
-        </div>
-        <div className="VisitAddDel">
+            <FormControl style={{ width: '30%' }}>
+              <InputLabel>Visit Type</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedServiceCode}
+                label="Visit Type"
+                onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
+              >
+                {serviceCodes.map((l, i) => (
+                  <MenuItem value={l}>{l}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
 
 
-          <FormControl style={{ width: '30%' }}>
-            <InputLabel>Service Codes</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedServiceCode}
-              label="Status"
-              onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
-            >
-              {serviceCodes.map((l, i) => (
-                <MenuItem value={l}>{l}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['TimePicker', 'TimePicker']}>
+                <TimePicker
+                  label="Schedule Start Time"
+                  defaultValue={dayjs('2022-04-17T15:30')}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
 
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['TimePicker', 'TimePicker']}>
+                <TimePicker
+                  label="Schedule End Time"
+                  defaultValue={dayjs('2022-04-17T15:30')}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
 
-          <TextField
-            className="field"
-            id="duration"
-            label="Duration"
-            variant="outlined"
-            readOnly
-          />
-
-          <TextField
-            className="field"
-            id="outlined-basic"
-            value={careGiverForVisitName}
-          />
-          <div onClick={CareGiverIconClick} style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
-            <PersonSearchIcon />
           </div>
-          <TextField
-            className="field"
-            id="Authorization Number"
-            label="Member ID"
-            variant="outlined"
-          />
+          {/* ======================================================== */}
 
-        </div>
-        {/* ======================================================== */}
-        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
-          <FormControl style={{ width: '30%' }}>
-            <InputLabel>Visit Type</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedServiceCode}
-              label="Visit Type"
-              onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
-            >
-              {serviceCodes.map((l, i) => (
-                <MenuItem value={l}>{l}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
 
 
 
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['TimePicker', 'TimePicker']}>
-              <TimePicker
-                label="Schedule Start Time"
-                defaultValue={dayjs('2022-04-17T15:30')}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['TimePicker', 'TimePicker']}>
+                <TimePicker
+                  label="EVV Start Time"
+                  defaultValue={dayjs('2022-04-17T15:30')}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
 
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['TimePicker', 'TimePicker']}>
-              <TimePicker
-                label="Schedule End Time"
-                defaultValue={dayjs('2022-04-17T15:30')}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['TimePicker', 'TimePicker']}>
+                <TimePicker
+                  label="EVV End Time"
+                  defaultValue={dayjs('2022-04-17T15:30')}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
 
-        </div>
-        {/* ======================================================== */}
-
-        {/* ======================================================== */}
-        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          </div>
+          {/* ======================================================== */}
 
 
-
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['TimePicker', 'TimePicker']}>
-              <TimePicker
-                label="EVV Start Time"
-                defaultValue={dayjs('2022-04-17T15:30')}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
-
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['TimePicker', 'TimePicker']}>
-              <TimePicker
-                label="EVV End Time"
-                defaultValue={dayjs('2022-04-17T15:30')}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
-
-        </div>
-        {/* ======================================================== */}
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
 
 
-        <div >
 
-          <Button className="delButton"> Delete </Button>
-          <Button className="addButton"> Add </Button>
-          <Button className="PreviewAuthButton"> Preview Authorization </Button>
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Service Location Address Line 1"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
 
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-          <Button className="createVisitButton"> Create Visit </Button>
-        </div>
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Service Location Address Line 2"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            {/* <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Service Location City"
+              variant="outlined"
+              style={{width: '400px'}}
+            /> */}
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Location City"
+              variant="outlined"
+              style={{ width: '200px' }}
+            />
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Location State"
+              variant="outlined"
+              style={{ width: '200px' }}
+            />
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Zip Code"
+              variant="outlined"
+              style={{ width: '200px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Location Type"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Location Address Line 1"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Location Address Line 2"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock Out Location City"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock Out Location Address Line 1"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock Out Location Address Line 2"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="clock-out-location-state"
+              label="Clock Out Location State"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+            <TextField
+              className="field"
+              id="clock-out-location-zip-code"
+              label="Clock Out Location Zip Code"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="clock-out-location-type"
+              label="Clock Out Location Type"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="clock-out-location-type"
+              label="Clock Out Location Type"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="Duties"
+              label="Duties"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Clock In Phone Number"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="clock-in-latitude"
+              label="Clock In Latitude"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="clock-in-longitude"
+              label="Clock In Longitude"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="clock-out-latitude"
+              label="Clock Out Latitude"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="clock-out-longitude"
+              label="Clock Out Longitude"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="clock-in-evv-other-info"
+              label="Clock In EVV Other Info"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="clock-out-phone"
+              label="Clock Out Phone Number"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="clock-out-evv-other-info"
+              label="Clock Out EVV Other Info"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="invoice-number"
+              label="Invoice Number"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="visit-edit-reason-code"
+              label="Visit Edit Reason Code"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="visit-edit-action-takem"
+              label="Visit Edit Action Taken"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="visit-edit-made-by"
+              label="Visit Edit Made By"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+          </div>
+          {/* ======================================================== */}
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="notes"
+              label="Notes"
+              variant="outlined"
+              style={{ width: '500px' }}
+            />
+
+
+          </div>
+          {/* ======================================================== */}
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="in-delition"
+              label="In Deletion"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="invoice-line-item-id"
+              label="Visit Line Item ID"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="total-billed-amount"
+              label="Total Billed Amount"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="units-billed"
+              label="Units Billed"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="billed-rate"
+              label="Billed Rate"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="submission-type"
+              label="Submission Type"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="trn-number"
+              label="TRN Number"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="enable-secondary-billing"
+              label="Enable Secondary Billing"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="other-subscriber-id"
+              label="Other Subscriber ID"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="primary-payer-id"
+              label="Primary Payer ID"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="primary-payer-name"
+              label="Primary Payer Name"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="relationship-to-insured"
+              label="Relationship To Insured"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="primary-payer-policy-or-group-number"
+              label="Primary Payer Policy or Group Number"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="primary-payer-program-name"
+              label="Primary Payer Program Name"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="plan-type"
+              label="Plan Type"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="total-paid-amount"
+              label="Total Paid Amount"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="total-paid-units"
+              label="Total Paid Units"
+              variant="outlined"
+              style={{ width: '250px' }}
+            />
+
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['TimePicker', 'TimePicker']}>
+                <TimePicker
+                  label="Paid Date"
+                  defaultValue={dayjs('2022-04-17T15:30')}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="deductible"
+              label="Deductible"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="coinsurance"
+              label="Coinsurance"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="copay"
+              label="Copay"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="contracted-adjustments"
+              label="Contracted-adjustments"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="not-medically-necessary"
+              label="Not Medically Necassary"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="non-covered-charges"
+              label="Non Covered Charges"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="max-benefit-exhausted"
+              label="Max Benefit Exhausted"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="missed-visit"
+              label="Missed Visit"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="missed-visit-action-taken-code"
+              label="Missed Visit Action Taken Code"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="missed-visit-reason-code"
+              label="Missed Visit Reason Code"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="missed-visit-notes"
+              label="Missed Visit Notes"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+          </div>
+          {/* ======================================================== */}
+
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="travel-time-request-hours"
+              label="Travel Time Request Hours"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="travel-time-comments"
+              label="Travel Time Comments"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="cancel-travel-time-request"
+              label="Cancel Travel Time Request"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="timesheet-required"
+              label="Timesheet Required"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+            <TextField
+              className="field"
+              id="timesheet-approved"
+              label="Timesheet Approved"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="unit-field-1"
+              label="Unit Field 1"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="unit-field-2"
+              label="Unit Field 2"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="unit-field-3"
+              label="Unit Field 3"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="unit-field-4"
+              label="Unit Field 4"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="unit-field-5"
+              label="Unit Field 5"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="unit-field-6"
+              label="Unit Field 6"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="unit-field-7"
+              label="Unit Field 7"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="unit-field-8"
+              label="Unit Field 8"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="unit-field-8"
+              label="Unit Field 8"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+            <TextField
+              className="field"
+              id="unit-field-9"
+              label="Unit Field 9"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+            <TextField
+              className="field"
+              id="unit-field-10"
+              label="Unit Field 10"
+              variant="outlined"
+              style={{ width: '400px' }}
+            />
+
+
+          </div>
+          {/* ======================================================== */}
+
+
+
+
+
+          <div >
+
+            <Button className="delButton"> Delete </Button>
+            <Button className="addButton"> Add </Button>
+            <Button className="PreviewAuthButton"> Preview Authorization </Button>
+
+          </div>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+            <Button className="createVisitButton"> Create Visit </Button>
+          </div>
         </div>
       </div>
     );
@@ -1368,7 +2393,7 @@ function Visit() {
 
         </Card>
 
-        <Card className="dataDisplay">
+        <Card className="dataDisplay" style={{ overflow: 'auto' }} >
 
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
           {isOverlayOpen && <Overlay />}
