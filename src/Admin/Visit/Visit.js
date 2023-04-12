@@ -21,7 +21,7 @@ import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
-import {AuthContext} from '../../components/context'
+import { AuthContext } from '../../components/context'
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 //
 
@@ -36,21 +36,122 @@ const Link = require("react-router-dom").Link;
 
 function Visit() {
 
+
+  const [selectedMCO, setSelectedMCO] = useState('');
+  const [selectedMemberName, setSelectedMemberName] = useState(null);
+  const [selectedCaseCoordinator, setSelectedCaseCoordinator] = useState(null);
+  const [selectedMemberTeam, setSelectedMemberTeam] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState(null)
+  const [selectedPhone, setSelectedPhone] = useState(null)
+  const [selectedFirstName, setSelectedFirstName] = useState(null)
+  const [selectedLastName, setSelectedLastName] = useState(null);
+  const [selectedMemberID, setSelectedMemberID] = useState(null);
+  const [selectedAdmissionID, setSelectedAdmissionID] = useState(null);
+  const [membersList, setMembersList] = useState([]);
+  const [memberForVisit, setMemberForVisit] = useState(null);
+  const [careGiverList, setCareGiverList] = useState([]);
+  const [careGiverForVisit, setCareGiverForVisit] = useState(null);
+  const [careGiverForVisitName, setCareGiverForVisitName] = useState(null);
+
+
+  //  
   const navigate = useNavigate();
-  function  CallDashBoardPressed(){
+  function CallDashBoardPressed() {
     navigate("/CallDashBoard");
-    
-   }
+  }
 
-   //
+  // 
+  const membersStoage = localStorage.getItem("Members");
+  var membersArray = JSON.parse(membersStoage);
 
-   const [age, setAge] = React.useState('');
-   const handleChange = (event) => {
-     setAge(event.target.value);
-   };
+  function renderMembers() {
+    var arr = [];
+    for (var key in membersArray) {
 
-   //
-   function GoBackButtonPressed(){
+      if (selectedMCO == membersArray[key].MCOName) {
+        var obj = {};
+        obj.id = membersArray[key].MemberID;
+        obj.AdmissionID = membersArray[key].AdmissionID;
+        obj.MemberName = membersArray[key].FirstName + ' ' + membersArray[key].LastName
+        obj.CaseCoordinator = '';
+        obj.StartDate = membersArray[key].StartDate;
+        obj.Phone = membersArray[key].HomePhone;
+        obj.DOB = membersArray[key].DateofBirth;
+        obj.MCO = membersArray[key].MCOName
+        arr.push(obj);
+      }
+
+    }
+    setMembersList(arr);
+  }
+  // 
+
+
+  // 
+  const caregiverStoage = localStorage.getItem("CareGivers");
+  var caregiverArray = JSON.parse(caregiverStoage);
+  function renderCareGivers() {
+    var arr = [];
+    for (var key in caregiverArray) {
+      var obj = {
+        id: caregiverArray[key].id,
+        name: caregiverArray[key].FirstName + ' ' + caregiverArray[key].LastName,
+        city: caregiverArray[key].City,
+        phone: caregiverArray[key].Phone,
+        CoCode: caregiverArray[key].CoCode,
+        Ethnicity: caregiverArray[key].Ethnicity,
+        SSN: caregiverArray[key].SSN,
+        Status: caregiverArray[key].Status,
+        EmployeeID: caregiverArray[key].EmployeeID,
+        Discipline: caregiverArray[key].Discipline,
+      }
+      arr.push(obj);
+    }
+    setCareGiverList(arr);
+  }
+  // 
+
+
+  const handleRowClick= (params) => {
+    setMemberForVisit(params.row);
+    handleClose3();
+    handleClose2();
+  };
+
+
+
+  // 
+  const [mcoList, setMcoList] = useState([]);
+  const mcoString = localStorage.getItem("mco");
+  var mcos = JSON.parse(mcoString);
+
+  useEffect(() => {
+    var arr = [];
+    for (var key in mcos) {
+
+      if (mcos[key].active == 1) {
+        var obj = mcos[key].name;
+        arr.push(obj);
+      }
+    }
+    setMcoList(arr);
+  }, [])
+
+  const handleChangeMCO = (event) => {
+    setSelectedMCO(event.target.value);
+  };
+
+
+  // 
+
+
+  const [age, setAge] = React.useState('');
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  //
+  function GoBackButtonPressed() {
     navigate("/AdminHome");
 
   }
@@ -60,224 +161,218 @@ function Visit() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isOverlayOpen2, setIsOverlayOpen2] = useState(false);
 
-  
+
   const handleCloseOverlay = () => {
     setIsOverlayOpen(false);
   };
 
-//Nested Overlay Open
+  //Nested Overlay Open
   const [isOverlayOpen3, setIsOverlayOpen3] = useState(false);
-  const SearchButtonPressed = () =>{
-   
+  const SearchButtonPressed = () => {
+    renderMembers()
     setIsOverlayOpen3(true);
     setOpen3(true);
   }
- 
- //
- const [open3, setOpen3] = React.useState(false);
- const handleClose3 = () => {
-   setOpen3(false);
- };
- 
- //
-   function Overlay3() {
-     return (
-       <Backdrop
-       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-       open={open3}
-      
-     >
-       <div className="MemberSearchOverlay">
-         <CloseIcon className="crossIcon"  onClick={handleClose3}/>
-         <h1 style={{ textAlign:"center",color:"black"}}>Set Filter from here !</h1>
-       <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Member Search</p>
-         <div className="searchFieldsDiv">
-        
-         <Grid className="griditem">
-         
-         <TextField
-            
-             id="outlined-basic"
-             label="Member ID"
-             variant="outlined"
-           />
-           
-         </Grid>
-         <Grid className="griditem">
-         
-         <TextField
-            
-             id="outlined-basic"
-             label="Admission ID"
-             variant="outlined"
-           />
-           
-         </Grid>
-         
-          <Grid className="griditem2">
-         
-         <Box >
-       <FormControl fullWidth>
-         <InputLabel >Status</InputLabel>
-         <Select
-         
-           labelId="demo-simple-select-label"
-           id="demo-simple-select"
-           value={age}
-           label="Status"
-           onChange={handleChange}
-         >
-           <MenuItem value={10}>Ten</MenuItem>
-           <MenuItem value={20}>Twenty</MenuItem>
-           <MenuItem value={30}>Thirty</MenuItem>
-         </Select>
-       </FormControl>
-     </Box>
-          </Grid>
-   
-         
-         <Grid className="griditem">
-         
-         <TextField
-            
-             id="outlined-basic"
-             label="Last Name"
-             variant="outlined"
-           />
-           
-         </Grid>
 
-         <Grid className="griditem">
-         
-         <TextField
-            
-             id="outlined-basic"
-             label="First Name"
-             variant="outlined"
-           />
-           
-         </Grid>
+  //
+  const [open3, setOpen3] = React.useState(false);
+  const handleClose3 = () => {
+    setOpen3(false);
+  };
 
-         <Grid className="griditem">
-         
-         <TextField
-            
-             id="outlined-basic"
-             label="Phone Number"
-             variant="outlined"
-           />
-           
-         </Grid>
+  //
+  function Overlay3() {
+    return (
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open3}
 
-         <Grid className="griditem2">
-         
-         <Box >
-       <FormControl fullWidth>
-         <InputLabel >Member Team</InputLabel>
-         <Select
-         
-           labelId="demo-simple-select-label"
-           id="demo-simple-select"
-           value={age}
-           label="Status"
-           onChange={handleChange}
-         >
-           <MenuItem value={10}>Ten</MenuItem>
-           <MenuItem value={20}>Twenty</MenuItem>
-           <MenuItem value={30}>Thirty</MenuItem>
-         </Select>
-       </FormControl>
-     </Box>
-          </Grid>
+      >
+        <div className="MemberSearchOverlay">
+          <CloseIcon className="crossIcon" onClick={handleClose3} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Member Search</p>
+          <div className="searchFieldsDiv">
 
-          <Grid className="griditem2">
-         
-         <Box >
-       <FormControl fullWidth>
-         <InputLabel >Case Cordinator</InputLabel>
-         <Select
-         
-           labelId="demo-simple-select-label"
-           id="demo-simple-select"
-           value={age}
-           label="Status"
-           onChange={handleChange}
-         >
-           <MenuItem value={10}>Ten</MenuItem>
-           <MenuItem value={20}>Twenty</MenuItem>
-           <MenuItem value={30}>Thirty</MenuItem>
-         </Select>
-       </FormControl>
-     </Box>
-          </Grid>
-          <Grid className="griditem2">
-         
-         <Box >
-       <FormControl fullWidth>
-         <InputLabel >MCO</InputLabel>
-         <Select
-         
-           labelId="demo-simple-select-label"
-           id="demo-simple-select"
-           value={age}
-           label="Status"
-           onChange={handleChange}
-         >
-           <MenuItem value={10}>Ten</MenuItem>
-           <MenuItem value={20}>Twenty</MenuItem>
-           <MenuItem value={30}>Thirty</MenuItem>
-         </Select>
-       </FormControl>
-     </Box>
-          </Grid>
-         
-          
-         </div>
-         <Button className="searchButton">
-           Search
-         </Button>
-         <div style={{ height: "100%", width: '100%',marginTop:"2%" }}>
-      <DataGrid
-        rows={rows10}
-        columns={columns10}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
-       </div>
-       </Backdrop>
-     );
-   }
-   // VisitSearchView
+            <Grid className="griditem">
+
+              <TextField
+
+                id="selected-member-id-cg"
+                label="Member ID"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="selected-admission-id-cg"
+                label="Admission ID"
+                variant="outlined"
+              />
+
+            </Grid>
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Status</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectedStatus}
+                    label="Status"
+                    onChange={(event) => { setSelectedStatus(event.target.value) }}
+                  >
+                    <MenuItem value={'Active'}>Active</MenuItem>
+                    <MenuItem value={'Inactive'}>Inactive</MenuItem>
+                    <MenuItem value={'Terminated'}>Terminated</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="selected-last-name-cg"
+                label="Last Name"
+                variant="outlined"
+              />
+
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="selected-first-name-cg"
+                label="First Name"
+                variant="outlined"
+              />
+
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="selected-phone-cg"
+                label="Phone Number"
+                variant="outlined"
+              />
+
+            </Grid>
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Member Team</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectedMemberTeam}
+                    label="Status"
+                    onChange={(event) => { setSelectedMemberTeam(event.target.value) }}
+                  >
+                    <MenuItem value={'Unassigned'}>Unassigned</MenuItem>
+                    <MenuItem value={'Default'}>Default</MenuItem>
+                    <MenuItem value={'All'}>All</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Case Cordinator</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectedCaseCoordinator}
+                    label="Status"
+                    onChange={(event) => { setSelectedCaseCoordinator(event.target.value) }}
+                  >
+                    <MenuItem value={'Default'}>Default</MenuItem>
+                    <MenuItem value={'All'}>All</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+
+
+          </div>
+
+
+          <Button className="searchButton" onClick={() => {
+            setSelectedFirstName(document.getElementById('selected-first-name-cg').value)
+            setSelectedLastName(document.getElementById('selected-last-name-cg').value)
+            setSelectedPhone(document.getElementById('selected-phone-cg').value)
+
+            setSelectedMemberID(document.getElementById('selected-member-id-cg').value)
+            setSelectedAdmissionID(document.getElementById('selected-admission-id-cg').value)
+          }}>
+            Search
+          </Button>
+
+
+          <div style={{ height: "100%", width: '100%', marginTop: "2%" }}>
+            <DataGrid
+              rows={membersList}
+              columns={columns10}
+              pageSize={5}
+              rowsPerPageOptions={[15]}
+              checkboxSelection
+              onRowClick={handleRowClick}
+            />
+          </div>
+        </div>
+      </Backdrop>
+    );
+  }
+  // VisitSearchView
   const columns10 = [
     { field: 'id', headerName: 'Member ID', width: 100 },
-    { field: 'admissionID', headerName: 'Admission ID', width: 100 }, 
-    { field: 'memberName', headerName: 'Member Name', width: 120 },
+    { field: 'AdmissionID', headerName: 'Admission ID', width: 100 },
+    { field: 'MemberName', headerName: 'Member Name', width: 120 },
     { field: 'memberTeam', headerName: 'Member Team', width: 120 },
     { field: 'caseCordinator', headerName: 'Case Cordinator', width: 120 },
-    { field: 'startDate', headerName: 'Start Of Date', width: 100 },
-    { field: 'status', headerName: 'Status', width: 120 },
-    { field: 'phoneNumber', headerName: 'Phone Number', width: 120 },
-    { field: 'dob', headerName: 'DOB', width: 100 },
-    { field: 'mco', headerName: 'MCO', width: 100 },
-    
+    { field: 'StartDate', headerName: 'Start Of Date', width: 100 },
+    { field: 'Status', headerName: 'Status', width: 120 },
+    { field: 'Phone', headerName: 'Phone Number', width: 120 },
+    { field: 'DOB', headerName: 'DOB', width: 100 },
+    { field: 'MCO', headerName: 'MCO', width: 100 },
+
   ];
   //demo data to display
   const rows10 = [
-    {id:1,admissionID:"Justin",memberName:"Alo",memberTeam:"02457894561",caseCordinator:"XOXO",
-    startDate:"XZXZ",status:"1123456",phoneNumber:"1123456",dob:"Active",mco:"Homecare"},
-    
-    
+    {
+      id: 1, admissionID: "Justin", memberName: "Alo", memberTeam: "02457894561", caseCordinator: "XOXO",
+      startDate: "XZXZ", status: "1123456", phoneNumber: "1123456", dob: "Active", mco: "Homecare"
+    },
+
+
   ];
   //
-//Nested Overlay End
+  //Nested Overlay End
 
 
 
-  
+
   const handleClickIcon = () => {
-    
+
     switch (ViewSelected) {
       case 2:
         setIsOverlayOpen(true);
@@ -298,330 +393,330 @@ function Visit() {
 
 
   //
-const [open, setOpen] = React.useState(false);
-const handleClose = () => {
-  setOpen(false);
-};
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-//
+  //
 
   function Overlay() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
-     
-    >
-      <div className="overlay">
-        <CloseIcon className="crossIcon" onClick={handleClose} />
-        <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
-      <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Visit Search</p>
-        <div className="searchFieldsDiv">
-       
-        
-        <Grid className="griditem">
-          <TextField
-           
-            id="outlined-basic"
-            label="Care Giver First Name"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid className="griditem">
-        <TextField
-            id="outlined-basic"
-            label="Care Giver Last Name"
-            variant="outlined"
-          />
-        </Grid>
-          
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Care Giver Code"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-            id="outlined-basic"
-            label="Assigment ID"
-            variant="outlined"
-          />
-          
-        </Grid>
-  
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Admission ID"
-            variant="outlined"
-          />
-          
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Member First Name"
-            variant="outlined"
-          />
-          
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Member Last Name"
-            variant="outlined"
-          />
-          
-        </Grid>
-          
-  
-        <Grid className="griditem2">
-        
-        <Box >
-      <FormControl fullWidth>
-        <InputLabel >Cordinator</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Status"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>  
-        </Grid>
-        <Grid className="griditem2">
-        
-        <Box>
-      <FormControl fullWidth>
-        <InputLabel >Status</InputLabel>
-        <Select
-        
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Status"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-         </Grid>
-         <Grid className="griditem2">
-        
-        <Box >
-      <FormControl fullWidth>
-        <InputLabel >Member Team</InputLabel>
-        <Select
-        
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Status"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-         </Grid>
-  
-         <Grid className="griditem2">
-        
-        <Box >
-      <FormControl fullWidth>
-        <InputLabel >Member Location</InputLabel>
-        <Select
-        
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Status"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-         </Grid>
-         <Grid className="griditem2">
-        
-        <Box >
-      <FormControl fullWidth>
-        <InputLabel >Member Branch</InputLabel>
-        <Select
-        
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Status"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-         </Grid>
-  
-         <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="From Date dd/mm/yyyy"
-            variant="outlined"
-          />
-          
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Till Date dd/mm/yyyy"
-            variant="outlined"
-          />
-          
-        </Grid>
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
 
+      >
+        <div className="overlay">
+          <CloseIcon className="crossIcon" onClick={handleClose} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Visit Search</p>
+          <div className="searchFieldsDiv">
+
+
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="Care Giver First Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+                id="outlined-basic"
+                label="Care Giver Last Name"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Care Giver Code"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+                id="outlined-basic"
+                label="Assigment ID"
+                variant="outlined"
+              />
+
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Admission ID"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Member First Name"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Member Last Name"
+                variant="outlined"
+              />
+
+            </Grid>
+
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Cordinator</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box>
+                <FormControl fullWidth>
+                  <InputLabel >Status</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Member Team</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Member Location</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Member Branch</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="From Date dd/mm/yyyy"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Till Date dd/mm/yyyy"
+                variant="outlined"
+              />
+
+            </Grid>
+
+          </div>
+          <Button className="searchButton" onClick={handleCloseOverlay}>
+            Search
+          </Button>
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay}>
-          Search
-        </Button>
-      </div>
       </Backdrop>
     );
   }
 
   //
-const [open2, setOpen2] = React.useState(false);
-const handleClose2 = () => {
-  setOpen2(false);
-};
+  const [open2, setOpen2] = React.useState(false);
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
 
-//
+  //
   function Overlay2() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open2}
-     
-    >
-      <div className="overlay2">
-        <CloseIcon className="crossIcon"  onClick={handleClose2}/>
-        <h1 style={{ textAlign:"center",color:"black"}}>Set Filter from here !</h1>
-      <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Quick Visit Entry</p>
-        <div className="searchFieldsDiv">
-       
-        
-        
-         <Grid className="griditem2">
-        
-        <Box >
-      <FormControl fullWidth>
-        <InputLabel >MCO</InputLabel>
-        <Select
-        
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Status"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-         </Grid>
-  
-        
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Member Search"
-            variant="outlined"
-          />
-          
-        </Grid>
-         
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open2}
+
+      >
+        <div className="overlay2">
+          <CloseIcon className="crossIcon" onClick={handleClose2} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Quick Visit Entry</p>
+          <div className="searchFieldsDiv">
+
+
+
+            <Grid style={{ width: '100%' }}>
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >MCO</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectedMCO}
+                    label="Status"
+                    onChange={handleChangeMCO}
+                  >
+                    {mcoList.map((l, i) => (
+                      <MenuItem value={l}>{l}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+
+            <Grid style={{ width: '100%' }}>
+
+              <TextField
+                id="outlined-basic"
+                label="Member Search"
+                variant="outlined"
+                onChange={(name) => { setSelectedMemberName(name) }}
+              />
+
+            </Grid>
+
+          </div>
+          <Button className="searchButton" onClick={SearchButtonPressed} >
+            Search
+          </Button>
         </div>
-        <Button className="searchButton"   onClick={SearchButtonPressed} >
-          Search
-        </Button>
-      </div>
       </Backdrop>
     );
   }
 
-  
+
   const VisitSearchPressed = () => {
     setViewSelected(2);
   };
   const VisitQuickSearchPressed = () => {
     setViewSelected(3);
   };
-  
+
   //
-const [state, setState] = React.useState({
-  left: false,
-});
+  const [state, setState] = React.useState({
+    left: false,
+  });
 
-const toggleDrawer = (anchor, open) => (event) => {
-  if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-    return;
-  }
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
 
-  setState({ ...state, [anchor]: open });
-};
+    setState({ ...state, [anchor]: open });
+  };
 
-const list = (anchor) => (
-  <div  style={{
-    height: "100vh",
-    backgroundColor: "#2E0F59",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  }}>
-  <Box
-    sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-    role="presentation"
-    onClick={toggleDrawer(anchor, false)}
-    onKeyDown={toggleDrawer(anchor, false)}
-    
-  >
-    
-    <div style={{backgroundColor:"#2E0F59",display:"flex",flexDirection:"column",alignItems:"center",height:"680px"}}>
-    
-    <p
-           className="Files"
+  const list = (anchor) => (
+    <div style={{
+      height: "100vh",
+      backgroundColor: "#2E0F59",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }}>
+      <Box
+        sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+
+      >
+
+        <div style={{ backgroundColor: "#2E0F59", display: "flex", flexDirection: "column", alignItems: "center", height: "680px" }}>
+
+          <p
+            className="Files"
             style={{
               fontSize: "20px",
               color: "#F2B90F",
@@ -631,21 +726,21 @@ const list = (anchor) => (
             Files
           </p>
           <hr className="line" style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
-        
-     <h3   onClick={() => {
-                CallDashBoardPressed();
-              }} style={{color:"#F2B90F"}}>Call Dashboard</h3>
-     <h3   onClick={VisitSearchPressed} style={{color:"#F2B90F"}}>Visit Search</h3>
-     <h3   onClick={VisitQuickSearchPressed} style={{color:"#F2B90F"}}>Visit Quick Entry</h3>
-   
-     </div>
-    
-    
-   
-  </Box>
-  </div>
-);
-//
+
+          <h3 onClick={() => {
+            CallDashBoardPressed();
+          }} style={{ color: "#F2B90F" }}>Call Dashboard</h3>
+          <h3 onClick={VisitSearchPressed} style={{ color: "#F2B90F" }}>Visit Search</h3>
+          <h3 onClick={VisitQuickSearchPressed} style={{ color: "#F2B90F" }}>Visit Quick Entry</h3>
+
+        </div>
+
+
+
+      </Box>
+    </div>
+  );
+  //
   function RenderViews() {
     switch (ViewSelected) {
       case 2:
@@ -666,7 +761,7 @@ const list = (anchor) => (
       address: "Upper tooting Road, SW14SW",
       expectedClockOn: "07:11 AM",
       expectedClockOut: "11:30 AM",
-      date:"03/12/2023",
+      date: "03/12/2023",
     },
     {
       id: 2,
@@ -674,7 +769,7 @@ const list = (anchor) => (
       address: "Upper tooting Road, SW14SW",
       expectedClockOn: "07:11 AM",
       expectedClockOut: "11:30 AM",
-      date:"03/12/2023",
+      date: "03/12/2023",
     },
     {
       id: 3,
@@ -682,7 +777,7 @@ const list = (anchor) => (
       address: "Upper tooting Road, SW14SW",
       expectedClockOn: "07:11 AM",
       expectedClockOut: "11:30 AM",
-      date:"03/12/2023",
+      date: "03/12/2023",
     },
     {
       id: 4,
@@ -690,29 +785,29 @@ const list = (anchor) => (
       address: "Upper tooting Road, SW14SW",
       expectedClockOn: "07:11 AM",
       expectedClockOut: "11:30 AM",
-      date:"03/12/2023",
+      date: "03/12/2023",
     },
   ];
-  
+
   //
   const VisitSearchView = () => {
     return (
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
 
     );
   };
   // VisitSearchView
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'firstName', headerName: 'First Name', width: 100 }, 
+    { field: 'firstName', headerName: 'First Name', width: 100 },
     { field: 'lastName', headerName: 'Last Name', width: 100 },
     { field: 'caregiverCode', headerName: 'CareGiver Code', width: 150 },
     { field: 'assigmentID', headerName: 'Assigment ID', width: 100 },
@@ -726,268 +821,297 @@ const list = (anchor) => (
     { field: 'memberBranch', headerName: 'Member Branch', width: 150 },
     { field: 'fromDate', headerName: 'From Date', width: 100 },
     { field: 'tillDate', headerName: 'Till Date', width: 100 },
-    
+
   ];
   //demo data to display
   const rows = [
-    {id:1,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",memberLastName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:2,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",memberLastName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:3,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",memberLastName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:4,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",memberLastName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:5,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",memberLastName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:6,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",memberLastName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    
+    {
+      id: 1, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 2, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 3, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 4, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 5, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 6, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+
   ];
   const [CareGiverSearch, setCareGiverSearch] = useState(false);
-  function CareGiverIconClick(){
+  function CareGiverIconClick() {
     setCareGiverSearch(true);
     setOpen10(true);
+    renderCareGivers();
   }
   const [open10, setOpen10] = React.useState(false);
-const handleClose10 = () => {
-  setOpen10(false);
-  setCareGiverSearch(false);
-};
+  const handleClose10 = () => {
+    setOpen10(false);
+    setCareGiverSearch(false);
+  };
 
-//
+
+  const handleRowClickCareGiverForVisit= (params) => {
+    setCareGiverForVisit(params.row);
+    setCareGiverForVisitName(careGiverForVisit.name);
+    handleClose10();
+  };
+
+  //
   function OverlayCareGiverSearch() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open10}
-     
-    >
-      <div className="overlayCareGiver">
-        <CloseIcon className="crossIcon"  onClick={handleClose10}/>
-        <h1 style={{ textAlign:"center",color:"black"}}>Search Care Giver</h1>
-        <div className="searchFieldsDiv">
-       
-      
-        
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Name"
-            variant="outlined"
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open10}
+
+      >
+        <div className="overlayCareGiver">
+          <CloseIcon className="crossIcon" onClick={handleClose10} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Search Care Giver</h1>
+          <div className="searchFieldsDiv">
+
+
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Name"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="City"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Code"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Ethnicity"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="SSN"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Discipline"
+                variant="outlined"
+              />
+
+            </Grid>
+
+          </div>
+          <Button className="searchButton" onClick={handleClose10} >
+            Search
+          </Button>
+          <DataGrid
+            rows={careGiverList}
+            columns={columns12}
+            pageSize={5}
+            rowsPerPageOptions={[15]}
+            checkboxSelection
+            onRowClick={handleRowClickCareGiverForVisit}
           />
-          
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="City"
-            variant="outlined"
-          />
-          
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Code"
-            variant="outlined"
-          />
-          
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Ethnicity"
-            variant="outlined"
-          />
-          
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="SSN"
-            variant="outlined"
-          />
-          
-        </Grid>
-        <Grid className="griditem">
-        
-        <TextField
-           
-            id="outlined-basic"
-            label="Discipline"
-            variant="outlined"
-          />
-          
-        </Grid>
-         
         </div>
-        <Button className="searchButton"   onClick={handleClose10} >
-          Search
-        </Button>
-        <DataGrid
-        rows={rows12}
-        columns={columns12}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-      </div>
       </Backdrop>
     );
   }
-  
+
   const columns12 = [
-    { field: 'id', headerName: 'ID', width: 75 },
-    { field: 'fromDate', headerName: 'Name', width: 100 }, 
-    { field: 'toDate', headerName: 'City', width: 100 },
-    { field: 'serviceCategory', headerName: 'Code', width: 120 },
-    { field: 'serviceType', headerName: 'Ethnicity', width: 120 }, 
-    { field: 'serviceCode', headerName: 'SSN', width: 120 },
-    { field: 'authorizationType', headerName: 'Discipline', width: 150 },
-   
-    
-    
+    { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'name', headerName: 'Name', width: 200 },
+    { field: 'city', headerName: 'City', width: 100 },
+    { field: 'phone', headerName: 'Phone', width: 150 },
+    { field: 'CoCode', headerName: 'Care Giver Code', width: 120 },
+    { field: 'Ethnicity', headerName: 'Ethnicity', width: 140 },
+    { field: 'SSN', headerName: 'SSN', width: 150 },
+    { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'EmployeeID', headerName: 'Employee ID', width: 200 },
+    { field: 'Discipline', headerName: 'Discipline', width: 100 },
+
   ];
-  
+
   const rows12 = [
-    {id:1,fromDate:"Justin",toDate:"Alo",serviceCategory:"Justin",serviceType:"Alo",
-    serviceCode:"Justin",authorizationType:"Justin"},
-    
-    
-    
+    {
+      id: 1, fromDate: "Justin", toDate: "Alo", serviceCategory: "Justin", serviceType: "Alo",
+      serviceCode: "Justin", authorizationType: "Justin"
+    },
+
+
+
   ];
 
   const VisitQuickSearchView = () => {
     return (
       <div>
         <div>
-        <h1 style={{textAlign:"center"}}> Active Authorization (-90 Days)</h1>
-        <Button className="showAllButton">Show All</Button>
-      <div style={{ height: "100%", width: '100%',marginBottom:"2%" }}>
-      <DataGrid
-        rows={rows11}
-        columns={columns11}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
-    </div>
-  <hr/>
-
-  <div style={{display:"flex",justifyContent:"space-evenly"}}>
-  <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
-  <DemoContainer  components={['DatePicker']}>
-    <DatePicker label="Visit Date"  />
-  </DemoContainer>
-</LocalizationProvider>
-<LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['TimePicker', 'TimePicker']}>
-        <TimePicker
-          label="Visit Start Time"
-          defaultValue={dayjs('2022-04-17T15:30')}
-        />
-      </DemoContainer>
-    </LocalizationProvider>
-
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['TimePicker', 'TimePicker']}>
-        <TimePicker
-          label="Visit End Time"
-          defaultValue={dayjs('2022-04-17T15:30')}
-        />
-      </DemoContainer>
-    </LocalizationProvider>
-    
-    </div> 
-    <div className="VisitAddDel">
-   
-
-   
-
-         <TextField
-            className="field"
-             id="outlined-basic"
-             label="Service Code"
-             variant="outlined"
-           />
-
-
-      <TextField
-        className="field"
-        id="duration"
-        label="Duration"
-        variant="outlined"
-      
-        readOnly
-      />
- 
-         <TextField
-            className="field"
-             id="outlined-basic"
-             label="Care Giver"
-             variant="outlined"
-           />
-           <div onClick={CareGiverIconClick} style={{display:"flex",cursor:"pointer",justifyContent:"center",alignContent:"center",alignItems:"center"}}>
-  <PersonSearchIcon />
-</div>
-         <TextField
-            className="field"
-             id="Authorization Number"
-             label="Member ID"
-             variant="outlined"
-           />
-           
-       
-    </div>
-    <div >
-      
-    <Button className="delButton"> Delete </Button>
-    <Button className="addButton"> Add </Button>
-    <Button className="PreviewAuthButton"> Preview Authorization </Button>
-
-    </div>
-        <div style={{display:"flex",justifyContent:"center",marginTop:"2%"}}>
-        <Button className="createVisitButton"> Create Visit </Button>
+          <h1 style={{ textAlign: "center" }}> Active Authorization (-90 Days)</h1>
+          <Button className="showAllButton">Show All</Button>
+          <div style={{ height: "100%", width: '100%', marginBottom: "2%" }}>
+            <DataGrid
+              rows={rows11}
+              columns={columns11}
+              pageSize={5}
+              rowsPerPageOptions={[15]}
+              checkboxSelection
+            />
+          </div>
         </div>
-    </div>
+        <hr />
+
+
+        <h1 style={{ textAlign: "center" }}>Create A New Visit</h1>
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['DatePicker']}>
+              <DatePicker label="Visit Date" />
+            </DemoContainer>
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['TimePicker', 'TimePicker']}>
+              <TimePicker
+                label="Visit Start Time"
+                defaultValue={dayjs('2022-04-17T15:30')}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['TimePicker', 'TimePicker']}>
+              <TimePicker
+                label="Visit End Time"
+                defaultValue={dayjs('2022-04-17T15:30')}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+
+        </div>
+        <div className="VisitAddDel">
+
+
+
+
+          <TextField
+            className="field"
+            id="outlined-basic"
+            label="Service Code"
+            variant="outlined"
+          />
+
+
+          <TextField
+            className="field"
+            id="duration"
+            label="Duration"
+            variant="outlined"
+
+            readOnly
+          />
+
+          <TextField
+            className="field"
+            id="outlined-basic"
+            value={careGiverForVisitName}
+          />
+          <div onClick={CareGiverIconClick} style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
+            <PersonSearchIcon />
+          </div>
+          <TextField
+            className="field"
+            id="Authorization Number"
+            label="Member ID"
+            variant="outlined"
+          />
+
+
+        </div>
+        <div >
+
+          <Button className="delButton"> Delete </Button>
+          <Button className="addButton"> Add </Button>
+          <Button className="PreviewAuthButton"> Preview Authorization </Button>
+
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+          <Button className="createVisitButton"> Create Visit </Button>
+        </div>
+      </div>
     );
   };
-  
+
   const columns11 = [
     { field: 'id', headerName: 'Auth #', width: 75 },
-    { field: 'fromDate', headerName: 'From Date', width: 100 }, 
+    { field: 'fromDate', headerName: 'From Date', width: 100 },
     { field: 'toDate', headerName: 'To Date', width: 100 },
     { field: 'serviceCategory', headerName: 'Service Category', width: 120 },
-    { field: 'serviceType', headerName: 'Service Type', width: 120 }, 
+    { field: 'serviceType', headerName: 'Service Type', width: 120 },
     { field: 'serviceCode', headerName: 'Service Code', width: 120 },
     { field: 'authorizationType', headerName: 'Authorization Type', width: 150 },
-    { field: 'mco', headerName: 'MCO', width: 100 }, 
+    { field: 'mco', headerName: 'MCO', width: 100 },
     { field: 'notes', headerName: 'Notes', width: 100 },
-    
-    
   ];
-  
+
   const rows11 = [
-    {id:1,fromDate:"Justin",toDate:"Alo",serviceCategory:"Justin",serviceType:"Alo",
-    serviceCode:"Justin",authorizationType:"Justin",mco:"Alo",notes:"Justin"},
-    {id:2,fromDate:"Justin",toDate:"Alo",serviceCategory:"Justin",serviceType:"Alo",
-    serviceCode:"Justin",authorizationType:"Justin",mco:"Alo",notes:"Justin"},
-    {id:3,fromDate:"Justin",toDate:"Alo",serviceCategory:"Justin",serviceType:"Alo",
-    serviceCode:"Justin",authorizationType:"Justin",mco:"Alo",notes:"Justin"},
-    
-    
+    {
+      id: 1, fromDate: "Justin", toDate: "Alo", serviceCategory: "Justin", serviceType: "Alo",
+      serviceCode: "Justin", authorizationType: "Justin", mco: "Alo", notes: "Justin"
+    },
+    {
+      id: 2, fromDate: "Justin", toDate: "Alo", serviceCategory: "Justin", serviceType: "Alo",
+      serviceCode: "Justin", authorizationType: "Justin", mco: "Alo", notes: "Justin"
+    },
+    {
+      id: 3, fromDate: "Justin", toDate: "Alo", serviceCategory: "Justin", serviceType: "Alo",
+      serviceCode: "Justin", authorizationType: "Justin", mco: "Alo", notes: "Justin"
+    },
+
+
   ];
   //
 
@@ -995,35 +1119,35 @@ const handleClose10 = () => {
   return (
     <Wrapper>
       <div className="Header">
-      <MenuIcon
-    className="menuIcon"
-    onClick={toggleDrawer('left', true)}
-     anchor={'left'}
-     open={state['left']}
-     onClose={toggleDrawer('left', false)}>
-      
-    </MenuIcon>
-        <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() =>navigate("/AdminHome")}/>
-    
+        <MenuIcon
+          className="menuIcon"
+          onClick={toggleDrawer('left', true)}
+          anchor={'left'}
+          open={state['left']}
+          onClose={toggleDrawer('left', false)}>
+
+        </MenuIcon>
+        <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() => navigate("/AdminHome")} />
+
         <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
           Log Out
         </Button>
         <LogoutIcon onClick={signOut} className="LogoutIcon"></LogoutIcon>
       </div>
-      
-      <div style={{display:"none"}}>
-{['left'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
+
+      <div style={{ display: "none" }}>
+        {['left'].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+            <Drawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))}
       </div>
 
       <div className="CardHolder">
@@ -1056,7 +1180,7 @@ const handleClose10 = () => {
           >
             Files
           </p>
-          <hr style={{width:"50%",fontSize:"10px",opacity:"0.2"}}/>
+          <hr style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
           <div className="buttonHolder">
             <Button
               className="navigationButton"
@@ -1082,7 +1206,7 @@ const handleClose10 = () => {
               </p>
             </Button>
 
-            
+
             <Button onClick={VisitQuickSearchPressed} className="navigationButton">
               <p
                 style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
@@ -1090,26 +1214,26 @@ const handleClose10 = () => {
                 Visit Quick Entry
               </p>
             </Button>
-           
+
           </div>
 
-          
+
         </Card>
 
         <Card className="dataDisplay">
-         
+
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
           {isOverlayOpen && <Overlay />}
           {isOverlayOpen2 && <Overlay2 />}
           {isOverlayOpen3 && <Overlay3 />}
-          {CareGiverSearch && <OverlayCareGiverSearch/>}
+          {CareGiverSearch && <OverlayCareGiverSearch />}
           {RenderViews()}
         </Card>
       </div>
       <div className="GoBackButtonHolder">
-      <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
+        <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
       </div>
-     <Footer/>
+      <Footer />
     </Wrapper>
   );
 }

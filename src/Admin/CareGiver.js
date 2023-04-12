@@ -31,6 +31,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function CareGiver() {
+  
+  // const data2 = localStorage.getItem("Members");
+  // console.log("data2: ", JSON.parse(data2));
+  
   const notify = () => toast("Data Fetching for Care Givers!");
   const notifyAdd = () => toast("Care Giver Added Sucessfuly!");
 
@@ -113,11 +117,6 @@ function CareGiver() {
 
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
-
-  function GoBackButtonPressed(){
-    navigate("/AdminHome");
-
-  }
   const handleClickIcon = () => {
     setIsOverlayOpen(true);
     setOpen(!open);
@@ -563,13 +562,13 @@ function CareGiver() {
     );
   };
 
-  const handleRowClick= (params) => {
+  const handleRowClick = (params) => {
     const rowId = params.row.id;
-    console.log("Member Clicked"+rowId+"Open 5 is"+open5);
-    
+    console.log("Member Clicked" + rowId + "Open 5 is" + open5);
+
     setOpen5(true);
-    
-    
+
+
   };
   const [open5, setOpen5] = React.useState(false);
   const handleClose5 = () => {
@@ -645,7 +644,7 @@ function CareGiver() {
     <Wrapper>
 
       <ToastContainer />
-      {open5 && <OverlayCustom  handleClose5={handleClose5}/>}
+      {open5 && <OverlayCustom handleClose5={handleClose5} />}
       {alertState &&
         <Alert severity="success">
           <AlertTitle>Success</AlertTitle>
@@ -752,9 +751,6 @@ function CareGiver() {
           {RenderViews()}
         </Card>
       </div>
-      <div className="GoBackButtonHolder">
-      <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
-      </div>
 
       <Footer />
     </Wrapper>
@@ -765,26 +761,6 @@ export default CareGiver;
 const Wrapper = styled.section`
 height: 100%;
 width: 100%;
-
-.GoBackButtonHolder{
-  display:flex;
-  justify-content:center;
-  margin-top:0;
-  margin-bottom:3%;
-}
-.GoBackButton{
-  background-color: #f26e22;
-  color: white;
-  width: 10%;
-  height: 150%;
-  padding: 0.5%;
-  border-radius: 10px;
-  margin-top:0;
-  jusfity-content:center;
-}
-.GoBackButton:hover {
-  color: black;
-}
 
 .CardHolder{
     display:flex;
@@ -985,7 +961,7 @@ width: 100%;
     height:650px;
     background-color:#564873;
     margin-top:3%;
-    margin-bottom:2%;
+    margin-bottom:10%;
     margin-left:2%;
 }
 
@@ -1075,13 +1051,6 @@ color:black;
 //Header CSS FILES ENDING
 @media only screen and (max-width: 600px) {
     
-  .GoBackButtonHolder{
-    margin-top:2%;
-  }
-  .GoBackButton{
-    width:30%;
-    height:50px;
-  }
   .TaskBar {
     display:none;
    

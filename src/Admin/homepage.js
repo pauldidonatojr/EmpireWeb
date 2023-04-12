@@ -19,13 +19,14 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {AuthContext} from '../components/context'
+import { AuthContext } from '../components/context'
 import Backdrop from '@mui/material/Backdrop';
 import { getMembers } from "../API/membersApi";
 import { ToastContainer, toast } from 'react-toastify';
 import OverlayCustom from "./Overlay";
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import { getCareGiver } from "../API/careGiverAPI";
 
 
 
@@ -34,13 +35,16 @@ function Homepage() {
   const notify = () => toast("Data Fetching for Members!");
   const notifyAdd = () => toast("Care Giver Added Sucessfuly!");
 
+  // const data = localStorage.getItem("mco");
+  // console.log("data: ", JSON.parse(data));
+
   const [memberData, setMemberData] = useState([]);
   const { signOut } = React.useContext(AuthContext);
   const [row, setRow] = useState([]);
   var [initRow, setInitRow] = useState([]);
 
-//
-const [open, setOpen] = React.useState(false);
+  //
+  const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -49,9 +53,8 @@ const [open, setOpen] = React.useState(false);
   };
 
   //
-  function GoBackButtonPressed(){
+  function GoBackButtonPressed() {
     navigate("/");
-
   }
 
   // Filter Data 
@@ -94,44 +97,44 @@ const [open, setOpen] = React.useState(false);
 
 
   const list = (anchor) => (
-    <div  style={{
+    <div style={{
       height: "100vh",
       backgroundColor: "#2E0F59",
       display: "flex",
       flexDirection: "column",
       alignItems: "center"
     }}>
-    <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      <Box
+        sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
 
-    >
+      >
 
-      <div style={{ backgroundColor: "#2E0F59", display: "flex", flexDirection: "column", alignItems: "center", height: "680px" }}>
+        <div style={{ backgroundColor: "#2E0F59", display: "flex", flexDirection: "column", alignItems: "center", height: "680px" }}>
 
-        <p
-          className="Files"
-          style={{
-            fontSize: "20px",
-            color: "#F2B90F",
-            fontWeight: "bold",
-          }}
-        >
-          Files
-        </p>
-        <hr className="line" style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
+          <p
+            className="Files"
+            style={{
+              fontSize: "20px",
+              color: "#F2B90F",
+              fontWeight: "bold",
+            }}
+          >
+            Files
+          </p>
+          <hr className="line" style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
 
-        <h3 onClick={MemberPressed} style={{ color: "#F2B90F" }}>Members</h3>
-        <h3 onClick={CareGiverPressed} style={{ color: "#F2B90F" }}>Care Givers</h3>
-        <h3 onClick={VisitPressed} style={{ color: "#F2B90F" }}> Visits</h3>
-        <h3 onClick={ActionPressed} style={{ color: "#F2B90F" }}>Action</h3>
-        <h3 onClick={BillingPressed} style={{ color: "#F2B90F" }} >Billings</h3>
-        <h3 onClick={ReportPressed} style={{ color: "#F2B90F" }} >Report</h3>
-        <h3 onClick={AdminPressed} style={{ color: "#F2B90F" }}>Admin</h3>
-      </div>
-    </Box>
+          <h3 onClick={MemberPressed} style={{ color: "#F2B90F" }}>Members</h3>
+          <h3 onClick={CareGiverPressed} style={{ color: "#F2B90F" }}>Care Givers</h3>
+          <h3 onClick={VisitPressed} style={{ color: "#F2B90F" }}> Visits</h3>
+          <h3 onClick={ActionPressed} style={{ color: "#F2B90F" }}>Action</h3>
+          <h3 onClick={BillingPressed} style={{ color: "#F2B90F" }} >Billings</h3>
+          <h3 onClick={ReportPressed} style={{ color: "#F2B90F" }} >Report</h3>
+          <h3 onClick={AdminPressed} style={{ color: "#F2B90F" }}>Admin</h3>
+        </div>
+      </Box>
     </div>
   );
   //
@@ -176,56 +179,56 @@ const [open, setOpen] = React.useState(false);
 
   function populateData() {
     for (var key in row) {
-      if(row[key].Name == name && name != null){
+      if (row[key].Name == name && name != null) {
         var myArray = row;
-        myArray = myArray.filter(function( obj ) {
+        myArray = myArray.filter(function (obj) {
           return obj.Name == row[key].Name;
         });
         setRow(myArray)
       }
-      
-      
-      if(row[key].Phone == phone && phone != null){
+
+
+      if (row[key].Phone == phone && phone != null) {
         var myArray = row;
-        myArray = myArray.filter(function( obj ) {
+        myArray = myArray.filter(function (obj) {
           return obj.Phone == row[key].Phone;
         });
         setRow(myArray)
       }
 
-      if(row[key].id == memberID && memberID != null){
+      if (row[key].id == memberID && memberID != null) {
         var myArray = row;
-        myArray = myArray.filter(function( obj ) {
+        myArray = myArray.filter(function (obj) {
           return obj.id == row[key].id;
         });
         setRow(myArray)
       }
 
-      if(row[key].AdmissionID == admissionID && admissionID != null){
+      if (row[key].AdmissionID == admissionID && admissionID != null) {
         var myArray = row;
-        myArray = myArray.filter(function( obj ) {
+        myArray = myArray.filter(function (obj) {
           return obj.AdmissionID == row[key].AdmissionID;
         });
         setRow(myArray)
       }
 
-      if(status != 10){
+      if (status != 10) {
         var myArray = row;
-        myArray = myArray.filter(function( obj ) {
+        myArray = myArray.filter(function (obj) {
           return obj.Status == "Active";
         });
         setRow(myArray)
       }
 
-      if(status == 20){
+      if (status == 20) {
         var myArray = row;
-        myArray = myArray.filter(function( obj ) {
+        myArray = myArray.filter(function (obj) {
           return obj.Status == "Inactive";
         });
         setRow(myArray)
       }
 
-      
+
     }
   }
 
@@ -240,74 +243,74 @@ const [open, setOpen] = React.useState(false);
 
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
-     
-    >
-      <div className="overlay">
-        <CloseIcon className="crossIcon" onClick={handleClose} />
-        <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
-        <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Members</p>
-        <div className="searchFieldsDiv">
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+
+      >
+        <div className="overlay">
+          <CloseIcon className="crossIcon" onClick={handleClose} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Members</p>
+          <div className="searchFieldsDiv">
 
 
-          <Grid className="griditem">
-            <TextField
+            <Grid className="griditem">
+              <TextField
 
-              id="memberID"
-              label="Member ID"
-              variant="outlined"
-            />
-          </Grid>
-          <Grid className="griditem">
-            <TextField
-              id="admissionID"
-              label="Admission ID"
-              variant="outlined"
-            />
-          </Grid>
+                id="memberID"
+                label="Member ID"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+                id="admissionID"
+                label="Admission ID"
+                variant="outlined"
+              />
+            </Grid>
 
-          <Grid className="griditem">
+            <Grid className="griditem">
 
-            <TextField
+              <TextField
 
-              id="name"
-              label="Name"
-              variant="outlined"
-            />
-          </Grid>
-          
-          <Grid className="griditem">
+                id="name"
+                label="Name"
+                variant="outlined"
+              />
+            </Grid>
 
-            <TextField
+            <Grid className="griditem">
 
-              id="phone"
-              label="Phone Number"
-              variant="outlined"
-            />
+              <TextField
 
-          </Grid>
+                id="phone"
+                label="Phone Number"
+                variant="outlined"
+              />
+
+            </Grid>
 
 
-          <Grid className="griditem2">
+            <Grid className="griditem2">
 
-            <Box >
-              <FormControl fullWidth>
-                <InputLabel >Status</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Status"
-                  onChange={handleFilterStatus}
-                >
-                  <MenuItem value={10}>Active</MenuItem>
-                  <MenuItem value={20}>Inactive</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Grid>
-          {/* <Grid className="griditem2" >
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Status</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleFilterStatus}
+                  >
+                    <MenuItem value={10}>Active</MenuItem>
+                    <MenuItem value={20}>Inactive</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            {/* <Grid className="griditem2" >
 
             <Box>
               <FormControl fullWidth>
@@ -347,7 +350,7 @@ const [open, setOpen] = React.useState(false);
               </FormControl>
             </Box>
           </Grid> */}
-          {/* <Grid className="griditem2">
+            {/* <Grid className="griditem2">
 
             <Box>
               <FormControl fullWidth>
@@ -367,7 +370,7 @@ const [open, setOpen] = React.useState(false);
               </FormControl>
             </Box>
           </Grid> */}
-          {/* <Grid className="griditem2">
+            {/* <Grid className="griditem2">
             <TextField
 
               id="venderID"
@@ -376,22 +379,22 @@ const [open, setOpen] = React.useState(false);
             />
           </Grid> */}
 
+          </div>
+          <Button className="searchButton" variant="outlined" onClick={() => {
+            handleCloseOverlay();
+
+            setMemberID(document.getElementById('memberID').value);
+            setAdmissionID(document.getElementById('admissionID').value);
+            setName(document.getElementById('name').value);
+            setPhone(document.getElementById('phone').value);
+            //setFilterCareGiverCode(document.getElementById('filterCareGiverCode').value);
+            //setFilterAltCareGiverCode(document.getElementById('filterAltCareGiverCode').value);
+            setVenderID(document.getElementById('venderID').value);
+            populateData();
+          }}>
+            Search
+          </Button>
         </div>
-        <Button className="searchButton" variant="outlined" onClick={() => {
-          handleCloseOverlay();
-          
-          setMemberID(document.getElementById('memberID').value);
-          setAdmissionID(document.getElementById('admissionID').value);
-          setName(document.getElementById('name').value);
-          setPhone(document.getElementById('phone').value);
-          //setFilterCareGiverCode(document.getElementById('filterCareGiverCode').value);
-          //setFilterAltCareGiverCode(document.getElementById('filterAltCareGiverCode').value);
-          setVenderID(document.getElementById('venderID').value);
-          populateData();
-        }}>
-          Search
-        </Button>
-      </div>
       </Backdrop>
 
     );
@@ -445,47 +448,55 @@ const [open, setOpen] = React.useState(false);
     },
   ];
 
-  function populateRows(){
-      var arr = [];
-      for (var key in memberData) {
-        var obj = {
-          id: memberData[key].MemberID,
-          Name: memberData[key].FirstName,
-          Gender: memberData[key].Gender,
-          MCOName: memberData[key].MCOName,
-          Discipline: memberData[key].Discipline,
-          FirstDayofService: memberData[key].FirstDayofService,
-          Location: memberData[key].Location,
-          Status: memberData[key].Status,
-          AdmissionID: memberData[key].AdmissionID,
-          SSN: memberData[key].SSN,
-          Phone: memberData[key].HomePhone
-        }
-        arr.push(obj);
+  function populateRows() {
+    var arr = [];
+    for (var key in memberData) {
+      var obj = {
+        id: memberData[key].MemberID,
+        Name: memberData[key].FirstName,
+        Gender: memberData[key].Gender,
+        MCOName: memberData[key].MCOName,
+        Discipline: memberData[key].Discipline,
+        FirstDayofService: memberData[key].FirstDayofService,
+        Location: memberData[key].Location,
+        Status: memberData[key].Status,
+        AdmissionID: memberData[key].AdmissionID,
+        SSN: memberData[key].SSN,
+        Phone: memberData[key].HomePhone
+      }
+      arr.push(obj);
     }
     setRow(arr);
     setInitRow(arr);
   }
 
 
-  useEffect(()=>{
+  useEffect(() => {
     notify();
     getMembers().then(res => {
       setMemberData(res.data);
+      localStorage.setItem('Members', JSON.stringify(res.data));
     })
-  },[])
+  }, [])
+
+
+  useEffect(() => {
+    getCareGiver().then(res => {
+      localStorage.setItem('CareGivers', JSON.stringify(res.data));
+    })
+  }, [])
 
   useEffect(() => {
     populateRows();
   }, [memberData]);
 
-  const handleRowClick= (params) => {
+  const handleRowClick = (params) => {
     const rowId = params.row.id;
-    console.log("Member Clicked"+rowId+"Open 5 is"+open5);
-    
+    console.log("Member Clicked" + rowId + "Open 5 is" + open5);
+
     setOpen5(true);
-    
-    
+
+
   };
   const [open5, setOpen5] = React.useState(false);
   const handleClose5 = () => {
@@ -502,19 +513,19 @@ const [open, setOpen] = React.useState(false);
           pageSize={5}
           rowsPerPageOptions={[15]}
           checkboxSelection
-        onRowClick={handleRowClick}
+          onRowClick={handleRowClick}
         />
-        
+
       </div>
     );
   };
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
-    { 
-      field: 'Name', 
-      headerName: 'Name', 
-      width: 130, 
+    {
+      field: 'Name',
+      headerName: 'Name',
+      width: 130,
       renderCell: (params) => (
         <Link to="/MemberDetails" state={{ from: "occupation" }}
         >
@@ -538,11 +549,11 @@ const [open, setOpen] = React.useState(false);
     <Wrapper>
       <ToastContainer />
 
-      
-      {console.log("Open 5 is" +open5)}
-      
-      {open5 && <OverlayCustom  handleClose5={handleClose5}/>}
-    
+
+      {console.log("Open 5 is" + open5)}
+
+      {open5 && <OverlayCustom handleClose5={handleClose5} />}
+
 
 
 
@@ -688,12 +699,12 @@ const [open, setOpen] = React.useState(false);
           {isOverlayOpen && <Overlay />}
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
           {
-          RenderViews()
+            RenderViews()
           }
         </Card>
       </div>
       <div className="GoBackButtonHolder">
-      <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
+        <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
       </div>
 
       <Footer />
