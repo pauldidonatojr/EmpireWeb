@@ -27,6 +27,8 @@ import OverlayCustom from "./Overlay";
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCareGiver } from "../API/careGiverAPI";
+import { getMISC } from "../API/miscAPI";
+import { getMCO } from "../API/mcoAPI";
 
 
 
@@ -483,6 +485,20 @@ function Homepage() {
   useEffect(() => {
     getCareGiver().then(res => {
       localStorage.setItem('CareGivers', JSON.stringify(res.data));
+    })
+  }, [])
+
+
+  useEffect(() => {
+    getMCO().then(res => {
+      localStorage.setItem('MCOS', JSON.stringify(res.data));
+    })
+  }, [])
+
+
+  useEffect(() => {
+    getMISC().then(res => {
+      localStorage.setItem('MISC', JSON.stringify(res.data));
     })
   }, [])
 

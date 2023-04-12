@@ -23,6 +23,7 @@ import { useEffect } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../components/context'
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+
 //
 
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -36,8 +37,12 @@ const Link = require("react-router-dom").Link;
 
 function Visit() {
 
+  const { signOut } = React.useContext(AuthContext);
 
+  // MCO
   const [selectedMCO, setSelectedMCO] = useState('');
+  // 
+
   const [selectedMemberName, setSelectedMemberName] = useState(null);
   const [selectedCaseCoordinator, setSelectedCaseCoordinator] = useState(null);
   const [selectedMemberTeam, setSelectedMemberTeam] = useState(null);
@@ -47,12 +52,23 @@ function Visit() {
   const [selectedLastName, setSelectedLastName] = useState(null);
   const [selectedMemberID, setSelectedMemberID] = useState(null);
   const [selectedAdmissionID, setSelectedAdmissionID] = useState(null);
+
+  //Members
   const [membersList, setMembersList] = useState([]);
   const [memberForVisit, setMemberForVisit] = useState(null);
+  const [memberForVisitName, setMemberForVisitName] = useState(null);
+  const [selectedMemberAllData, setSelectedMemberAllData] = useState(null);
+  //
+
+  //Care Giver
   const [careGiverList, setCareGiverList] = useState([]);
   const [careGiverForVisit, setCareGiverForVisit] = useState(null);
   const [careGiverForVisitName, setCareGiverForVisitName] = useState(null);
+  const [selectedCareGiverAllData, setSelectedCareGiverAllData] = useState(null);
 
+  //Service Codes
+  const [serviceCodes, setServiceCodes] = useState(null);
+  const [selectedServiceCode, setSelectedServiceCode] = useState(null);
 
   //  
   const navigate = useNavigate();
@@ -60,69 +76,13 @@ function Visit() {
     navigate("/CallDashBoard");
   }
 
-  // 
-  const membersStoage = localStorage.getItem("Members");
-  var membersArray = JSON.parse(membersStoage);
-
-  function renderMembers() {
-    var arr = [];
-    for (var key in membersArray) {
-
-      if (selectedMCO == membersArray[key].MCOName) {
-        var obj = {};
-        obj.id = membersArray[key].MemberID;
-        obj.AdmissionID = membersArray[key].AdmissionID;
-        obj.MemberName = membersArray[key].FirstName + ' ' + membersArray[key].LastName
-        obj.CaseCoordinator = '';
-        obj.StartDate = membersArray[key].StartDate;
-        obj.Phone = membersArray[key].HomePhone;
-        obj.DOB = membersArray[key].DateofBirth;
-        obj.MCO = membersArray[key].MCOName
-        arr.push(obj);
-      }
-
-    }
-    setMembersList(arr);
-  }
-  // 
-
-
-  // 
-  const caregiverStoage = localStorage.getItem("CareGivers");
-  var caregiverArray = JSON.parse(caregiverStoage);
-  function renderCareGivers() {
-    var arr = [];
-    for (var key in caregiverArray) {
-      var obj = {
-        id: caregiverArray[key].id,
-        name: caregiverArray[key].FirstName + ' ' + caregiverArray[key].LastName,
-        city: caregiverArray[key].City,
-        phone: caregiverArray[key].Phone,
-        CoCode: caregiverArray[key].CoCode,
-        Ethnicity: caregiverArray[key].Ethnicity,
-        SSN: caregiverArray[key].SSN,
-        Status: caregiverArray[key].Status,
-        EmployeeID: caregiverArray[key].EmployeeID,
-        Discipline: caregiverArray[key].Discipline,
-      }
-      arr.push(obj);
-    }
-    setCareGiverList(arr);
-  }
-  // 
-
-
-  const handleRowClick= (params) => {
-    setMemberForVisit(params.row);
-    handleClose3();
-    handleClose2();
-  };
 
 
 
-  // 
+
+  // MCO Setup
   const [mcoList, setMcoList] = useState([]);
-  const mcoString = localStorage.getItem("mco");
+  const mcoString = localStorage.getItem("MCOS");
   var mcos = JSON.parse(mcoString);
 
   useEffect(() => {
@@ -137,11 +97,6 @@ function Visit() {
     setMcoList(arr);
   }, [])
 
-  const handleChangeMCO = (event) => {
-    setSelectedMCO(event.target.value);
-  };
-
-
   // 
 
 
@@ -151,6 +106,28 @@ function Visit() {
   };
 
   //
+
+
+  // Get Misc
+  var miscValuesString = localStorage.getItem("MISC");
+  var miscValues = JSON.parse(miscValuesString)
+  miscValues = miscValues.data;
+  useEffect(() => {
+    var arr = [];
+    for (var key in miscValues) {
+      if (miscValues[key].tag == "services") {
+        var obj = miscValues[key].fields.service;
+        arr.push(obj);
+      }
+    }
+    setServiceCodes(arr);
+
+  }, [])
+
+  // 
+
+
+
   function GoBackButtonPressed() {
     navigate("/AdminHome");
 
@@ -181,6 +158,56 @@ function Visit() {
   };
 
   //
+
+  // =============================Members Data===========================================
+
+
+  const handleRowClick = (params) => {
+    setMemberForVisit(params.row);
+    if (memberForVisit != null) {
+      setMemberForVisitName(memberForVisit.MemberName);
+      getSelectedMemberAllData(memberForVisit);
+    }
+    handleClose3();
+    handleClose2();
+  };
+
+
+
+  const membersStoage = localStorage.getItem("Members");
+  var membersArray = JSON.parse(membersStoage);
+
+  function getSelectedMemberAllData(val) {
+    for (var key in membersArray) {
+      if (val.id == membersArray[key].MemberID) {
+        setSelectedMemberAllData(membersArray[key]);
+      }
+    }
+  }
+
+
+  function renderMembers() {
+    var arr = [];
+    for (var key in membersArray) {
+
+      if (selectedMCO == membersArray[key].MCOName) {
+        var obj = {};
+        obj.id = membersArray[key].MemberID;
+        obj.AdmissionID = membersArray[key].AdmissionID;
+        obj.MemberName = membersArray[key].FirstName + ' ' + membersArray[key].LastName
+        obj.CaseCoordinator = '';
+        obj.StartDate = membersArray[key].StartDate;
+        obj.Phone = membersArray[key].HomePhone;
+        obj.DOB = membersArray[key].DateofBirth;
+        obj.MCO = membersArray[key].MCOName
+        arr.push(obj);
+      }
+
+    }
+    setMembersList(arr);
+  }
+  // 
+
   function Overlay3() {
     return (
       <Backdrop
@@ -342,6 +369,9 @@ function Visit() {
       </Backdrop>
     );
   }
+
+  // =============================Members Data===========================================
+
   // VisitSearchView
   const columns10 = [
     { field: 'id', headerName: 'Member ID', width: 100 },
@@ -645,7 +675,7 @@ function Visit() {
                     id="demo-simple-select"
                     value={selectedMCO}
                     label="Status"
-                    onChange={handleChangeMCO}
+                    onChange={(event) => { setSelectedMCO(event.target.value) }}
                   >
                     {mcoList.map((l, i) => (
                       <MenuItem value={l}>{l}</MenuItem>
@@ -864,13 +894,58 @@ function Visit() {
   };
 
 
-  const handleRowClickCareGiverForVisit= (params) => {
+
+
+  //
+
+
+  //=======================================Care Giver Data ========================================================
+
+
+
+  function getAllCareGiverData(val) {
+    for (var key in caregiverArray) {
+      if (caregiverArray[key].SSN == val.SSN) {
+        setSelectedCareGiverAllData(caregiverArray[key]);
+      }
+    }
+  }
+
+  const handleRowClickCareGiverForVisit = (params) => {
     setCareGiverForVisit(params.row);
-    setCareGiverForVisitName(careGiverForVisit.name);
+
+    if (careGiverForVisit != null) {
+      setCareGiverForVisitName(careGiverForVisit.name);
+      getAllCareGiverData(careGiverForVisit);
+    }
     handleClose10();
   };
 
-  //
+
+  const caregiverStoage = localStorage.getItem("CareGivers");
+  var caregiverArray = JSON.parse(caregiverStoage);
+  function renderCareGivers() {
+    var arr = [];
+    for (var key in caregiverArray) {
+      var obj = {
+        id: caregiverArray[key].id,
+        name: caregiverArray[key].FirstName + ' ' + caregiverArray[key].LastName,
+        city: caregiverArray[key].City,
+        phone: caregiverArray[key].Phone,
+        CoCode: caregiverArray[key].CoCode,
+        Ethnicity: caregiverArray[key].Ethnicity,
+        SSN: caregiverArray[key].SSN,
+        Status: caregiverArray[key].Status,
+        EmployeeID: caregiverArray[key].EmployeeID,
+        Discipline: caregiverArray[key].Discipline,
+      }
+      arr.push(obj);
+    }
+    setCareGiverList(arr);
+  }
+  // 
+
+
   function OverlayCareGiverSearch() {
     return (
       <Backdrop
@@ -976,19 +1051,15 @@ function Visit() {
     { field: 'Discipline', headerName: 'Discipline', width: 100 },
 
   ];
-
-  const rows12 = [
-    {
-      id: 1, fromDate: "Justin", toDate: "Alo", serviceCategory: "Justin", serviceType: "Alo",
-      serviceCode: "Justin", authorizationType: "Justin"
-    },
+  //=====================================================Care Giver Data =====================================================
 
 
 
-  ];
 
   const VisitQuickSearchView = () => {
     return (
+      
+      <div style={{overflow: 'scroll'}}>
       <div>
         <div>
           <h1 style={{ textAlign: "center" }}> Active Authorization (-90 Days)</h1>
@@ -1005,8 +1076,12 @@ function Visit() {
         </div>
         <hr />
 
-
-        <h1 style={{ textAlign: "center" }}>Create A New Visit</h1>
+        {memberForVisitName == null &&
+          <h1 style={{ textAlign: "center" }}>Member Not Selected</h1>
+        }
+        {memberForVisitName != null &&
+          <h1 style={{ textAlign: "center" }}>Create A New Visit for {memberForVisitName}</h1>
+        }
         <div style={{ display: "flex", justifyContent: "space-evenly" }}>
           <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DatePicker']}>
@@ -1036,13 +1111,20 @@ function Visit() {
 
 
 
-
-          <TextField
-            className="field"
-            id="outlined-basic"
-            label="Service Code"
-            variant="outlined"
-          />
+          <FormControl style={{ width: '30%' }}>
+            <InputLabel>Service Codes</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedServiceCode}
+              label="Status"
+              onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
+            >
+              {serviceCodes.map((l, i) => (
+                <MenuItem value={l}>{l}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
 
           <TextField
@@ -1050,7 +1132,6 @@ function Visit() {
             id="duration"
             label="Duration"
             variant="outlined"
-
             readOnly
           />
 
@@ -1069,8 +1150,76 @@ function Visit() {
             variant="outlined"
           />
 
+        </div>
+        {/* ======================================================== */}
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+          <FormControl style={{ width: '30%' }}>
+            <InputLabel>Visit Type</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedServiceCode}
+              label="Visit Type"
+              onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
+            >
+              {serviceCodes.map((l, i) => (
+                <MenuItem value={l}>{l}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['TimePicker', 'TimePicker']}>
+              <TimePicker
+                label="Schedule Start Time"
+                defaultValue={dayjs('2022-04-17T15:30')}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['TimePicker', 'TimePicker']}>
+              <TimePicker
+                label="Schedule End Time"
+                defaultValue={dayjs('2022-04-17T15:30')}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
 
         </div>
+        {/* ======================================================== */}
+
+        {/* ======================================================== */}
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['TimePicker', 'TimePicker']}>
+              <TimePicker
+                label="EVV Start Time"
+                defaultValue={dayjs('2022-04-17T15:30')}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['TimePicker', 'TimePicker']}>
+              <TimePicker
+                label="EVV End Time"
+                defaultValue={dayjs('2022-04-17T15:30')}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+
+        </div>
+        {/* ======================================================== */}
+
+
         <div >
 
           <Button className="delButton"> Delete </Button>
@@ -1080,6 +1229,7 @@ function Visit() {
         </div>
         <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
           <Button className="createVisitButton"> Create Visit </Button>
+        </div>
         </div>
       </div>
     );
@@ -1113,9 +1263,7 @@ function Visit() {
 
 
   ];
-  //
 
-  const { signOut } = React.useContext(AuthContext);
   return (
     <Wrapper>
       <div className="Header">
@@ -1245,6 +1393,10 @@ width: 100%;
 
 .showAllButton{
 
+}
+
+.scrollable-form{
+  backgroundColor: black;
 }
 
 .delButton{
