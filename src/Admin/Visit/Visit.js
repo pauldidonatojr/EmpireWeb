@@ -22,6 +22,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {AuthContext} from '../../components/context'
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 //
 
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -743,7 +744,130 @@ const list = (anchor) => (
     memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
     
   ];
-  const [value, setValue] = React.useState(dayjs('2022-04-17T15:30'));
+  const [CareGiverSearch, setCareGiverSearch] = useState(false);
+  function CareGiverIconClick(){
+    setCareGiverSearch(true);
+    setOpen10(true);
+  }
+  const [open10, setOpen10] = React.useState(false);
+const handleClose10 = () => {
+  setOpen10(false);
+  setCareGiverSearch(false);
+};
+
+//
+  function OverlayCareGiverSearch() {
+    return (
+      <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={open10}
+     
+    >
+      <div className="overlayCareGiver">
+        <CloseIcon className="crossIcon"  onClick={handleClose10}/>
+        <h1 style={{ textAlign:"center",color:"black"}}>Search Care Giver</h1>
+        <div className="searchFieldsDiv">
+       
+      
+        
+        <Grid className="griditem">
+        
+        <TextField
+           
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+          />
+          
+        </Grid>
+        <Grid className="griditem">
+        
+        <TextField
+           
+            id="outlined-basic"
+            label="City"
+            variant="outlined"
+          />
+          
+        </Grid>
+        <Grid className="griditem">
+        
+        <TextField
+           
+            id="outlined-basic"
+            label="Code"
+            variant="outlined"
+          />
+          
+        </Grid>
+        <Grid className="griditem">
+        
+        <TextField
+           
+            id="outlined-basic"
+            label="Ethnicity"
+            variant="outlined"
+          />
+          
+        </Grid>
+        <Grid className="griditem">
+        
+        <TextField
+           
+            id="outlined-basic"
+            label="SSN"
+            variant="outlined"
+          />
+          
+        </Grid>
+        <Grid className="griditem">
+        
+        <TextField
+           
+            id="outlined-basic"
+            label="Discipline"
+            variant="outlined"
+          />
+          
+        </Grid>
+         
+        </div>
+        <Button className="searchButton"   onClick={handleClose10} >
+          Search
+        </Button>
+        <DataGrid
+        rows={rows12}
+        columns={columns12}
+        pageSize={5}
+        rowsPerPageOptions={[15]}
+        checkboxSelection
+      />
+      </div>
+      </Backdrop>
+    );
+  }
+  
+  const columns12 = [
+    { field: 'id', headerName: 'ID', width: 75 },
+    { field: 'fromDate', headerName: 'Name', width: 100 }, 
+    { field: 'toDate', headerName: 'City', width: 100 },
+    { field: 'serviceCategory', headerName: 'Code', width: 120 },
+    { field: 'serviceType', headerName: 'Ethnicity', width: 120 }, 
+    { field: 'serviceCode', headerName: 'SSN', width: 120 },
+    { field: 'authorizationType', headerName: 'Discipline', width: 150 },
+   
+    
+    
+  ];
+  
+  const rows12 = [
+    {id:1,fromDate:"Justin",toDate:"Alo",serviceCategory:"Justin",serviceType:"Alo",
+    serviceCode:"Justin",authorizationType:"Justin"},
+    
+    
+    
+  ];
+
   const VisitQuickSearchView = () => {
     return (
       <div>
@@ -815,7 +939,9 @@ const list = (anchor) => (
              label="Care Giver"
              variant="outlined"
            />
-            
+           <div onClick={CareGiverIconClick} style={{display:"flex",cursor:"pointer",justifyContent:"center",alignContent:"center",alignItems:"center"}}>
+  <PersonSearchIcon />
+</div>
          <TextField
             className="field"
              id="Authorization Number"
@@ -976,6 +1102,7 @@ const list = (anchor) => (
           {isOverlayOpen && <Overlay />}
           {isOverlayOpen2 && <Overlay2 />}
           {isOverlayOpen3 && <Overlay3 />}
+          {CareGiverSearch && <OverlayCareGiverSearch/>}
           {RenderViews()}
         </Card>
       </div>
@@ -1121,6 +1248,18 @@ width: 100%;
   padding: 1%; 
   overflow:auto;
 }
+.overlayCareGiver{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 65%;
+  z-index: 1000;
+  background-color: white;
+  padding: 1%; 
+  overflow:auto;
+}
 .overlay{
   position: fixed;
   top: 50%;
@@ -1163,6 +1302,7 @@ width: 100%;
 .searchButton {
   margin-left: 35%;
   margin-top: 5%;
+  margin-bottom:2%;
   width:30%;
   background-color:#f26e22;
   color:white;
