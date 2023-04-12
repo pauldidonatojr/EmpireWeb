@@ -1478,6 +1478,12 @@ function CareGiverDetail() {
           </h2>
           
           </div>
+          <div style={{display:"flex",justifyContent:"center"}}>
+          <Button  className="EditButton" variant="outlined">
+          Edit
+        </Button>
+        </div>
+          
       </div>
     );
   };
@@ -1692,6 +1698,17 @@ export default CareGiverDetail;
 const Wrapper = styled.section`
   height: 100%;
   width: 100%;
+
+  .EditButton{
+    background-color: #564873;
+   
+    font-weight:bold;
+    width:15%;
+    color:white;
+  }
+  .EditButton:hover {
+    color:black;
+  }
 .infodisplay{
 
     color: grey;

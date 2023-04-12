@@ -19,8 +19,18 @@ import Backdrop from '@mui/material/Backdrop';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useEffect } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {AuthContext} from '../../components/context'
+//
+
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+//
+import dayjs from 'dayjs';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 const Link = require("react-router-dom").Link;
 
 function Visit() {
@@ -733,7 +743,7 @@ const list = (anchor) => (
     memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
     
   ];
-  //
+  const [value, setValue] = React.useState(dayjs('2022-04-17T15:30'));
   const VisitQuickSearchView = () => {
     return (
       <div>
@@ -751,15 +761,36 @@ const list = (anchor) => (
     </div>
     </div>
   <hr/>
+
+  <div style={{display:"flex",justifyContent:"space-evenly"}}>
+  <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+  <DemoContainer  components={['DatePicker']}>
+    <DatePicker label="Visit Date"  />
+  </DemoContainer>
+</LocalizationProvider>
+<LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['TimePicker', 'TimePicker']}>
+        <TimePicker
+          label="Visit Start Time"
+          defaultValue={dayjs('2022-04-17T15:30')}
+        />
+      </DemoContainer>
+    </LocalizationProvider>
+
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['TimePicker', 'TimePicker']}>
+        <TimePicker
+          label="Visit End Time"
+          defaultValue={dayjs('2022-04-17T15:30')}
+        />
+      </DemoContainer>
+    </LocalizationProvider>
+    
+    </div> 
     <div className="VisitAddDel">
    
-         
-         <TextField
-            className="field"
-             id="outlined-basic"
-             label="Visit Date"
-             variant="outlined"
-           />
+
+   
 
          <TextField
             className="field"
@@ -768,27 +799,15 @@ const list = (anchor) => (
              variant="outlined"
            />
 
-         <TextField
-            className="field"
-             id="outlined-basic"
-             label="Visit Start"
-             variant="outlined"
-           />
 
-         
-         <TextField
-            className="field"
-             id="outlined-basic"
-             label="Visit End"
-             variant="outlined"
-           />
-                   
-         <TextField
-            className="field"
-             id="outlined-basic"
-             label="Duration"
-             variant="outlined"
-           />
+      <TextField
+        className="field"
+        id="duration"
+        label="Duration"
+        variant="outlined"
+      
+        readOnly
+      />
  
          <TextField
             className="field"
@@ -1016,6 +1035,7 @@ width: 100%;
 .VisitAddDel{
   display:flex;
   margin-top:2%;
+  justify-content:space-between;
 
 }
 .field{

@@ -36,14 +36,16 @@ function Login() {
     switch (selectedRadio) {
       case "Admin":
         if (username != null && password != null) {
-          loginUser(username, password).then(res => {
-            if (res.data.result == "success") {
+          // loginUser(username, password).then(res => {
+          //   if (res.data.result == "success") {
               loginHandle(username, password, 'admin');
               navigate("/AdminHome");
-              setLoginStatus('sucess');
-            }
-          });
-        }
+            //   setLoginStatus('sucess');
+            // }
+          }
+          //);
+        
+        
         break;
       case "CareGiver":
         loginCareGiver(username, password).then(res => {
