@@ -14,6 +14,8 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import Footer from "../../Footer";
 import { DataGrid } from '@mui/x-data-grid';
+
+import { Link } from 'react-router-dom';
 //
 
 import Backdrop from '@mui/material/Backdrop';
@@ -524,21 +526,41 @@ const handleClose3 = () => {
   const columns1 = [
     { field: 'id', headerName: 'ID', width: 50 },
     { field: 'batchNumber', headerName: 'Batch Number', width: 120 },
-    { field: 'status', headerName: 'Status', width: 110 },
-    { field: 'fromDate', headerName: 'From Date', width: 110 },
-    { field: 'toDate', headerName: 'To Date', width: 110 },
-    { field: 'aRExportFromDate', headerName: 'AR Export From Date', width: 155 },
-    { field: 'aRExportToDate', headerName: 'AR Export To Date', width: 155 },
-    { field: 'billingExport', headerName: 'Billing Export', width: 120 },
+    { field: 'ProviderName', headerName: 'Provider Name', width: 110 },
+    { field: 'BatchDate', headerName: 'Batch Date', width: 110 },
+    { field: 'Invoice', headerName: 'Invoice #', width: 110 },
+    { field: 'aRExportDate', headerName: 'AR Export Date', width: 155 },
+    { field: 'billingExportToDate', headerName: 'Billing Export  Date', width: 155 },
+    { field: 'status', headerName: 'Status', width: 120 },
+    { field: 'totalHours', headerName: 'Total Hours', width: 125 },
+    //
+    { field: 'TotalAmount', headerName: 'Total Amount', width: 155 },
+    { field: 'providerExport', headerName: 'Provider Export', width: 120 },
     { field: 'mco', headerName: 'MCO', width: 125 },
   ];
   
   const rows1 = [
-    {id:1,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-    {id:2,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-    {id:3,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-    {id:4,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
-    {id:5,batchNumber:"4578",status:"Jenifer",fromDate:"Awston",toDate:"02548965478",aRExportFromDate:"Active",aRExportToDate:"Adam Fernandez",billingExport:"Delta",mco:"Delta"},
+    {id:1,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:2,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:3,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:4,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:5,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:6,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:7,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:8,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:9,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+    {id:10,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
+    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
+
    
   ];
   const ByInvoiceView = () => {
@@ -557,27 +579,70 @@ const handleClose3 = () => {
   // ByInvoiceView
   const columns3 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'mco', headerName: 'MCO', width: 100 },
-    { field: 'memberName', headerName: 'Member Name', width: 130 },
-    { field: 'admissionID', headerName: 'Admission ID', width: 140 },
-    { field: 'invoiceNumber', headerName: 'Invoice Number', width: 140 },
-    { field: 'fromDate', headerName: 'From Date', width: 125 },
-    { field: 'toDate', headerName: 'To Date', width: 120 },
-    { field: 'batchNumber', headerName: 'Batch Number', width: 125 },
+    { field: 'invoiceNumber', headerName: 'Invoice Number', width: 120 },
+    { field: 'batchNumber', headerName: 'Batch Number', width: 110 },
+    { field: 'visitfrom', headerName: 'Visit From', width: 110 },
+    { field: 'visitTo', headerName: 'Visit To', width: 110 },
+   {
+      field: 'admissionId',
+      headerName: 'Admission ID',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    {
+      field: 'memberName',
+      headerName: 'Member Name',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+
+    { field: 'address', headerName: 'address', width: 120 },
+    { field: 'totalHours', headerName: 'Total Hours', width: 120 },
+    { field: 'TotalAmount', headerName: 'Total Amount', width: 155 },
+    { field: 'mco', headerName: 'MCO', width: 155 },
     { field: 'office', headerName: 'Office', width: 125 },
+    { field: 'ReBilled', headerName: 'Re-Billed', width: 120 },
    
   ];
   
   const rows3 = [
-    {id:1,mco:"4578",memberName:"Jenifer",admissionID:"Awston",invoiceNumber:"02548965478",fromDate:"Active",toDate:"Adam Fernandez",batchNumber:"Delta",office:"Delta"},
-    {id:2,mco:"4578",memberName:"Jenifer",admissionID:"Awston",invoiceNumber:"02548965478",fromDate:"Active",toDate:"Adam Fernandez",batchNumber:"Delta",office:"Delta"},
-    {id:3,mco:"4578",memberName:"Jenifer",admissionID:"Awston",invoiceNumber:"02548965478",fromDate:"Active",toDate:"Adam Fernandez",batchNumber:"Delta",office:"Delta"},
-    {id:4,mco:"4578",memberName:"Jenifer",admissionID:"Awston",invoiceNumber:"02548965478",fromDate:"Active",toDate:"Adam Fernandez",batchNumber:"Delta",office:"Delta"},
-  
+    {id:1,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    {id:2,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    {id:3,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    {id:4,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    {id:5,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    {id:6,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    {id:7,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    {id:8,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    {id:9,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
+    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
+    
+    
+
+   
   ];
   const ByVisitView = () => {
     return (
-      <div style={{ height: "100%", width: '100%' }}>
+      <div>
+      <div style={{ height: "550px", width: '100%' }}>
       <DataGrid
         rows={rows4}
         columns={columns4}
@@ -586,27 +651,94 @@ const handleClose3 = () => {
         checkboxSelection
       />
     </div>
+    </div>
     );
   };
    // ByVisitView
    const columns4 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'memberName', headerName: 'Member Name', width: 120 },
-    { field: 'admissionID', headerName: 'Admission ID', width: 140 },
-    { field: 'fromDate', headerName: 'From Date', width: 125 },
-    { field: 'toDate', headerName: 'To Date', width: 120 },
-    { field: 'mco', headerName: 'MCO', width: 125 },
-    { field: 'invoiceNumber', headerName: 'Invoice Number', width: 125 },
-    { field: 'exportStatus', headerName: 'Export Status', width: 125 },
-    { field: 'billingHold', headerName: 'Billing Hold', width: 125 },
+    { field: 'Invoice', headerName: 'Invoice #', width: 120 },
+    { field: 'BatchNumber', headerName: 'Batch Number', width: 140 },
+    { field: 'VisitDate', headerName: 'Visit Date', width: 125 },
+    {
+      field: 'AdmissionID',
+      headerName: 'Admission ID',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+   
+    {
+      field: 'MemberName',
+      headerName: 'Member Name',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { 
+      field: 'CaregiverName', 
+      headerName: 'Caregiver Name', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { field: 'Visit', headerName: 'Visit', width: 125 },
+    { field: 'VisitHrs', headerName: 'Visit Hrs', width: 125 },
+
+    { field: 'VisitRate', headerName: 'Visit Rate', width: 125 },
+    { field: 'TTHrs', headerName: 'TT Hrs', width: 125 },
+    { field: 'TTRate', headerName: 'TT Rate', width: 125 },
+    { field: 'OTHrs', headerName: 'OT Hrs', width: 125 },
+
+    { field: 'CTRate', headerName: 'OT Rate', width: 125 },
+    { field: 'Amount', headerName: 'Amount', width: 125 },
+    { field: 'MCO', headerName: 'MCO', width: 125 },
+    { field: 'ExportStatus', headerName: 'Export Status', width: 125 },
+
+    { field: 'TRN', headerName: 'TRN', width: 125 },
+    { field: 'BillingHold', headerName: 'Billing Hold', width: 125 },
+    { field: 'claimStatus', headerName: 'Claim Status', width: 125 },
    
   ];
   
   const rows4 = [
-    {id:1,memberName:"4578",admissionID:"Jenifer",fromDate:"Awston",toDate:"02548965478",mco:"Active",invoiceNumber:"Adam Fernandez",exportStatus:"Delta",billingHold:"Delta"},
-    {id:2,memberName:"4578",admissionID:"Jenifer",fromDate:"Awston",toDate:"02548965478",mco:"Active",invoiceNumber:"Adam Fernandez",exportStatus:"Delta",billingHold:"Delta"},
-    {id:3,memberName:"4578",admissionID:"Jenifer",fromDate:"Awston",toDate:"02548965478",mco:"Active",invoiceNumber:"Adam Fernandez",exportStatus:"Delta",billingHold:"Delta"},
-    {id:4,memberName:"4578",admissionID:"Jenifer",fromDate:"Awston",toDate:"02548965478",mco:"Active",invoiceNumber:"Adam Fernandez",exportStatus:"Delta",billingHold:"Delta"},
+    {id:1,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
+    {id:2,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
+     
+    {id:3,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
+     
+    {id:4,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
+     
+    {id:5,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
+     
+    {id:6,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
+     
+    {id:7,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
+     
+    {id:8,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
+     
+    {id:9,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
+    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
      
   ];
  //

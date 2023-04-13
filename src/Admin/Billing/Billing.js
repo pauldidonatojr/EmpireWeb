@@ -664,7 +664,19 @@ const handleClose2 = () => {
 
   const NewInvoiceBatchView = () => {
     return (
-      <div style={{ height: "100%", width: '100%' }}>
+      <div>
+      <div style={{display:"flex",justifyContent:"space-evenly"}}>
+      <h1 style={{color:"grey"}}>Date :<span style={{color:"blue"}}>11 Jul2023 </span></h1>
+      <h1 style={{color:"grey"}}>Batch Number :<span style={{color:"blue"}}> 02031953204 </span></h1>
+    </div>
+    <div style={{display:"flex",justifyContent:"space-evenly"}}>
+      <h1 style={{color:"grey"}}>Total :<span style={{color:"blue"}}>10 </span></h1>
+      <h1 style={{color:"grey"}}>Amount :<span style={{color:"blue"}}>$ 120.36 </span></h1>
+    </div>
+    <hr></hr>
+    <h3 style={{color:"grey",fontWeight:"bold",textAlign:"center"}}>Billable Visits</h3>
+      <div style={{ height: "450px", width: '100%' }}>
+       
       <DataGrid
         rows={rows3}
         columns={columns3}
@@ -673,27 +685,78 @@ const handleClose2 = () => {
         checkboxSelection
       />
     </div>
+    </div>
     );
   };
   // NewInvoiceBatchView
   const columns3 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'mco', headerName: 'MCO', width: 100 },
-    { field: 'serviceGiverCode', headerName: 'Service Giver Code', width: 150 },
-    { field: 'discipline', headerName: 'Discipline', width: 150 },
-    { field: 'fromDate', headerName: 'From Date', width: 130 },
-    { field: 'toDate', headerName: 'To Date', width: 130 },
-    { field: 'memberTeam', headerName: 'Member Team', width: 150 },
-    { field: 'member', headerName: 'Member', width: 130 },
+    { field: 'date', headerName: 'Date', width: 100 },
+    { 
+      field: 'careGiver', 
+      headerName: 'Caregiver', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    
+    { 
+      field: 'admission', 
+      headerName: 'Admission ID', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+
+
+    { 
+      field: 'PatientName', 
+      headerName: 'Patient Name', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    
+    { field: 'Visit', headerName: 'Visit', width: 130 },
+    { field: 'VisitHrs', headerName: 'Visit Hrs', width: 130 },
+    { field: 'VisitRate', headerName: 'Visit Rate', width: 150 },
+    { field: 'TTHrs', headerName: 'TT Hrs', width: 130 },
+    { field: 'TTRate', headerName: 'TT Rate', width: 130 },
+    { field: 'Amount', headerName: 'Amount', width: 150 },
+    { field: 'ServiceCategory', headerName: 'Service Category', width: 130 },
+    { field: 'Discipline', headerName: 'Discipline', width: 130 },
    
   ];
   
   const rows3 = [
-    {id:1,mco:"4578",serviceGiverCode:"Jenifer",discipline:"Awston",fromDate:"02548965478",toDate:"Active",memberTeam:"Adam Fernandez",member:"Delta"},
+    {id:1,date:"4578",careGiver:"Jenifer",admission:"Awston",PatientName:"02548965478",Visit:"Active",VisitHrs:"Adam Fernandez",VisitRate:"Delta",TTHrs:"Active",TTRate:"Adam Fernandez",Amount:"Delta",ServiceCategory:"Delta",Discipline:"Active"},
+    {id:2,date:"4578",careGiver:"Jenifer",admission:"Awston",PatientName:"02548965478",Visit:"Active",VisitHrs:"Adam Fernandez",VisitRate:"Delta",TTHrs:"Active",TTRate:"Adam Fernandez",Amount:"Delta",ServiceCategory:"Delta",Discipline:"Active"},
     
-    {id:2,mco:"4578",serviceGiverCode:"Jenifer",discipline:"Awston",fromDate:"02548965478",toDate:"Active",memberTeam:"Adam Fernandez",member:"Delta"},
+    {id:3,date:"4578",careGiver:"Jenifer",admission:"Awston",PatientName:"02548965478",Visit:"Active",VisitHrs:"Adam Fernandez",VisitRate:"Delta",TTHrs:"Active",TTRate:"Adam Fernandez",Amount:"Delta",ServiceCategory:"Delta",Discipline:"Active"},
     
-    {id:3,mco:"4578",serviceGiverCode:"Jenifer",discipline:"Awston",fromDate:"02548965478",toDate:"Active",memberTeam:"Adam Fernandez",member:"Delta"},
+    {id:4,date:"4578",careGiver:"Jenifer",admission:"Awston",PatientName:"02548965478",Visit:"Active",VisitHrs:"Adam Fernandez",VisitRate:"Delta",TTHrs:"Active",TTRate:"Adam Fernandez",Amount:"Delta",ServiceCategory:"Delta",Discipline:"Active"},
+    
+    {id:5,date:"4578",careGiver:"Jenifer",admission:"Awston",PatientName:"02548965478",Visit:"Active",VisitHrs:"Adam Fernandez",VisitRate:"Delta",TTHrs:"Active",TTRate:"Adam Fernandez",Amount:"Delta",ServiceCategory:"Delta",Discipline:"Active"},
+    
+    {id:6,date:"4578",careGiver:"Jenifer",admission:"Awston",PatientName:"02548965478",Visit:"Active",VisitHrs:"Adam Fernandez",VisitRate:"Delta",TTHrs:"Active",TTRate:"Adam Fernandez",Amount:"Delta",ServiceCategory:"Delta",Discipline:"Active"},
+    
+    {id:7,date:"4578",careGiver:"Jenifer",admission:"Awston",PatientName:"02548965478",Visit:"Active",VisitHrs:"Adam Fernandez",VisitRate:"Delta",TTHrs:"Active",TTRate:"Adam Fernandez",Amount:"Delta",ServiceCategory:"Delta",Discipline:"Active"},
+    
+    
+    
+    
     
   ];
 
@@ -712,25 +775,74 @@ const handleClose2 = () => {
   };
   // PreBillingReviewView
   const columns = [
+   
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'AdmissionId', headerName: 'Admission ID', width: 100 },
-    { field: 'careGiverCode', headerName: 'CareGiver Code', width: 150 },
-    { field: 'careGiverName', headerName: 'CareGiver Name', width: 150 },
-    { field: 'memberTeam', headerName: 'Member Team', width: 100 },
-    { field: 'mco', headerName: 'MCO', width: 100 },
+    { field: 'date', headerName: 'Date', width: 100 },
+
+    {
+      field: 'AdmissionId',
+      headerName: 'Admission ID',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    {
+      field: 'memberName',
+      headerName: 'Member Name',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { 
+      field: 'careGiverCode', 
+      headerName: 'CareGiver Code', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { 
+      field: 'careGiverName', 
+      headerName: 'CareGiver Name', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
     { field: 'cordinator', headerName: 'Cordinator', width: 100 },
-    { field: 'fromDate', headerName: 'From Date', width: 100 },
-    { field: 'toDate', headerName: 'To Date', width: 100 },
+    { field: 'mco', headerName: 'MCO', width: 100 },
+    { field: 'scheduleDate', headerName: 'Scheduled Time', width: 120 },
+    { field: 'visitTime', headerName: 'Visit Time', width: 120 },
     { field: 'problem', headerName: 'Problem', width: 100 },
     
   ];
   
   const rows = [
-    {id:1,AdmissionId:"4578",careGiverCode:"Jenifer",careGiverName:"Awston",memberTeam:"02548965478",mco:"Active",cordinator:"Adam Fernandez",fromDate:"Delta",toDate:"Homecare",problem:"51s"},
-    {id:2,AdmissionId:"4578",careGiverCode:"Jenifer",careGiverName:"Awston",memberTeam:"02548965478",mco:"Active",cordinator:"Adam Fernandez",fromDate:"Delta",toDate:"Homecare",problem:"51s"},
-    {id:3,AdmissionId:"4578",careGiverCode:"Jenifer",careGiverName:"Awston",memberTeam:"02548965478",mco:"Active",cordinator:"Adam Fernandez",fromDate:"Delta",toDate:"Homecare",problem:"51s"},
-    {id:4,AdmissionId:"4578",careGiverCode:"Jenifer",careGiverName:"Awston",memberTeam:"02548965478",mco:"Active",cordinator:"Adam Fernandez",fromDate:"Delta",toDate:"Homecare",problem:"51s"},
-    {id:5,AdmissionId:"4578",careGiverCode:"Jenifer",careGiverName:"Awston",memberTeam:"02548965478",mco:"Active",cordinator:"Adam Fernandez",fromDate:"Delta",toDate:"Homecare",problem:"51s"},
+    {id:1,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:2,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:3,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:4,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:5,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:6,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:7,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:8,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:9,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+    {id:10,date:"4578",AdmissionId:"Jenifer",memberName:"Awston",careGiverCode:"02548965478",careGiverName:"Active",cordinator:"Adam Fernandez",mco:"Delta",scheduleDate:"Homecare",visitTime:"51s",problem:"51s"},
+
     
   ];
   const BillingReviewView = () => {

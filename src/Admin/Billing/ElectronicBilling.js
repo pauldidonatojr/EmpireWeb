@@ -18,6 +18,7 @@ import Footer from "../../Footer";
 import { useNavigate } from "react-router-dom";
 //
 
+import { Link } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -34,7 +35,7 @@ function Visit() {
 
   //
 
-  const [ViewSelected, setViewSelected] = useState(2);
+  const [ViewSelected, setViewSelected] = useState(4);
 
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isOverlayOpen2, setIsOverlayOpen2] = useState(false);
@@ -292,7 +293,48 @@ const handleClose2 = () => {
   //
   const SubmitView = () => {
     return (
-      <div style={{ height: "100%", width: '100%' }}>
+      <div>
+        <h2 style={{textAlign:"center",color:"grey",fontWeight:"bold"}}>Resubmit claims E-submission Batch</h2>
+   <div style={{display:"flex",justifyContent:"space-evenly"}}>
+    <h3 style={{color:"grey"}}>MCO : <span style={{color:"blue"}}>KEYSTONE FIRST CHC</span></h3>
+    <h3 style={{color:"grey"}}>Batch Number : <span style={{color:"blue"}}>CLMKXJ456454654546</span></h3>
+    <h3 style={{color:"grey"}}>Batch Date : <span style={{color:"blue"}}>21-Jul-2023</span></h3>
+      <Button variant="outlined" style={{backgroundColor:"#2E0F59",padding:20,fontWeight:"bold",color:"#F2B90F",height:"45px"}}>
+        ADD CLAIMS
+      </Button>
+   </div>
+   <hr></hr>
+   <h2 style={{textAlign:"center",color:"grey",fontWeight:"bold"}}>Resubmit Claim Search</h2>
+  
+    <div style={{display:"flex",justifyContent:"space-evenly"}}>
+    <Grid className="datadisplaydropdown">
+              <Box>
+                <FormControl fullWidth>
+                  <InputLabel>Daily Reason Code</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="datadisplaydropdown">
+              <TextField
+                id="outlined-basic"
+                label="Visit Other Than"
+                variant="outlined"
+              />
+            </Grid>
+    </div>
+
+     <div style={{ height: "320px", width: '100%' }}>
       <DataGrid
         rows={rows2}
         columns={columns2}
@@ -301,21 +343,74 @@ const handleClose2 = () => {
         checkboxSelection
       />
     </div>
+    </div>
     );
   };
   // // SubmitView
   const columns2 = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'batchNumber', headerName: 'Batch Number', width: 250 },
-    { field: 'mco', headerName: 'MCO', width: 250 },
-    { field: 'batchDate', headerName: 'Batch Date', width: 250 },
+    {
+      field: 'MemberName',
+      headerName: 'Member Name',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { field: 'VisitDate', headerName: 'Visit Date', width: 250 },
+
+    { field: 'InvoiceNo', headerName: 'Invoice No', width: 250 },
+    { field: 'ServiceCode', headerName: 'Service Code', width: 250 },
+    { 
+      field: 'CaregiverName', 
+      headerName: 'Caregiver Name', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+
+    { field: 'ScheduleVisit', headerName: 'Schedule Visit', width: 250 },
+    { field: 'VisitHours', headerName: 'Visit Hours', width: 250 },
+    { field: 'BilledHours', headerName: 'Billed Hours', width: 250 },
+    { field: 'BilledUnits', headerName: 'Billed Units', width: 250 },
+    { field: 'BillType', headerName: 'Bill Type', width: 250 },
+
+    { field: 'BilledAmount', headerName: 'Billed Amount', width: 250 },
+    { field: 'ST', headerName: 'ST', width: 250 },
+    { field: 'TRN', headerName: 'TRN', width: 250 },
    
   ];
   
   const rows2 = [
-    {id:1,batchNumber:"4578",mco:"Jenifer",batchDate:"Awston"},
-    {id:2,batchNumber:"4578",mco:"Jenifer",batchDate:"Awston"},
-    {id:3,batchNumber:"4578",mco:"Jenifer",batchDate:"Awston"},
+    {id:1,batchNumber:"4578",MemberName:"Jenifer",VisitDate:"Awston",
+    InvoiceNo:"4578",ServiceCode:"Jenifer",CaregiverName:"Awston",
+    ScheduleVisit:"4578",VisitHours:"Jenifer",BilledHours:"Awston",
+    BilledUnits:"4578",BillType:"Jenifer",BilledAmount:"Awston",
+    ST:"4578",TRN:"Jenifer"},
+    {id:2,batchNumber:"4578",MemberName:"Jenifer",VisitDate:"Awston",
+    InvoiceNo:"4578",ServiceCode:"Jenifer",CaregiverName:"Awston",
+    ScheduleVisit:"4578",VisitHours:"Jenifer",BilledHours:"Awston",
+    BilledUnits:"4578",BillType:"Jenifer",BilledAmount:"Awston",
+    ST:"4578",TRN:"Jenifer"},
+    {id:3,batchNumber:"4578",MemberName:"Jenifer",VisitDate:"Awston",
+    InvoiceNo:"4578",ServiceCode:"Jenifer",CaregiverName:"Awston",
+    ScheduleVisit:"4578",VisitHours:"Jenifer",BilledHours:"Awston",
+    BilledUnits:"4578",BillType:"Jenifer",BilledAmount:"Awston",
+    ST:"4578",TRN:"Jenifer"},
+    {id:4,batchNumber:"4578",MemberName:"Jenifer",VisitDate:"Awston",
+    InvoiceNo:"4578",ServiceCode:"Jenifer",CaregiverName:"Awston",
+    ScheduleVisit:"4578",VisitHours:"Jenifer",BilledHours:"Awston",
+    BilledUnits:"4578",BillType:"Jenifer",BilledAmount:"Awston",
+    ST:"4578",TRN:"Jenifer"},
+   
     
     
   ];
@@ -338,16 +433,51 @@ const handleClose2 = () => {
     { field: 'batchNumber', headerName: 'Batch Number', width: 175 },
     { field: 'mco', headerName: 'MCO', width: 175 },
     { field: 'claimType', headerName: 'Claim Type', width: 175 },
-    { field: 'fromDate', headerName: 'From Date', width: 175 },
-    { field: 'toDate', headerName: 'To Date', width: 175 },
+    {
+      field: 'MemberNo',
+      headerName: 'Member #',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { field: 'ClaimNo', headerName: 'Claim #', width: 175 },
+    { field: 'ClaimAmount', headerName: 'Claim Amount', width: 175 },
+    { field: 'CreatedDate', headerName: 'Created Date', width: 175 },
+    { field: 'ExportDate', headerName: 'Last Exported Date', width: 175 },
+    { field: 'ExportedBy', headerName: 'Last Exported By', width: 175 },
+    { field: 'Export', headerName: 'Export', width: 175 },
+    { field: 'detail', headerName: 'Detail', width: 175 },
+    { field: 'summary', headerName: 'Summary', width: 175 },
+   
+
    
   ];
   
   const rows4 = [
-    {id:1,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",fromDate:"02548965478",toDate:"Active"},
-    {id:2,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",fromDate:"02548965478",toDate:"Active"},
-    {id:3,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",fromDate:"02548965478",toDate:"Active"},
-    {id:4,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",fromDate:"02548965478",toDate:"Active"},
+    {id:1,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:2,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:3,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:4,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:5,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:6,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:7,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:8,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:9,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
+    {id:10,batchNumber:"4578",mco:"Jenifer",claimType:"Awston",MemberNo:"02548965478",ClaimNo:"Active",
+    ClaimAmount:"Awston",CreatedDate:"02548965478",ExportDate:"Active",ExportedBy:"Awston",Export:"02548965478",detail:"Active",summary:"Active"},
     
   ];
   //
@@ -535,6 +665,10 @@ const Wrapper = styled.section`
     justify-content:center;
     margin-top:0;
     margin-bottom:3%;
+  }
+  .datadisplaydropdown{
+    width:25%;
+    margin:1%;
   }
   .GoBackButton{
     background-color: #f26e22;
