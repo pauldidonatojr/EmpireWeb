@@ -463,7 +463,17 @@ function InvoiceDetails() {
   }
   const VisitsView = () => {
     return (
-      <div style={{ height: "100%", width: "100%" }}>
+        <div>
+            <div style={{display:"flex",justifyContent:"right"}}>
+          <Button  className="EditButton" variant="outlined">
+          Print Invioce
+        </Button>
+        <Button  className="EditButton" variant="outlined">
+          Print Duty Sheet
+        </Button>
+        </div>
+        <div style={{ height: "450px", width: "100%" }}>
+           
         <DataGrid
           rows={rows3}
           columns={columns3}
@@ -472,6 +482,8 @@ function InvoiceDetails() {
           checkboxSelection
         />
       </div>
+        </div>
+      
     );
   };
   //MissedOutView columns and demo data
@@ -597,11 +609,7 @@ function InvoiceDetails() {
           
           </div>
 
-          <div style={{display:"flex",justifyContent:"center"}}>
-          <Button  className="EditButton" variant="outlined">
-          Back
-        </Button>
-        </div>
+       
           
       </div>
     );
@@ -815,6 +823,7 @@ const Wrapper = styled.section`
     font-weight:bold;
     width:15%;
     color:white;
+    margin:1%;
   }
   .EditButton:hover {
     color:black;
