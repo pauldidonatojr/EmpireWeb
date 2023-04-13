@@ -373,7 +373,18 @@ const handleClose2 = () => {
     },
     { field: 'VisitDate', headerName: 'Visit Date', width: 250 },
 
-    { field: 'InvoiceNo', headerName: 'Invoice No', width: 250 },
+    {
+      field: 'InvoiceNo',
+      headerName: 'Invoice No',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/InvoiceDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+
     { field: 'ServiceCode', headerName: 'Service Code', width: 250 },
     { 
       field: 'CaregiverName', 
