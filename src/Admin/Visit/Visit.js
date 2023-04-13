@@ -33,6 +33,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 //
 import dayjs from 'dayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { addVisit } from "../../API/visitAPI";
 const Link = require("react-router-dom").Link;
 
 function Visit() {
@@ -71,6 +72,529 @@ function Visit() {
   const [selectedServiceCode, setSelectedServiceCode] = useState(null);
 
   //  
+
+  //Service Codes
+  const [visitType, setVisitType] = useState(null);
+  const [selectedVisitType, setSelectedVisitType] = useState(null);
+
+  //  
+
+  const [memberId, setMemberId] = useState('');
+  const [duration, setDuration] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [visitEndTime, setVisitEndTime] = useState(dayjs('2022-04-17T15:30'));
+  const [visitStartTime, setVisitStartTime] = useState(dayjs('2022-04-17T15:30'));
+  const [scheduleStartTime, setScheduleStartTime] = useState(dayjs('2022-04-17T15:30'));
+  const [dutiesList, setDutiesList] = useState([]);
+  const [selectedDuty, setSelectedDuty] = useState('');
+  const [scheduleID, setScheduleID] = useState('13252546');
+  const [visitID, setVisitID] = useState('');
+  const [scheduleEndTime, setScheduleEndTime] = useState(dayjs('2022-04-17T15:30'));
+  const [evvStartTime, setEvvStartTime] = useState(dayjs('2022-04-17T15:30'));
+  const [evvEndTime, setEvvEndTime] = useState(dayjs('2022-04-17T15:30'));
+
+
+  const [clockInLocationAddressLine1, setClockInLocationAddressLine1] = useState("123 Street");
+  const [clockInLocationAddressLine2, setClockInLocationAddressLine2] = useState("");
+  const [clockInLocationCity, setClockInLocationCity] = useState("BOILING SPRINGS");
+  const [clockInLocationState, setClockInLocationState] = useState("NC");
+  const [clockInZipCode, setClockInZipCode] = useState("28017");
+  const [clockInLocationType, setClockInLocationType] = useState("Home");
+  const [clockOutLocationCity, setClockOutLocationCity] = useState("BOILING SPRINGS");
+  const [diagnosisCode, setDiagnososCode] = useState("F71 | G40.901");
+  const [procedureCode, setProcedureCode] = useState("T2013:TF");
+
+
+
+  //CC2
+  const [clockOutAddressLine1, setClockOutAddressLine1] = useState('123 Street');
+  const [clockOutAddressLine2, setClockOutAddressLine2] = useState('');
+  const [clockOutLocationState, setClockOutLocationState] = useState('NC');
+  const [clockOutLocationZipCode, setClockOutLocationZipCode] = useState('28017');
+  const [clockOutLocationType, setClockOutLocationType] = useState('Home');
+
+
+  //CC3
+  const [duties, setDuties] = useState("");
+  const [clockInPhone, setClockInPhone] = useState("7324878977");
+  const [clockInLatitude, setClockInLatitude] = useState("40.296139");
+  const [clockInLongitude, setClockInLongitude] = useState("-74.773369");
+  const [clockOutLatitude, setClockOutLatitude] = useState("40.296139");
+  const [clockOutLongitude, setClockOutLongitude] = useState("-74.773369");
+
+
+  //CC4
+
+  const [clockInEvvOtherInfo, setClockInEvvOtherInfo] = useState("non");
+  const [clockOutPhone, setClockOutPhone] = useState("7324878977");
+  const [clockOutEvvOtherInfo, setClockOutEvvOtherInfo] = useState("");
+  const [invoiceNumber, setInvoiceNumber] = useState("1977171");
+  const [visitEditReasonCode, setVisitEditReasonCode] = useState("118");
+  const [visitEditActionTaken, setVisitEditActionTaken] = useState("25");
+
+
+  //CC5
+
+  const [visitEditMadeBy, setVisitEditMadeBy] = useState("");
+  const [notes, setNotes] = useState("");
+  const [inDeletion, setInDeletion] = useState("N");
+  const [invoiceLineItemId, setInvoiceLineItemId] = useState("");
+  const [totalBilledAmount, setTotalBilledAmount] = useState("60.84");
+  const [unitsBilled, setUnitsBilled] = useState("12");
+
+
+  //CC6
+
+
+  const [billedRate, setBilledRate] = useState('5.07');
+  const [submissionType, setSubmissionType] = useState('');
+  const [trnNumber, setTrnNumber] = useState('');
+  const [enableSecondaryBilling, setEnableSecondaryBilling] = useState('');
+  const [otherSubscriberId, setOtherSubscriberId] = useState('');
+  const [primaryPayerId, setPrimaryPayerId] = useState('');
+
+
+  //CC7
+  const [primaryPayerName, setPrimaryPayerName] = useState('');
+  const [relationshipToInsured, setRelationshipToInsured] = useState('');
+  const [primaryPayerPolicy, setPrimaryPayerPolicy] = useState('');
+  const [primaryPayerProgram, setPrimaryPayerProgram] = useState('');
+  const [planType, setPlanType] = useState('');
+  const [totalPaidAmount, setTotalPaidAmount] = useState('');
+
+
+  //CC8
+  const [totalPaidUnits, setTotalPaidUnits] = useState("");
+  const [paidDate, setPaidDate] = useState(dayjs('2022-04-17T15:30'));
+  const [deductible, setDeductible] = useState("");
+  const [coinsurance, setCoinsurance] = useState("");
+  const [copay, setCopay] = useState("");
+  const [contractedAdjustments, setContractedAdjustments] = useState("");
+
+
+  //CC9
+  const [notMedicallyNecessary, setNotMedicallyNecessary] = useState('');
+  const [nonCoveredCharges, setNonCoveredCharges] = useState('');
+  const [maxBenefitExhausted, setMaxBenefitExhausted] = useState('');
+  const [missedVisit, setMissedVisit] = useState('');
+  const [missedVisitActionTakenCode, setMissedVisitActionTakenCode] = useState('');
+  const [missedVisitReasonCode, setMissedVisitReasonCode] = useState('');
+
+
+
+  //CC10
+  // State for 'Missed Visit Notes' TextField
+  const [missedVisitNotes, setMissedVisitNotes] = useState('');
+  const [travelTimeRequestHours, setTravelTimeRequestHours] = useState('');
+  const [travelTimeComments, setTravelTimeComments] = useState('');
+  const [cancelTravelTimeRequest, setCancelTravelTimeRequest] = useState('');
+  const [timesheetRequired, setTimesheetRequired] = useState('');
+  const [timesheetApproved, setTimesheetApproved] = useState('');
+
+
+  //CC10
+
+
+
+  //CC11
+  const [unitField1, setUnitField1] = useState("");
+  const [unitField2, setUnitField2] = useState("");
+  const [unitField3, setUnitField3] = useState("");
+  const [unitField4, setUnitField4] = useState("");
+  const [unitField5, setUnitField5] = useState("");
+  const [unitField6, setUnitField6] = useState("");
+
+
+  const [unitField7Value, setUnitField7Value] = useState('');
+  const [unitField8Value, setUnitField8Value] = useState('');
+  const [unitField9Value, setUnitField9Value] = useState('');
+  const [unitField10Value, setUnitField10Value] = useState('');
+
+
+
+
+
+  const handleClockOutAddressLine1Change = (event) => {
+    setClockOutAddressLine1(event.target.value);
+  }
+
+  const handleClockOutAddressLine2Change = (event) => {
+    setClockOutAddressLine2(event.target.value);
+  }
+
+  const handleClockOutLocationStateChange = (event) => {
+    setClockOutLocationState(event.target.value);
+  }
+
+  const handleClockOutLocationZipCodeChange = (event) => {
+    setClockOutLocationZipCode(event.target.value);
+  }
+
+  const handleClockOutLocationTypeChange = (event) => {
+    setClockOutLocationType(event.target.value);
+  }
+
+
+
+
+
+  function handleClockInLocationAddressLine1Change(event) {
+    setClockInLocationAddressLine1(event.target.value);
+  }
+
+  function handleClockInLocationAddressLine2Change(event) {
+    setClockInLocationAddressLine2(event.target.value);
+  }
+
+  function handleClockInLocationCityChange(event) {
+    setClockInLocationCity(event.target.value);
+  }
+
+  function handleClockInLocationStateChange(event) {
+    setClockInLocationState(event.target.value);
+  }
+
+  function handleClockInZipCodeChange(event) {
+    setClockInZipCode(event.target.value);
+  }
+
+  function handleClockInLocationTypeChange(event) {
+    setClockInLocationType(event.target.value);
+  }
+
+  function handleClockOutLocationCityChange(event) {
+    setClockOutLocationCity(event.target.value);
+  }
+
+
+
+
+  const handleDutiesChange = (event) => {
+    setDuties(event.target.value);
+  };
+
+  const handleClockInPhoneChange = (event) => {
+    setClockInPhone(event.target.value);
+  };
+
+  const handleClockInLatitudeChange = (event) => {
+    setClockInLatitude(event.target.value);
+  };
+
+  const handleClockInLongitudeChange = (event) => {
+    setClockInLongitude(event.target.value);
+  };
+
+  const handleClockOutLatitudeChange = (event) => {
+    setClockOutLatitude(event.target.value);
+  };
+
+  const handleClockOutLongitudeChange = (event) => {
+    setClockOutLongitude(event.target.value);
+  };
+
+
+
+
+
+
+  const handleClockInEvvOtherInfoChange = (event) => {
+    setClockInEvvOtherInfo(event.target.value);
+  };
+
+  const handleClockOutPhoneChange = (event) => {
+    setClockOutPhone(event.target.value);
+  };
+
+  const handleClockOutEvvOtherInfoChange = (event) => {
+    setClockOutEvvOtherInfo(event.target.value);
+  };
+
+  const handleInvoiceNumberChange = (event) => {
+    setInvoiceNumber(event.target.value);
+  };
+
+  const handleVisitEditReasonCodeChange = (event) => {
+    setVisitEditReasonCode(event.target.value);
+  };
+
+  const handleVisitEditActionTakenChange = (event) => {
+    setVisitEditActionTaken(event.target.value);
+  };
+
+
+
+
+
+
+  const handleVisitEditMadeByChange = (event) => {
+    setVisitEditMadeBy(event.target.value);
+  };
+
+  const handleNotesChange = (event) => {
+    setNotes(event.target.value);
+  };
+
+  const handleInDeletionChange = (event) => {
+    setInDeletion(event.target.value);
+  };
+
+  const handleInvoiceLineItemIdChange = (event) => {
+    setInvoiceLineItemId(event.target.value);
+  };
+
+  const handleTotalBilledAmountChange = (event) => {
+    setTotalBilledAmount(event.target.value);
+  };
+
+  const handleUnitsBilledChange = (event) => {
+    setUnitsBilled(event.target.value);
+  };
+
+
+
+
+
+
+
+  const handleBilledRateChange = (event) => {
+    setBilledRate(event.target.value);
+  };
+
+  const handleSubmissionTypeChange = (event) => {
+    setSubmissionType(event.target.value);
+  };
+
+  const handleTrnNumberChange = (event) => {
+    setTrnNumber(event.target.value);
+  };
+
+  const handleEnableSecondaryBillingChange = (event) => {
+    setEnableSecondaryBilling(event.target.value);
+  };
+
+  const handleOtherSubscriberIdChange = (event) => {
+    setOtherSubscriberId(event.target.value);
+  };
+
+  const handlePrimaryPayerIdChange = (event) => {
+    setPrimaryPayerId(event.target.value);
+  };
+
+
+  const handlePrimaryPayerNameChange = (event) => {
+    setPrimaryPayerName(event.target.value);
+  };
+
+  const handleRelationshipToInsuredChange = (event) => {
+    setRelationshipToInsured(event.target.value);
+  };
+
+  const handlePrimaryPayerPolicyChange = (event) => {
+    setPrimaryPayerPolicy(event.target.value);
+  };
+
+  const handlePrimaryPayerProgramChange = (event) => {
+    setPrimaryPayerProgram(event.target.value);
+  };
+
+  const handlePlanTypeChange = (event) => {
+    setPlanType(event.target.value);
+  };
+
+  const handleTotalPaidAmountChange = (event) => {
+    setTotalPaidAmount(event.target.value);
+  };
+
+
+  const handleTotalPaidUnitsChange = (event) => {
+    setTotalPaidUnits(event.target.value);
+  };
+
+  const handlePaidDateChange = (newValue) => {
+    setPaidDate(newValue);
+  };
+
+  const handleDeductibleChange = (event) => {
+    setDeductible(event.target.value);
+  };
+
+  const handleCoinsuranceChange = (event) => {
+    setCoinsurance(event.target.value);
+  };
+
+  const handleCopayChange = (event) => {
+    setCopay(event.target.value);
+  };
+
+  const handleContractedAdjustmentsChange = (event) => {
+    setContractedAdjustments(event.target.value);
+  };
+
+
+
+
+
+
+
+
+
+
+  const handleNotMedicallyNecessaryChange = (event) => {
+    setNotMedicallyNecessary(event.target.value);
+  }
+
+  const handleNonCoveredChargesChange = (event) => {
+    setNonCoveredCharges(event.target.value);
+  }
+
+  const handleMaxBenefitExhaustedChange = (event) => {
+    setMaxBenefitExhausted(event.target.value);
+  }
+
+  const handleMissedVisitChange = (event) => {
+    setMissedVisit(event.target.value);
+  }
+
+  const handleMissedVisitActionTakenCodeChange = (event) => {
+    setMissedVisitActionTakenCode(event.target.value);
+  }
+
+  const handleMissedVisitReasonCodeChange = (event) => {
+    setMissedVisitReasonCode(event.target.value);
+  }
+
+
+
+
+
+
+
+
+
+  const handleUnitField1Change = (event) => {
+    setUnitField1(event.target.value);
+  };
+
+  const handleUnitField2Change = (event) => {
+    setUnitField2(event.target.value);
+  };
+
+  const handleUnitField3Change = (event) => {
+    setUnitField3(event.target.value);
+  };
+
+  const handleUnitField4Change = (event) => {
+    setUnitField4(event.target.value);
+  };
+
+  const handleUnitField5Change = (event) => {
+    setUnitField5(event.target.value);
+  };
+
+  const handleUnitField6Change = (event) => {
+    setUnitField6(event.target.value);
+  };
+
+  const handleUnitField7Change = (event) => {
+    setUnitField7Value(event.target.value);
+  };
+
+  const handleUnitField8Change = (event) => {
+    setUnitField8Value(event.target.value);
+  };
+
+  const handleUnitField9Change = (event) => {
+    setUnitField9Value(event.target.value);
+  };
+
+  const handleUnitField10Change = (event) => {
+    setUnitField10Value(event.target.value);
+  };
+
+
+
+
+
+
+  // Change handler for 'Timesheet Approved' TextField
+  const handleTimesheetApprovedChange = (event) => {
+    setTimesheetApproved(event.target.value);
+  };
+
+
+  // Change handler for 'Missed Visit Notes' TextField
+  const handleMissedVisitNotesChange = (event) => {
+    setMissedVisitNotes(event.target.value);
+  };
+
+  // Change handler for 'Timesheet Required' TextField
+  const handleTimesheetRequiredChange = (event) => {
+    setTimesheetRequired(event.target.value);
+  };
+
+  // Change handler for 'Cancel Travel Time Request' TextField
+  const handleCancelTravelTimeRequestChange = (event) => {
+    setCancelTravelTimeRequest(event.target.value);
+  };
+
+  // Change handler for 'Travel Time Comments' TextField
+  const handleTravelTimeCommentsChange = (event) => {
+    setTravelTimeComments(event.target.value);
+  };
+
+  // Change handler for 'Travel Time Request Hours' TextField
+  const handleTravelTimeRequestHoursChange = (event) => {
+    setTravelTimeRequestHours(event.target.value);
+  };
+
+
+
+
+  const handleEvvEndTimeChange = (newValue) => {
+    setEvvEndTime(newValue);
+  };
+
+
+  const handleEvvStartTimeChange = (newValue) => {
+    setEvvStartTime(newValue);
+  };
+
+
+
+  const handleScheduleEndTimeChange = (newValue) => {
+    setScheduleEndTime(newValue);
+  };
+
+
+
+  const handleScheduleStartTimeChange = (newValue) => {
+    setScheduleStartTime(newValue);
+  };
+
+
+  const handleVisitStartTime = (newValue) => {
+    setVisitStartTime(newValue);
+  };
+
+
+
+  const handleVisitEndTime = (newValue) => {
+    setVisitEndTime(newValue);
+  };
+
+
+
+  // 
+
+
+
+
+
+
+
+
+
   const navigate = useNavigate();
   function CallDashBoardPressed() {
     navigate("/CallDashBoard");
@@ -114,13 +638,39 @@ function Visit() {
   miscValues = miscValues.data;
   useEffect(() => {
     var arr = [];
+    var arr2 = [];
+    var arr3 = [];
     for (var key in miscValues) {
       if (miscValues[key].tag == "services") {
-        var obj = miscValues[key].fields.service;
-        arr.push(obj);
+        for (var key2 in miscValues[key].fields) {
+          if (miscValues[key].fields[key2].service_code != null) {
+            var obj = {};
+            obj.service_code = miscValues[key].fields[key2].service_code;
+            obj.payer = miscValues[key].fields[key2].payer;
+            obj.description = miscValues[key].fields[key2].description;
+            arr.push(obj);
+          }
+        }
+      }
+
+      if (miscValues[key].tag == "duties") {
+        for (var key2 in miscValues[key].fields) {
+          var obj = {};
+          obj.task_name = miscValues[key].fields[key2].task_name;
+          obj.code = miscValues[key].fields[key2].code;
+          obj.hhax_category = miscValues[key].fields[key2].hhax_category;
+          arr2.push(obj);
+        }
+      }
+
+      if (miscValues[key].tag == "visit-type") {
+        var obj = miscValues[key].fields.value;
+        arr3.push(obj);
       }
     }
     setServiceCodes(arr);
+    setDutiesList(arr2);
+    setVisitType(arr3);
 
   }, [])
 
@@ -1083,25 +1633,42 @@ function Visit() {
             <h1 style={{ textAlign: "center" }}>Create A New Visit for {memberForVisitName}</h1>
           }
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+
             <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
               <DemoContainer components={['DatePicker']}>
-                <DatePicker label="Visit Date" />
+                <DatePicker
+                  label="Visit Date"
+                  value={selectedDate}
+                  onChange={(newValue) => {
+                    setSelectedDate(newValue);
+                  }}
+                />
               </DemoContainer>
             </LocalizationProvider>
+
+
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={['TimePicker', 'TimePicker']}>
                 <TimePicker
                   label="Visit Start Time"
-                  defaultValue={dayjs('2022-04-17T15:30')}
+                  value={visitStartTime}
+                  onChange={handleVisitStartTime}
                 />
               </DemoContainer>
             </LocalizationProvider>
+
+
+
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={['TimePicker', 'TimePicker']}>
                 <TimePicker
                   label="Visit End Time"
-                  defaultValue={dayjs('2022-04-17T15:30')}
+                  value={visitEndTime}
+                  onChange={handleVisitEndTime}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -1121,7 +1688,7 @@ function Visit() {
                 onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
               >
                 {serviceCodes.map((l, i) => (
-                  <MenuItem value={l}>{l}</MenuItem>
+                  <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -1133,26 +1700,28 @@ function Visit() {
               label="Duration"
               variant="outlined"
               readOnly
+              value={duration}
+              onChange={(event) => setMemberId(event.target.value)}
             />
 
             <TextField
               className="field"
               id="outlined-basic"
+              label="Select Care Giver"
               value={careGiverForVisitName}
-            />
-            <div onClick={CareGiverIconClick} style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
-              <PersonSearchIcon />
-            </div>
-            <TextField
-              className="field"
-              id="Authorization Number"
-              label="Member ID"
-              variant="outlined"
-            />
+              InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
+            >
+              {/* <div  style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}> */}
+
+              {/* </div> */}
+            </TextField>
+
+
+
 
           </div>
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          {/* =========================To Check======================= */}
+          <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: '20px' }}>
 
 
             <FormControl style={{ width: '30%' }}>
@@ -1160,15 +1729,19 @@ function Visit() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={selectedServiceCode}
+                value={selectedVisitType}
                 label="Visit Type"
-                onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
+                onChange={(evt) => { setSelectedVisitType(evt.target.value) }}
               >
-                {serviceCodes.map((l, i) => (
+                {visitType.map((l, i) => (
                   <MenuItem value={l}>{l}</MenuItem>
                 ))}
               </Select>
             </FormControl>
+
+            {/*======================================================== */}
+
+
 
 
 
@@ -1176,7 +1749,8 @@ function Visit() {
               <DemoContainer components={['TimePicker', 'TimePicker']}>
                 <TimePicker
                   label="Schedule Start Time"
-                  defaultValue={dayjs('2022-04-17T15:30')}
+                  value={scheduleStartTime}
+                  onChange={handleScheduleStartTimeChange}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -1185,7 +1759,8 @@ function Visit() {
               <DemoContainer components={['TimePicker', 'TimePicker']}>
                 <TimePicker
                   label="Schedule End Time"
-                  defaultValue={dayjs('2022-04-17T15:30')}
+                  value={scheduleEndTime}
+                  onChange={handleScheduleEndTimeChange}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -1194,7 +1769,17 @@ function Visit() {
           {/* ======================================================== */}
 
           {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: '20px' }}>
+
+
+            <TextField
+              className="field"
+              id="Authorization Number"
+              label="Member ID"
+              variant="outlined"
+              value={memberId}
+              onChange={(event) => setMemberId(event.target.value)}
+            />
 
 
 
@@ -1202,7 +1787,9 @@ function Visit() {
               <DemoContainer components={['TimePicker', 'TimePicker']}>
                 <TimePicker
                   label="EVV Start Time"
-                  defaultValue={dayjs('2022-04-17T15:30')}
+                  value={evvStartTime}
+                  onChange={handleEvvStartTimeChange}
+
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -1211,79 +1798,64 @@ function Visit() {
               <DemoContainer components={['TimePicker', 'TimePicker']}>
                 <TimePicker
                   label="EVV End Time"
-                  defaultValue={dayjs('2022-04-17T15:30')}
+                  value={evvEndTime}
+                  onChange={handleEvvEndTimeChange}
                 />
               </DemoContainer>
             </LocalizationProvider>
-
           </div>
           {/* ======================================================== */}
 
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
-
             <TextField
               className="field"
-              id="Authorization Number"
+              id="clock-in-location-address-line-1"
               label="Clock In Service Location Address Line 1"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleClockInLocationAddressLine1Change}
+              value={clockInLocationAddressLine1}
             />
-
             <TextField
               className="field"
-              id="Authorization Number"
+              id="clock-in-location-address-line-2"
               label="Clock In Service Location Address Line 2"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleClockInLocationAddressLine2Change}
+              value={clockInLocationAddressLine2}
             />
-
-
-            {/* <TextField
-              className="field"
-              id="Authorization Number"
-              label="Clock In Service Location City"
-              variant="outlined"
-              style={{width: '400px'}}
-            /> */}
           </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
-
             <TextField
               className="field"
-              id="Authorization Number"
+              id="clock-in-location-city"
               label="Clock In Location City"
               variant="outlined"
               style={{ width: '200px' }}
+              onChange={handleClockInLocationCityChange}
+              value={clockInLocationCity}
             />
-
             <TextField
               className="field"
-              id="Authorization Number"
+              id="clock-in-location-state"
               label="Clock In Location State"
               variant="outlined"
               style={{ width: '200px' }}
+              onChange={handleClockInLocationStateChange}
+              value={clockInLocationState}
             />
-
             <TextField
               className="field"
-              id="Authorization Number"
+              id="clock-in-zip-code"
               label="Clock In Zip Code"
               variant="outlined"
               style={{ width: '200px' }}
+              onChange={handleClockInZipCodeChange}
+              value={clockInZipCode}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
@@ -1299,31 +1871,8 @@ function Visit() {
               label="Clock In Location Type"
               variant="outlined"
               style={{ width: '400px' }}
-            />
-
-            <TextField
-              className="field"
-              id="Authorization Number"
-              label="Clock In Location Address Line 1"
-              variant="outlined"
-              style={{ width: '400px' }}
-            />
-
-
-
-          </div>
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
-            <TextField
-              className="field"
-              id="Authorization Number"
-              label="Clock In Location Address Line 2"
-              variant="outlined"
-              style={{ width: '400px' }}
+              onChange={handleClockInLocationTypeChange}
+              value={clockInLocationType}
             />
 
             <TextField
@@ -1332,188 +1881,174 @@ function Visit() {
               label="Clock Out Location City"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleClockOutLocationCityChange}
+              value={clockOutLocationCity}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
-
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
-              id="Authorization Number"
+              id="clock-out-location-address-line-1"
               label="Clock Out Location Address Line 1"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockOutAddressLine1}
+              onChange={handleClockOutAddressLine1Change}
             />
-
             <TextField
               className="field"
-              id="Authorization Number"
+              id="clock-out-location-address-line-2"
               label="Clock Out Location Address Line 2"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockOutAddressLine2}
+              onChange={handleClockOutAddressLine2Change}
             />
-
-
-
           </div>
           {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="clock-out-location-state"
               label="Clock Out Location State"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockOutLocationState}
+              onChange={handleClockOutLocationStateChange}
             />
-
             <TextField
               className="field"
               id="clock-out-location-zip-code"
               label="Clock Out Location Zip Code"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockOutLocationZipCode}
+              onChange={handleClockOutLocationZipCodeChange}
             />
-
-
-
-
-
           </div>
           {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="clock-out-location-type"
               label="Clock Out Location Type"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockOutLocationType}
+              onChange={handleClockOutLocationTypeChange}
             />
-
-
             <TextField
               className="field"
               id="clock-out-location-type"
               label="Clock Out Location Type"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockOutLocationType}
+              onChange={handleClockOutLocationTypeChange}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
-            <TextField
+            {/* <TextField
               className="field"
               id="Duties"
               label="Duties"
               variant="outlined"
-              style={{ width: '400px' }}
-            />
+              style={{ width: "400px" }}
+              onChange={handleDutiesChange}
+              value={duties}
+            /> */}
 
+            <FormControl style={{ width: '30%' }}>
+              <InputLabel>Duties</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedDuty}
+                label="Duties"
+                onChange={(evt) => { setSelectedDuty(evt.target.value) }}
+              >
+                {dutiesList.map((l, i) => (
+                  <MenuItem value={l.task_name}>{l.task_name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
             <TextField
               className="field"
               id="Authorization Number"
               label="Clock In Phone Number"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              onChange={handleClockInPhoneChange}
+              value={clockInPhone}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="clock-in-latitude"
               label="Clock In Latitude"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              onChange={handleClockInLatitudeChange}
+              value={clockInLatitude}
             />
-
 
             <TextField
               className="field"
               id="clock-in-longitude"
               label="Clock In Longitude"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              onChange={handleClockInLongitudeChange}
+              value={clockInLongitude}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="clock-out-latitude"
               label="Clock Out Latitude"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              onChange={handleClockOutLatitudeChange}
+              value={clockOutLatitude}
             />
-
 
             <TextField
               className="field"
               id="clock-out-longitude"
               label="Clock Out Longitude"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              onChange={handleClockOutLongitudeChange}
+              value={clockOutLongitude}
             />
-
-
-
           </div>
+
           {/* ======================================================== */}
 
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="clock-in-evv-other-info"
               label="Clock In EVV Other Info"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockInEvvOtherInfo}
+              onChange={handleClockInEvvOtherInfoChange}
             />
-
 
             <TextField
               className="field"
@@ -1521,26 +2056,21 @@ function Visit() {
               label="Clock Out Phone Number"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockOutPhone}
+              onChange={handleClockOutPhoneChange}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="clock-out-evv-other-info"
               label="Clock Out EVV Other Info"
               variant="outlined"
               style={{ width: '400px' }}
+              value={clockOutEvvOtherInfo}
+              onChange={handleClockOutEvvOtherInfoChange}
             />
-
 
             <TextField
               className="field"
@@ -1548,26 +2078,21 @@ function Visit() {
               label="Invoice Number"
               variant="outlined"
               style={{ width: '400px' }}
+              value={invoiceNumber}
+              onChange={handleInvoiceNumberChange}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="visit-edit-reason-code"
               label="Visit Edit Reason Code"
               variant="outlined"
               style={{ width: '400px' }}
+              value={visitEditReasonCode}
+              onChange={handleVisitEditReasonCodeChange}
             />
-
 
             <TextField
               className="field"
@@ -1575,191 +2100,173 @@ function Visit() {
               label="Visit Edit Action Taken"
               variant="outlined"
               style={{ width: '400px' }}
+              value={visitEditActionTaken}
+              onChange={handleVisitEditActionTakenChange}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
+            <TextField
+              className="field"
+              id="diagnosis_code"
+              label="Diagnosis Code"
+              variant="outlined"
+              style={{ width: "400px" }}
+              value={diagnosisCode}
+              onChange={(event) => setDiagnososCode(event.target.value)}
+            />
 
             <TextField
               className="field"
               id="visit-edit-made-by"
               label="Visit Edit Made By"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={visitEditMadeBy}
+              onChange={handleVisitEditMadeByChange}
             />
-
-
           </div>
           {/* ======================================================== */}
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="notes"
               label="Notes"
               variant="outlined"
-              style={{ width: '500px' }}
+              style={{ width: "500px" }}
+              value={notes}
+              onChange={handleNotesChange}
             />
-
-
           </div>
           {/* ======================================================== */}
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="in-delition"
               label="In Deletion"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={inDeletion}
+              onChange={handleInDeletionChange}
             />
-
 
             <TextField
               className="field"
               id="invoice-line-item-id"
               label="Visit Line Item ID"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={invoiceLineItemId}
+              onChange={handleInvoiceLineItemIdChange}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
-
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="total-billed-amount"
               label="Total Billed Amount"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={totalBilledAmount}
+              onChange={handleTotalBilledAmountChange}
             />
-
 
             <TextField
               className="field"
               id="units-billed"
               label="Units Billed"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={unitsBilled}
+              onChange={handleUnitsBilledChange}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="billed-rate"
               label="Billed Rate"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleBilledRateChange}
+              value={billedRate}
             />
-
-
             <TextField
               className="field"
               id="submission-type"
               label="Submission Type"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleSubmissionTypeChange}
+              value={submissionType}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="trn-number"
               label="TRN Number"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleTrnNumberChange}
+              value={trnNumber}
             />
-
-
             <TextField
               className="field"
               id="enable-secondary-billing"
               label="Enable Secondary Billing"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleEnableSecondaryBillingChange}
+              value={enableSecondaryBilling}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="other-subscriber-id"
               label="Other Subscriber ID"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleOtherSubscriberIdChange}
+              value={otherSubscriberId}
             />
-
-
             <TextField
               className="field"
               id="primary-payer-id"
               label="Primary Payer ID"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handlePrimaryPayerIdChange}
+              value={primaryPayerId}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="primary-payer-name"
               label="Primary Payer Name"
               variant="outlined"
               style={{ width: '400px' }}
+              value={primaryPayerName}
+              onChange={handlePrimaryPayerNameChange}
             />
-
 
             <TextField
               className="field"
@@ -1767,58 +2274,90 @@ function Visit() {
               label="Relationship To Insured"
               variant="outlined"
               style={{ width: '400px' }}
+              value={relationshipToInsured}
+              onChange={handleRelationshipToInsuredChange}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
+          {/* ======================================================== */}
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="primary-payer-policy-or-group-number"
               label="Primary Payer Policy or Group Number"
               variant="outlined"
               style={{ width: '400px' }}
+              value={primaryPayerPolicy}
+              onChange={handlePrimaryPayerPolicyChange}
             />
-
           </div>
+
           {/* ======================================================== */}
 
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <TextField
+              className="field"
+              id="primary-payer-policy-or-group-number"
+              label="Visit ID"
+              variant="outlined"
+              style={{ width: '400px' }}
+              value={visitID}
+              onChange={(event) => setVisitID(event.target.value)}
+            />
 
+            <TextField
+              className="field"
+              id="primary-payer-policy-or-group-number"
+              label="Schedule ID"
+              variant="outlined"
+              style={{ width: '400px' }}
+              value={scheduleID}
+              onChange={(event) => setScheduleID(event.target.value)}
+            />
+          </div>
 
+          {/* ======================================================== */}
+
+          {/* ======================================================== */}
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <TextField
               className="field"
               id="primary-payer-program-name"
               label="Primary Payer Program Name"
               variant="outlined"
               style={{ width: '400px' }}
+              value={primaryPayerProgram}
+              onChange={handlePrimaryPayerProgramChange}
             />
 
+            <TextField
+              className="field"
+              id="notes"
+              label="Procedure Code"
+              variant="outlined"
+              style={{ width: "400px" }}
+              value={procedureCode}
+              onChange={(event) => setProcedureCode(event.target.value)}
+            />
           </div>
-          {/* ======================================================== */}
 
+          {/* ======================================================== */}
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="plan-type"
               label="Plan Type"
               variant="outlined"
               style={{ width: '400px' }}
+              value={planType}
+              onChange={handlePlanTypeChange}
             />
-
 
             <TextField
               className="field"
@@ -1826,92 +2365,77 @@ function Visit() {
               label="Total Paid Amount"
               variant="outlined"
               style={{ width: '400px' }}
+              value={totalPaidAmount}
+              onChange={handleTotalPaidAmountChange}
             />
-
-
-
           </div>
+
           {/* ======================================================== */}
 
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="total-paid-units"
               label="Total Paid Units"
               variant="outlined"
-              style={{ width: '250px' }}
+              style={{ width: "250px" }}
+              value={totalPaidUnits}
+              onChange={handleTotalPaidUnitsChange}
             />
-
-
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['TimePicker', 'TimePicker']}>
+              <DemoContainer components={["TimePicker", "TimePicker"]}>
                 <TimePicker
                   label="Paid Date"
-                  defaultValue={dayjs('2022-04-17T15:30')}
+                  value={paidDate}
+                  onChange={handlePaidDateChange}
+                  defaultValue={dayjs("2022-04-17T15:30")}
                 />
               </DemoContainer>
             </LocalizationProvider>
-
-
-
           </div>
           {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="deductible"
               label="Deductible"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={deductible}
+              onChange={handleDeductibleChange}
             />
-
-
             <TextField
               className="field"
               id="coinsurance"
               label="Coinsurance"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={coinsurance}
+              onChange={handleCoinsuranceChange}
             />
-
-
-
           </div>
           {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="copay"
               label="Copay"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={copay}
+              onChange={handleCopayChange}
             />
-
-
             <TextField
               className="field"
               id="contracted-adjustments"
               label="Contracted-adjustments"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={contractedAdjustments}
+              onChange={handleContractedAdjustmentsChange}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
@@ -1926,8 +2450,9 @@ function Visit() {
               label="Not Medically Necassary"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleNotMedicallyNecessaryChange}
+              value={notMedicallyNecessary}
             />
-
 
             <TextField
               className="field"
@@ -1935,8 +2460,9 @@ function Visit() {
               label="Non Covered Charges"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleNonCoveredChargesChange}
+              value={nonCoveredCharges}
             />
-
 
 
           </div>
@@ -1954,8 +2480,9 @@ function Visit() {
               label="Max Benefit Exhausted"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleMaxBenefitExhaustedChange}
+              value={maxBenefitExhausted}
             />
-
 
             <TextField
               className="field"
@@ -1963,8 +2490,9 @@ function Visit() {
               label="Missed Visit"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleMissedVisitChange}
+              value={missedVisit}
             />
-
 
 
           </div>
@@ -1973,6 +2501,7 @@ function Visit() {
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
 
 
             <TextField
@@ -1981,8 +2510,9 @@ function Visit() {
               label="Missed Visit Action Taken Code"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleMissedVisitActionTakenCodeChange}
+              value={missedVisitActionTakenCode}
             />
-
 
             <TextField
               className="field"
@@ -1990,8 +2520,9 @@ function Visit() {
               label="Missed Visit Reason Code"
               variant="outlined"
               style={{ width: '400px' }}
+              onChange={handleMissedVisitReasonCodeChange}
+              value={missedVisitReasonCode}
             />
-
 
 
           </div>
@@ -2001,7 +2532,6 @@ function Visit() {
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
 
             <TextField
               className="field"
@@ -2009,16 +2539,15 @@ function Visit() {
               label="Missed Visit Notes"
               variant="outlined"
               style={{ width: '400px' }}
+              value={missedVisitNotes}
+              onChange={handleMissedVisitNotesChange}
             />
 
           </div>
-          {/* ======================================================== */}
-
-
 
           {/* ======================================================== */}
+
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
 
             <TextField
               className="field"
@@ -2026,8 +2555,9 @@ function Visit() {
               label="Travel Time Request Hours"
               variant="outlined"
               style={{ width: '400px' }}
+              value={travelTimeRequestHours}
+              onChange={handleTravelTimeRequestHoursChange}
             />
-
 
             <TextField
               className="field"
@@ -2035,18 +2565,15 @@ function Visit() {
               label="Travel Time Comments"
               variant="outlined"
               style={{ width: '400px' }}
+              value={travelTimeComments}
+              onChange={handleTravelTimeCommentsChange}
             />
 
-
-
           </div>
-          {/* ======================================================== */}
-
-
 
           {/* ======================================================== */}
+
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
 
             <TextField
               className="field"
@@ -2054,8 +2581,9 @@ function Visit() {
               label="Cancel Travel Time Request"
               variant="outlined"
               style={{ width: '400px' }}
+              value={cancelTravelTimeRequest}
+              onChange={handleCancelTravelTimeRequestChange}
             />
-
 
             <TextField
               className="field"
@@ -2063,8 +2591,9 @@ function Visit() {
               label="Timesheet Required"
               variant="outlined"
               style={{ width: '400px' }}
+              value={timesheetRequired}
+              onChange={handleTimesheetRequiredChange}
             />
-
 
 
           </div>
@@ -2081,6 +2610,8 @@ function Visit() {
               label="Timesheet Approved"
               variant="outlined"
               style={{ width: '400px' }}
+              value={timesheetApproved}
+              onChange={handleTimesheetApprovedChange}
             />
 
 
@@ -2091,98 +2622,84 @@ function Visit() {
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="unit-field-1"
               label="Unit Field 1"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={unitField1}
+              onChange={handleUnitField1Change}
             />
-
 
             <TextField
               className="field"
               id="unit-field-2"
               label="Unit Field 2"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={unitField2}
+              onChange={handleUnitField2Change}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="unit-field-3"
               label="Unit Field 3"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={unitField3}
+              onChange={handleUnitField3Change}
             />
-
 
             <TextField
               className="field"
               id="unit-field-4"
               label="Unit Field 4"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={unitField4}
+              onChange={handleUnitField4Change}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
-
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="unit-field-5"
               label="Unit Field 5"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={unitField5}
+              onChange={handleUnitField5Change}
             />
-
 
             <TextField
               className="field"
               id="unit-field-6"
               label="Unit Field 6"
               variant="outlined"
-              style={{ width: '400px' }}
+              style={{ width: "400px" }}
+              value={unitField6}
+              onChange={handleUnitField6Change}
             />
-
-
-
           </div>
           {/* ======================================================== */}
 
 
           {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="unit-field-7"
               label="Unit Field 7"
               variant="outlined"
               style={{ width: '400px' }}
+              value={unitField7Value}
+              onChange={handleUnitField7Change}
             />
-
 
             <TextField
               className="field"
@@ -2190,26 +2707,21 @@ function Visit() {
               label="Unit Field 8"
               variant="outlined"
               style={{ width: '400px' }}
+              value={unitField8Value}
+              onChange={handleUnitField8Change}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="unit-field-8"
               label="Unit Field 8"
               variant="outlined"
               style={{ width: '400px' }}
+              value={unitField8Value}
+              onChange={handleUnitField8Change}
             />
-
 
             <TextField
               className="field"
@@ -2217,27 +2729,21 @@ function Visit() {
               label="Unit Field 9"
               variant="outlined"
               style={{ width: '400px' }}
+              value={unitField9Value}
+              onChange={handleUnitField9Change}
             />
-
-
-
           </div>
-          {/* ======================================================== */}
 
-
-          {/* ======================================================== */}
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
             <TextField
               className="field"
               id="unit-field-10"
               label="Unit Field 10"
               variant="outlined"
               style={{ width: '400px' }}
+              value={unitField10Value}
+              onChange={handleUnitField10Change}
             />
-
-
           </div>
           {/* ======================================================== */}
 
@@ -2253,10 +2759,121 @@ function Visit() {
 
           </div>
           <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-            <Button className="createVisitButton"> Create Visit </Button>
+            <Button className="createVisitButton"
+              onClick={() => {
+                if (selectedMemberAllData != null && selectedCareGiverAllData != null) {
+                  console.log(selectedMemberAllData)
+                  console.log(selectedCareGiverAllData)
+                  addVisit(
+                    selectedMemberAllData.FirstName,
+                    selectedMemberAllData.LastName,
+                    selectedMemberAllData.MemberID,
+                    selectedCareGiverAllData.FirstName,
+                    selectedCareGiverAllData.LastName,
+                    selectedCareGiverAllData.Gender,
+                    selectedCareGiverAllData.DateofBirth,
+                    selectedCareGiverAllData.SSN,
+
+                    scheduleID,
+                    visitID,
+                    procedureCode,
+                    diagnosisCode,
+                    scheduleStartTime,
+                    scheduleEndTime,
+                    visitStartTime,
+                    visitEndTime,
+                    evvStartTime,
+                    evvEndTime,
+
+                    clockInLocationAddressLine1,
+                    clockInLocationAddressLine2,
+                    clockInLocationCity,
+                    clockInLocationState,
+                    clockInZipCode,
+                    clockInLocationType,
+
+                    clockOutAddressLine1,
+                    clockOutAddressLine2,
+                    clockOutLocationCity,
+                    clockOutLocationState,
+                    clockOutLocationZipCode,
+                    clockOutLocationType,
+
+                    duties,
+                    clockInPhone,
+                    clockInLatitude,
+                    clockInLongitude,
+                    clockInEvvOtherInfo,
+                    clockOutPhone,
+                    clockOutLatitude,
+                    clockOutLongitude,
+                    clockOutEvvOtherInfo,
+
+                    invoiceNumber,
+                    visitEditReasonCode,
+                    visitEditActionTaken,
+                    visitEditMadeBy,
+                    notes,
+                    inDeletion,
+
+                    invoiceLineItemId,
+                    totalBilledAmount,
+                    unitsBilled,
+                    billedRate,
+                    submissionType,
+                    trnNumber,
+                    enableSecondaryBilling,
+                    otherSubscriberId,
+                    primaryPayerId,
+                    primaryPayerName,
+                    relationshipToInsured,
+
+                    primaryPayerPolicy,
+                    primaryPayerProgram,
+                    planType,
+                    totalPaidAmount,
+                    totalPaidUnits,
+                    paidDate,
+                    deductible,
+                    coinsurance,
+                    copay,
+                    contractedAdjustments,
+                    notMedicallyNecessary,
+                    nonCoveredCharges,
+                    maxBenefitExhausted,
+                    missedVisit,
+                    missedVisitReasonCode,
+                    missedVisitActionTakenCode,
+                    missedVisitNotes,
+                    travelTimeRequestHours,
+
+                    travelTimeComments,
+                    cancelTravelTimeRequest,
+                    timesheetRequired,
+                    timesheetApproved,
+
+                    unitField1,
+                    unitField2,
+                    unitField3,
+                    unitField4,
+                    unitField5,
+                    unitField6,
+                    unitField7Value,
+                    unitField8Value,
+                    unitField9Value,
+                    unitField10Value,
+                  ).then(res => {
+                    if (res.data.result == "success") {
+                    }
+                  });
+                }
+              }
+              }
+
+            > Create Visit </Button>
           </div>
         </div>
-      </div>
+      </div >
     );
   };
 
