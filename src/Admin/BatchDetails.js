@@ -12,23 +12,21 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
-import Footer from "../../Footer";
-import { DataGrid } from '@mui/x-data-grid';
-
-import { Link } from 'react-router-dom';
-//
-
-import Backdrop from '@mui/material/Backdrop';
+import Footer from "../Footer";
+import { DataGrid } from "@mui/x-data-grid";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import Backdrop from "@mui/material/Backdrop";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
-import {AuthContext} from '../../components/context'
-
 import { useNavigate } from "react-router-dom";
-//
 
-function Visit() {
-  const { signOut } = React.useContext(AuthContext);
+function BatchDetails() {
   const [age, setAge] = React.useState("");
   const navigate = useNavigate();
   const handleChange = (event) => {
@@ -69,50 +67,50 @@ function Visit() {
         break;
     }
   };
-   //
-const [open, setOpen] = React.useState(false);
-const handleClose = () => {
-  setOpen(false);
-};
-
-//
- //
- const [open2, setOpen2] = React.useState(false);
- const handleClose2 = () => {
-   setOpen2(false);
- };
- 
- //
   //
-const [open3, setOpen3] = React.useState(false);
-const handleClose3 = () => {
-  setOpen3(false);
-};
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-//
+  //
+  //
+  const [open2, setOpen2] = React.useState(false);
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
+
+  //
+  //
+  const [open3, setOpen3] = React.useState(false);
+  const handleClose3 = () => {
+    setOpen3(false);
+  };
+
+  //
 
   function Overlay() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
-     
-    >
-      <div className="overlay">
-        <CloseIcon className="crossIcon" onClick={handleClose} />
-        <h1 style={{  textAlign: "center",color:"black" }}>Set Filter from here !</h1>
-        <p
-          style={{
-            fontSize: 15,
-            fontWeight: "bold",
-            color: "#042940",
-            textAlign: "center",
-          }}
-        >
-          By Invoice
-        </p>
-        <div className="searchFieldsDiv">
-          
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <div className="overlay">
+          <CloseIcon className="crossIcon" onClick={handleClose} />
+          <h1 style={{ textAlign: "center", color: "black" }}>
+            Set Filter from here !
+          </h1>
+          <p
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+              color: "#042940",
+              textAlign: "center",
+            }}
+          >
+            By Invoice
+          </p>
+          <div className="searchFieldsDiv">
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
@@ -194,37 +192,36 @@ const handleClose3 = () => {
                 </FormControl>
               </Box>
             </Grid>
-         
+          </div>
+          <Button className="searchButton" onClick={handleCloseOverlay}>
+            Search
+          </Button>
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay}>
-          Search
-        </Button>
-      </div>
-      </ Backdrop>
+      </Backdrop>
     );
   }
   function Overlay2() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open2}
-     
-    >
-      <div className="overlay2">
-        <CloseIcon className="crossIcon" onClick={handleClose2} />
-        <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
-        <p
-          style={{
-            fontSize: 15,
-            fontWeight: "bold",
-            color: "#042940",
-            textAlign: "center",
-          }}
-        >
-          By Visit
-        </p>
-        <div className="searchFieldsDiv">
-          
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open2}
+      >
+        <div className="overlay2">
+          <CloseIcon className="crossIcon" onClick={handleClose2} />
+          <h1 style={{ textAlign: "center", color: "black" }}>
+            Set Filter from here !
+          </h1>
+          <p
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+              color: "#042940",
+              textAlign: "center",
+            }}
+          >
+            By Visit
+          </p>
+          <div className="searchFieldsDiv">
             <Grid className="griditem">
               <TextField
                 id="outlined-basic"
@@ -316,12 +313,11 @@ const handleClose3 = () => {
                 </FormControl>
               </Box>
             </Grid>
-        
+          </div>
+          <Button className="searchButton" onClick={handleCloseOverlay2}>
+            Search
+          </Button>
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay2}>
-          Search
-        </Button>
-      </div>
       </Backdrop>
     );
   }
@@ -329,25 +325,25 @@ const handleClose3 = () => {
   function Overlay3() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open3}
-     
-    >
-      <div className="overlay2">
-        <CloseIcon className="crossIcon" onClick={handleClose3} />
-        <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
-        <p
-          style={{
-            fontSize: 15,
-            fontWeight: "bold",
-            color: "#042940",
-            textAlign: "center",
-          }}
-        >
-          By Batch
-        </p>
-        <div className="searchFieldsDiv">
-          
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open3}
+      >
+        <div className="overlay2">
+          <CloseIcon className="crossIcon" onClick={handleClose3} />
+          <h1 style={{ textAlign: "center", color: "black" }}>
+            Set Filter from here !
+          </h1>
+          <p
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+              color: "#042940",
+              textAlign: "center",
+            }}
+          >
+            By Batch
+          </p>
+          <div className="searchFieldsDiv">
             <Grid className="griditem">
               <TextField
                 id="outlined-basic"
@@ -435,390 +431,340 @@ const handleClose3 = () => {
                 </FormControl>
               </Box>
             </Grid>
-         
+          </div>
+          <Button className="searchButton" onClick={handleCloseOverlay3}>
+            Search
+          </Button>
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay3}>
-          Search
-        </Button>
-      </div>
       </Backdrop>
     );
   }
   //
 
-  const VisitSearchPressed = () => {
-    setViewSelected(2);
-  };
-  const VisitQuickSearchPressed = () => {
+  const VisitHistoryPressed = () => {
     setViewSelected(3);
   };
+ 
 
-  const ByBatchPressed = () => {
-    setViewSelected(4);
+  const CareGiverInfoPressed = () => {
+    setViewSelected(2);
   };
 
   function RenderViews() {
     switch (ViewSelected) {
       case 2:
-        return ByInvoiceView();
-
+        return BatchInfoView();
       case 3:
-        return ByVisitView();
-      case 4:
-        return ByBatchView();
+        return InvoicesView();
 
       default:
         break;
     }
   }
- 
-
-  //
-  const ByBatchView = () => {
+  const InvoicesView = () => {
     return (
-      <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows1}
-        columns={columns1}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
+      <div style={{ height: "100%", width: "100%" }}>
+        <DataGrid
+          rows={rows3}
+          columns={columns3}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
     );
   };
-  //
-  // ByBatchView
-  const columns1 = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    { 
-      field: 'batchNumber', 
-      headerName: 'Batch Number', 
-      width: 120, 
-      renderCell: (params) => (
-        <Link to="/BatchDetails" state={{ from: "occupation" }}
-        >
-          {params.value}
-        </Link>
-      )
-    },
-    { field: 'ProviderName', headerName: 'Provider Name', width: 110 },
-    { field: 'BatchDate', headerName: 'Batch Date', width: 110 },
-    { field: 'Invoice', headerName: 'Invoice #', width: 110 },
-    { field: 'aRExportDate', headerName: 'AR Export Date', width: 155 },
-    { field: 'billingExportToDate', headerName: 'Billing Export  Date', width: 155 },
-    { field: 'status', headerName: 'Status', width: 120 },
-    { field: 'totalHours', headerName: 'Total Hours', width: 125 },
-    //
-    { field: 'TotalAmount', headerName: 'Total Amount', width: 155 },
-    { field: 'providerExport', headerName: 'Provider Export', width: 120 },
-    { field: 'mco', headerName: 'MCO', width: 125 },
-  ];
-  
-  const rows1 = [
-    {id:1,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:2,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:3,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:4,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:5,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:6,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:7,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:8,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:9,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-    {id:10,batchNumber:"4578",ProviderName:"Jenifer",BatchDate:"Awston",Invoice:"02548965478",aRExportDate:"Active",billingExportToDate:"Adam Fernandez",status:"Delta",
-    totalHours:"Delta",TotalAmount:"value",providerExport:"value",mco:"value"},
-
-   
-  ];
-  const ByInvoiceView = () => {
-    return (
-      <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows3}
-        columns={columns3}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
-    );
-  };
-  // ByInvoiceView
+  //MissedOutView columns and demo data
   const columns3 = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'invoiceNumber', headerName: 'Invoice Number', width: 120 },
-    { 
-      field: 'batchNumber', 
-      headerName: 'Batch Number', 
-      width: 120, 
-      renderCell: (params) => (
-        <Link to="/BatchDetails" state={{ from: "occupation" }}
-        >
-          {params.value}
-        </Link>
-      )
-    },
-    { field: 'visitfrom', headerName: 'Visit From', width: 110 },
-    { field: 'visitTo', headerName: 'Visit To', width: 110 },
-   {
-      field: 'admissionId',
-      headerName: 'Admission ID',
-      width: 130,
-      renderCell: (params) => (
-        <Link to="/MemberDetails" state={{ from: "occupation" }}
-        >
-          {params.value}
-        </Link>
-      )
+    { field: "id", headerName: "ID", width: 50 },
+    { field: "InvoiceNumber", headerName: "Invoice Number", width: 150 },
+    { field: "BatchNumber", headerName: "Batch Number", width: 150 },
+    { field: "VisitFrom", headerName: "Visit From", width: 150 },
+    { field: "VisitTo", headerName: "Visit To", width: 100 },
+    { field: "AdmissionID", headerName: "Admission ID", width: 150 },
+    { field: "MemberName", headerName: "Member Name", width: 150 },
+
+    { field: "Address", headerName: "Address", width: 150 },
+    { field: "TotalHours", headerName: "Total Hours", width: 100 },
+    { field: "TotalAmount", headerName: "Total Amount", width: 150 },
+    { field: "MCO", headerName: "MCO", width: 150 },
+  ];
+  //demo data to display
+  const rows3 = [
+    {
+      id: 1,
+      InvoiceNumber: "Justin",
+      BatchNumber: "Alo",
+      VisitFrom: "02457894561",
+      VisitTo: "XOXO",
+      AdmissionID: "XZXZ",
+      MemberName: "1123456",
+      Address: "Justin",
+      TotalHours: "Alo",
+      TotalAmount: "02457894561",
+      MCO: "XOXO",
+     
     },
     {
-      field: 'memberName',
-      headerName: 'Member Name',
-      width: 130,
-      renderCell: (params) => (
-        <Link to="/MemberDetails" state={{ from: "occupation" }}
-        >
-          {params.value}
-        </Link>
-      )
-    },
-
-    { field: 'address', headerName: 'address', width: 120 },
-    { field: 'totalHours', headerName: 'Total Hours', width: 120 },
-    { field: 'TotalAmount', headerName: 'Total Amount', width: 155 },
-    { field: 'mco', headerName: 'MCO', width: 155 },
-    { field: 'office', headerName: 'Office', width: 125 },
-    { field: 'ReBilled', headerName: 'Re-Billed', width: 120 },
+        id: 2,
+        InvoiceNumber: "Justin",
+        BatchNumber: "Alo",
+        VisitFrom: "02457894561",
+        VisitTo: "XOXO",
+        AdmissionID: "XZXZ",
+        MemberName: "1123456",
+        Address: "Justin",
+        TotalHours: "Alo",
+        TotalAmount: "02457894561",
+        MCO: "XOXO",
+       
+      },
+      {
+        id: 3,
+        InvoiceNumber: "Justin",
+        BatchNumber: "Alo",
+        VisitFrom: "02457894561",
+        VisitTo: "XOXO",
+        AdmissionID: "XZXZ",
+        MemberName: "1123456",
+        Address: "Justin",
+        TotalHours: "Alo",
+        TotalAmount: "02457894561",
+        MCO: "XOXO",
+       
+      },
+      {
+        id: 4,
+        InvoiceNumber: "Justin",
+        BatchNumber: "Alo",
+        VisitFrom: "02457894561",
+        VisitTo: "XOXO",
+        AdmissionID: "XZXZ",
+        MemberName: "1123456",
+        Address: "Justin",
+        TotalHours: "Alo",
+        TotalAmount: "02457894561",
+        MCO: "XOXO",
+       
+      },
+      {
+        id: 5,
+        InvoiceNumber: "Justin",
+        BatchNumber: "Alo",
+        VisitFrom: "02457894561",
+        VisitTo: "XOXO",
+        AdmissionID: "XZXZ",
+        MemberName: "1123456",
+        Address: "Justin",
+        TotalHours: "Alo",
+        TotalAmount: "02457894561",
+        MCO: "XOXO",
+       
+      },
+      {
+        id: 6,
+        InvoiceNumber: "Justin",
+        BatchNumber: "Alo",
+        VisitFrom: "02457894561",
+        VisitTo: "XOXO",
+        AdmissionID: "XZXZ",
+        MemberName: "1123456",
+        Address: "Justin",
+        TotalHours: "Alo",
+        TotalAmount: "02457894561",
+        MCO: "XOXO",
+       
+      },
+      {
+        id: 7,
+        InvoiceNumber: "Justin",
+        BatchNumber: "Alo",
+        VisitFrom: "02457894561",
+        VisitTo: "XOXO",
+        AdmissionID: "XZXZ",
+        MemberName: "1123456",
+        Address: "Justin",
+        TotalHours: "Alo",
+        TotalAmount: "02457894561",
+        MCO: "XOXO",
+       
+      },
    
   ];
   
-  const rows3 = [
-    {id:1,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    {id:2,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    {id:3,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    {id:4,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    {id:5,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    {id:6,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    {id:7,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    {id:8,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    {id:9,invoiceNumber:"4578",batchNumber:"Jenifer",visitfrom:"Awston",admissionId:"02548965478",memberName:"Active",address:"Adam Fernandez",totalHours:"Delta",
-    TotalAmount:"Delta",mco:"value",office:"value",ReBilled:"value"},
-    
-    
+  
 
-   
-  ];
-  const ByVisitView = () => {
+  
+
+  const BatchInfoView = () => {
     return (
-      <div>
-      <div style={{ height: "550px", width: '100%' }}>
-      <DataGrid
-        rows={rows4}
-        columns={columns4}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
-    </div>
+      <div style={{overflow:"auto",width:"100%",height:"100%"}}>
+        <h1 style={{ color: "grey", textAlign: "center" }}>
+          {" "}
+          Batch Information
+        </h1>
+        <div className="datafieldHolder">
+        <h2 className="infodisplay2">
+           Batch Number: <span style={{ color: "#564873" }}>110245</span>
+          </h2>
+          <h2 className="infodisplay2">
+           Batch Date :{" "}
+            <span style={{ color: "#564873" }}>21 Jul 2023</span>{" "}
+          </h2> 
+
+          <h2 className="infodisplay2">
+           Export Date :{" "}
+            <span style={{ color: "#564873" }}>21 Jul 2023</span>{" "}
+          </h2> 
+          
+          </div>
+          <div className="datafieldHolder">
+        <h2 className="infodisplay2">
+           Invioce Count: <span style={{ color: "#564873" }}>11</span>
+          </h2>
+          <h2 className="infodisplay2">
+           Total Amount :{" "}
+            <span style={{ color: "#564873" }}>$ 559.23</span>{" "}
+          </h2>
+          <h2 className="infodisplay2">
+           Total Hours :{" "}
+            <span style={{ color: "#564873" }}>26</span>{" "}
+          </h2>
+          
+          </div>
+          <div className="datafieldHolder">
+        <h2 className="infodisplay2">
+           Total OT Hours: <span style={{ color: "#564873" }}>11</span>
+          </h2>
+          <h2 className="infodisplay2">
+           Total TT Hours :{" "}
+            <span style={{ color: "#564873" }}>22</span>{" "}
+          </h2>
+          <h2 className="infodisplay2">
+           Total Visit Hours :{" "}
+            <span style={{ color: "#564873" }}>26</span>{" "}
+          </h2>
+          
+          </div>
+          <div className="datafieldHolder">
+        <h2 className="infodisplay2">
+           Provider: <span style={{ color: "#564873" }}>Empire HomeCare</span>
+          </h2>
+          <h2 className="infodisplay2">
+           Status :{" "}
+            <span style={{ color: "#564873" }}>Billed</span>{" "}
+          </h2>
+          <h2 className="infodisplay2">
+           Provider Export :{" "}
+            <span style={{ color: "#564873" }}>Export</span>{" "}
+          </h2>
+          
+          </div>
+       
+       
+       
+          
+          
+          <div style={{display:"flex",justifyContent:"center"}}>
+          <Button  className="EditButton" variant="outlined">
+          Back
+        </Button>
+        </div>
+          
+      </div>
     );
   };
-   // ByVisitView
-   const columns4 = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'Invoice', headerName: 'Invoice #', width: 120 },
-    { 
-      field: 'BatchNumber', 
-      headerName: 'Batch Number', 
-      width: 120, 
-      renderCell: (params) => (
-        <Link to="/BatchDetails" state={{ from: "occupation" }}
-        >
-          {params.value}
-        </Link>
-      )
-    },
-    { field: 'VisitDate', headerName: 'Visit Date', width: 125 },
-    {
-      field: 'AdmissionID',
-      headerName: 'Admission ID',
-      width: 130,
-      renderCell: (params) => (
-        <Link to="/MemberDetails" state={{ from: "occupation" }}
-        >
-          {params.value}
-        </Link>
-      )
-    },
-   
-    {
-      field: 'MemberName',
-      headerName: 'Member Name',
-      width: 130,
-      renderCell: (params) => (
-        <Link to="/MemberDetails" state={{ from: "occupation" }}
-        >
-          {params.value}
-        </Link>
-      )
-    },
-    { 
-      field: 'CaregiverName', 
-      headerName: 'Caregiver Name', 
-      width: 120, 
-      renderCell: (params) => (
-        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
-        >
-          {params.value}
-        </Link>
-      )
-    },
-    { field: 'Visit', headerName: 'Visit', width: 125 },
-    { field: 'VisitHrs', headerName: 'Visit Hrs', width: 125 },
 
-    { field: 'VisitRate', headerName: 'Visit Rate', width: 125 },
-    { field: 'TTHrs', headerName: 'TT Hrs', width: 125 },
-    { field: 'TTRate', headerName: 'TT Rate', width: 125 },
-    { field: 'OTHrs', headerName: 'OT Hrs', width: 125 },
+  const [state, setState] = React.useState({
+    left: false,
+  });
 
-    { field: 'CTRate', headerName: 'OT Rate', width: 125 },
-    { field: 'Amount', headerName: 'Amount', width: 125 },
-    { field: 'MCO', headerName: 'MCO', width: 125 },
-    { field: 'ExportStatus', headerName: 'Export Status', width: 125 },
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
 
-    { field: 'TRN', headerName: 'TRN', width: 125 },
-    { field: 'BillingHold', headerName: 'Billing Hold', width: 125 },
-    { field: 'claimStatus', headerName: 'Claim Status', width: 125 },
-   
-  ];
-  
-  const rows4 = [
-    {id:1,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-    {id:2,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-     
-    {id:3,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-     
-    {id:4,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-     
-    {id:5,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-     
-    {id:6,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-     
-    {id:7,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-     
-    {id:8,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-     
-    {id:9,Invoice:"4578",BatchNumber:"Jenifer",VisitDate:"Awston",AdmissionID:"02548965478",MemberName:"Active",CaregiverName:"Adam Fernandez",Visit:"Delta",VisitHrs:"Delta"
-    ,VisitRate:"Delta",TTHrs:"Delta",TTRate:"Delta",OTHrs:"Delta",CTRate:"Delta",Amount:"Delta",MCO:"Delta",ExportStatus:"Delta",TRN:"Delta",BillingHold:"Delta",claimStatus:"Delta"},
-     
-  ];
- //
- const [state, setState] = React.useState({
-  left: false,
-});
+    setState({ ...state, [anchor]: open });
+  };
 
-const toggleDrawer = (anchor, open) => (event) => {
-  if (
-    event.type === "keydown" &&
-    (event.key === "Tab" || event.key === "Shift")
-  ) {
-    return;
-  }
-
-  setState({ ...state, [anchor]: open });
-};
-
-const list = (anchor) => (
-  <div  style={{
-    height: "100vh",
-    backgroundColor: "#2E0F59",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  }}>
-  <Box
-    sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-    role="presentation"
-    onClick={toggleDrawer(anchor, false)}
-    onKeyDown={toggleDrawer(anchor, false)}
-  >
+  const list = (anchor) => (
     <div
       style={{
+        height: "100vh",
         backgroundColor: "#2E0F59",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        height: "680px",
       }}
     >
-      <p
-        className="Files"
-        style={{
-          fontSize: "20px",
-          color: "#F2B90F",
-          fontWeight: "bold",
-        }}
+      <Box
+        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
       >
-        Files
-      </p>
-      <hr
-        className="line"
-        style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
-      />
+        <div
+          style={{
+            backgroundColor: "#2E0F59",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            height: "680px",
+          }}
+        >
+          <p
+            className="Files"
+            style={{
+              fontSize: "20px",
+              color: "#F2B90F",
+              fontWeight: "bold",
+            }}
+          >
+            Files
+          </p>
+          <hr
+            className="line"
+            style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
+          />
 
-      <h3  onClick={ByBatchPressed} style={{ color: "#F2B90F" }}>By Batch</h3>
-      <h3 onClick={VisitSearchPressed} style={{ color: "#F2B90F" }}>By Invoice</h3>
-      <h3  onClick={VisitQuickSearchPressed}  style={{ color: "#F2B90F" }}>By Visit</h3>
+          <h3 onClick={CareGiverInfoPressed} style={{ color: "#F2B90F" }}>
+            Batch Details
+          </h3>
+
+          <h3 onClick={VisitHistoryPressed} style={{ color: "#F2B90F" }}>
+            Invoice
+          </h3>
+        </div>
+      </Box>
     </div>
-  </Box>
-  </div>
-);
-//
-function GoBackButtonPressed(){
-  navigate("/Billing");
-
-}
+  );
+  //
+  function GoBackButtonPressed() {
+    navigate("/AdminHome");
+  }
   return (
     <Wrapper>
       <div className="Header">
-      <MenuIcon
+        <MenuIcon
           className="menuIcon"
           onClick={toggleDrawer("left", true)}
           anchor={"left"}
           open={state["left"]}
           onClose={toggleDrawer("left", false)}
         ></MenuIcon>
-        <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() =>navigate("/AdminHome")}/>
-       
-        <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
+        <img
+          className="headerImage"
+          src="./EmpireHomeCareLogo.png"
+          onClick={() => navigate("/AdminHome")}
+        />
+
+        <Button className="LogOutbutton" variant="outlined">
           Log Out
         </Button>
-        <LogoutIcon className="LogoutIcon" onClick={signOut}></LogoutIcon>
+        <LogoutIcon className="LogoutIcon"></LogoutIcon>
       </div>
       <div style={{ display: "none" }}>
         {["left"].map((anchor) => (
@@ -870,7 +816,7 @@ function GoBackButtonPressed(){
             <Button
               className="navigationButton"
               onClick={() => {
-                ByBatchPressed();
+                CareGiverInfoPressed();
               }}
             >
               <p
@@ -880,25 +826,24 @@ function GoBackButtonPressed(){
                   fontWeight: "bold",
                 }}
               >
-                By Batch
-              </p>
-            </Button>
-            <Button onClick={VisitSearchPressed} className="navigationButton">
-              <p
-                style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
-              >
-                By Invoice
+                Batch Details
               </p>
             </Button>
 
             <Button
-              onClick={VisitQuickSearchPressed}
               className="navigationButton"
+              onClick={() => {
+                VisitHistoryPressed();
+              }}
             >
               <p
-                style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
+                style={{
+                  fontSize: "15px",
+                  color: "white",
+                  fontWeight: "bold",
+                }}
               >
-                By Visit
+                Invoices
               </p>
             </Button>
           </div>
@@ -913,24 +858,62 @@ function GoBackButtonPressed(){
         </Card>
       </div>
       <div className="GoBackButtonHolder">
-      <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
+        <Button
+          className="GoBackButton"
+          variant="outlined"
+          onClick={GoBackButtonPressed}
+        >
+          Go Back
+        </Button>
       </div>
 
       <Footer />
     </Wrapper>
   );
 }
-export default Visit;
+export default BatchDetails;
 
 const Wrapper = styled.section`
   height: 100%;
   width: 100%;
+
+  .EditButton{
+    background-color: #564873;
+   
+    font-weight:bold;
+    width:15%;
+    color:white;
+  }
+  .EditButton:hover {
+    color:black;
+  }
+.infodisplay{
+
+    color: grey;
+    margin: 1%; 
+    text-align: center;
+    width:33.33%
+
+}
+.infodisplay2{
+    color: grey;
+    margin: 1%; 
+    text-align: center;
+    width:50%
+}
+  .datafieldHolder{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+  }
+  
   .GoBackButtonHolder{
     display:flex;
     justify-content:center;
     margin-top:0;
     margin-bottom:3%;
   }
+
   .GoBackButton{
     background-color: #f26e22;
     color: white;
@@ -1001,6 +984,18 @@ const Wrapper = styled.section`
     z-index: 1000;
     background-color: white;
     padding: 1%;
+  }
+  .overlayTime{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 85%;
+    z-index: 1000;
+    background-color: white;
+    padding: 1%;
+    overflow:auto;
   }
   .overlay2 {
     position: fixed;

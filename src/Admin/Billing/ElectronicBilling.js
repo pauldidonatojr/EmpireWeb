@@ -349,7 +349,17 @@ const handleClose2 = () => {
   // // SubmitView
   const columns2 = [
     { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'batchNumber', headerName: 'Batch Number', width: 250 },
+    { 
+      field: 'batchNumber', 
+      headerName: 'Batch Number', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/BatchDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
     {
       field: 'MemberName',
       headerName: 'Member Name',
@@ -430,7 +440,17 @@ const handleClose2 = () => {
   // BatchSearchView
   const columns4 = [
     { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'batchNumber', headerName: 'Batch Number', width: 175 },
+    { 
+      field: 'batchNumber', 
+      headerName: 'Batch Number', 
+      width: 120, 
+      renderCell: (params) => (
+        <Link to="/BatchDetails" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
     { field: 'mco', headerName: 'MCO', width: 175 },
     { field: 'claimType', headerName: 'Claim Type', width: 175 },
     {
