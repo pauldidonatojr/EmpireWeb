@@ -593,13 +593,13 @@ function CareGiver() {
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
     { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'city', headerName: 'City', width: 100 },
-    { field: 'phone', headerName: 'Phone', width: 150 },
     { field: 'CoCode', headerName: 'Care Giver Code', width: 120 },
-    { field: 'Ethnicity', headerName: 'Ethnicity', width: 140 },
+    { field: 'AltCaregiverCode', headerName: 'Alt Caregiver Code', width: 150 },
     { field: 'SSN', headerName: 'SSN', width: 150 },
+    { field: 'ProviderName', headerName: 'Provider Name', width: 150 },
+    { field: 'DOB', headerName: 'Date of Birth', width: 150 },
+    { field: 'phone', headerName: 'Phone', width: 150 },
     { field: 'status', headerName: 'Status', width: 100 },
-    { field: 'EmployeeID', headerName: 'Employee ID', width: 200 },
     { field: 'Discipline', headerName: 'Discipline', width: 100 },
 
   ];

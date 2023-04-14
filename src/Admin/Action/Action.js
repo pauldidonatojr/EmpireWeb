@@ -241,11 +241,12 @@ const [open, setOpen] = React.useState(false);
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
     { field: "mco", headerName: "MCO", width: 150 },
-    { field: "messageType", headerName: "Message Type", width: 200 },
-    { field: "status", headerName: "Status", width: 150 },
+    
+    { field: "CreatedDate", headerName: "Created Date", width: 150 },
     { field: "reason", headerName: "Reason", width: 150 },
-    { field: "fromDate", headerName: "From Date", width: 150 },
-    { field: "tillDate", headerName: "Till Date", width: 150 },
+    { field: "Note", headerName: "Note", width: 200 },
+    { field: "status", headerName: "Status", width: 150 },
+  
   ];
   //demo data to display
   const rows = [

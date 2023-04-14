@@ -539,8 +539,8 @@ function Homepage() {
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     {
-      field: 'Name',
-      headerName: 'Name',
+      field: 'MemberID',
+      headerName: 'Member ID',
       width: 130,
       renderCell: (params) => (
         <Link to="/MemberDetails" state={{ from: "occupation" }}
@@ -549,15 +549,15 @@ function Homepage() {
         </Link>
       )
     },
-    { field: 'Gender', headerName: 'Gender', width: 100 },
-    { field: 'MCOName', headerName: 'MCO Name', width: 200 },
-    { field: 'Discipline', headerName: 'discipline', width: 150 },
-    { field: 'FirstDayofService', headerName: 'Joining Date', width: 150 },
-    { field: 'Location', headerName: 'Location', width: 250 },
-    { field: 'Status', headerName: 'Status', width: 100 },
-    { field: 'AdmissionID', headerName: 'Admission ID', width: 150 },
-    { field: 'SSN', headerName: 'SSN', width: 150 },
-    { field: 'Phone', headerName: 'Phone', width: 150 },
+    { field: 'AdmissionID', headerName: 'Admission ID', width: 100 },
+    { field: 'MemberName', headerName: 'Member Name', width: 200 },
+    { field: 'Cordinator', headerName: 'Member Team', width: 150 },
+    { field: 'StartofCareDate', headerName: 'Start of Care Date', width: 150 },
+    { field: 'Status', headerName: 'Status', width: 250 },
+    { field: 'PhoneNumber', headerName: 'Phone Number', width: 100 },
+    { field: 'DOB', headerName: 'DOB', width: 150 },
+    { field: 'MCO', headerName: 'MCO', width: 150 },
+    { field: 'Office', headerName: 'Office', width: 150 },
 
   ];
 

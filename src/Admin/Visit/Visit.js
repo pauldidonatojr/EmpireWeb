@@ -1390,20 +1390,25 @@ function Visit() {
   // VisitSearchView
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'firstName', headerName: 'First Name', width: 100 },
-    { field: 'lastName', headerName: 'Last Name', width: 100 },
+    { field: 'MCOName', headerName: 'MCO Name', width: 100 },
+    { field: 'cordinator', headerName: 'Cordinator', width: 100 },
+    { field: 'admissionID', headerName: 'Admission ID', width: 100 },
+    { field: 'memberName', headerName: 'Member Name', width: 150 },
+    { field: 'memberTeam', headerName: 'Member Team', width: 150 },
+    { field: 'CaregiverName', headerName: 'Caregiver Name', width: 100 },
     { field: 'caregiverCode', headerName: 'CareGiver Code', width: 150 },
     { field: 'assigmentID', headerName: 'Assigment ID', width: 100 },
-    { field: 'admissionID', headerName: 'Admission ID', width: 100 },
-    { field: 'memberFirstName', headerName: 'Member First Name', width: 150 },
-    { field: 'memberLastName', headerName: 'Member Last Name', width: 150 },
-    { field: 'cordinator', headerName: 'Cordinator', width: 100 },
-    { field: 'status', headerName: 'Status', width: 100 },
-    { field: 'memberTeam', headerName: 'Member Team', width: 150 },
-    { field: 'memberLocation', headerName: 'Member Location', width: 150 },
-    { field: 'memberBranch', headerName: 'Member Branch', width: 150 },
-    { field: 'fromDate', headerName: 'From Date', width: 100 },
-    { field: 'tillDate', headerName: 'Till Date', width: 100 },
+    { field: 'VisitDate', headerName: 'Visit Date', width: 100 },
+    
+    { field: 'Schedule', headerName: 'Schedule', width: 150 },
+   
+    { field: 'Visit', headerName: 'Visit', width: 100 },
+   
+    { field: 'I', headerName: 'I', width: 50 },
+    { field: 'O', headerName: 'O', width: 50 },
+    { field: 'Billed', headerName: 'Billed', width: 50 },
+    
+   
 
     {
       field: 'Edit',

@@ -1092,15 +1092,27 @@ function Overlay6() {
   //Visit Log View columns and demo data
   const columns5 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'firstName', headerName: 'First Name', width: 100 }, 
-    { field: 'lastName', headerName: 'Last Name', width: 100 },
+    { field: 'ScheduledDate', headerName: 'Scheduled Date', width: 120 }, 
+    { field: 'admissionID', headerName: 'Admission ID', width: 100 },
+    { field: 'Member Name', headerName: 'Member Name', width: 100 },
     { field: 'careGiverCode', headerName: 'CareGiver Code', width: 130 },
     { field: 'careGiverName', headerName: 'CareGiver Name', width: 130 },
     { field: 'assigmentID', headerName: 'Assigment ID', width: 100 },
-    { field: 'admissionID', headerName: 'Admission ID', width: 100 },
-    { field: 'cordinator', headerName: 'Cordinator', width: 100 },
-    { field: 'fromDate', headerName: 'From Date', width: 100 },
-    { field: 'tillDate', headerName: 'Till Date', width: 150 },
+    
+    { field: 'Schedule', headerName: 'Schedule', width: 100 },
+    { field: 'Visit', headerName: 'Visit', width: 100 },
+    { field: 'SvcCode', headerName: 'Svc.Code', width: 150 },
+   
+
+
+    { field: 'CallIn', headerName: 'Call In', width: 100 },
+    { field: 'CallOut', headerName: 'Call Out', width: 130 },
+    { field: 'Billed', headerName: 'Billed', width: 130 },
+    { field: 'Duties', headerName: 'Duties', width: 100 },
+    
+    { field: 'MemberTeam', headerName: 'Member Team', width: 120 },
+    { field: 'edit', headerName: 'Edit', width: 100 },
+    { field: 'Delete', headerName: 'Delete', width: 150 },
    
   ];
   //demo data to display
@@ -1269,13 +1281,17 @@ function Overlay6() {
   //MissedInView columns and demo data
   const columns2 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'careGiverName', headerName: 'Care Giver Name', width: 150 }, 
-    { field: 'admissionID', headerName: 'Admission ID', width: 150 },
+    { field: 'AssignID', headerName: 'Assign ID', width: 150 }, 
     { field: 'memberName', headerName: 'Member Name', width: 150 },
-    { field: 'mco', headerName: 'MCO', width: 100 },
+    { field: 'Phone', headerName: 'Phone', width: 150 },
+    { field: 'AdmID', headerName: 'Adm.ID', width: 150 },
+    { field: 'Caregiver Name', headerName: 'Caregiver Name', width: 150 },
+    { field: 'VisitDate', headerName: 'Visit Date', width: 100 },
     { field: 'cordinator', headerName: 'Cordinator', width: 150 },
-    { field: 'teamMember', headerName: 'Team Member', width: 150 },
-    { field: 'assigmentID', headerName: 'Assigment ID', width: 150 },
+    { field: 'Schedule', headerName: 'Schedule', width: 150 },
+    { field: 'MCO', headerName: 'MCO', width: 150 },
+    { field: 'MemberTeam', headerName: 'Member Team', width: 150 },
+    
     
   ];
   //demo data to display
