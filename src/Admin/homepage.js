@@ -508,8 +508,6 @@ function Homepage() {
 
   const handleRowClick = (params) => {
     const rowId = params.row.id;
-    console.log("Member Clicked" + rowId + "Open 5 is" + open5);
-
     setOpen5(true);
 
 
@@ -517,7 +515,6 @@ function Homepage() {
   const [open5, setOpen5] = React.useState(false);
   const handleClose5 = () => {
     setOpen5(false);
-    console.log("I am in handle close")
   };
   const MembersView = () => {
 
@@ -564,9 +561,6 @@ function Homepage() {
   return (
     <Wrapper>
       <ToastContainer />
-
-
-      {console.log("Open 5 is" + open5)}
 
       {open5 && <OverlayCustom handleClose5={handleClose5} />}
 
