@@ -333,8 +333,10 @@ const handleClose = () => {
   //SearchCareGiverView
   const columns2 = [
     { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'status', headerName: 'Status', width: 200 }
+    { field: 'Number', headerName: 'Number', width: 200 },
+    { field: 'CordinatorName', headerName: 'Cordinator Name', width: 200 },
+    { field: 'status', headerName: 'Status', width: 200 },
+    { field: 'Edit', headerName: 'Edit', width: 200 },
 
   ];
 

@@ -367,18 +367,32 @@ function CareGiver() {
   //SearchCareGiverView
   const columns2 = [
     { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'LoginName', headerName: 'Login Name', width: 200 },
     { field: 'FirstName', headerName: 'First Name', width: 200 },
     { field: 'LastName', headerName: 'Last Name', width: 200 },
-    { field: 'LoginName', headerName: 'Login Name', width: 200 },
+    { field: 'Email', headerName: 'Email', width: 200 },
+    { field: 'RoleName', headerName: 'Role Name', width: 200 },
     { field: 'MemberTeam', headerName: 'Member Team', width: 200 },
+    { field: 'Status', headerName: 'Status', width: 200 },
+    { field: 'Edit', headerName: 'Edit', width: 200 },
    
   ];
   
   const rows2 = [
-    {id:1,FirstName:"4578",LastName:"Jenifer",LoginName:"Awston",MemberTeam:"Awston"},
-    {id:2,FirstName:"4578",LastName:"Jenifer",LoginName:"Awston",MemberTeam:"Awston"},
-    {id:3,FirstName:"4578",LastName:"Jenifer",LoginName:"Awston",MemberTeam:"Awston"},
-    {id:4,FirstName:"4578",LastName:"Jenifer",LoginName:"Awston",MemberTeam:"Awston"},
+    {id:1,LoginName:"4578",FirstName:"Jenifer",LastName:"Awston",Email:"Awston",
+    RoleName:"Jenifer",MemberTeam:"Awston",Status:"Awston",Edit:"Edit"},
+    {id:2,LoginName:"4578",FirstName:"Jenifer",LastName:"Awston",Email:"Awston",
+    RoleName:"Jenifer",MemberTeam:"Awston",Status:"Awston",Edit:"Edit"},
+    {id:3,LoginName:"4578",FirstName:"Jenifer",LastName:"Awston",Email:"Awston",
+    RoleName:"Jenifer",MemberTeam:"Awston",Status:"Awston",Edit:"Edit"},
+    {id:4,LoginName:"4578",FirstName:"Jenifer",LastName:"Awston",Email:"Awston",
+    RoleName:"Jenifer",MemberTeam:"Awston",Status:"Awston",Edit:"Edit"},
+    {id:5,LoginName:"4578",FirstName:"Jenifer",LastName:"Awston",Email:"Awston",
+    RoleName:"Jenifer",MemberTeam:"Awston",Status:"Awston",Edit:"Edit"},
+    {id:6,LoginName:"4578",FirstName:"Jenifer",LastName:"Awston",Email:"Awston",
+    RoleName:"Jenifer",MemberTeam:"Awston",Status:"Awston",Edit:"Edit"},
+    {id:7,LoginName:"4578",FirstName:"Jenifer",LastName:"Awston",Email:"Awston",
+    RoleName:"Jenifer",MemberTeam:"Awston",Status:"Awston",Edit:"Edit"},
    
     
   ];

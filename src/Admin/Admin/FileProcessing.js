@@ -387,12 +387,19 @@ function Overlay4() {
    //RemitanceView
    const columns2 = [
     { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'FileType', headerName: 'File Type', width: 150 },
-    { field: 'mco', headerName: 'MCO', width: 150 },
-    { field: 'ProcessedDate', headerName: 'Processed Date', width: 150 },
-    { field: 'BatchInvoice', headerName: 'Batch Invoice', width: 150 },
+    { field: 'MCO', headerName: 'MCO', width: 150 },
+    { field: 'CheckNumber', headerName: 'Check Number', width: 150 },
+    { field: 'CheckDate', headerName: 'Check Date', width: 150 },
+    { field: 'Billed', headerName: 'Billed', width: 150 },
+    { field: 'Paid', headerName: 'Paid', width: 150 },
+    { field: 'Adjustment', headerName: 'Adjustment', width: 150 },
+
+    { field: 'MemberResp', headerName: 'Member Resp', width: 150 },
+    { field: 'PLB', headerName: 'PLB', width: 150 },
     { field: 'FileName', headerName: 'File Name', width: 150 },
-    { field: 'status', headerName: 'Status', width: 150 },
+    { field: 'ProcessedDate', headerName: 'Processed Date', width: 150 },
+    { field: 'Exported', headerName: 'Exported', width: 150 },
+    // I am pushed
    
   ];
   
@@ -423,11 +430,18 @@ function Overlay4() {
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'FileType', headerName: 'File Type', width: 150 },
+    { field: 'FileClaim', headerName: 'Claim File', width: 150 },
     { field: 'mco', headerName: 'MCO', width: 150 },
-    { field: 'ProcessedDate', headerName: 'Processed Date', width: 150 },
-    { field: 'BatchInvoice', headerName: 'Batch Invoice', width: 150 },
+    { field: 'BatchInvoice', headerName: 'Invoice Batch', width: 150 },
+    { field: 'ClaimNumber', headerName: 'Claim Number', width: 150 },
+    { field: 'MemberNo', headerName: 'Member #', width: 150 },
+    { field: 'ClaimNo', headerName: 'Claim #', width: 150 },
+    { field: 'ClaimAmount', headerName: 'Claim Amount', width: 150 },
+   
     { field: 'FileName', headerName: 'File Name', width: 150 },
+    { field: 'ProcessedDate', headerName: 'Processed Date', width: 150 },
     { field: 'status', headerName: 'Status', width: 150 },
+    { field: 'Action', headerName: 'Action', width: 150 },
    
   ];
   

@@ -512,7 +512,17 @@ const [open4, setOpen4] = React.useState(false);
   //RateManagementView
   const columns = [
     { field: 'id', headerName: 'ID', width: 200 },
-    { field: 'TableReference', headerName: 'TableReference', width: 300 },
+    { field: 'ServiceCode', headerName: 'Service Code', width: 300 },
+    { field: 'Category', headerName: 'Category', width: 300 },
+
+    { field: 'ServiceType', headerName: 'Service Type', width: 300 }, 
+    { field: 'FromDate', headerName: 'From Date', width: 300 },
+    { field: 'ToDate', headerName: 'To Date', width: 300 },
+    { field: 'Rate', headerName: 'Rate', width: 300 },
+    
+    { field: 'RateType', headerName: 'Rate Type', width: 300 }, 
+    { field: 'Status', headerName: 'Status', width: 300 },
+    
    
    
   ];
