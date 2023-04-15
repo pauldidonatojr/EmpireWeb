@@ -25,6 +25,7 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import UserName from "../UserName";
 
 function InvoiceDetails() {
   const [age, setAge] = React.useState("");
@@ -723,23 +724,7 @@ function InvoiceDetails() {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             style={{

@@ -23,6 +23,7 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {AuthContext} from '../../components/context'
+import UserName from "../../UserName";
 //
 
 
@@ -1414,23 +1415,7 @@ const handleClose5 = () => {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             style={{

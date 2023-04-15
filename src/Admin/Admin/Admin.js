@@ -25,6 +25,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Backdrop from '@mui/material/Backdrop';
 import {AuthContext} from '../../components/context'
 import { resetPassword } from "../../API/resetPasswordApi";
+import UserName from "../../UserName";
 
 
 function Report() {
@@ -635,23 +636,7 @@ const [open4, setOpen4] = React.useState(false);
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             style={{

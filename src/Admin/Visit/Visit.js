@@ -34,6 +34,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { addVisit } from "../../API/visitAPI";
+import UserName from "../../UserName";
 const Link = require("react-router-dom").Link;
 
 function Visit() {
@@ -2974,23 +2975,7 @@ function Visit() {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             style={{

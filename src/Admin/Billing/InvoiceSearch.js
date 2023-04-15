@@ -25,6 +25,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import {AuthContext} from '../../components/context'
 
 import { useNavigate } from "react-router-dom";
+import UserName from "../../UserName";
 //
 
 function Visit() {
@@ -869,23 +870,7 @@ function GoBackButtonPressed(){
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             style={{

@@ -27,6 +27,7 @@ import Backdrop from '@mui/material/Backdrop';
 import { useNavigate } from "react-router-dom";
 
 import { DataGrid } from '@mui/x-data-grid';
+import UserName from "../../UserName";
 
 
 function CareGiver() {
@@ -492,23 +493,7 @@ const list = (anchor) => (
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             style={{

@@ -28,6 +28,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import { ToastContainer, toast } from 'react-toastify';
 import OverlayCustom from "./Overlay";
 import 'react-toastify/dist/ReactToastify.css';
+import UserName from "../UserName";
 
 
 function CareGiver() {
@@ -685,23 +686,7 @@ function CareGiver() {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             style={{

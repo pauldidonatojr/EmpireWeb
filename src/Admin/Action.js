@@ -14,6 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
 const Link = require("react-router-dom").Link;
 import {AuthContext} from '../components/context'
+import UserName from "../UserName";
 
 function Action() {
   const { signOut } = React.useContext(AuthContext);
@@ -323,23 +324,7 @@ function Action() {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             style={{
