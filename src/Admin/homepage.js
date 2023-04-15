@@ -29,6 +29,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getCareGiver } from "../API/careGiverAPI";
 import { getMISC } from "../API/miscAPI";
 import { getMCO } from "../API/mcoAPI";
+import UserName from "../UserName";
 
 
 
@@ -94,9 +95,6 @@ function Homepage() {
 
     setState({ ...state, [anchor]: open });
   };
-
-
-
 
   const list = (anchor) => (
     <div style={{
@@ -477,7 +475,6 @@ function Homepage() {
     notify();
     getMembers().then(res => {
       setMemberData(res.data);
-      localStorage.setItem('Members', JSON.stringify(res.data));
     })
   }, [])
 
@@ -504,6 +501,7 @@ function Homepage() {
 
   useEffect(() => {
     populateRows();
+    localStorage.setItem('Members', JSON.stringify(memberData));
   }, [memberData]);
 
   const handleRowClick = (params) => {
@@ -534,9 +532,8 @@ function Homepage() {
   };
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 100 },
     {
-      field: 'MemberID',
+      field: 'id',
       headerName: 'Member ID',
       width: 130,
       renderCell: (params) => (
@@ -547,13 +544,13 @@ function Homepage() {
       )
     },
     { field: 'AdmissionID', headerName: 'Admission ID', width: 100 },
-    { field: 'MemberName', headerName: 'Member Name', width: 200 },
+    { field: 'Name', headerName: 'Member Name', width: 200 },
     { field: 'Cordinator', headerName: 'Member Team', width: 150 },
-    { field: 'StartofCareDate', headerName: 'Start of Care Date', width: 150 },
-    { field: 'Status', headerName: 'Status', width: 250 },
-    { field: 'PhoneNumber', headerName: 'Phone Number', width: 100 },
+    { field: 'FirstDayofService', headerName: 'Start of Care Date', width: 150 },
+    { field: 'Status', headerName: 'Status', width: 100 },
+    { field: 'Phone', headerName: 'Phone Number', width: 150 },
     { field: 'DOB', headerName: 'DOB', width: 150 },
-    { field: 'MCO', headerName: 'MCO', width: 150 },
+    { field: 'MCOName', headerName: 'MCO', width: 150 },
     { field: 'Office', headerName: 'Office', width: 150 },
 
   ];
@@ -605,23 +602,7 @@ function Homepage() {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
           <hr />
           <p
             className="Files"
@@ -950,16 +931,6 @@ const Wrapper = styled.section`
     margin-left: 2%;
   }
 
-  .UserInfo {
-    display: flex;
-    flex-direction: row;
-    margin-top: 5%;
-    margin-left: 10%;
-  }
-  .avatar {
-    margin: 2%;
-    margin-top: 5%;
-  }
   .buttonHolder {
     display: flex;
     flex-direction: column;

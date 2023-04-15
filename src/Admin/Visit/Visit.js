@@ -19,9 +19,6 @@ import Backdrop from '@mui/material/Backdrop';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { useEffect } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../components/context'
@@ -591,6 +588,37 @@ function Visit() {
   // 
 
 
+  function getTimeDuration(start, end) {
+    console.log(start)
+  //   if (visitStart != null && visitEnd) {
+  //     var durationMinute;
+  //     var durationHour;
+  //     var durationTime;
+  //     var startTime = visitStart.split(':');
+  //     var endTime = visitEnd.split(':');
+
+  //     startTime[0] = parseInt(startTime[0]);
+  //     startTime[1] = parseInt(startTime[1]);
+
+  //     endTime[0] = parseInt(endTime[0]);
+  //     endTime[1] = parseInt(endTime[1]);
+
+  //     if (endTime[1] >= startTime[1]) {
+  //         durationMinute = endTime[1] - startTime[1];
+  //         durationHour = endTime[0] - startTime[0];
+  //         durationTime = durationHour + ' Hours and ' + durationMinute + ' Minutes';
+  //         setDuration(durationTime);
+  //     }
+  //     else if (endTime[1] < startTime[1]) {
+  //         durationMinute = (endTime[1] + 60) - startTime[1];
+  //         durationHour = (endTime[0] - 1) - startTime[0];
+  //         durationTime = durationHour + ' Hours and ' + durationMinute + ' Minutes';
+  //         setDuration(durationTime);
+  //     }
+  // }
+  }
+
+
 
 
 
@@ -729,7 +757,7 @@ function Visit() {
 
   const membersStoage = localStorage.getItem("Members");
   var membersArray = JSON.parse(membersStoage);
-
+  
   function getSelectedMemberAllData(val) {
     for (var key in membersArray) {
       if (val.id == membersArray[key].MemberID) {
@@ -742,8 +770,7 @@ function Visit() {
   function renderMembers() {
     var arr = [];
     for (var key in membersArray) {
-
-      if (selectedMCO == membersArray[key].MCOName) {
+      if (selectedMCO.toUpperCase() === membersArray[key].MCOName) {
         var obj = {};
         obj.id = membersArray[key].MemberID;
         obj.AdmissionID = membersArray[key].AdmissionID;
@@ -1390,64 +1417,48 @@ function Visit() {
   // VisitSearchView
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'MCOName', headerName: 'MCO Name', width: 100 },
-    { field: 'cordinator', headerName: 'Cordinator', width: 100 },
-    { field: 'admissionID', headerName: 'Admission ID', width: 100 },
-    { field: 'memberName', headerName: 'Member Name', width: 150 },
-    { field: 'memberTeam', headerName: 'Member Team', width: 150 },
-    { field: 'CaregiverName', headerName: 'Caregiver Name', width: 100 },
+    { field: 'firstName', headerName: 'First Name', width: 100 },
+    { field: 'lastName', headerName: 'Last Name', width: 100 },
     { field: 'caregiverCode', headerName: 'CareGiver Code', width: 150 },
     { field: 'assigmentID', headerName: 'Assigment ID', width: 100 },
-    { field: 'VisitDate', headerName: 'Visit Date', width: 100 },
-    
-    { field: 'Schedule', headerName: 'Schedule', width: 150 },
-   
-    { field: 'Visit', headerName: 'Visit', width: 100 },
-   
-    { field: 'I', headerName: 'I', width: 50 },
-    { field: 'O', headerName: 'O', width: 50 },
-    { field: 'Billed', headerName: 'Billed', width: 50 },
-    
-   
-
-    {
-      field: 'Edit',
-      headerName: 'Edit',
-      width: 100,
-      renderCell: () => (
-        <div style={{ cursor: 'pointer' }} onClick={handleEventClick}>
-          Edit
-        </div>
-      ),
-    },
-    { field: 'Delete', headerName: 'Delete', width: 100 },
+    { field: 'admissionID', headerName: 'Admission ID', width: 100 },
+    { field: 'memberFirstName', headerName: 'Member First Name', width: 150 },
+    { field: 'memberLastName', headerName: 'Member Last Name', width: 150 },
+    { field: 'cordinator', headerName: 'Cordinator', width: 100 },
+    { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'memberTeam', headerName: 'Member Team', width: 150 },
+    { field: 'memberLocation', headerName: 'Member Location', width: 150 },
+    { field: 'memberBranch', headerName: 'Member Branch', width: 150 },
+    { field: 'fromDate', headerName: 'From Date', width: 100 },
+    { field: 'tillDate', headerName: 'Till Date', width: 100 },
 
   ];
-  
   //demo data to display
   const rows = [
     {
       id: 1, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021",Edit:"Edit",Delete:"Delete"
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
     },
-
     {
       id: 2, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021",Edit:"Edit",Delete:"Delete"
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
     },
     {
       id: 3, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021",Edit:"Edit",Delete:"Delete"
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
     },
     {
       id: 4, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021",Edit:"Edit",Delete:"Delete"
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
     },
     {
       id: 5, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021",Edit:"Edit",Delete:"Delete"
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
     },
-    
+    {
+      id: 6, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
 
   ];
   const [CareGiverSearch, setCareGiverSearch] = useState(false);
@@ -1469,441 +1480,8 @@ function Visit() {
 
 
   //=======================================Care Giver Data ========================================================
-  
-  const [NavigationState, setNavigationState] = React.useState(0);
-  function SchedulePressed() {
-      setNavigationState(1);
-  }
-  function VisitInfoPressed() {
-      setNavigationState(2);
-  }
-  function BillInfoPreseed() {
-      setNavigationState(3);
-  }
-  
-  function renderOverlayViews() {
-    switch (NavigationState) {
-        case 1:
-
-            return ScheduleView();
-        case 2:
-            return VisitInfoView();
-        case 3:
-            return BillingView();
-
-        default:
-            break;
-    }
-}
-const [opentime, setOpenTime] = React.useState(false);
-const handleCloseTime = () => {
-    setIsTimeOverlay(false);
-    setOpenTime(false);
-};
-const [TimeOverlay, setIsTimeOverlay] = useState(false);
-function handleEventClick(event) {
-    setIsTimeOverlay(true);
-    setOpenTime(true);
-
-}
-const ScheduleView = () => {
-  return (
-      <div>
-          <h2 style={{ textAlign: "center", color: "#564873" }}>Schedule</h2>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-              <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                  <h1 style={{ color: "grey", textAlign: "center" }}>Schedule Time</h1>
-                  <TextField
-                      style={{ margin: "5%" }}
-                      id="outlined-basic"
-                      label="0600"
-                      variant="outlined"
-                  />
-                  <h5 style={{ color: "black", marginTop: "10%" }}>-</h5>
-                  <TextField
-                      style={{ margin: "5%" }}
-                      id="outlined-basic"
-                      label="1400"
-                      variant="outlined"
-                  />
-              </div>
-              <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                  <h1 style={{ color: "grey", textAlign: "center" }}>Care Giver Code</h1>
-                  <TextField
-                      style={{ margin: "5%" }}
-                      id="outlined-basic"
-                      label="0600"
-                      variant="outlined"
-                  />
-
-              </div>
-
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "row" }}>
-              <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                  <h1 style={{ color: "grey", textAlign: "center" }}>POC</h1>
-                  <TextField
-                      style={{ margin: "2%" }}
-                      id="outlined-basic"
-                      label="3758456-11/09/21"
-                      variant="outlined"
-                  />
-
-              </div>
-              <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                  <h1 style={{ color: "grey", textAlign: "center" }}>Admission ID: <span>115524</span></h1>
-
-              </div>
-              <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                  <h1 style={{ color: "grey", textAlign: "center" }}>Service Code</h1>
-                  <TextField
-                      style={{ margin: "2%" }}
-                      id="outlined-basic"
-                      label="3758456-11/09/21"
-                      variant="outlined"
-                  />
-
-              </div>
-
-          </div>
 
 
-          <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-              <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                  <h1 style={{ color: "grey", textAlign: "center" }}>H</h1>
-                  <TextField
-                      style={{ margin: "2%" }}
-                      id="outlined-basic"
-                      label="0600"
-                      variant="outlined"
-                  />
-                  <h1 style={{ color: "grey", textAlign: "center" }}>M:</h1>
-                  <TextField
-                      style={{ margin: "2%" }}
-                      id="outlined-basic"
-                      label="1400"
-                      variant="outlined"
-                  />
-              </div>
-
-          </div>
-          <h1 style={{ color: "grey", textAlign: "center" }}>Bill Type: <span>Hourly</span></h1>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Close</Button>
-          </div>
-
-      </div>
-  )
-}
-//
-
-
-//
-const VisitInfoView = () => {
-  return (
-      <div style={{ width: "100%" }}>
-          <h2 style={{ textAlign: "center", color: "#564873" }}>Visit Schedule</h2>
-          <h1 style={{ color: "grey", textAlign: "center" }}>Scheduled Time : <span style={{ color: "black" }}> 0600 : 1400</span></h1>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-              <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                  <h1 style={{ color: "grey", textAlign: "center" }}>Visit Start Time</h1>
-                  <TextField
-                      style={{ margin: "5%" }}
-                      id="outlined-basic"
-                      label="0600"
-                      variant="outlined"
-                  />
-                  <h5 style={{ color: "black", marginTop: "10%" }}>-</h5>
-                  <TextField
-                      style={{ margin: "5%" }}
-                      id="outlined-basic"
-                      label="1400"
-                      variant="outlined"
-                  />
-              </div>
-              <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                  <h1 style={{ color: "grey", textAlign: "center" }}>Visit End Time</h1>
-                  <TextField
-                      style={{ margin: "5%" }}
-                      id="outlined-basic"
-                      label="0600"
-                      variant="outlined"
-                  />
-                  <h5 style={{ color: "black", marginTop: "10%" }}>-</h5>
-                  <TextField
-                      style={{ margin: "5%" }}
-                      id="outlined-basic"
-                      label="1400"
-                      variant="outlined"
-                  />
-              </div>
-
-          </div>
-
-          <div>
-              <FormGroup>
-                  <FormControlLabel style={{ color: "grey", fontSize: "50px" }} control={<Checkbox defaultChecked />} label="Missed Visit" />
-              </FormGroup>
-          </div>
-          <table style={{ color: "black", width: "100%" }}>
-              <tr style={{ backgroundColor: "#564873", color: "white" }}>
-                  <th>Reason</th>
-                  <th>Action Taken</th>
-                  <th>Note</th>
-                  <th>User</th>
-                  <th>Date/Time</th>
-              </tr>
-              <tr>
-                  <td style={{ textAlign: "center" }}>Other</td>
-                  <td style={{ textAlign: "center" }}>Supervised approved change</td>
-                  <td style={{ textAlign: "center" }}>Notes</td>
-                  <td style={{ textAlign: "center" }}>Hector</td>
-                  <td style={{ textAlign: "center" }}>2023-04-06</td>
-              </tr>
-          </table>
-          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
-              <Box style={{ width: "25%", margin: "2%" }}>
-                  <FormControl fullWidth>
-                      <InputLabel>Action Status</InputLabel>
-                      <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={age}
-                          label="Status"
-                          onChange={handleChange}
-                      >
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                  </FormControl>
-              </Box>
-              <Box style={{ width: "25%", margin: "2%" }}>
-                  <FormControl fullWidth>
-                      <InputLabel>Action Taken</InputLabel>
-                      <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={age}
-                          label="Status"
-                          onChange={handleChange}
-                      >
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                  </FormControl>
-              </Box>
-
-          </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-              <TextField
-                  style={{ margin: "1%", width: "75%" }}
-                  id="outlined-basic"
-                  label="New Note"
-                  variant="outlined"
-              />
-          </div>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Close</Button>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Print</Button>
-          </div>
-          <hr></hr>
-
-          <h2 style={{ textAlign: "center", color: "#564873" }}>Audit</h2>
-          <div style={{ display: "flex" }}>
-
-              <h1 style={{ color: "grey" }}>Vertified By :</h1>
-              <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Member" />
-              <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Care Giver" />
-              <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Family Member" />
-              <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Other" />
-
-          </div>
-          <div>
-
-              <TextField
-                  style={{ margin: "1%", width: "30%" }}
-                  id="outlined-basic"
-                  label="Date Verified"
-                  variant="outlined"
-              />
-              <TextField
-                  style={{ margin: "1%", width: "30%" }}
-                  id="outlined-basic"
-                  label="Time Verfied"
-                  variant="outlined"
-              />
-              <TextField
-                  style={{ margin: "1%", width: "30%" }}
-                  id="outlined-basic"
-                  label="Supervisor"
-                  variant="outlined"
-              />
-          </div>
-          <hr></hr>
-          <div>
-
-          </div>
-          <h2 style={{ textAlign: "center", color: "#564873" }}>Daily Sheet</h2>
-          <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Timesheet Required" />
-          <h4 style={{ color: "#564873" }}>POC Duties</h4>
-          <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
-              <DataGrid
-                  rows={rows15}
-                  columns={columns15}
-                  pageSize={5}
-                  rowsPerPageOptions={[15]}
-                  checkboxSelection
-              />
-          </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-              <TextField
-                  style={{ margin: "1%", width: "75%" }}
-                  id="outlined-basic"
-                  label="Care Giver New Note"
-                  variant="outlined"
-              />
-          </div>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Close</Button>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Print</Button>
-          </div>
-      </div>
-  )
-}
-const columns15 = [
-  { field: 'id', headerName: 'Duty Number', width: 250 },
-  { field: 'fromDate', headerName: 'Category', width: 200 },
-  { field: 'toDate', headerName: 'Duty', width: 400 },
-
-
-
-];
-//demo data to display
-const rows15 = [
-  { id: 1, fromDate: "Justin", toDate: "Assist with Home" },
-  { id: 2, fromDate: "Justin", toDate: "Assist with Home" },
-  { id: 3, fromDate: "Justin", toDate: "Assist with Home" },
-  { id: 4, fromDate: "Justin", toDate: "Assist with Home" },
-  { id: 5, fromDate: "Justin", toDate: "Assist with Home" },
-  { id: 6, fromDate: "Justin", toDate: "Assist with Home" },
-
-
-
-];
-const BillingView = () => {
-  return (
-      <div style={{ width: "100%" }}>/
-          <h2 style={{ textAlign: "center", color: "#564873" }}>Primary Bill To</h2>
-
-          <table style={{ color: "black", width: "100%" }}>
-              <tr style={{ backgroundColor: "#564873", color: "white" }}>
-                  <th>Primary Bill To</th>
-                  <th>Service Code</th>
-                  <th>Bill Type</th>
-                  <th>Service Hours</th>
-                  <th>TT Hours</th>
-              </tr>
-              <tr>
-                  <td style={{ textAlign: "center" }}>KEYSTONE FIRST CHC</td>
-                  <td style={{ textAlign: "center" }}>W7125</td>
-                  <td style={{ textAlign: "center" }}>Hourly</td>
-                  <td style={{ textAlign: "center" }}>08:00</td>
-                  <td style={{ textAlign: "center" }}>32.00</td>
-              </tr>
-          </table>
-//
-          <table style={{ color: "black", width: "100%" }}>
-              <tr style={{ backgroundColor: "#564873", color: "white" }}>
-                  <th>OT Hours</th>
-                  <th>Billable Hours</th>
-                  <th>Billable rate</th>
-                  <th>Total</th>
-                  <th>Billed</th>
-              </tr>
-              <tr>
-                  <td style={{ textAlign: "center" }}>0800</td>
-                  <td style={{ textAlign: "center" }}>32.00</td>
-                  <td style={{ textAlign: "center" }}>$ 21.52</td>
-                  <td style={{ textAlign: "center" }}>$ 171.52</td>
-                  <td style={{ textAlign: "center" }}>Y</td>
-              </tr>
-          </table>
-          <table style={{ color: "black", width: "100%" }}>
-              <tr style={{ backgroundColor: "#564873", color: "white" }}>
-                  <th>Invoice Number</th>
-                  <th>Invoice Creation Date</th>
-                  <th>Billing Hold</th>
-                  <th>TRN Number</th>
-                  <th>E-Billing Batch #</th>
-                  <th>Secondary Billing</th>
-              </tr>
-              <tr>
-                  <td style={{ textAlign: "center" }}>54SD45</td>
-                  <td style={{ textAlign: "center" }}>21-4-2023</td>
-                  <td style={{ textAlign: "center" }}>4564555</td>
-                  <td style={{ textAlign: "center" }}>5488SSS</td>
-                  <td style={{ textAlign: "center" }}>656SS</td>
-                  <td style={{ textAlign: "center" }}>656SS</td>
-              </tr>
-          </table>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
-              <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Close</Button>
-          </div>
-
-      </div>
-
-  )
-}
-  function OverlayTime() {
-    return (
-        <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-            open={opentime}
-
-        >
-            <div className="overlayTime">
-                <CloseIcon className="crossIcon" onClick={handleCloseTime} />
-                <h1 style={{ textAlign: "center", color: "black" }}>Non Skilled Visit</h1>
-                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginLeft: "5%", }}>
-
-                        <h2 style={{ color: "white" }}>Member Name : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white" }}>Visit Date : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white", textAlign: "center" }}>Member Phone # : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                    </div>
-
-                    <div style={{ display: "flex", justifyContent: "space-between", marginLeft: "1%" }}>
-                        <h2 style={{ color: "white" }}>Admission ID : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white", textAlign: "center" }}>Assigment ID : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white", textAlign: "center" }}>Cordinator : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                    </div>
-                </div>
-                <hr />
-
-                <div style={{ display: "flex", alignContent: "center", marginLeft: "7%", justifyContent: "space-between", width: "85%", textAlign: "center" }}>
-                    <Button onClick={SchedulePressed}>Schedule</Button>
-                    <Button onClick={VisitInfoPressed}>Visit Info</Button>
-                    <Button onClick={BillInfoPreseed}>Bill Info</Button>
-                </div>
-                <hr />
-                <div style={{ width: "100%", height: "100%", display: "flex" }}>
-
-
-                    {renderOverlayViews()}
-
-                </div>
-            </div>
-        </ Backdrop>
-    );
-}
-//
 
   function getAllCareGiverData(val) {
     for (var key in caregiverArray) {
@@ -2153,7 +1731,7 @@ const BillingView = () => {
               variant="outlined"
               readOnly
               value={duration}
-              onChange={(event) => setMemberId(event.target.value)}
+              onClick = {()=>{getTimeDuration(visitStartTime, visitEndTime)}}
             />
 
             <TextField
@@ -3220,6 +2798,7 @@ const BillingView = () => {
                     selectedMemberAllData.FirstName,
                     selectedMemberAllData.LastName,
                     selectedMemberAllData.MemberID,
+                    selectedCareGiverAllData.AideCode,
                     selectedCareGiverAllData.FirstName,
                     selectedCareGiverAllData.LastName,
                     selectedCareGiverAllData.Gender,
@@ -3316,6 +2895,7 @@ const BillingView = () => {
                     unitField10Value,
                   ).then(res => {
                     if (res.data.result == "success") {
+                      console.log("Here")
                     }
                   });
                 }
@@ -3469,7 +3049,6 @@ const BillingView = () => {
           {isOverlayOpen2 && <Overlay2 />}
           {isOverlayOpen3 && <Overlay3 />}
           {CareGiverSearch && <OverlayCareGiverSearch />}
-          {TimeOverlay && <OverlayTime/>}
           {RenderViews()}
         </Card>
       </div>
@@ -3488,18 +3067,6 @@ width: 100%;
 
 .showAllButton{
 
-}
-.overlayTime{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 65%;
-  height: 85%;
-  z-index: 1000;
-  background-color: white;
-  padding: 1%;
-  overflow:auto;
 }
 
 .scrollable-form{
