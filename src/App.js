@@ -24,7 +24,7 @@ import FileProcessing from "./Admin/Admin/FileProcessing";
 import EDIImports from "./Admin/Admin/EDIImports"
 import { AuthContext, LoginContext } from './components/context';
 import ProtectedRoute from "./utils/ProtectedRoute";
-import MemberDetails from "./Admin/MemberDetails";
+import MemberDetails from "./Admin/MemberDetails/MemberDetails";
 import CareGiverDetail from "./Admin/CareGiverDetail";
 import BatchDetails from "./Admin/BatchDetails";
 import InvoiceDetails from "./Admin/InvoiceDetails";

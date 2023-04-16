@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
-import Footer from "../Footer";
+import Footer from "../../Footer";
 import { DataGrid } from '@mui/x-data-grid';
 //
 
@@ -34,9 +34,10 @@ import Backdrop from '@mui/material/Backdrop';
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import Paper from '@mui/material/Paper';
 import { useNavigate } from "react-router-dom";
 //
+
 
 function MemberDetails() {
     const [age, setAge] = React.useState("");
@@ -1009,24 +1010,42 @@ function MemberDetails() {
     const MemberInfoView = () => {
         return (
             <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
-                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginLeft: "5%", }}>
-                        <h2 style={{ color: "white" }}>Name : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white" }}>Nurse : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white" }}>Frequency : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                    </div>
 
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <h2 style={{ color: "white", textAlign: "center" }}>MCO Cordinator : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white", textAlign: "center" }}>MCO Name : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white", textAlign: "center" }}>Admission ID : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                    </div>
 
-                    <div style={{ display: "flex", justifyContent: "space-around" }}>
-                        <h2 style={{ color: "white", margin: "2%", textAlign: "center" }}>Member ID : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        <h2 style={{ color: "white", margin: "2%", textAlign: "center" }}>DOB : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                    </div>
+                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
                 </div>
+
+
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Last 3 Authorization</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
@@ -1254,10 +1273,19 @@ export default MemberDetails;
 const Wrapper = styled.section`
   height: 100%;
   width: 100%;
+
+
+
   .DateFieldHolder {
     
    
     
+  }
+
+
+  .DataHolderGrid{
+    width: 50%;
+    text-align: center;
   }
   
   .GoBackButtonHolder{
@@ -1606,6 +1634,12 @@ const Wrapper = styled.section`
     .GoBackButtonHolder{
       margin-top:2%;
     }
+    
+    .DataHolderGrid{
+    width: 100%;
+    text-align: center;
+  }
+
     .GoBackButton{
       width:30%;
       height:50px;

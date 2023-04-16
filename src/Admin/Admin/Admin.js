@@ -21,16 +21,21 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { DataGrid } from '@mui/x-data-grid';
+import IconButton from '@mui/material/IconButton';
 
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
 import Backdrop from '@mui/material/Backdrop';
-import {AuthContext} from '../../components/context'
+import { AuthContext } from '../../components/context'
 import { resetPassword } from "../../API/resetPasswordApi";
 import UserName from "../../UserName";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 function Report() {
 
-  function GoBackButtonPressed(){
+  function GoBackButtonPressed() {
     navigate("/AdminHome");
 
   }
@@ -46,6 +51,28 @@ function Report() {
   const [isOverlayOpen3, setIsOverlayOpen3] = useState(false);
   const [isOverlayOpen4, setIsOverlayOpen4] = useState(false);
   const [isOverlayOpen5, setIsOverlayOpen5] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  // Add A New Patient 
+
+
+  const [patientFirstName, setPatientFirstName] = useState(null);
+  const [patientLastName, setPatientLastName] = useState(null);
+  const [patientUsername, setPatientUsername] = useState(null);
+  const [patientEmail, setPatientEmail] = useState(null);
+  const [patientPassword, setPatientPassword] = useState(null);
+
+
+
+  // 
+
+
+
   const [age, setAge] = React.useState("");
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -59,24 +86,24 @@ function Report() {
         setIsOverlayOpen2(true);
         setOpen2(!open2);
         break;
-      
+
       case 4:
         setIsOverlayOpen4(true);
         setOpen4(!open4);
         break;
-     
+
       default:
         break;
     }
   };
-  function RenderSearchIcon(){
+  function RenderSearchIcon() {
     switch (ViewSelected) {
-      
+
       case 2:
-        return<SearchIcon className="searchIcon" onClick={handleClickIcon} />;
+        return <SearchIcon className="searchIcon" onClick={handleClickIcon} />;
       case 4:
-        return<SearchIcon className="searchIcon" onClick={handleClickIcon} />;
-      
+        return <SearchIcon className="searchIcon" onClick={handleClickIcon} />;
+
       default:
         break;
     }
@@ -93,12 +120,12 @@ function Report() {
   const handleCloseOverlay4 = () => {
     setIsOverlayOpen4(false);
   };
- 
+
   function Overlay() {
     return (
       <div className="overlay">
         <CloseIcon className="crossIcon" onClick={handleCloseOverlay} />
-        <h1 style={{textAlign:"center"}}>Set Filter from here !</h1>
+        <h1 style={{ textAlign: "center" }}>Set Filter from here !</h1>
         <p
           style={{
             fontSize: 15,
@@ -110,8 +137,8 @@ function Report() {
           Change Password
         </p>
         <div>
-       
-          <h3 style={{textAlign:"center",color:"grey"}}>This page does not include any searchable content</h3>
+
+          <h3 style={{ textAlign: "center", color: "grey" }}>This page does not include any searchable content</h3>
         </div>
         <Button className="searchButton" onClick={handleCloseOverlay}>
           Okay
@@ -120,14 +147,14 @@ function Report() {
     );
   }
   //
-const [open2, setOpen2] = React.useState(false);
-const handleClose2 = () => {
-  setOpen2(false);
-};
+  const [open2, setOpen2] = React.useState(false);
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
 
-//
-//
-const [open4, setOpen4] = React.useState(false);
+  //
+  //
+  const [open4, setOpen4] = React.useState(false);
   const handleClose4 = () => {
     setOpen4(false);
   };
@@ -136,26 +163,26 @@ const [open4, setOpen4] = React.useState(false);
   function Overlay2() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open2}
-     
-    >
-      <div className="overlay2">
-        <CloseIcon className="crossIcon" onClick={handleClose2} />
-        <h1 style={{textAlign:"center",color:"black"}}>Set Filter from here !</h1>
-        <p
-          style={{
-            fontSize: 15,
-            fontWeight: "bold",
-            color: "#042940",
-            textAlign: "center",
-          }}
-        >
-          Reference Table Management
-        </p>
-        <div className="searchFieldsDiv1">
-       
-        <Grid className="griditem2">
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open2}
+
+      >
+        <div className="overlay2">
+          <CloseIcon className="crossIcon" onClick={handleClose2} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+              color: "#042940",
+              textAlign: "center",
+            }}
+          >
+            Reference Table Management
+          </p>
+          <div className="searchFieldsDiv1">
+
+            <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
                   <InputLabel>Reference Table</InputLabel>
@@ -173,39 +200,39 @@ const [open4, setOpen4] = React.useState(false);
                 </FormControl>
               </Box>
             </Grid>
-            
-         
+
+
+          </div>
+          <Button className="searchButton" onClick={handleCloseOverlay3}>
+            Search
+          </Button>
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay3}>
-          Search
-        </Button>
-      </div>
       </Backdrop>
     );
   }
   function Overlay4() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open4}
-     
-    >
-      <div className="overlay2">
-        <CloseIcon className="crossIcon" onClick={handleClose4} />
-        <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
-        <p
-          style={{
-            fontSize: 15,
-            fontWeight: "bold",
-            color: "#042940",
-            textAlign: "center",
-          }}
-        >
-          Rate Management
-        </p>
-        <div className="searchFieldsDiv1">
-     
-        <Grid className="griditem2">
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open4}
+
+      >
+        <div className="overlay2">
+          <CloseIcon className="crossIcon" onClick={handleClose4} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+              color: "#042940",
+              textAlign: "center",
+            }}
+          >
+            Rate Management
+          </p>
+          <div className="searchFieldsDiv1">
+
+            <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
                   <InputLabel>MCO</InputLabel>
@@ -223,17 +250,17 @@ const [open4, setOpen4] = React.useState(false);
                 </FormControl>
               </Box>
             </Grid>
-            
-       
+
+
+          </div>
+          <Button className="searchButton" onClick={handleCloseOverlay4}>
+            Search
+          </Button>
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay4}>
-          Search
-        </Button>
-      </div>
       </Backdrop>
     );
   }
-  
+
 
   const UserManagementPressed = () => {
     //Navigate to User Managemnt
@@ -244,8 +271,8 @@ const [open4, setOpen4] = React.useState(false);
     setViewSelected(1);
   };
   const CordinatorSetupPressed = () => {
-   //Navigate to CordinatorSetUp
-   navigate("/CordinatorSetup");
+    //Navigate to CordinatorSetUp
+    navigate("/CordinatorSetup");
   };
   const ReferenceTableManagementPressed = () => {
     setViewSelected(2);
@@ -256,14 +283,17 @@ const [open4, setOpen4] = React.useState(false);
   const RateManagementPressed = () => {
     setViewSelected(4);
   };
-  const FileProcessingPressed = () => {
-   //Navigate to File Processing
-   navigate("/FileProcessing");
+  const AddNewPatientPressed = () => {
+    setViewSelected(5);
   };
-  const EdiImportPressed=()=> {
-   //Navigate to EDI Imports
-   navigate("/EDIImports");
-    
+  const FileProcessingPressed = () => {
+    //Navigate to File Processing
+    navigate("/FileProcessing");
+  };
+  const EdiImportPressed = () => {
+    //Navigate to EDI Imports
+    navigate("/EDIImports");
+
   }
 
   function RenderViews() {
@@ -279,6 +309,8 @@ const [open4, setOpen4] = React.useState(false);
 
       case 4:
         return RateManagementView();
+      case 5:
+        return AddPatientView();
       default:
         break;
     }
@@ -338,176 +370,230 @@ const [open4, setOpen4] = React.useState(false);
   const ChangePasswordView = () => {
     return (
       <div className="Holder"  >
-        <div className="InputHolder"> 
-            <h1 className="Heading" >Change Password</h1>
-            <TextField className="input" label="Email" variant="outlined" onChange={(username) => { setEmail(username.target.value) }}/>
-            <TextField className="input" label="Current Password" variant="outlined" onChange={(username) => { setCurrPassword(username.target.value) }}/>
-            <TextField className="input" label="New Password" variant="outlined" />
-            <TextField className="input" label="Repeat New Password" variant="outlined" onChange={(username) => { setNewPassword(username.target.value) }} />
+        <div className="InputHolder">
+          <h1 className="Heading" >Change Password</h1>
+          <TextField className="input" label="Email" variant="outlined" onChange={(username) => { setEmail(username.target.value) }} />
+          <TextField className="input" label="Current Password" variant="outlined" onChange={(username) => { setCurrPassword(username.target.value) }} />
+          <TextField className="input" label="New Password" variant="outlined" />
+          <TextField className="input" label="Repeat New Password" variant="outlined" onChange={(username) => { setNewPassword(username.target.value) }} />
 
         </div>
-      
-        
+
+
         <Button className="Signup" variant="contained"
-        onClick={
-          function () {
-            var state = 0;
-            resetPassword(email, currPassword, newPassword).then(res => {
-              if (res.data.result == "success") {
+          onClick={
+            function () {
+              var state = 0;
+              resetPassword(email, currPassword, newPassword).then(res => {
+                if (res.data.result == "success") {
+                }
               }
+              )
             }
-            )}
           }
 
         >Apply Changes</Button>
-     </div>
+      </div>
     );
   };
- 
+
+
+  const AddPatientView = () => {
+    return (
+      <div className="Holder"  >
+        <div className="InputHolder">
+          <h1 className="Heading" >ADD A NEW PATIENT</h1>
+          <TextField className="input" label="First Name" variant="outlined" onChange={(evt) => { setPatientFirstName(evt.target.value) }} />
+          <TextField className="input" label="Last Name" variant="outlined" onChange={(evt) => { setPatientLastName(evt.target.value) }} />
+
+          <TextField className="input" label="Email" variant="outlined" onChange={(evt) => { setPatientEmail(evt.target.value) }} />
+          <TextField className="input" label="Username" variant="outlined" onChange={(evt) => { setPatientUsername(evt.target.value) }} />
+
+            <div style={{marginBottom: '20px'}}>
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+            </div>
+
+        </div>
+
+
+        <Button className="Signup" variant="contained"
+          onClick={
+            function () {
+              var state = 0;
+              resetPassword(email, currPassword, newPassword).then(res => {
+                if (res.data.result == "success") {
+                }
+              }
+              )
+            }
+          }
+
+        >Apply Changes</Button>
+      </div>
+    );
+  };
+
   const ReferenceTableView = () => {
     return (
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows5}
-        columns={columns5}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
+        <DataGrid
+          rows={rows5}
+          columns={columns5}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
     );
   };
-   //ReferenceTableView
-   const columns5 = [
+  //ReferenceTableView
+  const columns5 = [
     { field: 'id', headerName: 'ID', width: 200 },
     { field: 'TableReference', headerName: 'TableReference', width: 300 },
-   
-   
+
+
   ];
-  
+
   const rows5 = [
-    {id:1,TableReference:"Re Processing"},
-   
-    
+    { id: 1, TableReference: "Re Processing" },
+
+
   ];
   const ProviderProfileView = () => {
     return (
       <div className="Holder"  >
-      <div > 
+        <div >
           <h1 className="Heading" >General</h1>
           <TextField className="input1" label="Vendor Name" variant="outlined" />
           <TextField className="input1" label="Vendor Intials" variant="outlined" />
           <TextField className="input1" label="Password Expiry (Days)" variant="outlined" />
           <TextField className="input1" label="Service Zip Code" variant="outlined" />
           <TextField className="input1" label="Mobile Offline Sync Period" variant="outlined" />
-          <FormControl  className="dropdown" >
-        <InputLabel >Select Language</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Status"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl className="dropdown" >
-        <InputLabel >Cordinator</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Status"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      <div className="checkitem">
-      <FormControlLabel  control={<Checkbox defaultChecked />} label="Automatic Visit Creation Bases on EVV Confirmation" />
-      <FormControlLabel  control={<Checkbox defaultChecked />} label="Mobile GPS Visit Verfication" />
-      <FormControlLabel  control={<Checkbox defaultChecked />} label="Allow Single Clock In/Out for Consective Shift (Mobile App)" />
-      </div>
-        
-         
-      </div>
-      <div>
-      <h1 className="Heading">Call Exception Notification</h1>
-     
-      <div className="checkbox">
-      <FormGroup className="FormGroup" >
-      <FormControlLabel control={<Checkbox defaultChecked />} label="Weekday" />
-    </FormGroup>
-       <div className="checkboxContent" >
-        <TextField className="input1" label="From" variant="outlined" />
-        <TextField className="input1" label="To" variant="outlined" />
-        <TextField className="input1" label="Frequency(min)" variant="outlined" />
+          <FormControl className="dropdown" >
+            <InputLabel >Select Language</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Status"
+              onChange={handleChange}
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl className="dropdown" >
+            <InputLabel >Cordinator</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Status"
+              onChange={handleChange}
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
+          <div className="checkitem">
+            <FormControlLabel control={<Checkbox defaultChecked />} label="Automatic Visit Creation Bases on EVV Confirmation" />
+            <FormControlLabel control={<Checkbox defaultChecked />} label="Mobile GPS Visit Verfication" />
+            <FormControlLabel control={<Checkbox defaultChecked />} label="Allow Single Clock In/Out for Consective Shift (Mobile App)" />
+          </div>
+
+
         </div>
-    </div>
-    <div className="checkbox">
-      <FormGroup className="FormGroup" >
-      <FormControlLabel control={<Checkbox defaultChecked />} label="Saturday" />
-    </FormGroup>
-       <div className="checkboxContent">
-        <TextField className="input1" label="From" variant="outlined" />
-        <TextField className="input1" label="To" variant="outlined" />
-        <TextField className="input1" label="Frequency(min)" variant="outlined" />
+        <div>
+          <h1 className="Heading">Call Exception Notification</h1>
+
+          <div className="checkbox">
+            <FormGroup className="FormGroup" >
+              <FormControlLabel control={<Checkbox defaultChecked />} label="Weekday" />
+            </FormGroup>
+            <div className="checkboxContent" >
+              <TextField className="input1" label="From" variant="outlined" />
+              <TextField className="input1" label="To" variant="outlined" />
+              <TextField className="input1" label="Frequency(min)" variant="outlined" />
+            </div>
+          </div>
+          <div className="checkbox">
+            <FormGroup className="FormGroup" >
+              <FormControlLabel control={<Checkbox defaultChecked />} label="Saturday" />
+            </FormGroup>
+            <div className="checkboxContent">
+              <TextField className="input1" label="From" variant="outlined" />
+              <TextField className="input1" label="To" variant="outlined" />
+              <TextField className="input1" label="Frequency(min)" variant="outlined" />
+            </div>
+          </div>
+          <div className="checkbox">
+            <FormGroup className="FormGroup" >
+              <FormControlLabel control={<Checkbox defaultChecked />} label="Sunday" />
+            </FormGroup>
+            <div className="checkboxContent">
+              <TextField className="input1" label="From" variant="outlined" />
+              <TextField className="input1" label="To" variant="outlined" />
+              <TextField className="input1" label="Frequency(min)" variant="outlined" />
+            </div>
+          </div>
+
+          <TextField className="input1" label="Alert Email" variant="outlined" />
+
+
         </div>
-    </div>
-    <div className="checkbox">
-      <FormGroup className="FormGroup" >
-      <FormControlLabel control={<Checkbox defaultChecked />} label="Sunday" />
-    </FormGroup>
-       <div className="checkboxContent">
-        <TextField className="input1" label="From" variant="outlined" />
-        <TextField className="input1" label="To" variant="outlined" />
-        <TextField className="input1" label="Frequency(min)" variant="outlined" />
+        <div>
+          <h1 className="Heading">Address</h1>
+          <TextField className="input1" label="Street 1" variant="outlined" />
+          <TextField className="input1" label="Street 2" variant="outlined" />
+          <TextField className="input1" label="City" variant="outlined" />
+          <TextField className="input1" label="State" variant="outlined" />
+          <TextField className="input1" label="Zip Code" variant="outlined" />
+          <TextField className="input1" label="Home Phone" variant="outlined" />
+          <TextField className="input1" label="Phone 1" variant="outlined" />
+          <TextField className="input1" label="Phone 2" variant="outlined" />
+          <TextField className="input1" label="Evening Phone" variant="outlined" />
+          <TextField className="input1" label="Weekend Phone" variant="outlined" />
+
+          <TextField className="input1" label="Audit Call In (%)" variant="outlined" />
+          <TextField className="input1" label="Audit Call Out (%)" variant="outlined" />
+
         </div>
-    </div>
-    
-    <TextField className="input1" label="Alert Email" variant="outlined" />
-   
-     
+
+        <Button className="Signup" variant="contained">Sign Up</Button>
       </div>
-      <div>
-      <h1 className="Heading">Address</h1>
-      <TextField className="input1" label="Street 1" variant="outlined" />
-      <TextField className="input1" label="Street 2" variant="outlined" />
-      <TextField className="input1" label="City" variant="outlined" />
-      <TextField className="input1" label="State" variant="outlined" />
-      <TextField className="input1" label="Zip Code" variant="outlined" />
-      <TextField className="input1" label="Home Phone" variant="outlined" />
-      <TextField className="input1" label="Phone 1" variant="outlined" />
-      <TextField className="input1" label="Phone 2" variant="outlined" />
-      <TextField className="input1" label="Evening Phone" variant="outlined" />
-      <TextField className="input1" label="Weekend Phone" variant="outlined" />
-     
-      <TextField className="input1" label="Audit Call In (%)" variant="outlined" />
-      <TextField className="input1" label="Audit Call Out (%)" variant="outlined" />
-     
-      </div>
-    
-      <Button className="Signup" variant="contained">Sign Up</Button>
-   </div>
     );
   };
-  
+
   const RateManagementView = () => {
     return (
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
     );
   };
   //RateManagementView
@@ -516,24 +602,24 @@ const [open4, setOpen4] = React.useState(false);
     { field: 'ServiceCode', headerName: 'Service Code', width: 300 },
     { field: 'Category', headerName: 'Category', width: 300 },
 
-    { field: 'ServiceType', headerName: 'Service Type', width: 300 }, 
+    { field: 'ServiceType', headerName: 'Service Type', width: 300 },
     { field: 'FromDate', headerName: 'From Date', width: 300 },
     { field: 'ToDate', headerName: 'To Date', width: 300 },
     { field: 'Rate', headerName: 'Rate', width: 300 },
-    
-    { field: 'RateType', headerName: 'Rate Type', width: 300 }, 
+
+    { field: 'RateType', headerName: 'Rate Type', width: 300 },
     { field: 'Status', headerName: 'Status', width: 300 },
-    
-   
-   
+
+
+
   ];
-  
+
   const rows = [
-    {id:1,TableReference:"Re Processing"},
-   
-    
+    { id: 1, TableReference: "Re Processing" },
+
+
   ];
- 
+
   //
   const [state, setState] = React.useState({
     left: false,
@@ -551,69 +637,70 @@ const [open4, setOpen4] = React.useState(false);
   };
 
   const list = (anchor) => (
-    <div  style={{
+    <div style={{
       height: "100vh",
       backgroundColor: "#2E0F59",
       display: "flex",
       flexDirection: "column",
       alignItems: "center"
     }}>
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <div
-        style={{
-          backgroundColor: "#2E0F59",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          height: "680px",
-        }}
+      <Box
+        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
       >
-        <p
-          className="Files"
+        <div
           style={{
-            fontSize: "20px",
-            color: "#F2B90F",
-            fontWeight: "bold",
+            backgroundColor: "#2E0F59",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            height: "680px",
           }}
         >
-          Files
-        </p>
-        <hr
-          className="line"
-          style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
-        />
+          <p
+            className="Files"
+            style={{
+              fontSize: "20px",
+              color: "#F2B90F",
+              fontWeight: "bold",
+            }}
+          >
+            Files
+          </p>
+          <hr
+            className="line"
+            style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
+          />
 
-        <h3  onClick={UserManagementPressed} style={{ color: "#F2B90F",textAlign:"center" }}>User Management</h3>
-        <h3  onClick={ChangePasswordPressed} style={{ color: "#F2B90F",textAlign:"center" }}>Change Password</h3>
-        <h3  onClick={CordinatorSetupPressed} style={{ color: "#F2B90F",textAlign:"center" }}>Cordinator Setup</h3>
-        <h3  onClick={ReferenceTableManagementPressed} style={{ color: "#F2B90F",textAlign:"center" }}>Reference Table Management</h3>
-        <h3  onClick={ProviderProfilePressed} style={{ color: "#F2B90F",textAlign:"center" }}>Provider Profile</h3>
-        <h3  onClick={RateManagementPressed} style={{ color: "#F2B90F",textAlign:"center" }}>Rate Management</h3>
-        <h3  onClick={FileProcessingPressed} style={{ color: "#F2B90F",textAlign:"center" }}>File Processing</h3>
-        <h3  onClick={EdiImportPressed} style={{ color: "#F2B90F",textAlign:"center" }}>EDI Import</h3>
-      
-      </div>
-    </Box>
+          <h3 onClick={UserManagementPressed} style={{ color: "#F2B90F", textAlign: "center" }}>User Management</h3>
+          <h3 onClick={ChangePasswordPressed} style={{ color: "#F2B90F", textAlign: "center" }}>Change Password</h3>
+          <h3 onClick={AddNewPatientPressed} style={{ color: "#F2B90F", textAlign: "center" }}>Add A New Patient</h3>
+          <h3 onClick={CordinatorSetupPressed} style={{ color: "#F2B90F", textAlign: "center" }}>Cordinator Setup</h3>
+          <h3 onClick={ReferenceTableManagementPressed} style={{ color: "#F2B90F", textAlign: "center" }}>Reference Table Management</h3>
+          <h3 onClick={ProviderProfilePressed} style={{ color: "#F2B90F", textAlign: "center" }}>Provider Profile</h3>
+          <h3 onClick={RateManagementPressed} style={{ color: "#F2B90F", textAlign: "center" }}>Rate Management</h3>
+          <h3 onClick={FileProcessingPressed} style={{ color: "#F2B90F", textAlign: "center" }}>File Processing</h3>
+          <h3 onClick={EdiImportPressed} style={{ color: "#F2B90F", textAlign: "center" }}>EDI Import</h3>
+
+        </div>
+      </Box>
     </div>
   );
   //
   return (
     <Wrapper>
       <div className="Header">
-      <MenuIcon
+        <MenuIcon
           className="menuIcon"
           onClick={toggleDrawer("left", true)}
           anchor={"left"}
           open={state["left"]}
           onClose={toggleDrawer("left", false)}
         ></MenuIcon>
-        <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() =>navigate("/AdminHome")} />
-       
+        <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() => navigate("/AdminHome")} />
+
         <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
           Log Out
         </Button>
@@ -636,7 +723,7 @@ const [open4, setOpen4] = React.useState(false);
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <UserName/>
+          <UserName />
           <hr />
           <p
             style={{
@@ -674,6 +761,17 @@ const [open4, setOpen4] = React.useState(false);
                 Change Password
               </p>
             </Button>
+            {/* To add new Patient */}
+            <Button onClick={AddNewPatientPressed} className="navigationButton">
+              <p
+                style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
+              >
+                Add a new Patient
+              </p>
+            </Button>
+            {/*  */}
+
+
             <Button onClick={CordinatorSetupPressed} className="navigationButton">
               <p
                 style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
@@ -732,10 +830,10 @@ const [open4, setOpen4] = React.useState(false);
         </Card>
       </div>
       <div className="GoBackButtonHolder">
-      <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
+        <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
       </div>
-      <Footer/>
-      
+      <Footer />
+
     </Wrapper>
   );
 }
