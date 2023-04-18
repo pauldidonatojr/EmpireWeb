@@ -694,9 +694,9 @@ function Homepage() {
           }
         </Card>
       </div>
-      <div className="GoBackButtonHolder">
+      {/* <div className="GoBackButtonHolder">
         <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
-      </div>
+      </div> */}
 
       <Footer />
     </Wrapper>

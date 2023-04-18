@@ -1478,8 +1478,6 @@ function CareGiverDetail() {
           </Grid>
         </div>
 
-
-
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Button className="EditButton" variant="outlined">
             Edit
