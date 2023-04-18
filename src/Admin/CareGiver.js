@@ -29,6 +29,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import OverlayCustom from "./Overlay";
 import 'react-toastify/dist/ReactToastify.css';
 import UserName from "../UserName";
+const Link = require("react-router-dom").Link;
 
 
 function CareGiver() {
@@ -126,6 +127,11 @@ function CareGiver() {
   const handleCloseOverlay = () => {
     setIsOverlayOpen(false);
   };
+  
+  function GoBackButtonPressed() {
+    navigate(-1);
+
+  }
   //
   const [state, setState] = React.useState({
     left: false,
@@ -593,14 +599,23 @@ function CareGiver() {
   };
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'CoCode', headerName: 'Care Giver Code', width: 120 },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { field: 'AideCode', headerName: 'Care Giver Code', width: 150 },
     { field: 'AltCaregiverCode', headerName: 'Alt Caregiver Code', width: 150 },
     { field: 'SSN', headerName: 'SSN', width: 150 },
-    { field: 'ProviderName', headerName: 'Provider Name', width: 150 },
     { field: 'DOB', headerName: 'Date of Birth', width: 150 },
     { field: 'phone', headerName: 'Phone', width: 150 },
-    { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'Status', headerName: 'Status', width: 100 },
     { field: 'Discipline', headerName: 'Discipline', width: 100 },
 
   ];
@@ -614,12 +629,13 @@ function CareGiver() {
         name: memberData[key].FirstName + ' ' + memberData[key].LastName,
         city: memberData[key].City,
         phone: memberData[key].Phone,
-        CoCode: memberData[key].CoCode,
+        AideCode: memberData[key].AideCode,
         Ethnicity: memberData[key].Ethnicity,
         SSN: memberData[key].SSN,
         Status: memberData[key].Status,
         EmployeeID: memberData[key].EmployeeID,
         Discipline: memberData[key].Discipline,
+        DOB: memberData[key].DateofBirth,
       }
       arr.push(obj);
     }
@@ -737,6 +753,11 @@ function CareGiver() {
         </Card>
       </div>
 
+      <div className="GoBackButtonHolder">
+        <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
+      </div>
+
+
       <Footer />
     </Wrapper>
   );
@@ -751,6 +772,25 @@ width: 100%;
     display:flex;
     flex-direction:row;
 }
+
+.GoBackButtonHolder{
+    display:flex;
+    justify-content:center;
+    margin-top:0;
+    margin-bottom:3%;
+  }
+  .GoBackButton{
+    background-color: #f26e22;
+    color: white;
+    width: 10%;
+    height: 150%;
+    padding: 0.5%;
+    border-radius: 10px;
+    margin-top:0;
+    jusfity-content:center;
+  }
+
+
 //
 .griditem{
   width:100%;

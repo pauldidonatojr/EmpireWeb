@@ -20,7 +20,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {AuthContext} from '../../components/context'
+import { AuthContext } from '../../components/context'
 import Backdrop from '@mui/material/Backdrop';
 import UserName from "../../UserName";
 //
@@ -31,20 +31,20 @@ function CallDashBoard() {
   const { signOut } = React.useContext(AuthContext);
   const [ViewSelected, setViewSelected] = useState(1);
 
-  
-//
 
-const [age, setAge] = React.useState('');
-const handleChange = (event) => {
-  setAge(event.target.value);
-};
+  //
 
-function GoBackButtonPressed(){
-  navigate("/Visit");
+  const [age, setAge] = React.useState('');
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
-}
-//
-  
+  function GoBackButtonPressed() {
+    navigate("/Visit");
+
+  }
+  //
+
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isOverlayOpen2, setIsOverlayOpen2] = useState(false);
   const [isOverlayOpen3, setIsOverlayOpen3] = useState(false);
@@ -53,7 +53,7 @@ function GoBackButtonPressed(){
   const [isOverlayOpen6, setIsOverlayOpen6] = useState(false);
 
   const handleClickIcon = () => {
-    
+
     switch (ViewSelected) {
       case 1:
         setIsOverlayOpen(true);
@@ -85,26 +85,26 @@ function GoBackButtonPressed(){
 
   };
   //
-//
-const CallMaintancePressed = () => {
-  setViewSelected(1);
-};
+  //
+  const CallMaintancePressed = () => {
+    setViewSelected(1);
+  };
 
-const MissedInPressed = () => {
-  setViewSelected(2);
-};
-const MissedOutPressed = () => {
-  setViewSelected(3);
-};
-const MissedCallPressed = () => {
-  setViewSelected(4);
-};
-const VisitLogPressed = () => {
-  setViewSelected(5);
-};
-const RejectedCallsPressed = () => {
-  setViewSelected(6);
-};
+  const MissedInPressed = () => {
+    setViewSelected(2);
+  };
+  const MissedOutPressed = () => {
+    setViewSelected(3);
+  };
+  const MissedCallPressed = () => {
+    setViewSelected(4);
+  };
+  const VisitLogPressed = () => {
+    setViewSelected(5);
+  };
+  const RejectedCallsPressed = () => {
+    setViewSelected(6);
+  };
   //
   const handleCloseOverlay = () => {
     setIsOverlayOpen(false);
@@ -125,862 +125,862 @@ const RejectedCallsPressed = () => {
     setIsOverlayOpen6(false);
   };
 
-    //
-const [open, setOpen] = React.useState(false);
-const handleClose = () => {
-  setOpen(false);
-};
-
-//
- //
- const [open2, setOpen2] = React.useState(false);
- const handleClose2 = () => {
-   setOpen2(false);
- };
- 
- //
   //
-const [open3, setOpen3] = React.useState(false);
-const handleClose3 = () => {
-  setOpen3(false);
-};
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-//
- //
- const [open4, setOpen4] = React.useState(false);
- const handleClose4 = () => {
-   setOpen4(false);
- };
- 
- //
   //
-const [open5, setOpen5] = React.useState(false);
-const handleClose5 = () => {
-  setOpen5(false);
-};
+  //
+  const [open2, setOpen2] = React.useState(false);
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
 
-//
- //
- const [open6, setOpen6] = React.useState(false);
- const handleClose6 = () => {
-   setOpen6(false);
- };
- 
- //
+  //
+  //
+  const [open3, setOpen3] = React.useState(false);
+  const handleClose3 = () => {
+    setOpen3(false);
+  };
+
+  //
+  //
+  const [open4, setOpen4] = React.useState(false);
+  const handleClose4 = () => {
+    setOpen4(false);
+  };
+
+  //
+  //
+  const [open5, setOpen5] = React.useState(false);
+  const handleClose5 = () => {
+    setOpen5(false);
+  };
+
+  //
+  //
+  const [open6, setOpen6] = React.useState(false);
+  const handleClose6 = () => {
+    setOpen6(false);
+  };
+
+  //
   //CallMaintance Search Overlay
   function Overlay() {
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
-     
-    >
-      <div className="overlay">
-      <CloseIcon className="crossIcon" onClick={handleClose} />
-      <h1 style={{ textAlign:"center",color:"black"}}>Set Filter from here !</h1>
-      <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Call Maintaince</p>
-      <div className="searchFieldsDiv">
-      
-        
-      <Grid className="griditem">
-        <TextField
-         
-          id="outlined-basic"
-          label="Care Giver First Name"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className="griditem">
-      <TextField
-          id="outlined-basic"
-          label="Care Giver Last Name"
-          variant="outlined"
-        />
-      </Grid>
-        
-      <Grid className="griditem">
-      
-      <TextField
-         
-          id="outlined-basic"
-          label="Care Giver Code"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className="griditem">
-      
-      <TextField
-          id="outlined-basic"
-          label="Assigment ID"
-          variant="outlined"
-        />
-        
-      </Grid>
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
 
-      <Grid className="griditem">
-      
-      <TextField
-         
-          id="outlined-basic"
-          label="Admission ID"
-          variant="outlined"
-        />
-        
-      </Grid>
-      <Grid className="griditem">
-      
-      <TextField
-         
-          id="outlined-basic"
-          label="Member First Name"
-          variant="outlined"
-        />
-        
-      </Grid>
-      <Grid className="griditem">
-      
-      <TextField
-         
-          id="outlined-basic"
-          label="Member Last Name"
-          variant="outlined"
-        />
-        
-      </Grid>
-        
+      >
+        <div className="overlay">
+          <CloseIcon className="crossIcon" onClick={handleClose} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Call Maintaince</p>
+          <div className="searchFieldsDiv">
 
-      <Grid className="griditem2">
-      
-      <Box >
-    <FormControl fullWidth>
-      <InputLabel >Cordinator</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={age}
-        label="Status"
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
-  </Box>  
-      </Grid>
-      <Grid className="griditem2">
-      
-      <Box>
-    <FormControl fullWidth>
-      <InputLabel >Status</InputLabel>
-      <Select
-      
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={age}
-        label="Status"
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
-  </Box>
-       </Grid>
-       <Grid className="griditem2">
-      
-      <Box >
-    <FormControl fullWidth>
-      <InputLabel >Member Team</InputLabel>
-      <Select
-      
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={age}
-        label="Status"
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
-  </Box>
-       </Grid>
 
-       <Grid className="griditem2">
-      
-      <Box >
-    <FormControl fullWidth>
-      <InputLabel >Member Location</InputLabel>
-      <Select
-      
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={age}
-        label="Status"
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
-  </Box>
-       </Grid>
-       <Grid className="griditem2">
-      
-      <Box >
-    <FormControl fullWidth>
-      <InputLabel >Member Branch</InputLabel>
-      <Select
-      
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={age}
-        label="Status"
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
-  </Box>
-       </Grid>
+            <Grid className="griditem">
+              <TextField
 
-       <Grid className="griditem2">
-      
-      <TextField
-         
-          id="outlined-basic"
-          label="From Date dd/mm/yyyy"
-          variant="outlined"
-        />
-        
-      </Grid>
-      <Grid className="griditem2">
-      
-      <TextField
-         
-          id="outlined-basic"
-          label="Till Date dd/mm/yyyy"
-          variant="outlined"
-        />
-        
-      </Grid>
-       
-      </div>
-      <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay}>
-        Search
-      </Button>
-    </div>
-    </Backdrop>
+                id="outlined-basic"
+                label="Care Giver First Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+                id="outlined-basic"
+                label="Care Giver Last Name"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Care Giver Code"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+                id="outlined-basic"
+                label="Assigment ID"
+                variant="outlined"
+              />
+
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Admission ID"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Member First Name"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Member Last Name"
+                variant="outlined"
+              />
+
+            </Grid>
+
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Cordinator</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box>
+                <FormControl fullWidth>
+                  <InputLabel >Status</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Member Team</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Member Location</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Member Branch</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid className="griditem2">
+
+              <TextField
+
+                id="outlined-basic"
+                label="From Date dd/mm/yyyy"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem2">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Till Date dd/mm/yyyy"
+                variant="outlined"
+              />
+
+            </Grid>
+
+          </div>
+          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay}>
+            Search
+          </Button>
+        </div>
+      </Backdrop>
     );
   }
-  
-//MissedIn
-function Overlay2() {
-  return (
-    
+
+  //MissedIn
+  function Overlay2() {
+    return (
+
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open2}
-     
-    >
-    <div className="overlay2">
-    <CloseIcon className="crossIcon" onClick={handleClose2} />
-    <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
-    <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Missed In</p>
-    <div className="searchFieldsDiv">
-    
-      
-    <Grid  className="griditem">
-      <TextField
-       
-        id="outlined-basic"
-        label="CareGiver Name"
-        variant="outlined"
-      />
-    </Grid>
-    <Grid className="griditem">
-    <TextField
-        id="outlined-basic"
-        label="Admission ID"
-        variant="outlined"
-      />
-    </Grid>
-      
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Member Name"
-        variant="outlined"
-      />
-    </Grid>
-      
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open2}
 
-    <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >MCO</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>  
-    </Grid>
-    <Grid className="griditem2">
-    
-    <Box>
-  <FormControl fullWidth>
-    <InputLabel >Cordinator</InputLabel>
-    <Select
-    
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>
-     </Grid>
-     <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >Team Member</InputLabel>
-    <Select
-    
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>
-     </Grid>
-     <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Assigment ID"
-        variant="outlined"
-      />
-    </Grid>
+      >
+        <div className="overlay2">
+          <CloseIcon className="crossIcon" onClick={handleClose2} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Missed In</p>
+          <div className="searchFieldsDiv">
 
-    </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay2}>
-      Search
-    </Button>
-  </div>
-  </Backdrop>
-  );
-}
 
-//Missed Out
-function Overlay3() {
-  
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="CareGiver Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+                id="outlined-basic"
+                label="Admission ID"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Member Name"
+                variant="outlined"
+              />
+            </Grid>
+
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >MCO</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box>
+                <FormControl fullWidth>
+                  <InputLabel >Cordinator</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Team Member</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Assigment ID"
+                variant="outlined"
+              />
+            </Grid>
+
+          </div>
+          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay2}>
+            Search
+          </Button>
+        </div>
+      </Backdrop>
+    );
+  }
+
+  //Missed Out
+  function Overlay3() {
+
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open3}
-     
-    >
-    <div className="overlay3">
-    <CloseIcon className="crossIcon" onClick={handleClose3} />
-    <h1 style={{ textAlign:"center",color:"black"}}>Set Filter from here !</h1>
-    <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Missed Out</p>
-    <div className="searchFieldsDiv">
-    
-      
-    <Grid className="griditem">
-      <TextField
-       
-        id="outlined-basic"
-        label="CareGiver Name"
-        variant="outlined"
-      />
-    </Grid>
-    <Grid className="griditem">
-    <TextField
-        id="outlined-basic"
-        label="Admission ID"
-        variant="outlined"
-      />
-    </Grid>
-      
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Member Name"
-        variant="outlined"
-      />
-    </Grid>
-  
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open3}
 
-    <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >MCO</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>  
-    </Grid>
-    <Grid className="griditem2">
-    
-    <Box>
-  <FormControl fullWidth>
-    <InputLabel >Cordinator</InputLabel>
-    <Select
-    
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>
-     </Grid>
-     <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >Team Member</InputLabel>
-    <Select
-    
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>
-     </Grid>
+      >
+        <div className="overlay3">
+          <CloseIcon className="crossIcon" onClick={handleClose3} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Missed Out</p>
+          <div className="searchFieldsDiv">
 
-     <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Assigment ID"
-        variant="outlined"
-      />
-    </Grid>
-  
-     
 
-    </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay3}>
-      Search
-    </Button>
-  </div>
-  </Backdrop>
-  );
-}
-//Missed Call Overlay
-function Overlay4() {
- 
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="CareGiver Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+                id="outlined-basic"
+                label="Admission ID"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Member Name"
+                variant="outlined"
+              />
+            </Grid>
+
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >MCO</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box>
+                <FormControl fullWidth>
+                  <InputLabel >Cordinator</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Team Member</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Assigment ID"
+                variant="outlined"
+              />
+            </Grid>
+
+
+
+          </div>
+          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay3}>
+            Search
+          </Button>
+        </div>
+      </Backdrop>
+    );
+  }
+  //Missed Call Overlay
+  function Overlay4() {
+
     return (
       <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open4}
-     
-    >
-    <div className="overlay4">
-    <CloseIcon className="crossIcon" onClick={handleClose4} />
-    <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
-    <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Missed Call</p>
-    <div className="searchFieldsDiv">
-  
-      
-    <Grid className="griditem">
-      <TextField
-       
-        id="outlined-basic"
-        label="Care Giver Name"
-        variant="outlined"
-      />
-    </Grid>
-    <Grid className="griditem">
-    <TextField
-        id="outlined-basic"
-        label="Admission ID"
-        variant="outlined"
-      />
-    </Grid>
-      
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Member Name"
-        variant="outlined"
-      />
-    </Grid>
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open4}
 
-    <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >MCO</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>  
-    </Grid>
-    <Grid className="griditem2" style={{marginLeft:"1%"}}>
-    
-    <Box>
-  <FormControl fullWidth>
-    <InputLabel >Cordinator</InputLabel>
-    <Select
-    
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>
-     </Grid>
-     <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >Team Member</InputLabel>
-    <Select
-    
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>
-     </Grid>
-     <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Assigment ID"
-        variant="outlined"
-      />
-    </Grid>
-     
+      >
+        <div className="overlay4">
+          <CloseIcon className="crossIcon" onClick={handleClose4} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Missed Call</p>
+          <div className="searchFieldsDiv">
 
-    </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay4}>
-      Search
-    </Button>
-  </div>
-  </Backdrop>
-  );
-}
-//Visit Log
-function Overlay5() {
-  return (
-    <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open5}
-     
-    >
-    <div className="overlay5">
-    <CloseIcon className="crossIcon" onClick={handleClose5} />
-    <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
-    <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Visit Log</p>
-    <div className="searchFieldsDiv">
-   
-      
-    <Grid className="griditem">
-      <TextField
-       
-        id="outlined-basic"
-        label="First Name"
-        variant="outlined"
-      />
-    </Grid>
-    <Grid className="griditem">
-    <TextField
-        id="outlined-basic"
-        label="Last Name"
-        variant="outlined"
-      />
-    </Grid>
-      
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Care Giver Code"
-        variant="outlined"
-      />
-    </Grid>
-    <Grid className="griditem">
-    
-    <TextField
-        id="outlined-basic"
-        label="Care Giver Name"
-        variant="outlined"
-      />
-      
-    </Grid>
-    <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >Team Member</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>  
-    </Grid>
 
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Assigment ID"
-        variant="outlined"
-      />
-      
-    </Grid>
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Admission ID"
-        variant="outlined"
-      />
-      
-    </Grid>
-      
+            <Grid className="griditem">
+              <TextField
 
-    <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >Cordinator</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>  
-    </Grid>
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="From Date dd/mm/yyyy"
-        variant="outlined"
-      />
-      
-    </Grid>
-    
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Till Date dd/mm/yyyy"
-        variant="outlined"
-      />
-      
-    </Grid>
+                id="outlined-basic"
+                label="Care Giver Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+                id="outlined-basic"
+                label="Admission ID"
+                variant="outlined"
+              />
+            </Grid>
 
-    </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay5}>
-      Search
-    </Button>
-  </div>
-  </Backdrop>
-  );
-}
-//Rejected Calls
-function Overlay6() {
-  return (
-    <Backdrop
-    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    open={open6}
-   
-  >
-    
-    <div className="overlay6">
-    <CloseIcon className="crossIcon" onClick={handleClose6} />
-    <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
-    <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Rejected Calls</p>
-    <div className="searchFieldsDiv">
-   
-      
-    <Grid className="griditem">
-      <TextField
-       
-        id="outlined-basic"
-        label="Care Giver Code"
-        variant="outlined"
-      />
-    </Grid>
-    <Grid className="griditem">
-    <TextField
-        id="outlined-basic"
-        label="Care Giver Name"
-        variant="outlined"
-      />
-    </Grid>
-      
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Assigment ID"
-        variant="outlined"
-      />
-    </Grid>
-    <Grid className="griditem">
-    
-    <TextField
-        id="outlined-basic"
-        label="Admission ID"
-        variant="outlined"
-      />
-      
-    </Grid>
+            <Grid className="griditem">
 
-    <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
-    <InputLabel >Team Member</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>  
-    </Grid>
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="From Date dd/mm/yy"
-        variant="outlined"
-      />
-    </Grid>
-    <Grid className="griditem">
-    
-    <TextField
-       
-        id="outlined-basic"
-        label="Till Date dd/mm/yy"
-        variant="outlined"
-      />
-    </Grid>
-  
-    </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay6}>
-      Search
-    </Button>
-  </div>
-  </Backdrop>
-  );
-}
+              <TextField
+
+                id="outlined-basic"
+                label="Member Name"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >MCO</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2" style={{ marginLeft: "1%" }}>
+
+              <Box>
+                <FormControl fullWidth>
+                  <InputLabel >Cordinator</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Team Member</InputLabel>
+                  <Select
+
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Assigment ID"
+                variant="outlined"
+              />
+            </Grid>
+
+
+          </div>
+          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay4}>
+            Search
+          </Button>
+        </div>
+      </Backdrop>
+    );
+  }
+  //Visit Log
+  function Overlay5() {
+    return (
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open5}
+
+      >
+        <div className="overlay5">
+          <CloseIcon className="crossIcon" onClick={handleClose5} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Visit Log</p>
+          <div className="searchFieldsDiv">
+
+
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="First Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+                id="outlined-basic"
+                label="Last Name"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Care Giver Code"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+                id="outlined-basic"
+                label="Care Giver Name"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Team Member</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Assigment ID"
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Admission ID"
+                variant="outlined"
+              />
+
+            </Grid>
+
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Cordinator</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="From Date dd/mm/yyyy"
+                variant="outlined"
+              />
+
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Till Date dd/mm/yyyy"
+                variant="outlined"
+              />
+
+            </Grid>
+
+          </div>
+          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay5}>
+            Search
+          </Button>
+        </div>
+      </Backdrop>
+    );
+  }
+  //Rejected Calls
+  function Overlay6() {
+    return (
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open6}
+
+      >
+
+        <div className="overlay6">
+          <CloseIcon className="crossIcon" onClick={handleClose6} />
+          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Rejected Calls</p>
+          <div className="searchFieldsDiv">
+
+
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="Care Giver Code"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+                id="outlined-basic"
+                label="Care Giver Name"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Assigment ID"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+                id="outlined-basic"
+                label="Admission ID"
+                variant="outlined"
+              />
+
+            </Grid>
+
+            <Grid className="griditem2">
+
+              <Box >
+                <FormControl fullWidth>
+                  <InputLabel >Team Member</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="From Date dd/mm/yy"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="outlined-basic"
+                label="Till Date dd/mm/yy"
+                variant="outlined"
+              />
+            </Grid>
+
+          </div>
+          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay6}>
+            Search
+          </Button>
+        </div>
+      </Backdrop>
+    );
+  }
 
 
   function RenderViews() {
@@ -1003,7 +1003,7 @@ function Overlay6() {
         break;
     }
   }
-  
+
   const jsonData = [
     {
       id: 1,
@@ -1043,14 +1043,14 @@ function Overlay6() {
   const RejectedCallsView = () => {
     return (
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows6}
-        columns={columns6}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
+        <DataGrid
+          rows={rows6}
+          columns={columns6}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
     );
   };
   //rejecyed call View columns and demo data
@@ -1063,173 +1063,173 @@ function Overlay6() {
     { field: 'teamMember', headerName: 'Team Member', width: 135 },
     { field: 'fromDate', headerName: 'From Date', width: 135 },
     { field: 'tillDate', headerName: 'Till Date', width: 135 },
-   
+
   ];
   //demo data to display
   const rows6 = [
-    {id:1,careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",teamMember:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-    {id:2,careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",teamMember:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-    {id:3,careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",teamMember:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-    {id:4,careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",teamMember:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-   
-   
+    { id: 1, careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", teamMember: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+    { id: 2, careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", teamMember: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+    { id: 3, careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", teamMember: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+    { id: 4, careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", teamMember: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+
+
   ];
   //
 
-  
+
   const VisitLogView = () => {
     return (
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows5}
-        columns={columns5}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
+        <DataGrid
+          rows={rows5}
+          columns={columns5}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
     );
   };
   //Visit Log View columns and demo data
   const columns5 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'ScheduledDate', headerName: 'Scheduled Date', width: 120 }, 
+    { field: 'ScheduledDate', headerName: 'Scheduled Date', width: 120 },
     { field: 'admissionID', headerName: 'Admission ID', width: 100 },
     { field: 'Member Name', headerName: 'Member Name', width: 100 },
     { field: 'careGiverCode', headerName: 'CareGiver Code', width: 130 },
     { field: 'careGiverName', headerName: 'CareGiver Name', width: 130 },
     { field: 'assigmentID', headerName: 'Assigment ID', width: 100 },
-    
+
     { field: 'Schedule', headerName: 'Schedule', width: 100 },
     { field: 'Visit', headerName: 'Visit', width: 100 },
     { field: 'SvcCode', headerName: 'Svc.Code', width: 150 },
-   
+
 
 
     { field: 'CallIn', headerName: 'Call In', width: 100 },
     { field: 'CallOut', headerName: 'Call Out', width: 130 },
     { field: 'Billed', headerName: 'Billed', width: 130 },
     { field: 'Duties', headerName: 'Duties', width: 100 },
-    
+
     { field: 'MemberTeam', headerName: 'Member Team', width: 120 },
     { field: 'edit', headerName: 'Edit', width: 100 },
     { field: 'Delete', headerName: 'Delete', width: 150 },
-   
+
   ];
   //demo data to display
   const rows5 = [
-    {id:1,firstName:"Justin",lastName:"Alo",careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",cordinator:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-    {id:2,firstName:"Justin",lastName:"Alo",careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",cordinator:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-    {id:3,firstName:"Justin",lastName:"Alo",careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",cordinator:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-    {id:4,firstName:"Justin",lastName:"Alo",careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",cordinator:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-    {id:5,firstName:"Justin",lastName:"Alo",careGiverCode:"02457894561",careGiverName:"XOXO",assigmentID:"XZXZ",admissionID:"1123456",cordinator:"Active",fromDate:"10 jul 2020",tillDate:"10 jul 2021"},
-   
-   
+    { id: 1, firstName: "Justin", lastName: "Alo", careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", cordinator: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+    { id: 2, firstName: "Justin", lastName: "Alo", careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", cordinator: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+    { id: 3, firstName: "Justin", lastName: "Alo", careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", cordinator: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+    { id: 4, firstName: "Justin", lastName: "Alo", careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", cordinator: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+    { id: 5, firstName: "Justin", lastName: "Alo", careGiverCode: "02457894561", careGiverName: "XOXO", assigmentID: "XZXZ", admissionID: "1123456", cordinator: "Active", fromDate: "10 jul 2020", tillDate: "10 jul 2021" },
+
+
   ];
   //
-  
+
   const MissedCallView = () => {
     return (
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows4}
-        columns={columns4}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
-    
+        <DataGrid
+          rows={rows4}
+          columns={columns4}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
+
     );
   };
   //MissedCallView columns and demo data
   const columns4 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'careGiverName', headerName: 'Care Giver Name', width: 150 }, 
+    { field: 'careGiverName', headerName: 'Care Giver Name', width: 150 },
     { field: 'admissionID', headerName: 'Admission ID', width: 150 },
     { field: 'memberName', headerName: 'Member Name', width: 150 },
     { field: 'mco', headerName: 'MCO', width: 100 },
     { field: 'cordinator', headerName: 'Cordinator', width: 150 },
     { field: 'teamMember', headerName: 'Team Member', width: 150 },
     { field: 'assigmentID', headerName: 'Assigment ID', width: 150 },
-    
+
   ];
   //demo data to display
   const rows4 = [
-    {id:1,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:2,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:3,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:4,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:5,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:6,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-   
+    { id: 1, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 2, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 3, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 4, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 5, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 6, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+
   ];
   //
-  
+
   const MissedOutView = () => {
     return (
-      
+
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows3}
-        columns={columns3}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
-    
+        <DataGrid
+          rows={rows3}
+          columns={columns3}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
+
     );
   };
   //MissedOutView columns and demo data
   const columns3 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'careGiverName', headerName: 'Care Giver Name', width: 150 }, 
+    { field: 'careGiverName', headerName: 'Care Giver Name', width: 150 },
     { field: 'admissionID', headerName: 'Admission ID', width: 150 },
     { field: 'memberName', headerName: 'Member Name', width: 150 },
     { field: 'mco', headerName: 'MCO', width: 100 },
     { field: 'cordinator', headerName: 'Cordinator', width: 150 },
     { field: 'teamMember', headerName: 'Team Member', width: 150 },
     { field: 'assigmentID', headerName: 'Assigment ID', width: 150 },
-    
+
   ];
   //demo data to display
   const rows3 = [
-    {id:1,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:2,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:3,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:4,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:5,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:6,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-   
+    { id: 1, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 2, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 3, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 4, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 5, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 6, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+
   ];
   //
-  
+
   const CallMaintanceView = () => {
     return (
 
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
-     
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
+
     );
   };
-  
+
   //call maintance columns and demo data
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'firstName', headerName: 'First Name', width: 100 }, 
+    { field: 'firstName', headerName: 'First Name', width: 100 },
     { field: 'lastName', headerName: 'Last Name', width: 100 },
-    { 
-      field: 'caregiverCode', 
-      headerName: 'CareGiver Code', 
-      width: 120, 
+    {
+      field: 'caregiverCode',
+      headerName: 'CareGiver Code',
+      width: 120,
       renderCell: (params) => (
         <Link to="/CareGiverDetail" state={{ from: "occupation" }}
         >
@@ -1247,42 +1247,52 @@ function Overlay6() {
     { field: 'memberBranch', headerName: 'Member Branch', width: 120 },
     { field: 'fromDate', headerName: 'From Date', width: 100 },
     { field: 'tillDate', headerName: 'Till Date', width: 100 },
-    
+
   ];
   //demo data to display
   const rows = [
-    {id:1,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:2,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:3,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:4,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    {id:5,firstName:"Justin",lastName:"Alo",caregiverCode:"02457894561",assigmentID:"XOXO",admissionID:"XZXZ",memberFirstName:"1123456",cordinator:"Active",status:"Homecare",memberTeam:"51s",
-    memberLocation:"China",memberBranch:"Depot",fromDate:"10 Jul 2020",tillDate:"10 Jul 2021"},
-    
+    {
+      id: 1, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 2, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 3, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 4, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+    {
+      id: 5, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
+      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
+    },
+
   ];
   //
   const MissedInView = () => {
     return (
-    
+
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows2}
-        columns={columns2}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-      />
-    </div>
-    ///
+        <DataGrid
+          rows={rows2}
+          columns={columns2}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+        />
+      </div>
+      ///
     );
   };
   //MissedInView columns and demo data
   const columns2 = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'AssignID', headerName: 'Assign ID', width: 150 }, 
+    { field: 'AssignID', headerName: 'Assign ID', width: 150 },
     { field: 'memberName', headerName: 'Member Name', width: 150 },
     { field: 'Phone', headerName: 'Phone', width: 150 },
     { field: 'AdmID', headerName: 'Adm.ID', width: 150 },
@@ -1292,53 +1302,53 @@ function Overlay6() {
     { field: 'Schedule', headerName: 'Schedule', width: 150 },
     { field: 'MCO', headerName: 'MCO', width: 150 },
     { field: 'MemberTeam', headerName: 'Member Team', width: 150 },
-    
-    
+
+
   ];
   //demo data to display
   const rows2 = [
-    {id:1,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:2,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:3,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:4,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:5,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-    {id:6,careGiverName:"Justin",admissionID:"Alo",memberName:"02457894561",mco:"XOXO",cordinator:"XZXZ",teamMember:"1123456",assigmentID:"Active"},
-   
+    { id: 1, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 2, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 3, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 4, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 5, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+    { id: 6, careGiverName: "Justin", admissionID: "Alo", memberName: "02457894561", mco: "XOXO", cordinator: "XZXZ", teamMember: "1123456", assigmentID: "Active" },
+
   ];
   //
-//
-const [state, setState] = React.useState({
-  left: false,
-});
+  //
+  const [state, setState] = React.useState({
+    left: false,
+  });
 
-const toggleDrawer = (anchor, open) => (event) => {
-  if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-    return;
-  }
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
 
-  setState({ ...state, [anchor]: open });
-};
+    setState({ ...state, [anchor]: open });
+  };
 
-const list = (anchor) => (
-  <div  style={{
-    height: "100vh",
-    backgroundColor: "#2E0F59",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  }}>
-  <Box
-    sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-    role="presentation"
-    onClick={toggleDrawer(anchor, false)}
-    onKeyDown={toggleDrawer(anchor, false)}
-    
-  >
-    
-    <div style={{backgroundColor:"#2E0F59",display:"flex",flexDirection:"column",alignItems:"center",height:"680px"}}>
-    
-    <p
-           className="Files"
+  const list = (anchor) => (
+    <div style={{
+      height: "100vh",
+      backgroundColor: "#2E0F59",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }}>
+      <Box
+        sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+
+      >
+
+        <div style={{ backgroundColor: "#2E0F59", display: "flex", flexDirection: "column", alignItems: "center", height: "680px" }}>
+
+          <p
+            className="Files"
             style={{
               fontSize: "20px",
               color: "#F2B90F",
@@ -1348,62 +1358,62 @@ const list = (anchor) => (
             Files
           </p>
           <hr className="line" style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
-        
-     
-     <h3    onClick={() => {
-                CallMaintancePressed();
-              }}  style={{color:"#F2B90F"}}>Call Maintance</h3>
-     <h3  onClick={MissedInPressed}  style={{color:"#F2B90F"}}>Missed In</h3>
-     <h3  onClick={MissedOutPressed}  style={{color:"#F2B90F"}}>Missed Out</h3>
-     <h3  onClick={MissedCallPressed}  style={{color:"#F2B90F"}}>Missed Call</h3>
-     <h3  onClick={VisitLogPressed}  style={{color:"#F2B90F"}}>Visit Log</h3>
-     <h3  onClick={RejectedCallsPressed}  style={{color:"#F2B90F"}}>Rejected Calls</h3>
-     
-   
-     </div>
-    
-    
-   
-  </Box>
-  </div>
-);
-//
+
+
+          <h3 onClick={() => {
+            CallMaintancePressed();
+          }} style={{ color: "#F2B90F" }}>Call Maintance</h3>
+          <h3 onClick={MissedInPressed} style={{ color: "#F2B90F" }}>Missed In</h3>
+          <h3 onClick={MissedOutPressed} style={{ color: "#F2B90F" }}>Missed Out</h3>
+          <h3 onClick={MissedCallPressed} style={{ color: "#F2B90F" }}>Missed Call</h3>
+          <h3 onClick={VisitLogPressed} style={{ color: "#F2B90F" }}>Visit Log</h3>
+          <h3 onClick={RejectedCallsPressed} style={{ color: "#F2B90F" }}>Rejected Calls</h3>
+
+
+        </div>
+
+
+
+      </Box>
+    </div>
+  );
+  //
   return (
     <Wrapper>
       <div className="Header">
-      <MenuIcon
-    className="menuIcon"
-    onClick={toggleDrawer('left', true)}
-     anchor={'left'}
-     open={state['left']}
-     onClose={toggleDrawer('left', false)}>
-      
-    </MenuIcon>
-        <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() =>navigate("/AdminHome")}/>
-        
+        <MenuIcon
+          className="menuIcon"
+          onClick={toggleDrawer('left', true)}
+          anchor={'left'}
+          open={state['left']}
+          onClose={toggleDrawer('left', false)}>
+
+        </MenuIcon>
+        <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() => navigate("/AdminHome")} />
+
         <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
           Log Out
         </Button>
         <LogoutIcon className="LogoutIcon" onClick={signOut}></LogoutIcon>
       </div>
-      <div style={{display:"none"}}>
-{['left'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
+      <div style={{ display: "none" }}>
+        {['left'].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+            <Drawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))}
       </div>
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <UserName/>
+          <UserName />
           <hr />
           <p
             style={{
@@ -1473,7 +1483,7 @@ const list = (anchor) => (
         </Card>
 
         <Card className="dataDisplay">
-         
+
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
           {isOverlayOpen && <Overlay />}
           {isOverlayOpen2 && <Overlay2 />}
@@ -1485,10 +1495,10 @@ const list = (anchor) => (
         </Card>
       </div>
       <div className="GoBackButtonHolder">
-      <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
+        <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
       </div>
 
-     <Footer/>
+      <Footer />
     </Wrapper>
   );
 }

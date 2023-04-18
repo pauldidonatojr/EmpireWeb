@@ -468,14 +468,49 @@ function MemberDetails() {
         setViewSelected(2);
     };
 
+    const GeneralInfoPressed = () => {
+        setViewSelected(3);
+    };
+
+    const ProfileInfoPressed = () => {
+        setViewSelected(5);
+    };
+
+    function AuthorizationInfoPressed() {
+        setViewSelected(6);
+    }
+
+    function SpecialReuirementsInfoPressed() {
+        setViewSelected(7);
+    }
+
+    function MasterWeekInfoPressed() {
+        setViewSelected(8);
+    }
+
     function RenderViews() {
         switch (ViewSelected) {
             case 2:
                 return MemberInfoView();
 
+            case 3:
+                return GeneralInfoView();
+
 
             case 4:
                 return CalenderView();
+
+            case 5:
+                return ProfileView();
+
+            case 6:
+                return AuthorizationView();
+
+            case 7:
+                return SpecialRequirementsView();
+
+            case 8:
+                return MasterWeekView();
 
             default:
                 break;
@@ -562,6 +597,7 @@ function MemberDetails() {
     function VisitInfoPressed() {
         setNavigationState(2);
     }
+
     function BillInfoPreseed() {
         setNavigationState(3);
     }
@@ -1059,6 +1095,507 @@ function MemberDetails() {
             </div>
         );
     };
+
+    const GeneralInfoView = () => {
+        return (
+            <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+
+
+                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>General</h1>
+                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Provider Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Office: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Disable Automatic Visit Creation Based on EVV Confirmations: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Team: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}> Enable FOB Confirmation: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Location: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Branch: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Source of Admission: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Button className="EditButton" variant="outlined">
+                            Edit
+                        </Button>
+                    </div>
+                </div>
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Provider Information</h1>
+                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                    <DataGrid
+                        rows={rows10}
+                        columns={columns10}
+                        pageSize={5}
+                        rowsPerPageOptions={[15]}
+                        checkboxSelection
+                    />
+                </div>
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Status History</h1>
+                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                    <DataGrid
+                        rows={rows10}
+                        columns={columns10}
+                        pageSize={5}
+                        rowsPerPageOptions={[15]}
+                        checkboxSelection
+                    />
+                </div>
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Notes</h1>
+                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                    <DataGrid
+                        rows={rows10}
+                        columns={columns10}
+                        pageSize={5}
+                        rowsPerPageOptions={[15]}
+                        checkboxSelection
+                    />
+                </div>
+            </div>
+        );
+    };
+
+
+    const ProfileView = () => {
+        return (
+            <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+
+
+                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Demographics</h1>
+                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>First Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Middle Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Gender: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Medicaid Number: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Button className="EditButton" variant="outlined">
+                            Edit
+                        </Button>
+                    </div>
+                </div>
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Address</h1>
+                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                    <DataGrid
+                        rows={rows10}
+                        columns={profileAddressTableColumns}
+                        pageSize={5}
+                        rowsPerPageOptions={[15]}
+                        checkboxSelection
+                    />
+                </div>
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Phone Number Information</h1>
+                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Home Phone: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Home Phone Location: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2 Location: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Description: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3 Location: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Description: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Button className="EditButton" variant="outlined">
+                            Edit
+                        </Button>
+                    </div>
+                </div>
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Emergency Contact Information</h1>
+                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Relationship: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Address: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Relationship: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Address: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Button className="EditButton" variant="outlined">
+                            Edit
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const AuthorizationView = () => {
+        return (
+            <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+
+
+                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Authorization</h1>
+                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                    <DataGrid
+                        rows={rows10}
+                        columns={columns10}
+                        pageSize={5}
+                        rowsPerPageOptions={[15]}
+                        checkboxSelection
+                    />
+                </div>
+            </div>
+        );
+    };
+
+    const SpecialRequirementsView = ()=>{
+        return (
+            <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+
+
+                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Special Requirements</h1>
+                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Preffered Gender: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Primary Language: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Secondary Language: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Preffered Discipline: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Others: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+
+                </div>
+
+            </div>
+        );
+    }
+
+    const MasterWeekView = ()=>{
+        return (
+            <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+
+
+                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Last 3 Authorization</h1>
+                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                    <DataGrid
+                        rows={rows10}
+                        columns={columns10}
+                        pageSize={5}
+                        rowsPerPageOptions={[15]}
+                        checkboxSelection
+                    />
+                </div>
+
+
+
+                <div style={{ height: "100%", width: '100%' }}>
+                <Calendar
+                    events={myEventsList}
+                    startAccessor="start"
+                    endAccessor="end"
+                    localizer={localizer}
+                    formats={{ dayFormat: myCustomFormat }}
+                    showMultiDayTimes={false}
+                    views={['month']}
+                    style={{ height: "100%" }}
+                    onSelectEvent={handleEventClick} // pass the function as a prop
+                />
+            </div>
+            </div>
+        );
+    }
+
     const columns10 = [
         { field: 'id', headerName: 'Auth. #', width: 100 },
         { field: 'fromDate', headerName: 'From Date', width: 100 },
@@ -1070,6 +1607,20 @@ function MemberDetails() {
         { field: 'serviceCat', headerName: 'Service Category', width: 120 },
         { field: 'notes', headerName: 'Notes', width: 100 },
         { field: 'visit', headerName: 'Visit / Invoice', width: 100 },
+
+    ];
+
+    const profileAddressTableColumns = [
+        { field: 'id', headerName: 'Auth. #', width: 100 },
+        { field: 'fromDate', headerName: 'Address Line 1', width: 100 },
+        { field: 'toDate', headerName: 'Address Line 2', width: 120 },
+        { field: 'serviceType', headerName: 'City', width: 120 },
+        { field: 'serviceCode', headerName: 'State', width: 120 },
+        { field: 'authType', headerName: 'Country', width: 100 },
+        { field: 'mco', headerName: 'Zip', width: 120 },
+        { field: 'serviceCat', headerName: 'Cross Street', width: 120 },
+        { field: 'notes', headerName: 'Primary Address', width: 100 },
+        { field: 'visit', headerName: 'Notes', width: 100 },
 
     ];
     //demo data to display
@@ -1239,6 +1790,132 @@ function MemberDetails() {
 
 
                         <Button
+                            className="navigationButton"
+                            onClick={() => {
+                                AuthorizationInfoPressed();
+                            }}
+                        >
+                            <p
+                                style={{
+                                    fontSize: "15px",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                Authorization
+                            </p>
+                        </Button>
+
+
+                        <Button
+                            className="navigationButton"
+                            onClick={() => {
+                                GeneralInfoPressed();
+                            }}
+                        >
+                            <p
+                                style={{
+                                    fontSize: "15px",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                General
+                            </p>
+                        </Button>
+
+
+                        <Button
+                            className="navigationButton"
+                            onClick={() => {
+                                ProfileInfoPressed();
+                            }}
+                        >
+                            <p
+                                style={{
+                                    fontSize: "15px",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                Profile
+                            </p>
+                        </Button>
+
+                        <Button
+                            className="navigationButton"
+                            onClick={() => {
+                                SpecialReuirementsInfoPressed();
+                            }}
+                        >
+                            <p
+                                style={{
+                                    fontSize: "15px",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                Special Requirements
+                            </p>
+                        </Button>
+
+
+                        <Button
+                            className="navigationButton"
+                            onClick={() => {
+                                MasterWeekInfoPressed();
+                            }}
+                        >
+                            <p
+                                style={{
+                                    fontSize: "15px",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                Master Week
+                            </p>
+                        </Button>
+
+
+
+                        <Button
+                            className="navigationButton"
+                            onClick={() => {
+                                MemberInfoPressed();
+                            }}
+                        >
+                            <p
+                                style={{
+                                    fontSize: "15px",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                Visits
+                            </p>
+                        </Button>
+
+
+
+                        <Button
+                            className="navigationButton"
+                            onClick={() => {
+                                MemberInfoPressed();
+                            }}
+                        >
+                            <p
+                                style={{
+                                    fontSize: "15px",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                POC
+                            </p>
+                        </Button>
+
+                        <Button
                             onClick={CalenderPressed}
                             className="navigationButton"
                         >
@@ -1274,7 +1951,17 @@ const Wrapper = styled.section`
   height: 100%;
   width: 100%;
 
-
+  .EditButton{
+    background-color: #564873;
+   
+    font-weight:bold;
+    width:15%;
+    color:white;
+  }
+  .EditButton:hover {
+    color:black;
+  }
+  
 
   .DateFieldHolder {
     

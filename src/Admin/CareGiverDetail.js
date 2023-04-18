@@ -1269,222 +1269,223 @@ function CareGiverDetail() {
 
   const CareGiverInfoView = () => {
     return (
-      <div style={{overflow:"auto",width:"100%",height:"100%"}}>
+      <div style={{ overflow: "auto", width: "100%", height: "100%" }}>
         <h1 style={{ color: "grey", textAlign: "center" }}>
           {" "}
           Care Giver Information
         </h1>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-           Name: <span style={{ color: "#564873" }}>110245</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Care Giver Code :{" "}
-            <span style={{ color: "#564873" }}>0203154856</span>{" "}
-          </h2>
-          
-          </div>
-          <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-           DOB: <span style={{ color: "#564873" }}>110245</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Discipline :{" "}
-            <span style={{ color: "#564873" }}>0203154856</span>{" "}
-          </h2>
-          
-          </div>
-       
-       
+        <div style={{ borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Name: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Care Giver Code: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Date Of Birth: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Discipline: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+          </Grid>
+        </div>
+
+
         <h3 style={{ color: "grey", textAlign: "center" }}>
           {" "}
           Profile Information
         </h3>
-        <h4 style={{ color: "white", textAlign: "center",backgroundColor:"#f26e22",padding:"1%",borderRadius:"10px"  }}> Demographics</h4>
+        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}> Demographics</h4>
         <hr></hr>
-        <div className="datafieldHolder">
-          <h2 className="infodisplay">
-            First Name :{" "}
-            <span style={{ color: "#564873" }}>Acevedo</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            Middle Name: <span style={{ color: "#564873" }}>Silve</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            Last Name : <span style={{ color: "#564873" }}>Mendez</span>{" "}
-          </h2>
-         
-        </div>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay">
-           DOB :{" "}
-            <span style={{ color: "#564873" }}>11 Jan 1999</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-           Gender :{" "}
-            <span style={{ color: "#564873" }}>Female</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            Alt Caregiver Code: <span style={{ color: "#564873" }}>1039</span>{" "}
-          </h2>
         
-        </div>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay">
-            Time & Att. PIN  : <span style={{ color: "#564873" }}>100039</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            SSN # : <span style={{ color: "#564873" }}>159-456-4564</span>
-          </h2>
-          <h2 className="infodisplay">
-           Status :{" "}
-            <span style={{ color: "#564873" }}>Active</span>{" "}
-          </h2>
-         
-        </div>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay">
-            Rehire: <span style={{ color: "#564873" }}>No</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            Rehire Date  : <span style={{ color: "#564873" }}></span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            Employment Type: <span style={{ color: "#564873" }}>HHA</span>
-          </h2>
-         
-        </div>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay">
-           Care Giver Mobile ID :{" "}
-            <span style={{ color: "#564873" }}>1508705</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            Mobile Device ID: <span style={{ color: "#564873" }}>1039</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            Ethnicity  : <span style={{ color: "#564873" }}>Hispanic</span>{" "}
-          </h2>
-         
-        </div>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay">
-            NPI Number: <span style={{ color: "#564873" }}>1102</span>
-          </h2>
-          <h2 className="infodisplay">
-           Primary Member Team :{" "}
-            <span style={{ color: "#564873" }}>Default</span>{" "}
-          </h2>
-          <h2 className="infodisplay">
-            Hiring Status <span style={{ color: "#564873" }}>Employee</span>{" "}
-          </h2>
-          </div>
 
-          <h2 style={{textAlign:"center"}}>
-            Start Date  : <span style={{ color: "#564873" }}>11 Jan 1985</span>{" "}
-          </h2>
-          <h4 style={{ color: "white", textAlign: "center",backgroundColor:"#f26e22",padding:"1%",borderRadius:"10px"  }}> Employment Information</h4>
-        <hr></hr>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            HHA/PCA Registry Number: <span style={{ color: "#564873" }}>1102</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Added/Checked Registry Date :{" "}
-            <span style={{ color: "#564873" }}>Default</span>{" "}
-          </h2>
-          
-          </div>
-          <h4 style={{ color: "white", textAlign: "center",backgroundColor:"#f26e22",padding:"1%",borderRadius:"10px"  }}> Address</h4>
-        <hr></hr>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            Street 1: <span style={{ color: "#564873" }}>1102</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Street 2 :{" "}
-            <span style={{ color: "#564873" }}>Default</span>{" "}
-          </h2>
-          
-          </div>
-           <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            City: <span style={{ color: "#564873" }}>1102</span>
-          </h2>
-          <h2 className="infodisplay2">
-           State :{" "}
-            <span style={{ color: "#564873" }}>Default</span>{" "}
-          </h2>
-          
-          </div>
-          <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            Zip: <span style={{ color: "#564873" }}>110245</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Home Phone :{" "}
-            <span style={{ color: "#564873" }}>0203154856</span>{" "}
-          </h2>
-          
-          </div>
-          <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            Phone 2: <span style={{ color: "#564873" }}>110245</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Phone 3 :{" "}
-            <span style={{ color: "#564873" }}>0203154856</span>{" "}
-          </h2>
-          
-          </div>
-          <h4 style={{ color: "white", textAlign: "center",backgroundColor:"#f26e22",padding:"1%",borderRadius:"10px" }}> Address 2</h4>
-        <hr></hr>
-        <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            Street 1: <span style={{ color: "#564873" }}>1102</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Street 2 :{" "}
-            <span style={{ color: "#564873" }}>Default</span>{" "}
-          </h2>
-          
-          </div>
-           <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            City: <span style={{ color: "#564873" }}>1102</span>
-          </h2>
-          <h2 className="infodisplay2">
-           State :{" "}
-            <span style={{ color: "#564873" }}>Default</span>{" "}
-          </h2>
-          
-          </div>
-          <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            Zip: <span style={{ color: "#564873" }}>110245</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Home Phone :{" "}
-            <span style={{ color: "#564873" }}>0203154856</span>{" "}
-          </h2>
-          
-          </div>
-          <div className="datafieldHolder">
-        <h2 className="infodisplay2">
-            Phone 2: <span style={{ color: "#564873" }}>110245</span>
-          </h2>
-          <h2 className="infodisplay2">
-           Phone 3 :{" "}
-            <span style={{ color: "#564873" }}>0203154856</span>{" "}
-          </h2>
-          
-          </div>
-          <div style={{display:"flex",justifyContent:"center"}}>
-          <Button  className="EditButton" variant="outlined">
-          Edit
-        </Button>
+        <div style={{ borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>First Name: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Middle Name: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Last Name: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>DOB: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Gender: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Alt Caregiver Code: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Time & Att. PIN: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>SSN #: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Status: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Rehire: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Rehire Date: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Employment Type:: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Care Giver Mobile ID: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Mobile Device ID: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Primary Member Team: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Hiring Status: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Start Date: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Ethnicity: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+          </Grid>
         </div>
-          
+
+
+
+        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}> Employment Information</h4>
+        <hr></hr>
+        <div style={{ borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>HHA/PCA Registry Number: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Added/Checked Registry Date: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+          </Grid>
+        </div>
+
+
+
+        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}> Address</h4>
+        <hr></hr>
+        <div style={{ borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Street 1: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Street 2: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>City: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>State: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Zip: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Home Phone: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 2: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 3: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+
+          </Grid>
+        </div>
+
+
+
+
+        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}> Address 2</h4>
+        <hr></hr>
+        <div style={{ borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>HHA/PCA Registry Number: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Added/Checked Registry Date: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+          </Grid>
+        </div>
+
+
+
+        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}> Address</h4>
+        <hr></hr>
+        <div style={{ borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Street 1: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Street 2: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>City: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>State: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Zip: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Home Phone: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 2: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 3: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+            </Grid>
+
+
+          </Grid>
+        </div>
+
+
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button className="EditButton" variant="outlined">
+            Edit
+          </Button>
+        </div>
+
       </div>
     );
   };
@@ -1597,7 +1598,7 @@ function CareGiverDetail() {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <UserName/>
+          <UserName />
           <hr />
           <p
             style={{
@@ -1694,6 +1695,12 @@ const Wrapper = styled.section`
   .EditButton:hover {
     color:black;
   }
+
+  .DataHolderGrid{
+    width: 50%;
+    text-align: center;
+  }
+
 .infodisplay{
 
     color: grey;
@@ -2064,6 +2071,10 @@ const Wrapper = styled.section`
       width:30%;
       height:50px;
     }
+    .DataHolderGrid{
+    width: 100%;
+    text-align: center;
+  }
       
     .TaskBar {
       display:none;
