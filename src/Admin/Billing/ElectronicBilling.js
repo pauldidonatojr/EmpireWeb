@@ -579,7 +579,7 @@ const handleClose2 = () => {
   //
   const { signOut } = React.useContext(AuthContext);
   function GoBackButtonPressed(){
-    navigate("/Billing");
+    navigate(-1);
 
   }
   return (

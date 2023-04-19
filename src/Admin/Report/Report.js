@@ -29,8 +29,7 @@ import UserName from "../../UserName";
 
 function Report() {
   function GoBackButtonPressed(){
-    navigate("/AdminHome");
-
+    navigate(-1);
   }
   const { signOut } = React.useContext(AuthContext);
   const [ViewSelected, setViewSelected] = useState(1);

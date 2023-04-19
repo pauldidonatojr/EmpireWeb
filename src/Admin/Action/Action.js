@@ -304,8 +304,7 @@ const [open, setOpen] = React.useState(false);
   //
   //
   function GoBackButtonPressed(){
-    navigate("/AdminHome");
-
+    navigate(-1);
   }
   const [state, setState] = React.useState({
     left: false,

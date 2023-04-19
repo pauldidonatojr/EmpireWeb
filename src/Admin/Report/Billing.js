@@ -31,7 +31,7 @@ function Billing() {
     setAge(event.target.value);
   };
   function GoBackButtonPressed(){
-    navigate("/Report");
+    navigate(-1);
 
   }
   //

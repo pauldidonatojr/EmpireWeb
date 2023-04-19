@@ -833,7 +833,7 @@ const list = (anchor) => (
 );
 //
 function GoBackButtonPressed(){
-  navigate("/Billing");
+  navigate(-1);
 
 }
   return (

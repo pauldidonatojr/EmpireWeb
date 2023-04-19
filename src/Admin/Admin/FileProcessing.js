@@ -31,8 +31,7 @@ function PendingQueuePlacement() {
   const [ViewSelected, setViewSelected] = useState(3);
 
   function GoBackButtonPressed(){
-    navigate("/Admin");
-
+    navigate(-1);
   }
 const [age, setAge] = React.useState('');
 const handleChange = (event) => {

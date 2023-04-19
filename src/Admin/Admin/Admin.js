@@ -36,7 +36,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 function Report() {
 
   function GoBackButtonPressed() {
-    navigate("/AdminHome");
+    navigate(-1);
 
   }
   const [email, setEmail] = useState(null);

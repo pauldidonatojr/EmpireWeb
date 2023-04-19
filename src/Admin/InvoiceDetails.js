@@ -684,7 +684,7 @@ function InvoiceDetails() {
   );
   //
   function GoBackButtonPressed() {
-    navigate("/AdminHome");
+    navigate(-1);
   }
   return (
     <Wrapper>

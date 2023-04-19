@@ -711,7 +711,7 @@ function Visit() {
 
 
   function GoBackButtonPressed() {
-    navigate("/AdminHome");
+    navigate(-1);
 
   }
 
@@ -3495,29 +3495,11 @@ color:black;
     padding:5px;
     height:10%;
     font-size:14px;
-    shadowColor: "#000",
-shadowOffset: {
-width: 0,
-height: 7,
-},
-shadowOpacity: 0.41,
-shadowRadius: 9.11,
-
-elevation: 14,
   }
   .SystemNotification{
     padding:5px;
     height:10%;
     font-size:13.5px;
-    shadowColor: "#000",
-shadowOffset: {
-width: 0,
-height: 7,
-},
-shadowOpacity: 0.41,
-shadowRadius: 9.11,
-
-elevation: 14,
     
   }
   .LogOutbutton {

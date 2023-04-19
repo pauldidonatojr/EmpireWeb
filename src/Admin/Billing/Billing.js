@@ -958,7 +958,7 @@ const handleClose2 = () => {
   );
   //
   function GoBackButtonPressed(){
-    navigate("/AdminHome");
+    navigate(-1);
   }
 
   return (

@@ -33,8 +33,7 @@ import UserName from "../../UserName";
 function CareGiver() {
   const navigate = useNavigate();
   function GoBackButtonPressed(){
-    navigate("/Admin");
-
+    navigate(-1);
   }
  
   const { signOut } = React.useContext(AuthContext);

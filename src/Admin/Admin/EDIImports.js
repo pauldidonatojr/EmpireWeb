@@ -36,7 +36,7 @@ const handleChange = (event) => {
 
 //
 function GoBackButtonPressed(){
-  navigate("/Admin");
+  navigate(-1);
 
 }
   

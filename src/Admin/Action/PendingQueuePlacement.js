@@ -502,8 +502,7 @@ function Overlay6() {
   );
   //
   function GoBackButtonPressed(){
-    navigate("/Action");
-
+    navigate(-1);
   }
   return (
     <Wrapper>
