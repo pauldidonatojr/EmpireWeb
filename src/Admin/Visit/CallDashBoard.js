@@ -1521,7 +1521,7 @@ const Wrapper = styled.section`
     padding: 0.5%;
     border-radius: 10px;
     margin-top:0;
-    jusfity-content:center;
+    justify-content: center;
   }
   .GoBackButton:hover {
     color: black;
@@ -1602,7 +1602,8 @@ const Wrapper = styled.section`
   height: 60%;
   z-index: 1000;
   background-color: white;
-  padding: 1%;
+  overflow-y: auto;
+  padding: 50px;
   }
   .overlay3{
     position: fixed;

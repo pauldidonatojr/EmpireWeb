@@ -966,7 +966,8 @@ elevation: 13,
     height: 44%;
     z-index: 1000;
     background-color: white;
-    padding: 1%;
+    overflow-y: auto;
+    padding: 50px;
   }
   .overlay3{  
     position: fixed;
@@ -1115,7 +1116,25 @@ elevation: 13,
     margin-top: 3%;
     margin-bottom: 2%;
     margin-left: 2%;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    /* For Chrome, Safari, and Opera */
+
   }
+
+    .TaskBar::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    .TaskBar::-webkit-scrollbar-track {
+    background-color: #564873;
+    }
+
+    .TaskBar::-webkit-scrollbar-thumb {
+    background-color: #8e9fb1;
+    border-radius: 5px;
+    
+    }
 
   .UserInfo {
     display: flex;

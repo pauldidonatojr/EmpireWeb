@@ -3215,7 +3215,8 @@ width: 100%;
   height: 40%;
   z-index: 1000;
   background-color: white;
-  padding: 1%;
+  overflow-y: auto;
+    padding: 50px;
 }
 .crossIcon{
     margin-left:95%;
@@ -3360,7 +3361,25 @@ width: 100%;
     margin-top:3%;
     margin-bottom:2%;
     margin-left:2%;
-}
+    padding-bottom: 10px;
+    overflow-y: auto;
+    /* For Chrome, Safari, and Opera */
+
+  }
+
+    .TaskBar::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    .TaskBar::-webkit-scrollbar-track {
+    background-color: #564873;
+    }
+
+    .TaskBar::-webkit-scrollbar-thumb {
+    background-color: #8e9fb1;
+    border-radius: 5px;
+    
+    }
 
 .UserInfo{
     display:flex;
