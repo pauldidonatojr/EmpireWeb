@@ -38,13 +38,11 @@ function Homepage() {
   const notify = () => toast("Data Fetching for Members!");
   const notifyAdd = () => toast("Care Giver Added Sucessfuly!");
 
-  // const data = localStorage.getItem("mco");
-  // console.log("data: ", JSON.parse(data));
-
   const [memberData, setMemberData] = useState([]);
   const { signOut } = React.useContext(AuthContext);
   const [row, setRow] = useState([]);
   var [initRow, setInitRow] = useState([]);
+  const [selectedMember, setSelectedMember] = useState([]);
 
   //
   const [open, setOpen] = React.useState(false);
@@ -211,6 +209,14 @@ function Homepage() {
         });
         setRow(myArray)
       }
+
+      // if (row[key].Team == admissionID && admissionID != null) {
+      //   var myArray = row;
+      //   myArray = myArray.filter(function (obj) {
+      //     return obj.AdmissionID == row[key].AdmissionID;
+      //   });
+      //   setRow(myArray)
+      // }
 
       if (status != 10) {
         var myArray = row;
@@ -462,7 +468,9 @@ function Homepage() {
         Status: memberData[key].Status,
         AdmissionID: memberData[key].AdmissionID,
         SSN: memberData[key].SSN,
-        Phone: memberData[key].HomePhone
+        Phone: memberData[key].HomePhone,
+        MemberTeam: memberData[key].Team,
+        DOB: memberData[key].DateofBirth,
       }
       arr.push(obj);
     }
@@ -523,8 +531,8 @@ function Homepage() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
           onRowClick={handleRowClick}
+          checkboxSelection={false}
         />
 
       </div>
@@ -537,15 +545,25 @@ function Homepage() {
       headerName: 'Member ID',
       width: 130,
       renderCell: (params) => (
-        <Link to="/MemberDetails" state={{ from: "occupation" }}
+        <Link to="/MemberDetails" state={{ selectedMemberID: params.value }}
         >
           {params.value}
         </Link>
       )
     },
     { field: 'AdmissionID', headerName: 'Admission ID', width: 100 },
-    { field: 'Name', headerName: 'Member Name', width: 200 },
-    { field: 'Cordinator', headerName: 'Member Team', width: 150 },
+    {
+      field: 'Name',
+      headerName: 'Member Name',
+      width: 130,
+      renderCell: (params) => (
+        <Link to="/MemberDetails" state={{ selectedMemberID: params.value }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { field: 'MemberTeam', headerName: 'Member Team', width: 150 },
     { field: 'FirstDayofService', headerName: 'Start of Care Date', width: 150 },
     { field: 'Status', headerName: 'Status', width: 100 },
     { field: 'Phone', headerName: 'Phone Number', width: 150 },
@@ -601,7 +619,7 @@ function Homepage() {
       </div>
 
       <div className="CardHolder">
-        <Card className="TaskBar">
+        <Card className="TaskBar" style={{overflowY: 'auto', paddingBottom: '50px'}}>
           <UserName/>
           <hr />
           <p

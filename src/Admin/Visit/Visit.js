@@ -1670,7 +1670,7 @@ function Visit() {
             <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
               <DemoContainer components={['DatePicker']}>
                 <DatePicker
-                  label="Visit Date"
+                  label="From Date"
                   value={selectedDate}
                   onChange={(newValue) => {
                     setSelectedDate(newValue);

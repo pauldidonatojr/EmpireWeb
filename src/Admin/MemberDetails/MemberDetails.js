@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -14,6 +14,12 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import Footer from "../../Footer";
 import { DataGrid } from '@mui/x-data-grid';
+import { AuthContext } from "../../components/context";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 //
 
 import FormGroup from '@mui/material/FormGroup';
@@ -36,21 +42,79 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Paper from '@mui/material/Paper';
 import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 //
 
 
 function MemberDetails() {
+    const [selectedDate, setSelectedDate] = useState(null);
+    const { signOut } = React.useContext(AuthContext);
+    const location = useLocation()
+    const { selectedMemberID } = location.state;
+
     const [age, setAge] = React.useState("");
+
     const navigate = useNavigate();
     const handleChange = (event) => {
+        event.preventDefault();
         setAge(event.target.value);
+
     };
+
+    const membersDataString = localStorage.getItem("Members");
+    var membersData = JSON.parse(membersDataString);
+    const [member, setMember] = useState(null);
+
+    useEffect(() => {
+        for (var key in membersData) {
+            if (membersData[key].MemberID == selectedMemberID) {
+                var myArray = membersData[key];
+                setMember(myArray)
+            }
+        }
+    }, []);
+
 
     const [ViewSelected, setViewSelected] = useState(2);
 
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isOverlayOpen2, setIsOverlayOpen2] = useState(false);
     const [isOverlayOpen3, setIsOverlayOpen3] = useState(false);
+
+
+    //Last 3 Auth Auth-Type
+    const [authTypeOpen, setAuthTypeOpen] = useState(false);
+    const handleClickAuthType = () => {
+        setAuthTypeOpen(true);
+    }
+
+    const handleClickAuthTypeClose = () => {
+        setAuthTypeOpen(false);
+    }
+
+
+    //POC 
+    const [pocTypeOpen, setPocAuthTypeOpen] = useState(false);
+    const pocClickType = () => {
+        setPocAuthTypeOpen(true);
+    }
+
+    const pocClickTypeClose = () => {
+        setPocAuthTypeOpen(false);
+    }
+
+
+    //Visit Claim Status
+
+    const [visitClaimStatusOpen, setVisitClaimStatusOpen] = useState(false);
+    const visitClaimStatusClickOpen = () => {
+        setVisitClaimStatusOpen(true);
+    }
+
+    const visitClaimStatusClickClose = () => {
+        setVisitClaimStatusOpen(false);
+    }
+
 
     const handleCloseOverlay = () => {
         setIsOverlayOpen(false);
@@ -101,6 +165,9 @@ function MemberDetails() {
     };
 
     //
+
+
+
 
     function Overlay() {
         return (
@@ -457,12 +524,541 @@ function MemberDetails() {
     }
     //
 
+    //
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        // Do something with the selected file
+    };
+
+    const columnsDiagnosisCode = [
+        { field: 'id', headerName: 'Code', width: 100 },
+        { field: 'firstName', headerName: 'Description', width: 300 },
+        { field: 'lastName', headerName: 'Admit', width: 200 },
+        { field: 'lastName', headerName: 'Primary', width: 200 },
+        {
+            field: 'actions',
+            headerName: 'ADD',
+            sortable: false,
+            width: 400,
+            renderCell: (params) => (
+                <Button variant="contained">
+                    Delete
+                </Button>
+            ),
+        },
+    ];
+
+    const rowsDiagnosisCode = [
+        { id: 1, firstName: 'John', lastName: 'Doe' },
+        { id: 2, firstName: 'Jane', lastName: 'Doe' },
+    ];
+
+
+    function Overlay4() {
+        return (
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={authTypeOpen}
+
+            >
+                <div className="overlay2">
+                    <CloseIcon className="crossIcon" onClick={handleClickAuthTypeClose} />
+
+
+                    <h1 style={{ textAlign: "center", color: "black" }}>Authorization</h1>
+
+                    <div className="searchFieldsDiv">
+
+                        <Grid className="griditem2">
+                            <Box>
+                                <FormControl fullWidth>
+                                    <InputLabel>Status</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={age}
+                                        label="Status"
+                                        onChange={handleChange}
+                                    >
+                                        <MenuItem value={10}>Ten</MenuItem>
+                                        <MenuItem value={20}>Twenty</MenuItem>
+                                        <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                        </Grid>
+
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Service Category"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Service Type"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Authorization Number"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Service Code"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="From Date DD/MM/YYYY"
+                                variant="outlined"
+                            />
+                        </Grid>
+
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="To Date DD/MM/YYYY"
+                                variant="outlined"
+                            />
+                        </Grid>
+
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Service Code Type"
+                                variant="outlined"
+                            />
+                        </Grid>
+
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Authorization Type"
+                                variant="outlined"
+                            />
+                        </Grid>
+
+
+                    </div>
+
+
+                    <h1 style={{ textAlign: "center", color: "black" }}>Hours</h1>
+
+                    <div className="searchFieldsDiv">
+
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Hours Per Auth Period"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Additional Rules"
+                                variant="outlined"
+                            />
+                        </Grid>
+                    </div>
+
+
+
+                    <h1 style={{ textAlign: "center", color: "black" }}>Checkout Dates</h1>
+
+                    <div className="searchFieldsDiv">
+
+                        <TextField
+                            type="file"
+                            label="Upload Document"
+                            onChange={handleFileUpload}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            fullWidth
+                        />
+                        <Typography variant="caption" color="textSecondary">
+                            Note: File must be 1000 KB in size or smaller.
+                        </Typography>
+
+
+
+
+                    </div>
+
+
+                    <div className="searchFieldsDivTable">
+                        <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
+                            <DataGrid
+                                rows={rowsDiagnosisCode}
+                                columns={columnsDiagnosisCode}
+                                pageSize={5} />
+                        </div>
+
+                    </div>
+
+
+                    <div className="searchFieldsDivNotes">
+                        <TextField
+                            id="notes"
+                            label="Notes"
+                            multiline
+                            rows={10}
+                            fullWidth
+                            variant="outlined"
+                            placeholder="Enter notes here"
+                        />
+                    </div>
+
+                </div>
+
+
+
+            </Backdrop >
+        );
+    }
+
+    const columnsPOCNEW = [
+        {
+            field: 'id',
+            headerName: 'POC #',
+            sortable: false,
+            width: 150,
+            renderCell: (params) => (
+                <Button variant="contained" onClick={() => pocClickType()}>
+                    {params.value}
+                </Button>
+            ),
+        },
+        { field: 'fromDate', headerName: 'POC Start Date', width: 150 },
+        { field: 'toDate', headerName: 'POC End Date', width: 150 },
+        { field: 'serviceType', headerName: 'Created By', width: 150 },
+        { field: 'serviceCode', headerName: 'Created Date', width: 150 },
+
+
+        {
+            field: 'authType',
+            headerName: 'Authorization Type',
+            sortable: false,
+            width: 150,
+            renderCell: (params) => (
+                <Button variant="contained">
+                    Print
+                </Button>
+            ),
+        },
+
+    ];
+
+    const rowsPOCNEW = [
+        {
+            id: 1, fromDate: "Justin", toDate: "Alo", serviceType: "02457894561", serviceCode: "XOXO",
+            authType: "XZXZ", mco: "1123456", serviceCat: "1123456", notes: "Active", visit: "Homecare"
+        },
+        {
+            id: 2, fromDate: "Justin", toDate: "Alo", serviceType: "02457894561", serviceCode: "XOXO",
+            authType: "XZXZ", mco: "1123456", serviceCat: "1123456", notes: "Active", visit: "Homecare"
+        },
+        {
+            id: 3, fromDate: "Justin", toDate: "Alo", serviceType: "02457894561", serviceCode: "XOXO",
+            authType: "XZXZ", mco: "1123456", serviceCat: "1123456", notes: "Active", visit: "Homecare"
+        },
+
+
+    ];
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+
+
+    const [selectedValues, setSelectedValues] = useState([]);
+
+
+
+    const columnsPOCEntry = [
+        { field: 'id', headerName: 'Category', width: 150 },
+        { field: 'task', headerName: 'Task #', width: 100 },
+        { field: 'duty', headerName: 'Duty', width: 100 },
+        {
+            field: 'asNeeded',
+            headerName: 'As Needed',
+            sortable: false,
+            width: 150,
+            renderCell: (params) => (
+                <Checkbox {...label} defaultChecked />
+            ),
+        },
+        {
+            field: 'timesAWeek',
+            headerName: 'Times A Week (Min - Max)',
+            sortable: false,
+            width: 500,
+            renderCell: (params) => (
+                <div>
+                    <TextField id="filled-basic" label="MIN Time" variant="filled" style={{ padding: '10px' }} /><TextField id="filled-basic" label="MAX Time" variant="filled" style={{ padding: '10px' }} />
+                </div>
+            ),
+        },
+        {
+            field: 'instruction',
+            headerName: 'Instruction',
+            sortable: false,
+            width: 500,
+            renderCell: (params) => (
+                <TextField
+                    fullWidth
+                    variant="standard"
+                    InputProps={{
+                        style: {
+                            padding: '8px',
+                            boxSizing: 'border-box',
+                        },
+                    }}
+                />
+            ),
+        },
+        {
+            field: 'daysAWeek',
+            headerName: 'Days A Week',
+            sortable: false,
+            width: 500,
+            renderCell: () => (
+                <div style={{ display: 'flex' }}>
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ textAlign: 'center', verticalAlign: 'center', height: '100%' }}>M</div>
+                        <Checkbox {...label} defaultChecked />
+                    </div>
+
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ textAlign: 'center', verticalAlign: 'center', height: '100%' }}>T</div>
+                        <Checkbox {...label} defaultChecked />
+                    </div>
+
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ textAlign: 'center', verticalAlign: 'center', height: '100%' }}>W</div>
+                        <Checkbox {...label} defaultChecked />
+                    </div>
+
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ textAlign: 'center', verticalAlign: 'center', height: '100%' }}>TH</div>
+                        <Checkbox {...label} defaultChecked />
+                    </div>
+
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ textAlign: 'center', verticalAlign: 'center', height: '100%' }}>F</div>
+                        <Checkbox {...label} defaultChecked />
+                    </div>
+
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ textAlign: 'center', verticalAlign: 'center', height: '100%' }}>SA</div>
+                        <Checkbox {...label} defaultChecked />
+                    </div>
+
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ textAlign: 'center', verticalAlign: 'center', height: '100%' }}>SU</div>
+                        <Checkbox {...label} defaultChecked />
+                    </div>
+                </div>
+            ),
+        },
+
+
+    ];
+    //demo data to display
+    const rowsPOCEntry = [
+        { id: 1, task: "Justin", duty: "Assist with Home", asNeeded: '', timesAWeek: '', instruction: '', daysAWeek: '' },
+        { id: 2, task: "Justin", duty: "Assist with Home", asNeeded: '', timesAWeek: '', instruction: '', daysAWeek: '' },
+        { id: 3, task: "Justin", duty: "Assist with Home", asNeeded: '', timesAWeek: '', instruction: '', daysAWeek: '' },
+        { id: 4, task: "Justin", duty: "Assist with Home", asNeeded: '', timesAWeek: '', instruction: '', daysAWeek: '' },
+        { id: 5, task: "Justin", duty: "Assist with Home", asNeeded: '', timesAWeek: '', instruction: '', daysAWeek: '' },
+        { id: 6, task: "Justin", duty: "Assist with Home", asNeeded: '', timesAWeek: '', instruction: '', daysAWeek: '' },
+    ];
+
+    function Overlay5() {
+        return (
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={pocTypeOpen}
+
+            >
+                <div className="overlay2">
+                    <CloseIcon className="crossIcon" onClick={pocClickTypeClose} />
+
+
+                    <h1 style={{ textAlign: "center", color: "black" }}>POC</h1>
+
+                    <div className="searchFieldsDiv">
+
+
+
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Admission ID"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Start Date"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid className="griditem">
+                            <TextField
+                                id="outlined-basic"
+                                label="Stop Date"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid className="griditem2">
+                            <Box>
+                                <FormControl fullWidth>
+                                    <InputLabel>Status</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={age}
+                                        label="Shift"
+                                        onChange={handleChange}
+                                    >
+                                        <MenuItem value={10}>Shift 1</MenuItem>
+                                        <MenuItem value={20}>Shift 2</MenuItem>
+                                        <MenuItem value={30}>Shift 3</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                        </Grid>
+
+                        <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+                            <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
+                            <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={pocClickTypeClose}>Close</Button>
+                        </div>
+
+
+                    </div>
+
+                    <div className="searchFieldsDivTable">
+                        <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
+                            <DataGrid
+                                rows={rowsPOCEntry}
+                                columns={columnsPOCEntry}
+                                pageSize={5} />
+                        </div>
+
+                    </div>
+
+
+
+                    <div className="searchFieldsDivNotes">
+                        <TextField
+                            id="notes"
+                            label="Notes"
+                            multiline
+                            rows={10}
+                            fullWidth
+                            variant="outlined"
+                            placeholder="Enter notes here"
+                        />
+                    </div>
+
+                    <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+                        <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
+                        <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={pocClickTypeClose}>Close</Button>
+                    </div>
+
+
+
+                </div>
+
+
+
+            </Backdrop >
+        );
+    }
+
+
+
+    const columnsVisitHistory = [
+        { field: 'id', headerName: 'Date', width: 300 },
+        { field: 'status', headerName: 'Status', width: 300 },
+        { field: 'additionalInformation', headerName: 'Additional Information', width: 300 },
+        
+
+    ];
+    //demo data to display
+    const rowsVisitHistory = [
+        { id: 1, task: "Justin", duty: "Assist with Home"},
+        { id: 2, task: "Justin", duty: "Assist with Home"},
+        { id: 3, task: "Justin", duty: "Assist with Home"},
+        { id: 4, task: "Justin", duty: "Assist with Home"},
+    ];
+
+
+
+    function Overlay6() {
+        return (
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={visitClaimStatusOpen}
+
+            >
+                <div className="overlay2">
+                    <CloseIcon className="crossIcon" onClick={visitClaimStatusClickClose} />
+
+
+                    <h1 style={{ textAlign: "center", color: "black" }}>Visit History</h1>
+                    <div className="searchFieldsDivTable">
+                        <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
+                            <DataGrid
+                                rows={rowsVisitHistory}
+                                columns={columnsVisitHistory}
+                                pageSize={5} />
+                        </div>
+
+                    </div>
+
+
+                    
+                    <h1 style={{ textAlign: "center", color: "black" }}>Visit Response File History</h1>
+                    <div className="searchFieldsDivTable">
+                        <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
+                            <DataGrid
+                                rows={rowsVisitHistory}
+                                columns={columnsVisitHistory}
+                                pageSize={5} />
+                        </div>
+
+                    </div>
+
+                    <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+                        <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={visitClaimStatusClickClose}>Close</Button>
+                    </div>
+
+
+
+                </div>
+
+
+
+            </Backdrop >
+        );
+    }
+
     const LastAuthPressed = () => {
         setViewSelected(3);
     };
-    const CalenderPressed = () => {
-        setViewSelected(4);
-    };
+
 
     const MemberInfoPressed = () => {
         setViewSelected(2);
@@ -488,6 +1084,14 @@ function MemberDetails() {
         setViewSelected(8);
     }
 
+    const POCInfoPressed = () => {
+        setViewSelected(9);
+    };
+
+    const VisitInfoPressedMain = () => {
+        setViewSelected(10);
+    };
+
     function RenderViews() {
         switch (ViewSelected) {
             case 2:
@@ -496,9 +1100,6 @@ function MemberDetails() {
             case 3:
                 return GeneralInfoView();
 
-
-            case 4:
-                return CalenderView();
 
             case 5:
                 return ProfileView();
@@ -511,6 +1112,12 @@ function MemberDetails() {
 
             case 8:
                 return MasterWeekView();
+
+            case 9:
+                return POCView();
+
+            case 10:
+                return VisitsView();
 
             default:
                 break;
@@ -615,6 +1222,26 @@ function MemberDetails() {
                 break;
         }
     }
+
+    const columns15 = [
+        { field: 'id', headerName: 'Duty Number', width: 250 },
+        { field: 'fromDate', headerName: 'Category', width: 200 },
+        { field: 'toDate', headerName: 'Duty', width: 400 },
+
+
+
+    ];
+    //demo data to display
+    const rows15 = [
+        { id: 1, fromDate: "Justin", toDate: "Assist with Home" },
+        { id: 2, fromDate: "Justin", toDate: "Assist with Home" },
+        { id: 3, fromDate: "Justin", toDate: "Assist with Home" },
+        { id: 4, fromDate: "Justin", toDate: "Assist with Home" },
+        { id: 5, fromDate: "Justin", toDate: "Assist with Home" },
+        { id: 6, fromDate: "Justin", toDate: "Assist with Home" },
+    ];
+
+
     const ScheduleView = () => {
         return (
             <div>
@@ -706,10 +1333,6 @@ function MemberDetails() {
             </div>
         )
     }
-    //
-
-
-    //
     const VisitInfoView = () => {
         return (
             <div style={{ width: "100%" }}>
@@ -885,26 +1508,7 @@ function MemberDetails() {
             </div>
         )
     }
-    const columns15 = [
-        { field: 'id', headerName: 'Duty Number', width: 250 },
-        { field: 'fromDate', headerName: 'Category', width: 200 },
-        { field: 'toDate', headerName: 'Duty', width: 400 },
 
-
-
-    ];
-    //demo data to display
-    const rows15 = [
-        { id: 1, fromDate: "Justin", toDate: "Assist with Home" },
-        { id: 2, fromDate: "Justin", toDate: "Assist with Home" },
-        { id: 3, fromDate: "Justin", toDate: "Assist with Home" },
-        { id: 4, fromDate: "Justin", toDate: "Assist with Home" },
-        { id: 5, fromDate: "Justin", toDate: "Assist with Home" },
-        { id: 6, fromDate: "Justin", toDate: "Assist with Home" },
-
-
-
-    ];
     const BillingView = () => {
         return (
             <div style={{ width: "100%" }}>/
@@ -1025,23 +1629,7 @@ function MemberDetails() {
         );
     }
 
-    const CalenderView = () => {
-        return (
-            <div style={{ height: "100%", width: '100%' }}>
-                <Calendar
-                    events={myEventsList}
-                    startAccessor="start"
-                    endAccessor="end"
-                    localizer={localizer}
-                    formats={{ dayFormat: myCustomFormat }}
-                    showMultiDayTimes={false}
-                    views={['month']}
-                    style={{ height: "100%" }}
-                    onSelectEvent={handleEventClick} // pass the function as a prop
-                />
-            </div>
-        );
-    };
+    //Side Bar Views
 
     const MemberInfoView = () => {
         return (
@@ -1051,47 +1639,95 @@ function MemberDetails() {
                 <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                    </span>
+                                }
+                            </h2></div>
                         </Grid>
                     </Grid>
                 </div>
 
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Last 3 Authorization</h1>
-                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                <div className='tableData' style={{ height: "50%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
                         rows={rows10}
                         columns={columns10}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Calender</h1>
+                <div style={{ height: "100%", width: '100%' }}>
+                    <Calendar
+                        events={myEventsList}
+                        startAccessor="start"
+                        endAccessor="end"
+                        localizer={localizer}
+                        formats={{ dayFormat: myCustomFormat }}
+                        showMultiDayTimes={false}
+                        views={['month']}
+                        style={{ height: "100%" }}
+                        onSelectEvent={handleEventClick} // pass the function as a prop
+                    />
+                </div>
+
             </div>
         );
     };
@@ -1104,35 +1740,68 @@ function MemberDetails() {
                 <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                    </span>
+                                }
+                            </h2></div>
                         </Grid>
                     </Grid>
                 </div>
+
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>General</h1>
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
@@ -1241,35 +1910,68 @@ function MemberDetails() {
                 <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                    </span>
+                                }
+                            </h2></div>
                         </Grid>
                     </Grid>
                 </div>
+
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Demographics</h1>
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
@@ -1460,45 +2162,73 @@ function MemberDetails() {
         );
     };
 
-    const SpecialRequirementsView = ()=>{
+    const SpecialRequirementsView = () => {
         return (
             <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
-
-
                 <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                    </span>
+                                }
+                            </h2></div>
                         </Grid>
                     </Grid>
                 </div>
-
-
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Special Requirements</h1>
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
@@ -1527,7 +2257,7 @@ function MemberDetails() {
         );
     }
 
-    const MasterWeekView = ()=>{
+    const MasterWeekView = () => {
         return (
             <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
 
@@ -1535,35 +2265,68 @@ function MemberDetails() {
                 <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                    </span>
+                                }
+                            </h2></div>
                         </Grid>
                     </Grid>
                 </div>
+
 
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Last 3 Authorization</h1>
@@ -1580,21 +2343,336 @@ function MemberDetails() {
 
 
                 <div style={{ height: "100%", width: '100%' }}>
-                <Calendar
-                    events={myEventsList}
-                    startAccessor="start"
-                    endAccessor="end"
-                    localizer={localizer}
-                    formats={{ dayFormat: myCustomFormat }}
-                    showMultiDayTimes={false}
-                    views={['month']}
-                    style={{ height: "100%" }}
-                    onSelectEvent={handleEventClick} // pass the function as a prop
-                />
-            </div>
+                    <Calendar
+                        events={myEventsList}
+                        startAccessor="start"
+                        endAccessor="end"
+                        localizer={localizer}
+                        formats={{ dayFormat: myCustomFormat }}
+                        showMultiDayTimes={false}
+                        views={['month']}
+                        style={{ height: "100%" }}
+                        onSelectEvent={handleEventClick} // pass the function as a prop
+                    />
+                </div>
             </div>
         );
     }
+
+
+    const POCView = () => {
+        return (
+            <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+
+
+
+                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                            </h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                    </span>
+                                }
+                            </h2></div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>POC</h1>
+                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                    <DataGrid
+                        rows={rowsPOC}
+                        columns={columnsPOC}
+                        pageSize={5}
+                        rowsPerPageOptions={[15]}
+                        checkboxSelection={false}
+                    />
+                </div>
+
+
+            </div>
+        );
+    };
+
+
+    const columnsVisitsMain = [
+        { field: 'id', headerName: 'Date', width: 250 },
+        { field: 'schedule', headerName: 'Schedule', width: 200 },
+        { field: 'provider', headerName: 'Provider', width: 400 },
+        { field: 'serviceCode', headerName: 'Service Code', width: 200 },
+        { field: 'careGiver', headerName: 'Care Giver', width: 200 },
+        { field: 'confirmedTime', headerName: 'Confirmed Time', width: 200 },
+        { field: 'billed', headerName: 'Billed', width: 200 },
+        { field: 'billedUnits', headerName: 'Billed Units', width: 200 },
+        { field: 'billedTime', headerName: 'Billed Time', width: 200 },
+        { field: 'holdVisit', headerName: 'Hold Visit', width: 200 },
+        {
+            field: 'claimStatus',
+            headerName: 'Claim Status',
+            sortable: false,
+            width: 150,
+            renderCell: (params) => (
+                <Button variant="contained" onClick={visitClaimStatusClickOpen}>
+                    Claim Details
+                </Button>
+            ),
+        },
+
+
+    ];
+    //demo data to display
+    const rowsVisitsMain = [
+        { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
+        { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
+        { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
+        { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
+        
+    ];
+
+
+    const VisitsView = () => {
+        return (
+            <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+
+
+
+                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                            </h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                }
+                            </h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                    </span>
+                                }
+                            </h2></div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+
+
+                <div style={{ padding: '20px', marginTop: '5%' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderVisitSearch">
+                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="From Date"
+                                        value={selectedDate}
+                                        onChange={(newValue) => {
+                                            setSelectedDate(newValue);
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </Grid>
+                        <Grid className="DataHolderVisitSearch">
+                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="To Date"
+                                        value={selectedDate}
+                                        onChange={(newValue) => {
+                                            setSelectedDate(newValue);
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </Grid>
+                        <Grid className="DataHolderVisitSearch">
+                            <FormControl style={{ width: "300px" }} >
+                                <InputLabel>Action Taken</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={age}
+                                    label="Status"
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={10}>ALL</MenuItem>
+                                    <MenuItem value={20}>Billed</MenuItem>
+                                    <MenuItem value={30}>NON-Billed</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                </div>
+
+
+
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Visits</h1>
+                <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+                    <DataGrid
+                        rows={rowsVisitsMain}
+                        columns={columnsVisitsMain}
+                        pageSize={5}
+                        rowsPerPageOptions={[15]}
+                        checkboxSelection={false}
+                    />
+                </div>
+
+
+            </div>
+        );
+    };
+
+    const columnsPOC = [
+        {
+            field: 'id',
+            headerName: 'POC #',
+            sortable: false,
+            width: 150,
+            renderCell: (params) => (
+                <Button variant="contained" onClick={() => pocClickType()}>
+                    {params.value}
+                </Button>
+            ),
+        },
+        { field: 'fromDate', headerName: 'POC Start Date', width: 150 },
+        { field: 'toDate', headerName: 'POC End Date', width: 150 },
+        { field: 'serviceType', headerName: 'Created By', width: 150 },
+        { field: 'serviceCode', headerName: 'Created Date', width: 150 },
+
+
+        {
+            field: 'authType',
+            headerName: 'Authorization Type',
+            sortable: false,
+            width: 150,
+            renderCell: (params) => (
+                <Button variant="contained">
+                    Print
+                </Button>
+            ),
+        },
+
+    ];
+
+    const rowsPOC = [
+        {
+            id: 1, fromDate: "Justin", toDate: "Alo", serviceType: "02457894561", serviceCode: "XOXO",
+            authType: "XZXZ", mco: "1123456", serviceCat: "1123456", notes: "Active", visit: "Homecare"
+        },
+        {
+            id: 2, fromDate: "Justin", toDate: "Alo", serviceType: "02457894561", serviceCode: "XOXO",
+            authType: "XZXZ", mco: "1123456", serviceCat: "1123456", notes: "Active", visit: "Homecare"
+        },
+        {
+            id: 3, fromDate: "Justin", toDate: "Alo", serviceType: "02457894561", serviceCode: "XOXO",
+            authType: "XZXZ", mco: "1123456", serviceCat: "1123456", notes: "Active", visit: "Homecare"
+        },
+
+
+    ];
+
 
     const columns10 = [
         { field: 'id', headerName: 'Auth. #', width: 100 },
@@ -1602,11 +2680,24 @@ function MemberDetails() {
         { field: 'toDate', headerName: 'To Date', width: 120 },
         { field: 'serviceType', headerName: 'Service Type', width: 120 },
         { field: 'serviceCode', headerName: 'Service Code', width: 120 },
-        { field: 'authType', headerName: 'Authorization Type', width: 100 },
+
         { field: 'mco', headerName: 'MCO', width: 120 },
         { field: 'serviceCat', headerName: 'Service Category', width: 120 },
         { field: 'notes', headerName: 'Notes', width: 100 },
         { field: 'visit', headerName: 'Visit / Invoice', width: 100 },
+
+
+        {
+            field: 'authType',
+            headerName: 'Authorization Type',
+            sortable: false,
+            width: 150,
+            renderCell: (params) => (
+                <Button variant="contained" onClick={() => handleClickAuthType()}>
+                    Entire Period
+                </Button>
+            ),
+        },
 
     ];
 
@@ -1696,8 +2787,6 @@ function MemberDetails() {
                     />
 
                     <h3 onClick={MemberInfoPressed} style={{ color: "#F2B90F" }}>Member Info</h3>
-
-                    <h3 onClick={CalenderPressed} style={{ color: "#F2B90F" }}>Calender</h3>
                 </div>
             </Box>
         </div>
@@ -1709,6 +2798,8 @@ function MemberDetails() {
     }
     return (
         <Wrapper>
+
+
             <div className="Header">
                 <MenuIcon
                     className="menuIcon"
@@ -1719,7 +2810,7 @@ function MemberDetails() {
                 ></MenuIcon>
                 <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() => navigate("/AdminHome")} />
 
-                <Button className="LogOutbutton" variant="outlined" >
+                <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
                     Log Out
                 </Button>
                 <LogoutIcon className="LogoutIcon" ></LogoutIcon>
@@ -1882,7 +2973,7 @@ function MemberDetails() {
                         <Button
                             className="navigationButton"
                             onClick={() => {
-                                MemberInfoPressed();
+                                VisitInfoPressedMain();
                             }}
                         >
                             <p
@@ -1901,7 +2992,7 @@ function MemberDetails() {
                         <Button
                             className="navigationButton"
                             onClick={() => {
-                                MemberInfoPressed();
+                                POCInfoPressed();
                             }}
                         >
                             <p
@@ -1915,16 +3006,6 @@ function MemberDetails() {
                             </p>
                         </Button>
 
-                        <Button
-                            onClick={CalenderPressed}
-                            className="navigationButton"
-                        >
-                            <p
-                                style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
-                            >
-                                Calender
-                            </p>
-                        </Button>
                     </div>
                 </Card>
 
@@ -1933,6 +3014,9 @@ function MemberDetails() {
                     {isOverlayOpen && <Overlay />}
                     {isOverlayOpen2 && <Overlay2 />}
                     {isOverlayOpen3 && <Overlay3 />}
+                    {authTypeOpen && <Overlay4 />}
+                    {pocTypeOpen && <Overlay5 />}
+                    {visitClaimStatusOpen && <Overlay6 />}
                     {TimeOverlay && <OverlayTime />}
                     {RenderViews()}
                 </Card>
@@ -1951,6 +3035,18 @@ const Wrapper = styled.section`
   height: 100%;
   width: 100%;
 
+  body::-webkit-scrollbar {
+  width: 10px;
+    }
+
+    body::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    }
+
+    body::-webkit-scrollbar-thumb {
+    background-color: #888;
+    }
+
   .EditButton{
     background-color: #564873;
    
@@ -1964,15 +3060,51 @@ const Wrapper = styled.section`
   
 
   .DateFieldHolder {
-    
-   
-    
   }
+
+  .DateFieldHolder::-webkit-scrollbar {
+  width: 10px;
+    }
+
+    .DateFieldHolder::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    }
+
+    .DateFieldHolder::-webkit-scrollbar-thumb {
+    background-color: #888;
+    }
+
+
+
+    .tableData{}
+
+    .tableData::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .tableData::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    }
+
+    .tableData::-webkit-scrollbar-thumb {
+    background-color: #888;
+    }
+
 
 
   .DataHolderGrid{
     width: 50%;
     text-align: center;
+  }
+
+  .DataHolderVisitSearch{
+    width: 90%;
+    text-align: center;
+    place-content: center;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    margin-top: 2%;
   }
   
   .GoBackButtonHolder{
@@ -2074,7 +3206,8 @@ const Wrapper = styled.section`
     height: 62%;
     z-index: 1000;
     background-color: white;
-    padding: 1%;
+    overflow-y: auto;
+    padding: 50px;
   }
   .crossIcon {
     margin-left: 95%;
@@ -2089,6 +3222,21 @@ const Wrapper = styled.section`
     width: 85%;
     margin-left: 10%;
   }
+
+  .searchFieldsDivTable {
+    display: grid;
+    margin-top: 2.5%;
+    width: 85%;
+    margin-left: 10%;
+  }
+
+  .searchFieldsDivNotes {
+    display: grid;
+    margin-top: 2.5%;
+    width: 85%;
+    margin-left: 10%;
+  }
+
   .searchFieldsDiv2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* create 3 equal columns */
@@ -2219,7 +3367,24 @@ const Wrapper = styled.section`
     margin-top: 3%;
     margin-bottom: 2%;
     margin-left: 2%;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    /* For Chrome, Safari, and Opera */
+
   }
+
+    .TaskBar::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    .TaskBar::-webkit-scrollbar-track {
+    background-color: #564873;
+    }
+
+    .TaskBar::-webkit-scrollbar-thumb {
+    background-color: #8e9fb1;
+    border-radius: 5px;
+    }
 
   .UserInfo {
     display: flex;
@@ -2365,30 +3530,11 @@ const Wrapper = styled.section`
       padding:5px;
       height:10%;
       font-size:14px;
-      shadowColor: "#000",
-  shadowOffset: {
-  width: 0,
-  height: 7,
-  },
-  shadowOpacity: 0.41,
-  shadowRadius: 9.11,
-  
-  elevation: 14,
     }
     .SystemNotification{
       padding:5px;
       height:10%;
       font-size:13.5px;
-      shadowColor: "#000",
-  shadowOffset: {
-  width: 0,
-  height: 7,
-  },
-  shadowOpacity: 0.41,
-  shadowRadius: 9.11,
-  
-  elevation: 14,
-      
     }
     .LogOutbutton {
       width: 20%;
