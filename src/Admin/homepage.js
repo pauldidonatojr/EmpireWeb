@@ -539,16 +539,20 @@ function Homepage() {
     );
   };
 
+  const [currMemberID, setCurrMemberID] = useState(null);
+
   const columns = [
     {
       field: 'id',
       headerName: 'Member ID',
       width: 130,
       renderCell: (params) => (
-        <Link to="/MemberDetails" state={{ selectedMemberID: params.value }}
-        >
-          {params.value}
-        </Link>
+        <div>
+          <Link to="/MemberDetails" state={{ selectedMemberID: params.value }}
+          >
+            {params.value}
+          </Link>
+        </div>
       )
     },
     { field: 'AdmissionID', headerName: 'Admission ID', width: 100 },
@@ -557,10 +561,9 @@ function Homepage() {
       headerName: 'Member Name',
       width: 130,
       renderCell: (params) => (
-        <Link to="/MemberDetails" state={{ selectedMemberID: params.value }}
-        >
-          {params.value}
-        </Link>
+        <div>
+            {params.value}
+        </div>
       )
     },
     { field: 'MemberTeam', headerName: 'Member Team', width: 150 },
@@ -619,8 +622,8 @@ function Homepage() {
       </div>
 
       <div className="CardHolder">
-        <Card className="TaskBar" style={{overflowY: 'auto', paddingBottom: '50px'}}>
-          <UserName/>
+        <Card className="TaskBar" style={{ overflowY: 'auto', paddingBottom: '50px' }}>
+          <UserName />
           <hr />
           <p
             className="Files"

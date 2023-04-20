@@ -993,15 +993,15 @@ function MemberDetails() {
         { field: 'id', headerName: 'Date', width: 300 },
         { field: 'status', headerName: 'Status', width: 300 },
         { field: 'additionalInformation', headerName: 'Additional Information', width: 300 },
-        
+
 
     ];
     //demo data to display
     const rowsVisitHistory = [
-        { id: 1, task: "Justin", duty: "Assist with Home"},
-        { id: 2, task: "Justin", duty: "Assist with Home"},
-        { id: 3, task: "Justin", duty: "Assist with Home"},
-        { id: 4, task: "Justin", duty: "Assist with Home"},
+        { id: 1, task: "Justin", duty: "Assist with Home" },
+        { id: 2, task: "Justin", duty: "Assist with Home" },
+        { id: 3, task: "Justin", duty: "Assist with Home" },
+        { id: 4, task: "Justin", duty: "Assist with Home" },
     ];
 
 
@@ -1029,7 +1029,7 @@ function MemberDetails() {
                     </div>
 
 
-                    
+
                     <h1 style={{ textAlign: "center", color: "black" }}>Visit Response File History</h1>
                     <div className="searchFieldsDivTable">
                         <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
@@ -1732,6 +1732,114 @@ function MemberDetails() {
         );
     };
 
+    const [isCheckedEVVConfirmation, setIsCheckedEVVConfirmation] = useState(false);
+
+    const handleCheckboxChangeEVVConfirmation = (event) => {
+        setIsCheckedEVVConfirmation(event.target.checked);
+    };
+
+    const [selectedOptionMemberTeam, setSelectedOptionMemberTeam] = useState('Default');
+
+    const handleDropdownChangeMemberTeam = (event) => {
+        setSelectedOptionMemberTeam(event.target.value);
+    };
+
+
+    const [isCheckedFOBConfirmation, setIsCheckedFOBConfirmation] = useState(false);
+
+    const handleCheckboxChangeFOBConfirmation = (event) => {
+        setIsCheckedFOBConfirmation(event.target.checked);
+    };
+
+    const [selectedOptionSourceOfAdmission, setSelectedOptionSourceOfAdmission] = useState('Source of Admission');
+
+    const handleDropdownSourceOfAdmission = (event) => {
+        setSelectedOptionSourceOfAdmission(event.target.value);
+    };
+
+
+    const columnsProviderInformation = [
+        { field: 'id', headerName: 'Placement ID', width: 150 },
+        { field: 'providerName', headerName: 'Provider Name', width: 200 },
+        { field: 'coordinatorName', headerName: 'Coordinator Name', width: 200 },
+        { field: 'startOfCareDate', headerName: 'Stat of Care Date', width: 200 },
+        { field: 'firstVisitDate', headerName: 'First Visit Date', width: 200 },
+        { field: 'coordinatorName', headerName: 'Coordinator Name', width: 200 },
+        { field: 'dischargedDate', headerName: 'Discharged Date', width: 200 },
+        {
+            field: 'print',
+            headerName: 'Print',
+            sortable: false,
+            width: 200,
+            renderCell: (params) => (
+                <Button variant="contained">
+                    Print
+                </Button>
+            ),
+        },
+
+    ];
+    //demo data to display
+    const rowsProviderInformation = [
+        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
+        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
+        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
+        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
+        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
+        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
+    ];
+
+
+    const columnsStatusHistory = [
+        { field: 'id', headerName: 'Placement ID', width: 150 },
+        { field: 'at', headerName: 'AT', width: 200 },
+        { field: 'message', headerName: 'Message', width: 200 },
+        { field: 'providerName', headerName: 'Provider Name', width: 200 },
+        { field: 'userName', headerName: 'User Name', width: 200 },
+    ];
+    //demo data to display
+    const rowsStatusHistory = [
+        { id: 1, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
+        { id: 2, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
+        { id: 3, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
+        { id: 4, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
+        { id: 5, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
+        { id: 6, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
+    ];
+
+
+
+    const columnsNotes = [
+        { field: 'id', headerName: 'Date', width: 150 },
+        { field: 'from', headerName: 'From', width: 200 },
+        { field: 'to', headerName: 'To', width: 200 },
+        { field: 'note', headerName: 'Note', width: 200 },
+        { field: 'reason', headerName: 'Reason', width: 200 },
+        { field: 'status', headerName: 'Status', width: 200 },
+        { field: 'action', headerName: 'Action', width: 200 },
+        {
+            field: 'print',
+            headerName: 'Print',
+            sortable: false,
+            width: 200,
+            renderCell: (params) => (
+                <Button variant="contained">
+                    Print
+                </Button>
+            ),
+        },
+
+    ];
+    //demo data to display
+    const rowsNotes = [
+        { id: 1, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
+        { id: 2, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
+        { id: 3, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
+        { id: 4, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
+        { id: 5, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
+        { id: 6, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
+    ];
+
     const GeneralInfoView = () => {
         return (
             <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
@@ -1807,51 +1915,91 @@ function MemberDetails() {
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{member.Nurse}</span></h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Provider Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Provider Coordinator: <span style={{ color: "#F2A007" }}>{member.ProviderName}</span></h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Office: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Office: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Disable Automatic Visit Creation Based on EVV Confirmations: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
-                        </Grid>
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
-                        </Grid>
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Team: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Disable Automatic Visit Creation Based on EVV Confirmations: <span style={{ color: "#F2A007" }}>
+                                <Checkbox
+                                    checked={isCheckedEVVConfirmation}
+                                    onChange={handleCheckboxChangeEVVConfirmation}
+                                />
+                            </span></h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}> Enable FOB Confirmation: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{member.EVVRequired}</span></h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Location: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Team: <span style={{ color: "#F2A007" }}>
+                                <Select
+                                    value={selectedOptionMemberTeam}
+                                    onChange={handleDropdownChangeMemberTeam}
+                                >
+                                    <MenuItem value="Unassigned">Unassigned</MenuItem>
+                                    <MenuItem value="Assigned">Assigned</MenuItem>
+                                    <MenuItem value="Default">Default</MenuItem>
+                                </Select>
+                            </span></h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}> Enable FOB Confirmation: <span style={{ color: "#F2A007" }}>
+                                <Checkbox
+                                    checked={isCheckedFOBConfirmation}
+                                    onChange={handleCheckboxChangeFOBConfirmation}
+                                />
+                            </span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
                         </Grid>
 
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Branch: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Branch: <span style={{ color: "#F2A007" }}>{member.Branch}</span></h2></div>
                         </Grid>
 
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{member.Mutual}</span></h2></div>
                         </Grid>
 
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Source of Admission: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Source of Admission: <span style={{ color: "#F2A007" }}>
+                            <Select
+                                    value={selectedOptionSourceOfAdmission}
+                                    onChange={handleDropdownSourceOfAdmission}
+                                >
+                                    <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                    <MenuItem value="CHHA">CHHA</MenuItem>
+                                    <MenuItem value="Hospice">Hospice</MenuItem>
+                                    <MenuItem value="Hospital">Hospital</MenuItem>
+                                    <MenuItem value="LHCA">LHCA</MenuItem>
+                                    <MenuItem value="Local Social Services/CASA">Local Social Services/CASA</MenuItem>
+                                    <MenuItem value="LTHCP">LTHCP</MenuItem>
+                                    <MenuItem value="MTO">MTO</MenuItem>
+                                    <MenuItem value="MLTC">MLTC</MenuItem>
+                                    <MenuItem value="Physician">Physician</MenuItem>
+                                    <MenuItem value="RHTF">RHTF</MenuItem>
+                                    <MenuItem value="Self/Family/Friend">Self/Family/Friend</MenuItem>
+                                    <MenuItem value="Other Instiitution">Other Instiitution</MenuItem>
+                                    <MenuItem value="Other Community/Agency">Other Community/Agency</MenuItem>
+                                    <MenuItem value="Other">Other</MenuItem>
+                                </Select>
+                                </span></h2></div>
                         </Grid>
                     </Grid>
 
@@ -1866,8 +2014,8 @@ function MemberDetails() {
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Provider Information</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rows10}
-                        columns={columns10}
+                        rows={rowsProviderInformation}
+                        columns={columnsProviderInformation}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
                         checkboxSelection
@@ -1878,8 +2026,8 @@ function MemberDetails() {
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Status History</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rows10}
-                        columns={columns10}
+                        rows={rowsStatusHistory}
+                        columns={columnsStatusHistory}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
                         checkboxSelection
@@ -1890,8 +2038,8 @@ function MemberDetails() {
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Notes</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rows10}
-                        columns={columns10}
+                        rows={rowsNotes}
+                        columns={columnsNotes}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
                         checkboxSelection
@@ -2113,36 +2261,67 @@ function MemberDetails() {
         return (
             <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
 
-
                 <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{""}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                }
+                            </h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                {member != null &&
+                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                    </span>
+                                }
+                            </h2></div>
                         </Grid>
                     </Grid>
                 </div>
@@ -2482,7 +2661,7 @@ function MemberDetails() {
         { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
         { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
         { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
-        
+
     ];
 
 
