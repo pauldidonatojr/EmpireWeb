@@ -10,7 +10,8 @@ import { loginUser } from './API/authAPI';
 import { loginCareGiver } from "./API/authCareGiverAPI";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Login() {
@@ -20,6 +21,12 @@ function Login() {
   const [selectedRadio, setSelectedRadio] = useState("");
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const showToastMessage = () => {
+    toast.error('Wrong Username or Password!', {
+      position: toast.POSITION.TOP_CENTER
+  });
+  };
 
   const [showCard, setShowCard] = useState(false);
   useEffect(() => {
@@ -37,17 +44,21 @@ function Login() {
       case "Admin":
         if (username != null && password != null) {
           loginUser(username, password).then(res => {
+            console.log(res.data);
             if (res.data.result == "success") {
               loginHandle(username, password, 'admin');
               localStorage.setItem('LoggedInUser', JSON.stringify(res.data.data));
               navigate("/AdminHome");
               setLoginStatus('sucess');
             }
+            if (res.data.result == "error") {
+              showToastMessage();
+            }
           }
           );
         }
-        
-        
+
+
         break;
       case "CareGiver":
         loginCareGiver(username, password).then(res => {
@@ -55,6 +66,9 @@ function Login() {
             loginHandle(username, password, 'caregiver');
             navigate("/CareGiverHome");
             setLoginStatus('sucess');
+          }
+          if (res.data.result == "error") {
+            showToastMessage();
           }
         });
         break;
@@ -79,6 +93,7 @@ function Login() {
 
   return (
     <Wrapper>
+      <ToastContainer />
 
       {loginStatus == 'sucess' &&
         <Alert severity="success">

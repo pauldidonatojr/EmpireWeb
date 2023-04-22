@@ -51,12 +51,15 @@ function MemberDetails() {
     const { signOut } = React.useContext(AuthContext);
     const location = useLocation()
     const { selectedMemberID } = location.state;
+    const [profileAddressTableRows, setProfileAddressTableRows] = useState([]);
+    const [callMember, setCallMember] = useState(false)
 
     const [age, setAge] = React.useState("");
 
     const navigate = useNavigate();
     const handleChange = (event) => {
-        event.preventDefault();
+        event.stopPropagation();
+        // event.preventDefault();
         setAge(event.target.value);
 
     };
@@ -70,6 +73,23 @@ function MemberDetails() {
             if (membersData[key].MemberID == selectedMemberID) {
                 var myArray = membersData[key];
                 setMember(myArray)
+
+                //For Profile Tab Address Section
+                var arr = [];
+                var obj = {
+                    id: myArray.MemberID,
+                    address1: myArray.Address1,
+                    address2: myArray.Address2,
+                    city: myArray.City,
+                    state: myArray.State,
+                    country: myArray.Country,
+                    zip: myArray.ZipCode,
+                    crossStreet: myArray.CrossStreet,
+                    primaryAddress: "",
+                    notes: '',
+                }
+                arr.push(obj);
+                setProfileAddressTableRows(arr);
             }
         }
     }, []);
@@ -1781,12 +1801,12 @@ function MemberDetails() {
     ];
     //demo data to display
     const rowsProviderInformation = [
-        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
-        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
-        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
-        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
-        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
-        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home",  startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: ''},
+        { id: 1, providerName: "Justin", coordinatorName: "Assist with Home", startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: '' },
+        { id: 2, providerName: "Justin", coordinatorName: "Assist with Home", startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: '' },
+        { id: 3, providerName: "Justin", coordinatorName: "Assist with Home", startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: '' },
+        { id: 4, providerName: "Justin", coordinatorName: "Assist with Home", startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: '' },
+        { id: 5, providerName: "Justin", coordinatorName: "Assist with Home", startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: '' },
+        { id: 6, providerName: "Justin", coordinatorName: "Assist with Home", startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: '' },
     ];
 
 
@@ -1799,12 +1819,12 @@ function MemberDetails() {
     ];
     //demo data to display
     const rowsStatusHistory = [
-        { id: 1, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
-        { id: 2, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
-        { id: 3, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
-        { id: 4, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
-        { id: 5, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
-        { id: 6, providerName: "Justin", at: "Assist with Home",  message: '', providerName: '', userName: ''},
+        { id: 1, providerName: "Justin", at: "Assist with Home", message: '', providerName: '', userName: '' },
+        { id: 2, providerName: "Justin", at: "Assist with Home", message: '', providerName: '', userName: '' },
+        { id: 3, providerName: "Justin", at: "Assist with Home", message: '', providerName: '', userName: '' },
+        { id: 4, providerName: "Justin", at: "Assist with Home", message: '', providerName: '', userName: '' },
+        { id: 5, providerName: "Justin", at: "Assist with Home", message: '', providerName: '', userName: '' },
+        { id: 6, providerName: "Justin", at: "Assist with Home", message: '', providerName: '', userName: '' },
     ];
 
 
@@ -1832,12 +1852,12 @@ function MemberDetails() {
     ];
     //demo data to display
     const rowsNotes = [
-        { id: 1, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
-        { id: 2, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
-        { id: 3, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
-        { id: 4, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
-        { id: 5, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
-        { id: 6, from: "Justin", to: "Assist with Home",  note: '', reason: '', status: '', action: '', print: ''},
+        { id: 1, from: "Justin", to: "Assist with Home", note: '', reason: '', status: '', action: '', print: '' },
+        { id: 2, from: "Justin", to: "Assist with Home", note: '', reason: '', status: '', action: '', print: '' },
+        { id: 3, from: "Justin", to: "Assist with Home", note: '', reason: '', status: '', action: '', print: '' },
+        { id: 4, from: "Justin", to: "Assist with Home", note: '', reason: '', status: '', action: '', print: '' },
+        { id: 5, from: "Justin", to: "Assist with Home", note: '', reason: '', status: '', action: '', print: '' },
+        { id: 6, from: "Justin", to: "Assist with Home", note: '', reason: '', status: '', action: '', print: '' },
     ];
 
     const GeneralInfoView = () => {
@@ -1915,13 +1935,19 @@ function MemberDetails() {
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{member.Nurse}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{member.Nurse}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Provider Coordinator: <span style={{ color: "#F2A007" }}>{member.ProviderName}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Provider Coordinator: <span style={{ color: "#F2A007" }}>{member.ProviderName}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Office: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Office: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
                             <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Disable Automatic Visit Creation Based on EVV Confirmations: <span style={{ color: "#F2A007" }}>
@@ -1933,7 +1959,9 @@ function MemberDetails() {
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{member.EVVRequired}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{member.EVVRequired}</span></h2></div>
+                            }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
@@ -1959,27 +1987,35 @@ function MemberDetails() {
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                            }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
                         </Grid>
 
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Branch: <span style={{ color: "#F2A007" }}>{member.Branch}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Branch: <span style={{ color: "#F2A007" }}>{member.Branch}</span></h2></div>
+                            }
                         </Grid>
 
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{member.Mutual}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{member.Mutual}</span></h2></div>
+                            }
                         </Grid>
 
 
                         <Grid className="DataHolderGrid">
                             <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Source of Admission: <span style={{ color: "#F2A007" }}>
-                            <Select
+                                <Select
                                     value={selectedOptionSourceOfAdmission}
                                     onChange={handleDropdownSourceOfAdmission}
                                 >
@@ -1999,7 +2035,7 @@ function MemberDetails() {
                                     <MenuItem value="Other Community/Agency">Other Community/Agency</MenuItem>
                                     <MenuItem value="Other">Other</MenuItem>
                                 </Select>
-                                </span></h2></div>
+                            </span></h2></div>
                         </Grid>
                     </Grid>
 
@@ -2050,7 +2086,23 @@ function MemberDetails() {
     };
 
 
+    const profileAddressTableColumns = [
+        { field: 'id', headerName: 'Member ID', width: 100 },
+        { field: 'address1', headerName: 'Address Line 1', width: 300 },
+        { field: 'address2', headerName: 'Address Line 2', width: 300 },
+        { field: 'city', headerName: 'City', width: 120 },
+        { field: 'state', headerName: 'State', width: 120 },
+        { field: 'country', headerName: 'Country', width: 100 },
+        { field: 'zip', headerName: 'Zip', width: 120 },
+        { field: 'crossStreet', headerName: 'Cross Street', width: 120 },
+        { field: 'primaryAddress', headerName: 'Primary Address', width: 300 },
+        { field: 'notes', headerName: 'Notes', width: 300 },
+
+    ];
+
+
     const ProfileView = () => {
+
         return (
             <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
 
@@ -2125,24 +2177,36 @@ function MemberDetails() {
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>First Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>First Name: <span style={{ color: "#F2A007" }}>{member.FirstName}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Middle Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Middle Name: <span style={{ color: "#F2A007" }}>{member.MiddleName}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID: <span style={{ color: "#F2A007" }}>{member.LastName}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB: <span style={{ color: "#F2A007" }}>{member.DateofBirth}</span></h2></div>
+                            }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Gender: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Gender: <span style={{ color: "#F2A007" }}>{member.Gender}</span></h2></div>
+                            }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Medicaid Number: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Medicaid Number: <span style={{ color: "#F2A007" }}>{member.MedicaidNumber}</span></h2></div>
+                            }
                         </Grid>
                     </Grid>
 
@@ -2152,15 +2216,14 @@ function MemberDetails() {
                         </Button>
                     </div>
                 </div>
-
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Address</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rows10}
+                        rows={profileAddressTableRows}
                         columns={profileAddressTableColumns}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
 
@@ -2169,32 +2232,48 @@ function MemberDetails() {
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Home Phone: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Home Phone: <span style={{ color: "#F2A007" }}>{member.HomePhone}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Home Phone Location: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Home Phone Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{member.HomePhone2}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2 Location: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
-                        </Grid>
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Description: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
-                        </Grid>
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
-                        </Grid>
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3 Location: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2 Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                            }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Description: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Description: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3: <span style={{ color: "#F2A007" }}>{member.HomePhone3}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3 Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Description: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
                         </Grid>
                     </Grid>
 
@@ -2210,40 +2289,60 @@ function MemberDetails() {
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{member.Emergency1Name}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Relationship: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Relationship: <span style={{ color: "#F2A007" }}>{member.Emergency1Relationship}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Address: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Address: <span style={{ color: "#F2A007" }}>{member.Emergency1Address}</span></h2></div>
+                            }
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
-                        </Grid>
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
-                        </Grid>
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
-                        </Grid>
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Relationship: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1: <span style={{ color: "#F2A007" }}>{member.Emergency1Phone1}</span></h2></div>
+                            }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Address: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{member.Emergency1Phone2}</span></h2></div>
+                            }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{member.Emergency2Name}</span></h2></div>
+                            }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Relationship: <span style={{ color: "#F2A007" }}>{member.Emergency1Relationship}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Address: <span style={{ color: "#F2A007" }}>{member.Emergency2Address}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1: <span style={{ color: "#F2A007" }}>{member.Emergency2Phone1}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {member != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{member.Emergency2Phone2}</span></h2></div>
+                            }
                         </Grid>
                     </Grid>
 
@@ -2413,20 +2512,20 @@ function MemberDetails() {
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Preffered Gender: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Preffered Gender: <span style={{ color: "#F2A007" }}>{member.PreferredGender}</span></h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Primary Language: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Primary Language: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Secondary Language: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Secondary Language: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
                         </Grid>
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Preffered Discipline: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Preffered Discipline: <span style={{ color: "#F2A007" }}>{member.Discipline}</span></h2></div>
                         </Grid>
 
                         <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Others: <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2></div>
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Others: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
                         </Grid>
                     </Grid>
 
@@ -2435,6 +2534,24 @@ function MemberDetails() {
             </div>
         );
     }
+
+
+    const [openAddMasterWeek, setOpenAddMasterWeek] = useState(false);
+    const [openEditMasterWeek, setOpenEditMasterWeek] = useState(false);
+
+
+    const [selectedFromDateEMW, setSelectedFromDateEMW] = useState(null);
+
+    const handleChangeFromDateEMW = (date) => {
+        setSelectedFromDateEMW(date);
+    };
+
+    const [selectedToDateEMW, setSelectedToDateEMW] = useState(null);
+
+    const handleChangeToDateEMW = (date) => {
+        setSelectedToDateEMW(date);
+    };
+
 
     const MasterWeekView = () => {
         return (
@@ -2521,7 +2638,1953 @@ function MemberDetails() {
 
 
 
-                <div style={{ height: "100%", width: '100%' }}>
+                <div>
+                    <div
+                        className="bar"
+                        style={{
+                            width: '100%',
+                            height: openAddMasterWeek ? '100%' : '50px',
+                            position: 'relative',
+                            bottom: '0',
+                            left: '0',
+                            backgroundColor: '#ccc',
+                            transition: 'height 0.3s ease-in-out'
+                        }}
+
+                    >
+                        <h1 style={{ color: "#564873", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)}>Add Master Week</h1>
+
+
+                        {openAddMasterWeek &&
+
+                            <div>
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Wednesday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Thursday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Friday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Saturday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Sunday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+
+                                <div style={{ display: "flex", justifyContent: "center", marginTop: '20px', padding: '10px' }}>
+                                    <Button className="EditButton" variant="outlined">
+                                        Create New Master Week
+                                    </Button>
+                                </div>
+
+
+                            </div>
+
+
+
+                        }
+                    </div>
+                </div>
+
+
+                <div>
+                    <div
+                        className="bar"
+                        style={{
+                            width: '100%',
+                            height: openEditMasterWeek ? '1000px' : '50px',
+                            position: 'relative',
+                            bottom: '0',
+                            left: '0',
+                            backgroundColor: '#ccc',
+                            transition: 'height 0.3s ease-in-out',
+                            marginTop: '5%'
+                        }}
+                        
+                    >
+                        <h1 style={{ color: "#564873", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenEditMasterWeek(!openEditMasterWeek)}>Edit Master Week</h1>
+
+                        {
+                            openEditMasterWeek &&
+
+                            <div>
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Wednesday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Thursday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Friday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Saturday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+
+                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Sunday</h1>
+                                        <Grid container spacing={2}>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid">
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Start Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="End Time"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Code"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Care Giver Name"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Ass. ID"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Hours"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+
+                                                <div style={{ margin: "5px" }}>
+                                                    <TextField
+                                                        id="outlined-basic"
+                                                        label="Minutes"
+                                                        variant="outlined"
+                                                    />
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    <Select
+                                                        value={selectedOptionSourceOfAdmission}
+                                                        onChange={handleDropdownSourceOfAdmission}
+                                                    >
+                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                                        <MenuItem value="CHHA">CHHA</MenuItem>
+                                                        <MenuItem value="Hospice">Hospice</MenuItem>
+                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                    </Select>
+                                                </div>
+                                            </Grid>
+
+
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                            </Grid>
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                                <div style={{ margin: "5px" }}>
+                                                    Hourly
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+
+                                    </div>
+                                </div>
+
+
+                                <div style={{ display: "flex", justifyContent: "center", marginTop: '20px', padding: '10px' }}>
+                                    <Button className="EditButton" variant="outlined">
+                                        Edit Master Week
+                                    </Button>
+                                </div>
+
+
+                            </div>
+
+
+                        }
+                    </div>
+
+
+
+                </div>
+
+
+
+                {/* <div style={{ height: "100%", width: '100%' }}>
                     <Calendar
                         events={myEventsList}
                         startAccessor="start"
@@ -2533,7 +4596,8 @@ function MemberDetails() {
                         style={{ height: "100%" }}
                         onSelectEvent={handleEventClick} // pass the function as a prop
                     />
-                </div>
+                </div> */}
+
             </div>
         );
     }
@@ -2880,19 +4944,7 @@ function MemberDetails() {
 
     ];
 
-    const profileAddressTableColumns = [
-        { field: 'id', headerName: 'Auth. #', width: 100 },
-        { field: 'fromDate', headerName: 'Address Line 1', width: 100 },
-        { field: 'toDate', headerName: 'Address Line 2', width: 120 },
-        { field: 'serviceType', headerName: 'City', width: 120 },
-        { field: 'serviceCode', headerName: 'State', width: 120 },
-        { field: 'authType', headerName: 'Country', width: 100 },
-        { field: 'mco', headerName: 'Zip', width: 120 },
-        { field: 'serviceCat', headerName: 'Cross Street', width: 120 },
-        { field: 'notes', headerName: 'Primary Address', width: 100 },
-        { field: 'visit', headerName: 'Notes', width: 100 },
 
-    ];
     //demo data to display
     const rows10 = [
         {
@@ -2966,6 +5018,13 @@ function MemberDetails() {
                     />
 
                     <h3 onClick={MemberInfoPressed} style={{ color: "#F2B90F" }}>Member Info</h3>
+                    <h3 onClick={AuthorizationInfoPressed} style={{ color: "#F2B90F" }}>Authorization</h3>
+                    <h3 onClick={GeneralInfoPressed} style={{ color: "#F2B90F" }}>General</h3>
+                    <h3 onClick={ProfileInfoPressed} style={{ color: "#F2B90F" }}>Profile</h3>
+                    <h3 onClick={SpecialReuirementsInfoPressed} style={{ color: "#F2B90F" }}>Special Requirements</h3>
+                    <h3 onClick={MasterWeekInfoPressed} style={{ color: "#F2B90F" }}>Master Week</h3>
+                    <h3 onClick={VisitInfoPressedMain} style={{ color: "#F2B90F" }}>Visits</h3>
+                    <h3 onClick={POCInfoPressed} style={{ color: "#F2B90F" }}>POC</h3>
                 </div>
             </Box>
         </div>

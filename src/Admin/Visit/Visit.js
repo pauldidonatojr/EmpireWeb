@@ -35,9 +35,17 @@ import dayjs from 'dayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { addVisit } from "../../API/visitAPI";
 import UserName from "../../UserName";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Link = require("react-router-dom").Link;
 
 function Visit() {
+
+  const showToastMessage = () => {
+    toast.success('Success Notification !', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  };
 
   const { signOut } = React.useContext(AuthContext);
 
@@ -591,32 +599,32 @@ function Visit() {
 
   function getTimeDuration(start, end) {
     console.log(start)
-  //   if (visitStart != null && visitEnd) {
-  //     var durationMinute;
-  //     var durationHour;
-  //     var durationTime;
-  //     var startTime = visitStart.split(':');
-  //     var endTime = visitEnd.split(':');
+    //   if (visitStart != null && visitEnd) {
+    //     var durationMinute;
+    //     var durationHour;
+    //     var durationTime;
+    //     var startTime = visitStart.split(':');
+    //     var endTime = visitEnd.split(':');
 
-  //     startTime[0] = parseInt(startTime[0]);
-  //     startTime[1] = parseInt(startTime[1]);
+    //     startTime[0] = parseInt(startTime[0]);
+    //     startTime[1] = parseInt(startTime[1]);
 
-  //     endTime[0] = parseInt(endTime[0]);
-  //     endTime[1] = parseInt(endTime[1]);
+    //     endTime[0] = parseInt(endTime[0]);
+    //     endTime[1] = parseInt(endTime[1]);
 
-  //     if (endTime[1] >= startTime[1]) {
-  //         durationMinute = endTime[1] - startTime[1];
-  //         durationHour = endTime[0] - startTime[0];
-  //         durationTime = durationHour + ' Hours and ' + durationMinute + ' Minutes';
-  //         setDuration(durationTime);
-  //     }
-  //     else if (endTime[1] < startTime[1]) {
-  //         durationMinute = (endTime[1] + 60) - startTime[1];
-  //         durationHour = (endTime[0] - 1) - startTime[0];
-  //         durationTime = durationHour + ' Hours and ' + durationMinute + ' Minutes';
-  //         setDuration(durationTime);
-  //     }
-  // }
+    //     if (endTime[1] >= startTime[1]) {
+    //         durationMinute = endTime[1] - startTime[1];
+    //         durationHour = endTime[0] - startTime[0];
+    //         durationTime = durationHour + ' Hours and ' + durationMinute + ' Minutes';
+    //         setDuration(durationTime);
+    //     }
+    //     else if (endTime[1] < startTime[1]) {
+    //         durationMinute = (endTime[1] + 60) - startTime[1];
+    //         durationHour = (endTime[0] - 1) - startTime[0];
+    //         durationTime = durationHour + ' Hours and ' + durationMinute + ' Minutes';
+    //         setDuration(durationTime);
+    //     }
+    // }
   }
 
 
@@ -758,7 +766,7 @@ function Visit() {
 
   const membersStoage = localStorage.getItem("Members");
   var membersArray = JSON.parse(membersStoage);
-  
+
   function getSelectedMemberAllData(val) {
     for (var key in membersArray) {
       if (val.id == membersArray[key].MemberID) {
@@ -1732,7 +1740,7 @@ function Visit() {
               variant="outlined"
               readOnly
               value={duration}
-              onClick = {()=>{getTimeDuration(visitStartTime, visitEndTime)}}
+              onClick={() => { getTimeDuration(visitStartTime, visitEndTime) }}
             />
 
             <TextField
@@ -2896,7 +2904,7 @@ function Visit() {
                     unitField10Value,
                   ).then(res => {
                     if (res.data.result == "success") {
-                      console.log("Here")
+                      showToastMessage();
                     }
                   });
                 }
@@ -2941,6 +2949,7 @@ function Visit() {
 
   return (
     <Wrapper>
+      <ToastContainer />
       <div className="Header">
         <MenuIcon
           className="menuIcon"
@@ -2975,7 +2984,7 @@ function Visit() {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <UserName/>
+          <UserName />
           <hr />
           <p
             style={{
