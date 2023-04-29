@@ -27,6 +27,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { editVisit } from "../API/visitAPI";
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import UserName from "../UserName";
 
 //
 
@@ -342,10 +343,8 @@ const VisitDetails = () => {
 
     var arrMem = [];
     for (var key in meData) {
-      console.log(meData[key])
       if (meData[key].MemberID == selectedItem.MemberID) {
         setCurrMember(meData[key])
-        console.log(meData)
       }
     }
 
@@ -485,6 +484,9 @@ const VisitDetails = () => {
       case 5:
         return ClockOutView();
 
+      case 6:
+        return CarePlanView();
+
       default:
         break;
     }
@@ -494,6 +496,9 @@ const VisitDetails = () => {
 
   var prevState = null;
 
+  const CarePlanPressed = () => {
+    setViewSelected(6);
+  };
   const PatientInfoPressed = () => {
     setViewSelected(3);
   };
@@ -510,6 +515,30 @@ const VisitDetails = () => {
 
   const ClockOutPressed = () => {
     setViewSelected(5);
+  };
+
+
+  const CarePlanView = () => {
+    return (
+      <div style={{ overflow: 'auto' }}>
+        <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+          <h1 style={{ color: "#564873", textAlign: "center" }}>Care Plan</h1>
+
+
+          {pocDutiesList.map((item) => (
+            <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px', marginTop: '30px' }}>
+              <h1 style={{ color: "#564873", textAlign: "center" }}>{item.category}</h1>
+              <div style={{ textAlign: 'center' }}>{currMember != null &&
+                <>
+                  <h1 style={{ color: "white", textAlign: "center" }}>{item.duty}</h1>
+                </>
+              }
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   const ClockInOutView = () => {
@@ -566,7 +595,7 @@ const VisitDetails = () => {
         <div className="ListHolder">
 
           <div className="PlanofCareList">
-            <p style={{ color: "white", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan Of Care</p>
+            <p style={{ color: "white", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan of Care</p>
             <List style={{ maxHeight: "75%", overflow: "auto" }}>
               {pocDutiesList.map((item) => (
                 <ListItem
@@ -630,43 +659,6 @@ const VisitDetails = () => {
   };
   const PatientView = () => {
     return (
-      // <div className="PatientViewHolder" >
-
-      //   <Card className="contactCard">
-      //     <p style={{ textAlign: "center", fontSize: "15px", color: "white", fontWeight: "bold" }}>Contact Information</p>
-
-      //     <div className="phoneNumber">
-      //       <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
-      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
-      //     </div>
-      //     <div className="phoneNumber">
-      //       <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
-      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
-      //     </div>
-      //     <div className="phoneNumber">
-      //       <PhoneIcon style={{ fontSize: "30px", color: "whitesmoke", marginTop: "15%", marginRight: "5%" }} />
-      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
-      //     </div>
-      //     <div className="phoneNumber">
-      //       <LocationOnIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "6%" }} />
-      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>262 A Upper Tooting Road, SW10DS</p>
-      //     </div>
-      //   </Card>
-
-      //   <Card className="EmergencyCard">
-      //     <p style={{ textAlign: "center", fontSize: "15px", color: "white", fontWeight: "bold" }}>Emergency Contact</p>
-
-      //     <div className="phoneNumber">
-      //       <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
-      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
-      //     </div>
-      //     <div className="phoneNumber">
-      //       <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
-      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
-      //     </div>
-
-      //   </Card>
-      // </div>
 
       <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
         <h1 style={{ color: "#564873", textAlign: "center" }}>Patient Information</h1>
@@ -932,7 +924,6 @@ const VisitDetails = () => {
               "",
               ""
             ).then(res => {
-              console.log(res)
               if (res.data.result == "success") {
                 showToastMessage();
               }
@@ -1164,7 +1155,6 @@ const VisitDetails = () => {
               "",
               ""
             ).then(res => {
-              console.log(res)
               if (res.data.result == "success") {
                 showToastMessage();
               }
@@ -1237,6 +1227,7 @@ const VisitDetails = () => {
           <h3 onClick={ClockInOutPressed} style={{ color: "#F2B90F" }}>Clock In / Out</h3>
           <h3 onClick={DirectionPressed} style={{ color: "#F2B90F" }}>Direction</h3>
           <h3 onClick={PatientInfoPressed} style={{ color: "#F2B90F" }}>Patient Info</h3>
+          <h3 onClick={CarePlanPressed} style={{ color: "#F2B90F" }}>Care Plan</h3>
 
         </div>
       </Box>
@@ -1280,23 +1271,7 @@ const VisitDetails = () => {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName />
           <hr />
           <p
             style={{
@@ -1340,6 +1315,15 @@ const VisitDetails = () => {
                 Patient Info
               </p>
             </Button>
+
+            <Button onClick={CarePlanPressed}>
+              <p
+                style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}
+              >
+                Care Plan
+              </p>
+            </Button>
+
           </div>
 
           <div className="NeedHelpDiv">
@@ -1353,6 +1337,10 @@ const VisitDetails = () => {
         <Card className="dataDisplay">{RenderViews()}</Card>
       </div>
 
+      <div className="GoBackButtonHolder">
+        <Button className="GoBackButton" variant="outlined" onClick={() => { navigate(-1) }} >Go Back</Button>
+      </div>
+
       <Footer />
     </Wrapper>
   );
@@ -1362,6 +1350,26 @@ export default VisitDetails;
 const Wrapper = styled.section`
 height: 100%;
 width: 100%;
+
+
+
+.GoBackButtonHolder{
+    display:flex;
+    justify-content:center;
+    margin-top:0;
+    margin-bottom:3%;
+  }
+
+  .GoBackButton{
+    background-color: #f26e22;
+    color: white;
+    width: 10%;
+    height: 150%;
+    padding: 0.5%;
+    border-radius: 10px;
+    margin-top:0;
+    justify-content:center;
+  }
 
 .CardHolder{
     display:flex;
@@ -1578,13 +1586,30 @@ width: 100%;
 //UserInfo(TaskBar)
 .TaskBar{
 
-    width:20%;
-    height:655px;
-    background-color:#564873;
-    margin-top:3%;
-    margin-bottom:10%;
-    margin-left:2%;
-}
+  width: 20%;
+    height: 650px;
+    background-color: #564873;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    /* For Chrome, Safari, and Opera */
+
+  }
+
+    .TaskBar::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    .TaskBar::-webkit-scrollbar-track {
+    background-color: #564873;
+    }
+
+    .TaskBar::-webkit-scrollbar-thumb {
+    background-color: #8e9fb1;
+    border-radius: 5px;
+    }
 
 .UserInfo{
     display:flex;

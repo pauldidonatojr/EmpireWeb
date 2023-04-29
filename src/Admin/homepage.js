@@ -461,7 +461,7 @@ function Homepage() {
     for (var key in memberData) {
       var obj = {
         id: memberData[key].MemberID,
-        Name: memberData[key].FirstName,
+        Name: memberData[key].FirstName + " " + memberData[key].LastName,
         Gender: memberData[key].Gender,
         MCOName: memberData[key].MCOName,
         Discipline: memberData[key].Discipline,
@@ -572,11 +572,14 @@ function Homepage() {
     {
       field: 'Name',
       headerName: 'Member Name',
-      width: 130,
+      width: 250,
       renderCell: (params) => (
         <div>
+          <Link to="/MemberDetails" state={{ selectedMemberID: null, selectedMemberName: params.value }}
+          >
             {params.value}
-        </div>
+          </Link>
+          </div>
       )
     },
     { field: 'MemberTeam', headerName: 'Member Team', width: 150 },
@@ -756,7 +759,7 @@ const Wrapper = styled.section`
     padding: 0.5%;
     border-radius: 10px;
     margin-top:0;
-    jusfity-content:center;
+    justify-content:center;
   }
   .GoBackButton:hover {
     color: black;

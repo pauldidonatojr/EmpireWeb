@@ -22,6 +22,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import { ListItemText } from '@material-ui/core';
+
 //
 
 import FormGroup from '@mui/material/FormGroup';
@@ -53,6 +55,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { addMasterWeek, editMasterWeek } from "../../API/masterWeekAPI";
+import { updateMember } from "../../API/membersApi";
 
 //
 
@@ -693,8 +696,13 @@ function MemberDetails() {
                         notes: '',
                     }
                     arr.push(obj);
+                    if (myArray.FOBRequired == 'Yes') {
+                        setIsCheckedFOBConfirmation(true);
+                    }
+                    if (myArray.FOBRequired == 'No') {
+                        setIsCheckedFOBConfirmation(false);
+                    }
                     setProfileAddressTableRows(arr);
-
 
                     setAltMemberID(myArray.AltMemberID)
                     setBranch(myArray.Branch)
@@ -868,7 +876,6 @@ function MemberDetails() {
                 var obj = miscValues[key].fields;
                 setVisitActionTakenAll(obj[1].visit_action_taken)
                 setVisitEditReasonAll(obj[0].visit_edit_reason)
-                console.log(obj)
             }
         }
         setServiceCodes(arr);
@@ -2223,7 +2230,6 @@ function MemberDetails() {
 
     useEffect(() => {
         if (member != null) {
-            console.log("here")
             var obj = {
                 id: member.MemberID,
                 providerName: member.ProviderName,
@@ -2278,22 +2284,18 @@ function MemberDetails() {
     function populateActionTaken(name) {
         var code;
         var arr = [];
-        console.log(name)
         for (var key in visitEditReasonAll) {
             if (visitEditReasonAll[key].description == name) {
-                console.log(visitEditReasonAll[key].description)
                 code = visitEditReasonAll[key].code;
             }
         }
 
         for (var key in visitActionTakenAll) {
             if (visitActionTakenAll[key].code == code) {
-                console.log("Action")
                 var obj = visitActionTakenAll[key].description;
                 arr.push(obj);
             }
         }
-        console.log(arr)
         setActionTakenSelectedList(arr);
     }
 
@@ -2770,7 +2772,6 @@ function MemberDetails() {
                             healthSafetyRiskState,
                             maid
                         ).then(res => {
-                            console.log(res)
                             if (res.data.result == "success") {
                                 showToastMessage();
                             }
@@ -3257,7 +3258,6 @@ function MemberDetails() {
                             healthSafetyRiskState,
                             maid
                         ).then(res => {
-                            console.log(res)
                             if (res.data.result == "success") {
                                 showToastMessage();
 
@@ -3914,8 +3914,8 @@ function MemberDetails() {
                         <Grid className="DataHolderGrid">
                             <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Team: <span style={{ color: "#F2A007" }}>
                                 <Select
-                                    value={selectedOptionMemberTeam}
-                                    onChange={handleDropdownChangeMemberTeam}
+                                    value={team}
+                                    onChange={(evt) => { setTeam(evt.target.value) }}
                                 >
                                     <MenuItem value="Unassigned">Unassigned</MenuItem>
                                     <MenuItem value="Assigned">Assigned</MenuItem>
@@ -3977,8 +3977,8 @@ function MemberDetails() {
                         <Grid className="DataHolderGrid">
                             <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Source of Admission: <span style={{ color: "#F2A007" }}>
                                 <Select
-                                    value={selectedOptionSourceOfAdmission}
-                                    onChange={handleDropdownSourceOfAdmission}
+                                    value={sourceOfAdmission}
+                                    onChange={(evt) => { setSourceOfAdmission(evt.target.value) }}
                                 >
                                     <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
                                     <MenuItem value="CHHA">CHHA</MenuItem>
@@ -4001,7 +4001,111 @@ function MemberDetails() {
                     </Grid>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <Button className="EditButton" variant="outlined">
+                        <Button className="EditButton" variant="outlined" onClick={() => {
+                            updateMember(
+                                altMemberID,
+                                branch,
+                                cluster,
+                                mcoName,
+                                isDefault,
+                                discipline,
+                                evvRequired,
+                                firstDayOfService,
+                                fobRequired,
+                                fobSealID,
+                                lastDayOfService,
+                                isLinked,
+                                locationMember,
+                                mdOrderRequired,
+                                isMutual,
+                                nurse,
+                                memberProfileHeaderAlert,
+                                projectedDCDate,
+                                sourceOfAdmission,
+                                status,
+                                team,
+                                uniqueDeviceSerialNumber,
+                                providerName,
+                                acceptedServices,
+                                admissionID,
+                                alert,
+                                coordinatorName,
+                                coordinatorName2,
+                                coordinatorName3,
+                                dateOfBirth,
+                                firstName,
+                                gender,
+                                icd10,
+                                icd9,
+                                ivrRequired,
+                                lastName,
+                                medicaidNumber,
+                                medicareNumber,
+                                middleName,
+                                memberHIClaimNo,
+                                memberID,
+                                ssn,
+                                startDate,
+                                isWageParity,
+                                wageParityFromDate1,
+                                wageParityFromDate2,
+                                wageParityToDate1,
+                                wageParityToDate2,
+                                address1,
+                                address2,
+                                city,
+                                crossStreet,
+                                homePhone,
+                                homePhone2,
+                                homePhone3,
+                                stateMember,
+                                zipCode,
+                                billingCity,
+                                billingFirstName,
+                                billingLastName,
+                                billingMiddleName,
+                                billingResponsibleParty,
+                                billingState,
+                                billingStreet,
+                                billingZipCode,
+                                differentBillingAddress,
+                                emergency1Address,
+                                emergency1Name,
+                                emergency1Phone1,
+                                emergency1phone2,
+                                emergency1Relationship,
+                                emergency2Address,
+                                emergency2Name,
+                                emergency2Phone1,
+                                emergency2Phone2,
+                                emergency2Relationship,
+                                priorityCode,
+                                evacuationZone,
+                                evacuationLocation,
+                                mobilityStatus,
+                                electricEquipmentDependency,
+                                mcoPriorityCode,
+                                preferredGender,
+                                shabbatObservant,
+                                accountManager,
+                                commissionStatus,
+                                contactPerson,
+                                intakePerson,
+                                receivedDate,
+                                source,
+                                type,
+                                clinicalComments,
+                                mdVisitDue,
+                                allergies,
+                                lastSkilledRNVisit,
+                                phiMemberID
+                            ).then(res => {
+                                console.log(res)
+                                if (res.data.result == "success") {
+                                    showToastMessage();
+                                }
+                            });
+                        }}>
                             Edit
                         </Button>
                     </div>
@@ -4046,20 +4150,172 @@ function MemberDetails() {
         );
     };
 
+    const items = [
+        { id: 'GPS', name: 'GPS' },
+        { id: 'Billing', name: 'Billing' },
+        { id: 'Home', name: 'Item 3' },
+        { id: 'Community', name: 'Community' },
+        // add more items as needed
+    ];
+    const [selectedItems, setSelectedItems] = useState([]);
+
 
     const profileAddressTableColumns = [
         { field: 'id', headerName: 'Member ID', width: 100 },
-        { field: 'address1', headerName: 'Address Line 1', width: 300 },
-        { field: 'address2', headerName: 'Address Line 2', width: 300 },
-        { field: 'city', headerName: 'City', width: 120 },
-        { field: 'state', headerName: 'State', width: 120 },
-        { field: 'country', headerName: 'Country', width: 100 },
-        { field: 'zip', headerName: 'Zip', width: 120 },
-        { field: 'crossStreet', headerName: 'Cross Street', width: 120 },
-        { field: 'primaryAddress', headerName: 'Primary Address', width: 300 },
-        { field: 'notes', headerName: 'Notes', width: 300 },
+        { field: 'address1', headerName: 'Address Line 1', width: 300, editable: true },
+        { field: 'address2', headerName: 'Address Line 2', width: 300, editable: true },
+        { field: 'city', headerName: 'City', width: 120, editable: true },
+        { field: 'state', headerName: 'State', width: 120, editable: true },
+        { field: 'country', headerName: 'County', width: 100, editable: true },
+        { field: 'zip', headerName: 'Zip', width: 120, editable: true },
+        { field: 'crossStreet', headerName: 'Cross Street', width: 120, editable: true },
+        { field: 'primaryAddress', headerName: 'Primary Address', width: 300, editable: true },
+        {
+            field: 'notes', headerName: 'Notes', width: 300, editable: true,
 
+            renderCell: (params) => (
+                <FormControl>
+                    <InputLabel id="select-label">Select Items</InputLabel>
+                    <Select
+                        labelId="select-label"
+                        id="select"
+                        multiple
+                        value={selectedItems}
+                        onChange={(event) => {
+                            setSelectedItems(event.target.value);
+                        }}
+                        renderValue={(selected) => selected.map((item) => item.name).join(', ')}
+                    >
+                        {items.map((item) => (
+                            <MenuItem key={item.id} value={item}>
+                                <Checkbox checked={selectedItems.some((selected) => selected.id === item.id)} />
+                                <ListItemText primary={item.name} />
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+            ),
+        },
+        {
+            field: 'print',
+            headerName: 'Save',
+            sortable: false,
+            width: 200,
+            renderCell: (params) => (
+                <Button variant="contained" onClick={() => {
+                    var val = params.row;
+                    updateMember(
+                        altMemberID,
+                        branch,
+                        cluster,
+                        mcoName,
+                        isDefault,
+                        discipline,
+                        evvRequired,
+                        firstDayOfService,
+                        fobRequired,
+                        fobSealID,
+                        lastDayOfService,
+                        isLinked,
+                        locationMember,
+                        mdOrderRequired,
+                        isMutual,
+                        nurse,
+                        memberProfileHeaderAlert,
+                        projectedDCDate,
+                        sourceOfAdmission,
+                        status,
+                        team,
+                        uniqueDeviceSerialNumber,
+                        providerName,
+                        acceptedServices,
+                        admissionID,
+                        alert,
+                        coordinatorName,
+                        coordinatorName2,
+                        coordinatorName3,
+                        dateOfBirth,
+                        firstName,
+                        gender,
+                        icd10,
+                        icd9,
+                        ivrRequired,
+                        lastName,
+                        medicaidNumber,
+                        medicareNumber,
+                        middleName,
+                        memberHIClaimNo,
+                        memberID,
+                        ssn,
+                        startDate,
+                        isWageParity,
+                        wageParityFromDate1,
+                        wageParityFromDate2,
+                        wageParityToDate1,
+                        wageParityToDate2,
+                        val.address1,
+                        val.address2,
+                        val.city,
+                        val.crossStreet,
+                        homePhone,
+                        homePhone2,
+                        homePhone3,
+                        stateMember,
+                        val.zip,
+                        billingCity,
+                        billingFirstName,
+                        billingLastName,
+                        billingMiddleName,
+                        billingResponsibleParty,
+                        billingState,
+                        billingStreet,
+                        billingZipCode,
+                        differentBillingAddress,
+                        emergency1Address,
+                        emergency1Name,
+                        emergency1Phone1,
+                        emergency1phone2,
+                        emergency1Relationship,
+                        emergency2Address,
+                        emergency2Name,
+                        emergency2Phone1,
+                        emergency2Phone2,
+                        emergency2Relationship,
+                        priorityCode,
+                        evacuationZone,
+                        evacuationLocation,
+                        mobilityStatus,
+                        electricEquipmentDependency,
+                        mcoPriorityCode,
+                        preferredGender,
+                        shabbatObservant,
+                        accountManager,
+                        commissionStatus,
+                        contactPerson,
+                        intakePerson,
+                        receivedDate,
+                        source,
+                        type,
+                        clinicalComments,
+                        mdVisitDue,
+                        allergies,
+                        lastSkilledRNVisit,
+                        phiMemberID
+                    ).then(res => {
+                        console.log(res)
+                        if (res.data.result == "success") {
+                            showToastMessage();
+                        }
+                    });
+
+                }}>
+                    Save
+                </Button>
+            ),
+        },
     ];
+
 
 
     const ProfileView = () => {
@@ -4181,12 +4437,6 @@ function MemberDetails() {
                         rowsPerPageOptions={[15]}
                         checkboxSelection={false}
                     />
-
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                        <Button className="EditButton" variant="outlined">
-                            Edit
-                        </Button>
-                    </div>
                 </div>
 
 
@@ -4195,52 +4445,216 @@ function MemberDetails() {
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Home Phone: <span style={{ color: "#F2A007" }}>{member.HomePhone}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Phone 1"
+                                        variant="outlined"
+                                        value={homePhone}
+                                        onChange={(evt) => { setHomePhone(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Home Phone Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Home Phone Location"
+                                        variant="outlined"
+                                        value={address1}
+                                        onChange={(evt) => { setAddress1(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{member.HomePhone2}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Phone 2"
+                                        variant="outlined"
+                                        value={homePhone2}
+                                        onChange={(evt) => { setHomePhone2(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2 Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Home Phone 2 Location"
+                                        variant="outlined"
+                                        value={address1}
+                                        onChange={(evt) => { setAddress1(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Description: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Description"
+                                        variant="outlined"
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3: <span style={{ color: "#F2A007" }}>{member.HomePhone3}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Home Phone 3"
+                                        variant="outlined"
+                                        value={homePhone3}
+                                        onChange={(evt) => { setHomePhone3(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3 Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Home Phone 3 Location"
+                                        variant="outlined"
+                                        value={address1}
+                                        onChange={(evt) => { setAddress1(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Description: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Description"
+                                        variant="outlined"
+                                    />
+                                </div>
                             }
                         </Grid>
                     </Grid>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <Button className="EditButton" variant="outlined">
+                        <Button className="EditButton" variant="outlined" onClick={() => {
+                            updateMember(
+                                altMemberID,
+                                branch,
+                                cluster,
+                                mcoName,
+                                isDefault,
+                                discipline,
+                                evvRequired,
+                                firstDayOfService,
+                                fobRequired,
+                                fobSealID,
+                                lastDayOfService,
+                                isLinked,
+                                locationMember,
+                                mdOrderRequired,
+                                isMutual,
+                                nurse,
+                                memberProfileHeaderAlert,
+                                projectedDCDate,
+                                sourceOfAdmission,
+                                status,
+                                team,
+                                uniqueDeviceSerialNumber,
+                                providerName,
+                                acceptedServices,
+                                admissionID,
+                                alert,
+                                coordinatorName,
+                                coordinatorName2,
+                                coordinatorName3,
+                                dateOfBirth,
+                                firstName,
+                                gender,
+                                icd10,
+                                icd9,
+                                ivrRequired,
+                                lastName,
+                                medicaidNumber,
+                                medicareNumber,
+                                middleName,
+                                memberHIClaimNo,
+                                memberID,
+                                ssn,
+                                startDate,
+                                isWageParity,
+                                wageParityFromDate1,
+                                wageParityFromDate2,
+                                wageParityToDate1,
+                                wageParityToDate2,
+                                address1,
+                                address2,
+                                city,
+                                crossStreet,
+                                homePhone,
+                                homePhone2,
+                                homePhone3,
+                                stateMember,
+                                zipCode,
+                                billingCity,
+                                billingFirstName,
+                                billingLastName,
+                                billingMiddleName,
+                                billingResponsibleParty,
+                                billingState,
+                                billingStreet,
+                                billingZipCode,
+                                differentBillingAddress,
+                                emergency1Address,
+                                emergency1Name,
+                                emergency1Phone1,
+                                emergency1phone2,
+                                emergency1Relationship,
+                                emergency2Address,
+                                emergency2Name,
+                                emergency2Phone1,
+                                emergency2Phone2,
+                                emergency2Relationship,
+                                priorityCode,
+                                evacuationZone,
+                                evacuationLocation,
+                                mobilityStatus,
+                                electricEquipmentDependency,
+                                mcoPriorityCode,
+                                preferredGender,
+                                shabbatObservant,
+                                accountManager,
+                                commissionStatus,
+                                contactPerson,
+                                intakePerson,
+                                receivedDate,
+                                source,
+                                type,
+                                clinicalComments,
+                                mdVisitDue,
+                                allergies,
+                                lastSkilledRNVisit,
+                                phiMemberID
+                            ).then(res => {
+                                console.log(res)
+                                if (res.data.result == "success") {
+                                    showToastMessage();
+                                }
+                            });
+                        }}>
                             Edit
                         </Button>
                     </div>
@@ -4252,64 +4666,248 @@ function MemberDetails() {
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{member.Emergency1Name}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Name"
+                                        variant="outlined"
+                                        value={emergency1Name}
+                                        onChange={(evt) => { setEmergency1Name(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Relationship: <span style={{ color: "#F2A007" }}>{member.Emergency1Relationship}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Relationship"
+                                        variant="outlined"
+                                        value={emergency1Relationship}
+                                        onChange={(evt) => { setEmergency1Relationship(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Address: <span style={{ color: "#F2A007" }}>{member.Emergency1Address}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Address"
+                                        variant="outlined"
+                                        value={emergency1Address}
+                                        onChange={(evt) => { setEmergency1Address(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1: <span style={{ color: "#F2A007" }}>{member.Emergency1Phone1}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Phone 1"
+                                        variant="outlined"
+                                        value={emergency1Phone1}
+                                        onChange={(evt) => { setEmergency1Phone1(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{member.Emergency1Phone2}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Phone 2"
+                                        variant="outlined"
+                                        value={emergency1phone2}
+                                        onChange={(evt) => { setEmergency1phone2(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name: <span style={{ color: "#F2A007" }}>{member.Emergency2Name}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Name"
+                                        variant="outlined"
+                                        value={emergency1Name}
+                                        onChange={(evt) => { setEmergency1Name(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Relationship: <span style={{ color: "#F2A007" }}>{member.Emergency1Relationship}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Relationship"
+                                        variant="outlined"
+                                        value={emergency2Name}
+                                        onChange={(evt) => { setEmergency2Name(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Address: <span style={{ color: "#F2A007" }}>{member.Emergency2Address}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Address"
+                                        variant="outlined"
+                                        value={emergency2Address}
+                                        onChange={(evt) => { setEmergency2Address(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1: <span style={{ color: "#F2A007" }}>{member.Emergency2Phone1}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Phone 1"
+                                        variant="outlined"
+                                        value={emergency2Phone1}
+                                        onChange={(evt) => { setEmergency2Phone1(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2: <span style={{ color: "#F2A007" }}>{member.Emergency2Phone2}</span></h2></div>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Phone 2"
+                                        variant="outlined"
+                                        value={emergency2Phone2}
+                                        onChange={(evt) => { setEmergency2Phone2(evt.target.value) }}
+                                    />
+                                </div>
                             }
                         </Grid>
                     </Grid>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        <Button className="EditButton" variant="outlined">
+                    <Button className="EditButton" variant="outlined" onClick={() => {
+                            updateMember(
+                                altMemberID,
+                                branch,
+                                cluster,
+                                mcoName,
+                                isDefault,
+                                discipline,
+                                evvRequired,
+                                firstDayOfService,
+                                fobRequired,
+                                fobSealID,
+                                lastDayOfService,
+                                isLinked,
+                                locationMember,
+                                mdOrderRequired,
+                                isMutual,
+                                nurse,
+                                memberProfileHeaderAlert,
+                                projectedDCDate,
+                                sourceOfAdmission,
+                                status,
+                                team,
+                                uniqueDeviceSerialNumber,
+                                providerName,
+                                acceptedServices,
+                                admissionID,
+                                alert,
+                                coordinatorName,
+                                coordinatorName2,
+                                coordinatorName3,
+                                dateOfBirth,
+                                firstName,
+                                gender,
+                                icd10,
+                                icd9,
+                                ivrRequired,
+                                lastName,
+                                medicaidNumber,
+                                medicareNumber,
+                                middleName,
+                                memberHIClaimNo,
+                                memberID,
+                                ssn,
+                                startDate,
+                                isWageParity,
+                                wageParityFromDate1,
+                                wageParityFromDate2,
+                                wageParityToDate1,
+                                wageParityToDate2,
+                                address1,
+                                address2,
+                                city,
+                                crossStreet,
+                                homePhone,
+                                homePhone2,
+                                homePhone3,
+                                stateMember,
+                                zipCode,
+                                billingCity,
+                                billingFirstName,
+                                billingLastName,
+                                billingMiddleName,
+                                billingResponsibleParty,
+                                billingState,
+                                billingStreet,
+                                billingZipCode,
+                                differentBillingAddress,
+                                emergency1Address,
+                                emergency1Name,
+                                emergency1Phone1,
+                                emergency1phone2,
+                                emergency1Relationship,
+                                emergency2Address,
+                                emergency2Name,
+                                emergency2Phone1,
+                                emergency2Phone2,
+                                emergency2Relationship,
+                                priorityCode,
+                                evacuationZone,
+                                evacuationLocation,
+                                mobilityStatus,
+                                electricEquipmentDependency,
+                                mcoPriorityCode,
+                                preferredGender,
+                                shabbatObservant,
+                                accountManager,
+                                commissionStatus,
+                                contactPerson,
+                                intakePerson,
+                                receivedDate,
+                                source,
+                                type,
+                                clinicalComments,
+                                mdVisitDue,
+                                allergies,
+                                lastSkilledRNVisit,
+                                phiMemberID
+                            ).then(res => {
+                                console.log(res)
+                                if (res.data.result == "success") {
+                                    showToastMessage();
+                                }
+                            });
+                        }}>
                             Edit
                         </Button>
                     </div>
@@ -5879,7 +6477,6 @@ function MemberDetails() {
                                                 modeSU,
 
                                             ).then(res => {
-                                                console.log(res)
                                                 if (res.data.result == "success") {
                                                     showToastMessage();
                                                 }
@@ -7134,7 +7731,6 @@ function MemberDetails() {
                                                 modeSU,
 
                                             ).then(res => {
-                                                console.log(res)
                                                 if (res.data.result == "success") {
                                                     showToastMessage();
                                                 }

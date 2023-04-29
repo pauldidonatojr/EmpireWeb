@@ -34,6 +34,8 @@ function Homepage() {
   const [visits, setVisits] = useState([]);
   const [miscData, setMISCData] = useState([]);
   const [todayVisits, setTodayVisits] = useState([]);
+  const [allVisisRow, setAllVisitsRow] = useState([]);
+  const [visitedPatients, setVisitedPatiens] = useState([])
 
   // 
 
@@ -70,8 +72,20 @@ function Homepage() {
   useEffect(() => {
     getMembers().then(res => {
       localStorage.setItem('Members', JSON.stringify(res.data));
+      setMemberData(res.data);
     })
-  }, [memberData]);
+  }, []);
+
+
+  function getMemberFromID(id){
+    if(memberData != null){
+      for(var key in memberData){
+        if(id  == memberData[key].MemberID){
+          return memberData[key]
+        }
+      }
+    }
+  }
 
   useEffect(() => {
     getVisitByCareGiverCode(careGiverData.AideCode).then(res => {
@@ -81,8 +95,20 @@ function Homepage() {
       const currentDate = dayjs();
 
       var arr = [];
+      var arr2 = [];
+      var visitedMemberID = [];
       for (var key in data) {
+
         var myArray = data[key];
+        var val = getMemberFromID(myArray.MemberID)
+        console.log(val)
+        var objMem = {
+            id: val.MemberID,
+            name: val.FirstName + " " + val.LastName,
+            address: val.Address1
+        }
+        visitedMemberID.push(objMem);
+
         if (dayjs(myArray.ScheduleStartTime).format('YYYY-MM-DD') == currentDate.format('YYYY-MM-DD')) {
           var obj = {
             id: myArray.id,
@@ -93,10 +119,21 @@ function Homepage() {
           };
           arr.push(obj);
         }
+
+        var obj2 = {
+          id: myArray.id,
+          name: myArray.MemberFirstName + " " + myArray.MemberLastName,
+          address: myArray['Clock-InServiceLocationAddressLine1'],
+          clockIn: dayjs(myArray.ScheduleStartTime).format('HH:mm:ss'),
+          clockOut: dayjs(myArray.ScheduleEndTime).format('HH:mm:ss'),
+        };
+        arr2.push(obj2);
       }
       setTodayVisits(arr);
+      setAllVisitsRow(arr2);
+      setVisitedPatiens(visitedMemberID);
     })
-  }, [careGiverData]);
+  }, [memberData]);
 
   // 
 
@@ -316,7 +353,7 @@ function Homepage() {
           columns={columns2}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
           onRowClick={handleRowClick}
         />
       </div>
@@ -343,11 +380,11 @@ function Homepage() {
     return (
       <div style={{ height: "100%", width: '100%' }}>
         <DataGrid
-          rows={rows3}
-          columns={columns3}
+          rows={allVisisRow}
+          columns={columns}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
           onRowClick={handleRowClick}
         />
       </div>
@@ -380,11 +417,11 @@ function Homepage() {
 
       <div style={{ height: "100%", width: '100%' }}>
         <DataGrid
-          rows={rows5}
+          rows={visitedPatients}
           columns={columns5}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
           onRowClick={handleRowClick2}
         />
       </div>
@@ -749,13 +786,31 @@ padding: 1%;
 //UserInfo(TaskBar)
 .TaskBar{
 
-    width:20%;
-    height:650px;
-    background-color:#564873;
-    margin-top:3%;
-    margin-bottom:10%;
-    margin-left:2%;
-}
+  width: 20%;
+    height: 650px;
+    background-color: #564873;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    /* For Chrome, Safari, and Opera */
+
+  }
+
+    .TaskBar::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    .TaskBar::-webkit-scrollbar-track {
+    background-color: #564873;
+    }
+
+    .TaskBar::-webkit-scrollbar-thumb {
+    background-color: #8e9fb1;
+    border-radius: 5px;
+    }
+
 
 .UserInfo{
     display:flex;

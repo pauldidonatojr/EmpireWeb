@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -9,12 +9,15 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
-import {AuthContext} from '../components/context'
+import { AuthContext } from '../components/context'
+import { useParams } from "react-router-dom";
+import dayjs from 'dayjs';
 
 import { DataGrid } from '@mui/x-data-grid';
 import Footer from "../Footer";
 
 import Box from "@mui/material/Box";
+import UserName from "../UserName";
 const Link = require("react-router-dom").Link;
 //HELLO I HAVE BEEN PUSHED
 const jsonData = [
@@ -24,7 +27,7 @@ const jsonData = [
     address: "Upper tooting Road, SW14SW",
     expectedClockOn: "07:11 AM",
     expectedClockOut: "11:30 AM",
-    date:"03/12/2023",
+    date: "03/12/2023",
   },
   {
     id: 2,
@@ -32,7 +35,7 @@ const jsonData = [
     address: "Upper tooting Road, SW14SW",
     expectedClockOn: "07:11 AM",
     expectedClockOut: "11:30 AM",
-    date:"03/12/2023",
+    date: "03/12/2023",
   },
   {
     id: 3,
@@ -40,7 +43,7 @@ const jsonData = [
     address: "Upper tooting Road, SW14SW",
     expectedClockOn: "07:11 AM",
     expectedClockOut: "11:30 AM",
-    date:"03/12/2023",
+    date: "03/12/2023",
   },
   {
     id: 4,
@@ -48,15 +51,49 @@ const jsonData = [
     address: "Upper tooting Road, SW14SW",
     expectedClockOn: "07:11 AM",
     expectedClockOut: "11:30 AM",
-    date:"03/12/2023",
+    date: "03/12/2023",
   },
 ];
 
-const PatientDetails =()=>{
+const PatientDetails = () => {
+
+  const cgDataString = localStorage.getItem("CareGivers");
+  var cgData = JSON.parse(cgDataString);
+
+
+  const visitsString = localStorage.getItem("Visits");
+  var visitData = JSON.parse(visitsString);
+
+  const mS = localStorage.getItem("Members");
+  var meData = JSON.parse(mS);
+
   const { signOut } = React.useContext(AuthContext);
   const navigate = useNavigate();
 
   const [ViewSelected, setViewSelected] = useState(2);
+  const [memVisit, setMemVisit] = useState([]);
+
+
+  const { id } = useParams();
+  const selectedItem = visitData.find((item) => item.MemberID === (id));
+
+
+  useEffect(() => {
+    var objPatientView = {
+      id: selectedItem.id,
+      name: selectedItem.MemberFirstName + " " + selectedItem.MemberLastName,
+      address: selectedItem['Clock-InServiceLocationAddressLine1'],
+      clockIn: dayjs(selectedItem.ScheduleStartTime).format('HH:mm:ss'),
+      clockOut: dayjs(selectedItem.ScheduleEndTime).format('HH:mm:ss'),
+    };
+    var objPV = [];
+    objPV.push(objPatientView);
+    setMemVisit(objPV)
+  }, [])
+
+
+  var myArray = selectedItem;
+
 
   const PatientInfoPressed = () => {
     setViewSelected(1);
@@ -79,43 +116,43 @@ const PatientDetails =()=>{
   }
 
 
-  const PatientInfoView=()=>{
+  const PatientInfoView = () => {
     return (
       <div className="PatientViewHolder" >
 
         <Card className="contactCard">
-          <p style={{textAlign:"center",fontSize:"15px",color:"white",fontWeight:"bold"}}>Contact Information</p>
+          <p style={{ textAlign: "center", fontSize: "15px", color: "white", fontWeight: "bold" }}>Contact Information</p>
 
           <div className="phoneNumber">
-          <PhoneIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
+            <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
+            <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
           </div>
           <div className="phoneNumber">
-          <PhoneIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
+            <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
+            <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
           </div>
           <div className="phoneNumber">
-          <PhoneIcon style={{fontSize:"30px",color:"whitesmoke",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
+            <PhoneIcon style={{ fontSize: "30px", color: "whitesmoke", marginTop: "15%", marginRight: "5%" }} />
+            <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
           </div>
           <div className="phoneNumber">
-          <LocationOnIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"6%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px",textAlign:"center"}}>262 A Upper Tooting Road, SW10DS</p>
+            <LocationOnIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "6%" }} />
+            <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px", textAlign: "center" }}>262 A Upper Tooting Road, SW10DS</p>
           </div>
         </Card>
 
         <Card className="EmergencyCard">
-          <p style={{textAlign:"center",fontSize:"15px",color:"white",fontWeight:"bold"}}>Emergency Contact</p>
+          <p style={{ textAlign: "center", fontSize: "15px", color: "white", fontWeight: "bold" }}>Emergency Contact</p>
 
           <div className="phoneNumber">
-          <PhoneIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
+            <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
+            <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
           </div>
           <div className="phoneNumber">
-          <PhoneIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
+            <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
+            <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
           </div>
-         
+
         </Card>
       </div>
     )
@@ -126,36 +163,36 @@ const PatientDetails =()=>{
     // Navigate to the /visitdetails/:id URL using the navigate function and the rowId as a URL parameter
     navigate(`/visitdetails/${rowId}`);
   };
-  const VisitView =()=> {
+  const VisitView = () => {
     return (
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows2}
-        columns={columns2}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-        onRowClick={handleRowClick}
-      />
-    </div>
+        <DataGrid
+          rows={memVisit}
+          columns={columns2}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+          onRowClick={handleRowClick}
+        />
+      </div>
     )
   }
-   //UnScheduleView
-   const columns2 = [
+  //UnScheduleView
+  const columns2 = [
     { field: 'id', headerName: 'ID', width: 200 },
-    { field: 'name', headerName: 'Name', width: 200 },
+    { field: 'name', headerName: 'Member Name', width: 200 },
     { field: 'address', headerName: 'Address', width: 200 },
-    { field: 'clockOut', headerName: 'Expected Clock Out', width: 200 },
-    { field: 'clockIn', headerName: 'Expected Clock In', width: 200 },
-   
+    { field: 'clockOut', headerName: 'Scheduled Clock Out', width: 200 },
+    { field: 'clockIn', headerName: 'Scheduled Clock In', width: 200 },
+
   ];
-  
+
   const rows2 = [
-    {id:1,name:"Nelson",address:"Upper Tooting 262 A",clockOut:"01:05 AM",clockIn:"01:05 AM"},
-   
-    
+    { id: 1, name: "Nelson", address: "Upper Tooting 262 A", clockOut: "01:05 AM", clockIn: "01:05 AM" },
+
+
   ];
-  
+
 
 
   //
@@ -175,64 +212,64 @@ const PatientDetails =()=>{
   };
 
   const list = (anchor) => (
-    <div  style={{
+    <div style={{
       height: "100vh",
       backgroundColor: "#2E0F59",
       display: "flex",
       flexDirection: "column",
       alignItems: "center"
     }}>
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <div
-        style={{
-          backgroundColor: "#2E0F59",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          height: "680px",
-        }}
+      <Box
+        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
       >
-        <p
-          className="Files"
+        <div
           style={{
-            fontSize: "20px",
-            color: "#F2B90F",
-            fontWeight: "bold",
+            backgroundColor: "#2E0F59",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            height: "680px",
           }}
         >
-          Files
-        </p>
-        <hr
-          className="line"
-          style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
-        />
+          <p
+            className="Files"
+            style={{
+              fontSize: "20px",
+              color: "#F2B90F",
+              fontWeight: "bold",
+            }}
+          >
+            Files
+          </p>
+          <hr
+            className="line"
+            style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
+          />
 
-        <h3 onClick={PatientInfoPressed} style={{ color: "#F2B90F" }}>Patient Info</h3>
-        <h3 onClick={VisitsPressed} style={{ color: "#F2B90F" }}>Visits</h3>
-       
-      </div>
-    </Box>
+          <h3 onClick={PatientInfoPressed} style={{ color: "#F2B90F" }}>Patient Info</h3>
+          <h3 onClick={VisitsPressed} style={{ color: "#F2B90F" }}>Visits</h3>
+
+        </div>
+      </Box>
     </div>
   );
   //
-    return (
-        <Wrapper>
-             <div className="Header">
-             <MenuIcon
+  return (
+    <Wrapper>
+      <div className="Header">
+        <MenuIcon
           className="menuIcon"
           onClick={toggleDrawer("left", true)}
           anchor={"left"}
           open={state["left"]}
           onClose={toggleDrawer("left", false)}
         ></MenuIcon>
-        <img className="headerImage" src="/EmpireHomeCareLogo.png" 
-        onClick={() =>navigate("/CareGiverHome")}/>
-       
+        <img className="headerImage" src="/EmpireHomeCareLogo.png"
+          onClick={() => navigate("/CareGiverHome")} />
+
         <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
           Log Out
         </Button>
@@ -255,23 +292,8 @@ const PatientDetails =()=>{
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName/>
+          
           <hr />
           <p
             style={{
@@ -283,7 +305,7 @@ const PatientDetails =()=>{
           >
             Files
           </p>
-          <hr style={{width:"50%",fontSize:"10px",opacity:"0.2"}}/>
+          <hr style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
           <div className="buttonHolder">
             <Button
               className="navigationButton"
@@ -319,12 +341,19 @@ const PatientDetails =()=>{
         </Card>
 
         <Card className="dataDisplay">
-      
+
           {RenderViews()}</Card>
       </div>
- <Footer/>
-        </Wrapper>
-    )
+
+
+      <div className="GoBackButtonHolder">
+        <Button className="GoBackButton" variant="outlined" onClick={() => { navigate(-1) }} >Go Back</Button>
+      </div>
+
+
+      <Footer />
+    </Wrapper>
+  )
 }
 export default PatientDetails;
 const Wrapper = styled.section`
@@ -332,6 +361,24 @@ height: 100%;
 width: 100%;
 
 //
+.GoBackButtonHolder{
+    display:flex;
+    justify-content:center;
+    margin-top:0;
+    margin-bottom:3%;
+  }
+
+  .GoBackButton{
+    background-color: #f26e22;
+    color: white;
+    width: 10%;
+    height: 150%;
+    padding: 0.5%;
+    border-radius: 10px;
+    margin-top:0;
+    justify-content:center;
+  }
+
 .ListItem{
   margin-top:1%;
   margin-left:2%;
@@ -451,13 +498,30 @@ color:black;
 //UserInfo(TaskBar)
 .TaskBar{
 
-    width:20%;
-    height:655px;
-    background-color:#564873;
-    margin-top:3%;
-    margin-bottom:10%;
-    margin-left:2%;
-}
+  width: 20%;
+    height: 650px;
+    background-color: #564873;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    /* For Chrome, Safari, and Opera */
+
+  }
+
+    .TaskBar::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    .TaskBar::-webkit-scrollbar-track {
+    background-color: #564873;
+    }
+
+    .TaskBar::-webkit-scrollbar-thumb {
+    background-color: #8e9fb1;
+    border-radius: 5px;
+    }
 
 .UserInfo{
     display:flex;
