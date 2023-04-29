@@ -30,6 +30,8 @@ import { getCareGiver } from "../API/careGiverAPI";
 import { getMISC } from "../API/miscAPI";
 import { getMCO } from "../API/mcoAPI";
 import UserName from "../UserName";
+import { getVisit } from "../API/visitAPI";
+import { getLast3Authorizations } from "../API/last3AuthorizationsAPI";
 
 
 
@@ -512,6 +514,17 @@ function Homepage() {
     localStorage.setItem('Members', JSON.stringify(memberData));
   }, [memberData]);
 
+  useEffect(() => {
+    getVisit().then(res => {
+      localStorage.setItem('Visits', JSON.stringify(res.data));
+    })
+  }, []);
+
+
+  // useEffect(() => {
+    
+  // }, []);
+
   const handleRowClick = (params) => {
     const rowId = params.row.id;
     setOpen5(true);
@@ -548,7 +561,7 @@ function Homepage() {
       width: 130,
       renderCell: (params) => (
         <div>
-          <Link to="/MemberDetails" state={{ selectedMemberID: params.value }}
+          <Link to="/MemberDetails" state={{ selectedMemberID: params.value, selectedMemberName: null }}
           >
             {params.value}
           </Link>

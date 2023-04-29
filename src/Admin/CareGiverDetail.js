@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -25,6 +25,7 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 import UserName from "../UserName";
 
 function CareGiverDetail() {
@@ -33,6 +34,30 @@ function CareGiverDetail() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  const location = useLocation()
+  const { selectedMemberName } = location.state;
+
+  const cgDataString = localStorage.getItem("CareGivers");
+  var cgData = JSON.parse(cgDataString);
+  const [caregiver, setCareGiver] = useState(null);
+
+  const visitsDataString = localStorage.getItem("Visits");
+  var visitData = JSON.parse(visitsDataString);
+  const [visitsDataRow, setVisitsDataRow] = useState([]);
+  
+
+  useEffect(() => {
+    for (var key in cgData) {
+      if (cgData[key].FirstName + " " + cgData[key].LastName == selectedMemberName) {
+        var myArray = cgData[key];
+        setCareGiver(myArray)
+      }
+    }
+  }, []);
+
+
+
 
   const [ViewSelected, setViewSelected] = useState(2);
 
@@ -471,11 +496,11 @@ function CareGiverDetail() {
     return (
       <div style={{ height: "100%", width: "100%" }}>
         <DataGrid
-          rows={rows3}
+          rows={visitsDataRow}
           columns={columns3}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
     );
@@ -483,13 +508,35 @@ function CareGiverDetail() {
   //MissedOutView columns and demo data
   const columns3 = [
     { field: "id", headerName: "ID", width: 50 },
-    { field: "Date", headerName: "Date", width: 150 },
-    { field: "Provider", headerName: "Provider", width: 150 },
-    { field: "memberName", headerName: "Member Name", width: 150 },
-    { field: "Schedule", headerName: "Schedule", width: 100 },
-    { field: "Visit", headerName: "Visit", width: 150 },
-    { field: "Billed", headerName: "Billed", width: 150 },
+    { field: "Date", headerName: "Date", width: 250 },
+    { field: "Provider", headerName: "Provider", width: 250 },
+    { field: "memberName", headerName: "Member Name", width: 250 },
+    { field: "Schedule", headerName: "Schedule", width: 300 },
+    { field: "Visit", headerName: "Visit", width: 300 },
+    { field: "Billed", headerName: "Billed", width: 250 },
   ];
+
+  useEffect(() => {
+    if (visitData != null) {
+      for (var key in visitData) {
+        if (visitData[key].CaregiverFirstName + " " + visitData[key].CaregiverLastName == selectedMemberName) {
+          var myArray = visitData[key];
+          var arr = [];
+          var obj = {
+            id: key,
+            Date: myArray.EVVStartTime,
+            Provider: "",
+            memberName: myArray.MemberFirstName + myArray.MemberLastName,
+            Schedule: myArray.ScheduleStartTime +" TO "+ myArray.ScheduleEndTime,
+            Visit: myArray.VisitStartTime +" TO "+myArray.VisitEndTime,
+            Billed: myArray.BilledRate,
+          }
+          arr.push(obj);
+          setVisitsDataRow(arr);
+        }
+      }
+    }
+  }, []);
   //demo data to display
   const rows3 = [
     {
@@ -1228,8 +1275,6 @@ function CareGiverDetail() {
           </div>
           <hr />
           <div style={{ width: "100%", height: "100%", display: "flex" }}>
-            {console.log("Navigation State : " + NavigationState)}
-
             {renderOverlayViews()}
           </div>
         </div>
@@ -1248,7 +1293,6 @@ function CareGiverDetail() {
     );
   }
 
-  console.log(myCustomFormat);
   const CalenderView = () => {
     return (
       <div style={{ height: "100%", width: "100%" }}>
@@ -1277,16 +1321,24 @@ function CareGiverDetail() {
         <div style={{ borderRadius: "10px", padding: '20px' }}>
           <Grid container spacing={2}>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Name: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Name: <span style={{ color: "#564873" }}>{caregiver.FirstName + ' ' + caregiver.MiddleName + ' ' + caregiver.LastName}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Care Giver Code: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Care Giver Code: <span style={{ color: "#564873" }}>{caregiver.AideCode}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Date Of Birth: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Date Of Birth: <span style={{ color: "#564873" }}>{caregiver.DateofBirth}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Discipline: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Discipline: <span style={{ color: "#564873" }}>{caregiver.Discipline}</span></h2></div>
+              }
             </Grid>
           </Grid>
         </div>
@@ -1298,77 +1350,107 @@ function CareGiverDetail() {
         </h3>
         <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}> Demographics</h4>
         <hr></hr>
-        
+
 
         <div style={{ borderRadius: "10px", padding: '20px' }}>
           <Grid container spacing={2}>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>First Name: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>First Name: <span style={{ color: "#564873" }}>{caregiver.FirstName}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Middle Name: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Middle Name: <span style={{ color: "#564873" }}>{caregiver.MiddleName}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Last Name: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Last Name: <span style={{ color: "#564873" }}>{caregiver.LastName}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>DOB: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Gender: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Alt Caregiver Code: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Time & Att. PIN: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>DOB: <span style={{ color: "#564873" }}>{caregiver.DateofBirth}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>SSN #: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Gender: <span style={{ color: "#564873" }}>{caregiver.Gender}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Status: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Alt Caregiver Code: <span style={{ color: "#564873" }}>{caregiver.ALternateAideCode}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Rehire: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Time & Att. PIN: <span style={{ color: "#564873" }}>{""}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Rehire Date: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>SSN #: <span style={{ color: "#564873" }}>{caregiver.SSN}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Employment Type:: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Status: <span style={{ color: "#564873" }}>{caregiver.Status}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Care Giver Mobile ID: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Rehire: <span style={{ color: "#564873" }}>{""}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Mobile Device ID: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Rehire Date: <span style={{ color: "#564873" }}>{caregiver.RehireDate}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Primary Member Team: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Employment Type: <span style={{ color: "#564873" }}>{""}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Hiring Status: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Care Giver Mobile ID: <span style={{ color: "#564873" }}>{caregiver.MobileID}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Start Date: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Primary Member Team: <span style={{ color: "#564873" }}>{""}</span></h2></div>
+              }
             </Grid>
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Ethnicity: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Hiring Status: <span style={{ color: "#564873" }}>{caregiver.HiringStatus}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Start Date: <span style={{ color: "#564873" }}>{caregiver.FirstWorkDate}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Ethnicity: <span style={{ color: "#564873" }}>{caregiver.Ethnicity}</span></h2></div>
+              }
             </Grid>
           </Grid>
         </div>
@@ -1380,63 +1462,14 @@ function CareGiverDetail() {
         <div style={{ borderRadius: "10px", padding: '20px' }}>
           <Grid container spacing={2}>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>HHA/PCA Registry Number: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>HHA/PCA Registry Number: <span style={{ color: "#564873" }}>{""}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Added/Checked Registry Date: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-          </Grid>
-        </div>
-
-
-
-        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}> Address</h4>
-        <hr></hr>
-        <div style={{ borderRadius: "10px", padding: '20px' }}>
-          <Grid container spacing={2}>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Street 1: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Street 2: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>City: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>State: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-
-
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Zip: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Home Phone: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 2: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 3: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-
-
-          </Grid>
-        </div>
-
-
-
-
-        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}> Address 2</h4>
-        <hr></hr>
-        <div style={{ borderRadius: "10px", padding: '20px' }}>
-          <Grid container spacing={2}>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>HHA/PCA Registry Number: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Added/Checked Registry Date: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Added/Checked Registry Date: <span style={{ color: "#564873" }}>{caregiver.RegistryDate}</span></h2></div>
+              }
             </Grid>
           </Grid>
         </div>
@@ -1448,30 +1481,117 @@ function CareGiverDetail() {
         <div style={{ borderRadius: "10px", padding: '20px' }}>
           <Grid container spacing={2}>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Street 1: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Address 1: <span style={{ color: "#564873" }}>{caregiver.Address1}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Street 2: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Address 2: <span style={{ color: "#564873" }}>{caregiver.Address2}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>City: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>City: <span style={{ color: "#564873" }}>{caregiver.City}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>State: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>State: <span style={{ color: "#564873" }}>{caregiver.State}</span></h2></div>
+              }
             </Grid>
 
 
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Zip: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Zip: <span style={{ color: "#564873" }}>{caregiver.ZipCode}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Home Phone: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone: <span style={{ color: "#564873" }}>{caregiver.Phone}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 2: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 2: <span style={{ color: "#564873" }}>{caregiver.Phone2}</span></h2></div>
+              }
             </Grid>
             <Grid className="DataHolderGrid">
-              <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 3: <span style={{ color: "#564873" }}>{"ROSADO MARTIZA"}</span></h2></div>
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 3: <span style={{ color: "#564873" }}>{caregiver.Phone3}</span></h2></div>
+              }
+            </Grid>
+
+
+          </Grid>
+        </div>
+
+
+
+        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}>Emergency Contact 1</h4>
+        <hr></hr>
+        <div style={{ borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Address: <span style={{ color: "#564873" }}>{caregiver.Emergency1Address}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Name: <span style={{ color: "#564873" }}>{caregiver.Emergency1Name}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 1: <span style={{ color: "#564873" }}>{caregiver.Emergency1Phone1}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 2: <span style={{ color: "#564873" }}>{caregiver.Emergency1phone2}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Relationship: <span style={{ color: "#564873" }}>{caregiver.Emergency1Relationship}</span></h2></div>
+              }
+            </Grid>
+
+
+          </Grid>
+        </div>
+
+
+        <h4 style={{ color: "white", textAlign: "center", backgroundColor: "#f26e22", padding: "1%", borderRadius: "10px" }}>Emergency Contact 2</h4>
+        <hr></hr>
+        <div style={{ borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Address: <span style={{ color: "#564873" }}>{caregiver.Emergency2Address}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Name: <span style={{ color: "#564873" }}>{caregiver.Emergency2Name}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 1: <span style={{ color: "#564873" }}>{caregiver.Emergency2Phone1}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Phone 2: <span style={{ color: "#564873" }}>{caregiver.Emergency2phone2}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {caregiver != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Relationship: <span style={{ color: "#564873" }}>{caregiver.Emergency2Relationship}</span></h2></div>
+              }
             </Grid>
 
 
@@ -1479,7 +1599,7 @@ function CareGiverDetail() {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Button className="EditButton" variant="outlined">
+          <Button className="EditButton" variant="outlined" >
             Edit
           </Button>
         </div>
@@ -1633,13 +1753,11 @@ function CareGiverDetail() {
                 VisitHistoryPressed();
               }}
             >
-              <p
-                style={{
-                  fontSize: "15px",
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
+              <p style={{
+                fontSize: "15px",
+                color: "white",
+                fontWeight: "bold",
+              }}>
                 Visits
               </p>
             </Button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -12,19 +12,95 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import {AuthContext} from '../components/context'
+import { AuthContext } from '../components/context'
 import Backdrop from '@mui/material/Backdrop';
-
+import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 
 import { DataGrid } from '@mui/x-data-grid';
+import UserName from "../UserName";
+import { getCareGiver } from "../API/careGiverAPI";
+import { getMISC } from "../API/miscAPI";
+import { getMembers } from "../API/membersApi";
+import { getMCO } from "../API/mcoAPI";
+import { getVisit, getVisitByCareGiverCode } from "../API/visitAPI";
 
 
 function Homepage() {
-  
 
-  //
-const [open, setOpen] = React.useState(false);
+
+  const [careGiverData, setCareGiverData] = useState([]);
+  const [memberData, setMemberData] = useState([]);
+  const [visits, setVisits] = useState([]);
+  const [miscData, setMISCData] = useState([]);
+  const [todayVisits, setTodayVisits] = useState([]);
+
+  // 
+
+  var loginString = localStorage.getItem("LoggedInUser");
+  var loginValues = JSON.parse(loginString)
+
+  useEffect(() => {
+    getCareGiver().then(res => {
+      const caregivers = res.data.filter((caregiver) => caregiver.user_id);
+      for (var key in caregivers) {
+        if (caregivers[key].user_id == loginValues.user_id) {
+          setCareGiverData(caregivers[key])
+          localStorage.setItem('CareGiver', JSON.stringify(caregivers[key]));
+        }
+      }
+    })
+
+  }, [])
+
+
+  useEffect(() => {
+    getMCO().then(res => {
+      localStorage.setItem('MCOS', JSON.stringify(res.data));
+    })
+  }, [])
+
+
+  useEffect(() => {
+    getMISC().then(res => {
+      localStorage.setItem('MISC', JSON.stringify(res.data));
+    })
+  }, [])
+
+  useEffect(() => {
+    getMembers().then(res => {
+      localStorage.setItem('Members', JSON.stringify(res.data));
+    })
+  }, [memberData]);
+
+  useEffect(() => {
+    getVisitByCareGiverCode(careGiverData.AideCode).then(res => {
+      localStorage.setItem('Visits', JSON.stringify(res.data));
+      setVisits(res.data)
+      var data = res.data;
+      const currentDate = dayjs();
+
+      var arr = [];
+      for (var key in data) {
+        var myArray = data[key];
+        if (dayjs(myArray.ScheduleStartTime).format('YYYY-MM-DD') == currentDate.format('YYYY-MM-DD')) {
+          var obj = {
+            id: myArray.id,
+            name: myArray.MemberFirstName + " " + myArray.MemberLastName,
+            address: myArray['Clock-InServiceLocationAddressLine1'],
+            clockIn: dayjs(myArray.ScheduleStartTime).format('HH:mm:ss'),
+            clockOut: dayjs(myArray.ScheduleEndTime).format('HH:mm:ss'),
+          };
+          arr.push(obj);
+        }
+      }
+      setTodayVisits(arr);
+    })
+  }, [careGiverData]);
+
+  // 
+
+  const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -45,65 +121,65 @@ const [open, setOpen] = React.useState(false);
   const handleCloseOverlay = () => {
     setIsOverlayOpen(false);
   };
- 
+
 
   function Overlay() {
     return (
-        <Backdrop
+      <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
-       
+
       >
-      <div className="overlay">
-        <CloseIcon className="crossIcon"  onClick={handleClose} />
-        <h1 style={{ color:"black",textAlign:"center" }}>Set Filter from here !</h1>
-        <div className="searchFieldsDiv">
-        <Grid className="griditem">
-        <TextField
-         
-          id="outlined-basic"
-          label="Name"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className="griditem">
-        <TextField
-         
-          id="outlined-basic"
-          label="Address"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className="griditem">
-        <TextField
-         
-          id="outlined-basic"
-          label="Address"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className="griditem">
-        <TextField
-         
-          id="outlined-basic"
-          label="Expected Time Out"
-          variant="outlined"
-        />
-      </Grid>
-      <Grid className="griditem">
-        <TextField
-         
-          id="outlined-basic"
-          label="Expected Time In"
-          variant="outlined"
-        />
-      </Grid>
-        
+        <div className="overlay">
+          <CloseIcon className="crossIcon" onClick={handleClose} />
+          <h1 style={{ color: "black", textAlign: "center" }}>Set Filter from here !</h1>
+          <div className="searchFieldsDiv">
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="Address"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="Address"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="Expected Time Out"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+              <TextField
+
+                id="outlined-basic"
+                label="Expected Time In"
+                variant="outlined"
+              />
+            </Grid>
+
+          </div>
+          <Button className="searchButton" onClick={handleCloseOverlay}>
+            Search
+          </Button>
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay}>
-          Search
-        </Button>
-      </div>
       </Backdrop>
     );
   }
@@ -146,7 +222,7 @@ const [open, setOpen] = React.useState(false);
       address: "Upper tooting Road, SW14SW",
       expectedClockOn: "07:11 AM",
       expectedClockOut: "11:30 AM",
-      date:"03/12/2023",
+      date: "03/12/2023",
     },
     {
       id: 2,
@@ -154,7 +230,7 @@ const [open, setOpen] = React.useState(false);
       address: "Upper tooting Road, SW14SW",
       expectedClockOn: "07:11 AM",
       expectedClockOut: "11:30 AM",
-      date:"03/12/2023",
+      date: "03/12/2023",
     },
     {
       id: 3,
@@ -162,7 +238,7 @@ const [open, setOpen] = React.useState(false);
       address: "Upper tooting Road, SW14SW",
       expectedClockOn: "07:11 AM",
       expectedClockOut: "11:30 AM",
-      date:"03/12/2023",
+      date: "03/12/2023",
     },
     {
       id: 4,
@@ -170,7 +246,7 @@ const [open, setOpen] = React.useState(false);
       address: "Upper tooting Road, SW14SW",
       expectedClockOn: "07:11 AM",
       expectedClockOut: "11:30 AM",
-      date:"03/12/2023",
+      date: "03/12/2023",
     },
   ];
   const jsonData2 = [
@@ -190,68 +266,9 @@ const [open, setOpen] = React.useState(false);
       address: "Downtown Lipsy London, SDWEI15",
     },
   ];
-  //
-  const TodayScheduleView = () => {
-    return (
-      <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-        onRowClick={handleRowClick}
-      />
-    </div>
-      
-    );
-  };
-   //TodayScheduleView
-   const columns = [
-    { field: 'id', headerName: 'ID', width: 200 },
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'address', headerName: 'Address', width: 200 },
-    { field: 'clockOut', headerName: 'Expected Clock Out', width: 200 },
-    { field: 'clockIn', headerName: 'Expected Clock In', width: 200 },
-   
-  ];
-  
-  const rows = [
-    {id:1,name:"Hec tor",address:"Upper Tooting 262 A",clockOut:"01:05 AM",clockIn:"01:05 AM"},
-   
-    
-  ];
-  const UnScheduleView = () => {
-    return (
-      <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows2}
-        columns={columns2}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-        onRowClick={handleRowClick}
-      />
-    </div>
-    );
-  };
-   //UnScheduleView
-   const columns2 = [
-    { field: 'id', headerName: 'ID', width: 200 },
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'address', headerName: 'Address', width: 200 },
-    { field: 'clockOut', headerName: 'Expected Clock Out', width: 200 },
-    { field: 'clockIn', headerName: 'Expected Clock In', width: 200 },
-   
-  ];
-  
-  const rows2 = [
-    {id:1,name:"Nelson",address:"Upper Tooting 262 A",clockOut:"01:05 AM",clockIn:"01:05 AM"},
-   
-    
-  ];
 
-  
+
+
 
   const navigate = useNavigate();
 
@@ -260,34 +277,96 @@ const [open, setOpen] = React.useState(false);
     // Navigate to the /visitdetails/:id URL using the navigate function and the rowId as a URL parameter
     navigate(`/visitdetails/${rowId}`);
   };
-  const VisitView = () => {
+  //
+  const TodayScheduleView = () => {
     return (
       <div style={{ height: "100%", width: '100%' }}>
-      <DataGrid
-        rows={rows3}
-        columns={columns3}
-        pageSize={5}
-        rowsPerPageOptions={[15]}
-        checkboxSelection
-        onRowClick={handleRowClick}
-      />
-    </div>
+        <DataGrid
+          rows={todayVisits}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection={false}
+          onRowClick={handleRowClick}
+        />
+      </div>
+
     );
   };
-   //VisitView
-   const columns3 = [
+  //TodayScheduleView
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 200 },
+    { field: 'name', headerName: 'Member Name', width: 200 },
+    { field: 'address', headerName: 'Address', width: 200 },
+    { field: 'clockOut', headerName: 'Scheduled Clock Out', width: 200 },
+    { field: 'clockIn', headerName: 'Scheduled Clock In', width: 200 },
+
+  ];
+
+  const rows = [
+    { id: 1, name: "Hec tor", address: "Upper Tooting 262 A", clockOut: "01:05 AM", clockIn: "01:05 AM" },
+
+
+  ];
+  const UnScheduleView = () => {
+    return (
+      <div style={{ height: "100%", width: '100%' }}>
+        <DataGrid
+          rows={rows2}
+          columns={columns2}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+          onRowClick={handleRowClick}
+        />
+      </div>
+    );
+  };
+  //UnScheduleView
+  const columns2 = [
     { field: 'id', headerName: 'ID', width: 200 },
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'address', headerName: 'Address', width: 200 },
     { field: 'clockOut', headerName: 'Expected Clock Out', width: 200 },
     { field: 'clockIn', headerName: 'Expected Clock In', width: 200 },
-   
+
   ];
-  
+
+  const rows2 = [
+    { id: 1, name: "Nelson", address: "Upper Tooting 262 A", clockOut: "01:05 AM", clockIn: "01:05 AM" },
+
+
+  ];
+
+
+  const VisitView = () => {
+    return (
+      <div style={{ height: "100%", width: '100%' }}>
+        <DataGrid
+          rows={rows3}
+          columns={columns3}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+          onRowClick={handleRowClick}
+        />
+      </div>
+    );
+  };
+  //VisitView
+  const columns3 = [
+    { field: 'id', headerName: 'ID', width: 200 },
+    { field: 'name', headerName: 'Name', width: 200 },
+    { field: 'address', headerName: 'Address', width: 200 },
+    { field: 'clockOut', headerName: 'Expected Clock Out', width: 200 },
+    { field: 'clockIn', headerName: 'Expected Clock In', width: 200 },
+
+  ];
+
   const rows3 = [
-    {id:1,name:"Jacky",address:"Upper Tooting 262 A",clockOut:"01:05 AM",clockIn:"01:05 AM"},
-   
-    
+    { id: 1, name: "Jacky", address: "Upper Tooting 262 A", clockOut: "01:05 AM", clockIn: "01:05 AM" },
+
+
   ];
 
   const handleRowClick2 = (params) => {
@@ -295,20 +374,20 @@ const [open, setOpen] = React.useState(false);
     // Navigate to the /visitdetails/:id URL using the navigate function and the rowId as a URL parameter
     navigate(`/patientdetails/${rowId}`);
   };
-  
+
   const PatientView = () => {
     return (
-     
-         <div style={{ height: "100%", width: '100%' }}>
-         <DataGrid
-           rows={rows5}
-           columns={columns5}
-           pageSize={5}
-           rowsPerPageOptions={[15]}
-           checkboxSelection
-           onRowClick={handleRowClick2}
-         />
-       </div>
+
+      <div style={{ height: "100%", width: '100%' }}>
+        <DataGrid
+          rows={rows5}
+          columns={columns5}
+          pageSize={5}
+          rowsPerPageOptions={[15]}
+          checkboxSelection
+          onRowClick={handleRowClick2}
+        />
+      </div>
     );
   };
   //VisitView
@@ -316,13 +395,13 @@ const [open, setOpen] = React.useState(false);
     { field: 'id', headerName: 'ID', width: 200 },
     { field: 'name', headerName: 'Name', width: 300 },
     { field: 'address', headerName: 'Address', width: 300 },
-   
+
   ];
-  
+
   const rows5 = [
-    {id:1,name:"Helen",address:"Upper Tooting 262 A"},
-   
-    
+    { id: 1, name: "Helen", address: "Upper Tooting 262 A" },
+
+
   ];
 
   //
@@ -342,72 +421,78 @@ const [open, setOpen] = React.useState(false);
   };
 
   const list = (anchor) => (
-    <div  style={{
+    <div style={{
       height: "100vh",
       backgroundColor: "#2E0F59",
       display: "flex",
       flexDirection: "column",
       alignItems: "center"
     }}>
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
-      backgroundColor: "red" }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <div
-        style={{
-          backgroundColor: "#2E0F59",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          height: "100hv",
+      <Box
+        sx={{
+          width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+          backgroundColor: "red"
         }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
       >
-        <p
-          className="Files"
+        <div
           style={{
-            fontSize: "20px",
-            color: "#F2B90F",
-            fontWeight: "bold",
+            backgroundColor: "#2E0F59",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            height: "100hv",
           }}
         >
-          Files
-        </p>
-        <hr
-          className="line"
-          style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
-        />
+          <p
+            className="Files"
+            style={{
+              fontSize: "20px",
+              color: "#F2B90F",
+              fontWeight: "bold",
+            }}
+          >
+            Files
+          </p>
+          <hr
+            className="line"
+            style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
+          />
 
-        <h3  onClick={TodaySchedulePressed} style={{ color: "#F2B90F" }}>Today's Schedule Visits</h3>
-        <h3  onClick={unScheduledPressed} style={{ color: "#F2B90F" }}>Un-Scheduled Visits</h3>
-        <h3  onClick={AllVisitsPressed} style={{ color: "#F2B90F" }}>All Visits</h3>
-        <h3  onClick={PatientListPressed} style={{ color: "#F2B90F" }}>Patient List</h3>
-      
-      </div>
-    </Box>
+          <h3 onClick={TodaySchedulePressed} style={{ color: "#F2B90F" }}>Today's Schedule Visits</h3>
+          <h3 onClick={unScheduledPressed} style={{ color: "#F2B90F" }}>Un-Scheduled Visits</h3>
+          <h3 onClick={AllVisitsPressed} style={{ color: "#F2B90F" }}>All Visits</h3>
+          <h3 onClick={PatientListPressed} style={{ color: "#F2B90F" }}>Patient List</h3>
+
+        </div>
+      </Box>
     </div>
   );
   //
 
   return (
     <Wrapper>
+
       <div className="Header">
-      <MenuIcon
+
+        <MenuIcon
           className="menuIcon"
-          onClick={toggleDrawer("left", true)}
-          anchor={"left"}
-          open={state["left"]}
-          onClose={toggleDrawer("left", false)}
-        ></MenuIcon>
+          onClick={toggleDrawer('left', true)}
+          anchor={'left'}
+          open={state['left']}
+          onClose={toggleDrawer('left', false)}>
+
+        </MenuIcon>
         <img className="headerImage" src="./EmpireHomeCareLogo.png" />
-       
         <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
           Log Out
         </Button>
         <LogoutIcon onClick={signOut} className="LogoutIcon"></LogoutIcon>
       </div>
+
+
       <div style={{ display: "none" }}>
         {["left"].map((anchor) => (
           <React.Fragment key={anchor}>
@@ -425,23 +510,7 @@ const [open, setOpen] = React.useState(false);
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <div className="UserInfo">
-            <Avatar
-              className="avatar"
-              alt={"Hector"}
-              src="/static/images/avatar/1.jpg"
-            />
-            <p
-              style={{
-                fontSize: "22px",
-                marginTop: "8%",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Hector Martinez
-            </p>
-          </div>
+          <UserName />
           <hr />
           <p
             style={{
@@ -453,7 +522,7 @@ const [open, setOpen] = React.useState(false);
           >
             Files
           </p>
-          <hr style={{width:"50%",fontSize:"10px",opacity:"0.2"}}/>
+          <hr style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
           <div className="buttonHolder">
             <Button
               className="navigationButton"
@@ -503,14 +572,14 @@ const [open, setOpen] = React.useState(false);
         </Card>
 
         <Card className="dataDisplay">
-        
+
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
           {isOverlayOpen && <Overlay />}
           {RenderViews()}
         </Card>
       </div>
 
-      <Footer/>
+      <Footer />
     </Wrapper>
   );
 }
@@ -713,14 +782,22 @@ padding: 1%;
 //Footer CSS Files end
 
 //Header CSS FILES
-.Header{
-display:flex;
-flex-direction:row;
-margin-left:5.9%;
-margin-top:0.5%;
-width:93%;
-background-color:white;
-}
+.Header {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:center;
+    margin-top: 0.5%;
+    width: 100%;
+    background-color: white;
+  }
+
+  .headerImage {
+    width: 7%;
+    height: 1%;
+    border-radius: 15px;
+    margin-right:55%;
+  }
 
 .headerImage:hover{
 animation: wave 1s infinite;
@@ -840,16 +917,14 @@ color:black;
     margin-right:0;
   }
   .menuIcon{
-    margin-right:20%;
-    font-size:50px;
-    display:inline;
-    color:white;
-    background-color:grey;
-    border-radius:10px;
-    
-    margin-top:10%;
-    
-  }
+      margin-right:20%;
+      font-size:50px;
+      display:inline;
+      color:white;
+      background-color:grey;
+      border-radius:10px;
+      
+    }
   .LogoutIcon{
     font-size:40px;
     color:grey;

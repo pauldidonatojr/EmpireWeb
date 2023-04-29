@@ -62,8 +62,10 @@ function Login() {
         break;
       case "CareGiver":
         loginCareGiver(username, password).then(res => {
+          console.log(res.data);
           if (res.data.result == "success") {
             loginHandle(username, password, 'caregiver');
+            localStorage.setItem('LoggedInUser', JSON.stringify(res.data.data));
             navigate("/CareGiverHome");
             setLoginStatus('sucess');
           }

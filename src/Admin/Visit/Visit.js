@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -23,6 +23,10 @@ import { useEffect } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../components/context'
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import { Menu } from "@mui/material";
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 
 //
 
@@ -33,7 +37,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 //
 import dayjs from 'dayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { addVisit } from "../../API/visitAPI";
+import { addVisit, editVisit, getVisitByID } from "../../API/visitAPI";
 import UserName from "../../UserName";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -51,6 +55,12 @@ function Visit() {
 
   // MCO
   const [selectedMCO, setSelectedMCO] = useState('');
+  const overlayRef = useRef(null);
+  const handleSelectionChange = (event) => {
+    setSelectedMCO(event.target.value);
+    event.stopPropagation();
+  }
+
   // 
 
   const [selectedMemberName, setSelectedMemberName] = useState(null);
@@ -91,16 +101,17 @@ function Visit() {
   const [memberId, setMemberId] = useState('');
   const [duration, setDuration] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
-  const [visitEndTime, setVisitEndTime] = useState(dayjs('2022-04-17T15:30'));
-  const [visitStartTime, setVisitStartTime] = useState(dayjs('2022-04-17T15:30'));
-  const [scheduleStartTime, setScheduleStartTime] = useState(dayjs('2022-04-17T15:30'));
+  const [visitEndTime, setVisitEndTime] = useState(dayjs('2023-04-17T15:30'));
+  const [visitStartTime, setVisitStartTime] = useState(dayjs('2023-04-17T15:30'));
+  const [scheduleStartTime, setScheduleStartTime] = useState(dayjs('2023-04-17T15:30'));
   const [dutiesList, setDutiesList] = useState([]);
+  const [selectedDutyEditVisit, setSelectedDutyEditVisit] = useState('');
   const [selectedDuty, setSelectedDuty] = useState('');
   const [scheduleID, setScheduleID] = useState('13252546');
   const [visitID, setVisitID] = useState('');
-  const [scheduleEndTime, setScheduleEndTime] = useState(dayjs('2022-04-17T15:30'));
-  const [evvStartTime, setEvvStartTime] = useState(dayjs('2022-04-17T15:30'));
-  const [evvEndTime, setEvvEndTime] = useState(dayjs('2022-04-17T15:30'));
+  const [scheduleEndTime, setScheduleEndTime] = useState(dayjs('2023-04-17T15:30'));
+  const [evvStartTime, setEvvStartTime] = useState(dayjs('2023-04-17T15:30'));
+  const [evvEndTime, setEvvEndTime] = useState(dayjs('2023-04-17T15:30'));
 
 
   const [clockInLocationAddressLine1, setClockInLocationAddressLine1] = useState("123 Street");
@@ -174,7 +185,7 @@ function Visit() {
 
   //CC8
   const [totalPaidUnits, setTotalPaidUnits] = useState("");
-  const [paidDate, setPaidDate] = useState(dayjs('2022-04-17T15:30'));
+  const [paidDate, setPaidDate] = useState(dayjs('2023-04-17T15:30'));
   const [deductible, setDeductible] = useState("");
   const [coinsurance, setCoinsurance] = useState("");
   const [copay, setCopay] = useState("");
@@ -218,6 +229,17 @@ function Visit() {
   const [unitField8Value, setUnitField8Value] = useState('');
   const [unitField9Value, setUnitField9Value] = useState('');
   const [unitField10Value, setUnitField10Value] = useState('');
+
+
+  const [careGiverCodeG, setCareGiverCodeG] = useState('');
+  const [careGiverFirstNameG, setCareGiverFirstNameG] = useState('');
+  const [careGiverLastNameG, setCareGiverLastNameG] = useState('');
+  const [careGiverGenderG, setCareGiverGenderG] = useState('');
+  const [careGiverDOBG, setCareGiverDOBG] = useState('');
+  const [careGiverSSNG, setCareGiverSSNG] = useState('');
+
+  const [memberFirstNameG, setMemberFirstNameG] = useState('');
+  const [memberLastNameG, setMemberLastNameG] = useState('');
 
 
 
@@ -594,11 +616,18 @@ function Visit() {
 
 
 
+  const membersDataString = localStorage.getItem("Members");
+  var membersData = JSON.parse(membersDataString);
+
+  const cgDataString = localStorage.getItem("CareGivers");
+  var cgData = JSON.parse(cgDataString);
+
+
+
   // 
 
 
   function getTimeDuration(start, end) {
-    console.log(start)
     //   if (visitStart != null && visitEnd) {
     //     var durationMinute;
     //     var durationHour;
@@ -673,6 +702,8 @@ function Visit() {
 
 
   // Get Misc
+  const [visitEditReasonAll, setVisitEditReasonAll] = useState([]);
+  const [visitActionTakenAll, setVisitActionTakenAll] = useState([]);
   var miscValuesString = localStorage.getItem("MISC");
   var miscValues = JSON.parse(miscValuesString)
   miscValues = miscValues.data;
@@ -707,6 +738,13 @@ function Visit() {
         var obj = miscValues[key].fields.value;
         arr3.push(obj);
       }
+
+      if (miscValues[key].tag == "visit_misc") {
+        var obj = miscValues[key].fields;
+        setVisitActionTakenAll(obj[1].visit_action_taken)
+        setVisitEditReasonAll(obj[0].visit_edit_reason)
+        console.log(obj)
+      }
     }
     setServiceCodes(arr);
     setDutiesList(arr2);
@@ -737,8 +775,10 @@ function Visit() {
   const [isOverlayOpen3, setIsOverlayOpen3] = useState(false);
   const SearchButtonPressed = () => {
     renderMembers()
-    setIsOverlayOpen3(true);
+    //setIsOverlayOpen3(true);
     setOpen3(true);
+    setOpen2(false);
+
   }
 
   //
@@ -758,8 +798,7 @@ function Visit() {
       setMemberForVisitName(memberForVisit.MemberName);
       getSelectedMemberAllData(memberForVisit);
     }
-    handleClose3();
-    handleClose2();
+
   };
 
 
@@ -795,169 +834,6 @@ function Visit() {
     }
     setMembersList(arr);
   }
-  // 
-
-  function Overlay3() {
-    return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open3}
-
-      >
-        <div className="MemberSearchOverlay">
-          <CloseIcon className="crossIcon" onClick={handleClose3} />
-          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
-          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Member Search</p>
-          <div className="searchFieldsDiv">
-
-            <Grid className="griditem">
-
-              <TextField
-
-                id="selected-member-id-cg"
-                label="Member ID"
-                variant="outlined"
-              />
-
-            </Grid>
-            <Grid className="griditem">
-
-              <TextField
-
-                id="selected-admission-id-cg"
-                label="Admission ID"
-                variant="outlined"
-              />
-
-            </Grid>
-
-            <Grid className="griditem2">
-
-              <Box >
-                <FormControl fullWidth>
-                  <InputLabel >Status</InputLabel>
-                  <Select
-
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={selectedStatus}
-                    label="Status"
-                    onChange={(event) => { setSelectedStatus(event.target.value) }}
-                  >
-                    <MenuItem value={'Active'}>Active</MenuItem>
-                    <MenuItem value={'Inactive'}>Inactive</MenuItem>
-                    <MenuItem value={'Terminated'}>Terminated</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-
-
-            <Grid className="griditem">
-
-              <TextField
-
-                id="selected-last-name-cg"
-                label="Last Name"
-                variant="outlined"
-              />
-
-            </Grid>
-
-            <Grid className="griditem">
-
-              <TextField
-
-                id="selected-first-name-cg"
-                label="First Name"
-                variant="outlined"
-              />
-
-            </Grid>
-
-            <Grid className="griditem">
-
-              <TextField
-
-                id="selected-phone-cg"
-                label="Phone Number"
-                variant="outlined"
-              />
-
-            </Grid>
-
-            <Grid className="griditem2">
-
-              <Box >
-                <FormControl fullWidth>
-                  <InputLabel >Member Team</InputLabel>
-                  <Select
-
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={selectedMemberTeam}
-                    label="Status"
-                    onChange={(event) => { setSelectedMemberTeam(event.target.value) }}
-                  >
-                    <MenuItem value={'Unassigned'}>Unassigned</MenuItem>
-                    <MenuItem value={'Default'}>Default</MenuItem>
-                    <MenuItem value={'All'}>All</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-
-            <Grid className="griditem2">
-
-              <Box >
-                <FormControl fullWidth>
-                  <InputLabel >Case Cordinator</InputLabel>
-                  <Select
-
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={selectedCaseCoordinator}
-                    label="Status"
-                    onChange={(event) => { setSelectedCaseCoordinator(event.target.value) }}
-                  >
-                    <MenuItem value={'Default'}>Default</MenuItem>
-                    <MenuItem value={'All'}>All</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-
-
-
-          </div>
-
-
-          <Button className="searchButton" onClick={() => {
-            setSelectedFirstName(document.getElementById('selected-first-name-cg').value)
-            setSelectedLastName(document.getElementById('selected-last-name-cg').value)
-            setSelectedPhone(document.getElementById('selected-phone-cg').value)
-
-            setSelectedMemberID(document.getElementById('selected-member-id-cg').value)
-            setSelectedAdmissionID(document.getElementById('selected-admission-id-cg').value)
-          }}>
-            Search
-          </Button>
-
-
-          <div style={{ height: "100%", width: '100%', marginTop: "2%" }}>
-            <DataGrid
-              rows={membersList}
-              columns={columns10}
-              pageSize={5}
-              rowsPerPageOptions={[15]}
-              checkboxSelection
-              onRowClick={handleRowClick}
-            />
-          </div>
-        </div>
-      </Backdrop>
-    );
-  }
 
   // =============================Members Data===========================================
 
@@ -975,19 +851,6 @@ function Visit() {
     { field: 'MCO', headerName: 'MCO', width: 100 },
 
   ];
-  //demo data to display
-  const rows10 = [
-    {
-      id: 1, admissionID: "Justin", memberName: "Alo", memberTeam: "02457894561", caseCordinator: "XOXO",
-      startDate: "XZXZ", status: "1123456", phoneNumber: "1123456", dob: "Active", mco: "Homecare"
-    },
-
-
-  ];
-  //
-  //Nested Overlay End
-
-
 
 
   const handleClickIcon = () => {
@@ -1019,217 +882,6 @@ function Visit() {
 
   //
 
-  function Overlay() {
-    return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-
-      >
-        <div className="overlay">
-          <CloseIcon className="crossIcon" onClick={handleClose} />
-          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
-          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Visit Search</p>
-          <div className="searchFieldsDiv">
-
-
-            <Grid className="griditem">
-              <TextField
-
-                id="outlined-basic"
-                label="Care Giver First Name"
-                variant="outlined"
-              />
-            </Grid>
-            <Grid className="griditem">
-              <TextField
-                id="outlined-basic"
-                label="Care Giver Last Name"
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid className="griditem">
-
-              <TextField
-
-                id="outlined-basic"
-                label="Care Giver Code"
-                variant="outlined"
-              />
-            </Grid>
-            <Grid className="griditem">
-
-              <TextField
-                id="outlined-basic"
-                label="Assigment ID"
-                variant="outlined"
-              />
-
-            </Grid>
-
-            <Grid className="griditem">
-
-              <TextField
-
-                id="outlined-basic"
-                label="Admission ID"
-                variant="outlined"
-              />
-
-            </Grid>
-            <Grid className="griditem">
-
-              <TextField
-
-                id="outlined-basic"
-                label="Member First Name"
-                variant="outlined"
-              />
-
-            </Grid>
-            <Grid className="griditem">
-
-              <TextField
-
-                id="outlined-basic"
-                label="Member Last Name"
-                variant="outlined"
-              />
-
-            </Grid>
-
-
-            <Grid className="griditem2">
-
-              <Box >
-                <FormControl fullWidth>
-                  <InputLabel >Cordinator</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Status"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-            <Grid className="griditem2">
-
-              <Box>
-                <FormControl fullWidth>
-                  <InputLabel >Status</InputLabel>
-                  <Select
-
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Status"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-            <Grid className="griditem2">
-
-              <Box >
-                <FormControl fullWidth>
-                  <InputLabel >Member Team</InputLabel>
-                  <Select
-
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Status"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-
-            <Grid className="griditem2">
-
-              <Box >
-                <FormControl fullWidth>
-                  <InputLabel >Member Location</InputLabel>
-                  <Select
-
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Status"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-            <Grid className="griditem2">
-
-              <Box >
-                <FormControl fullWidth>
-                  <InputLabel >Member Branch</InputLabel>
-                  <Select
-
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Status"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-
-            <Grid className="griditem">
-
-              <TextField
-
-                id="outlined-basic"
-                label="From Date dd/mm/yyyy"
-                variant="outlined"
-              />
-
-            </Grid>
-            <Grid className="griditem">
-
-              <TextField
-
-                id="outlined-basic"
-                label="Till Date dd/mm/yyyy"
-                variant="outlined"
-              />
-
-            </Grid>
-
-          </div>
-          <Button className="searchButton" onClick={handleCloseOverlay}>
-            Search
-          </Button>
-        </div>
-      </Backdrop>
-    );
-  }
 
   //
   const [open2, setOpen2] = React.useState(false);
@@ -1238,62 +890,6 @@ function Visit() {
   };
 
   //
-  function Overlay2() {
-    return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open2}
-
-      >
-        <div className="overlay2">
-          <CloseIcon className="crossIcon" onClick={handleClose2} />
-          <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
-          <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Quick Visit Entry</p>
-          <div className="searchFieldsDiv">
-
-
-
-            <Grid style={{ width: '100%' }}>
-
-              <Box >
-                <FormControl fullWidth>
-                  <InputLabel >MCO</InputLabel>
-                  <Select
-
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={selectedMCO}
-                    label="Status"
-                    onChange={(event) => { setSelectedMCO(event.target.value) }}
-                  >
-                    {mcoList.map((l, i) => (
-                      <MenuItem value={l}>{l}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-
-
-            <Grid style={{ width: '100%' }}>
-
-              <TextField
-                id="outlined-basic"
-                label="Member Search"
-                variant="outlined"
-                onChange={(name) => { setSelectedMemberName(name) }}
-              />
-
-            </Grid>
-
-          </div>
-          <Button className="searchButton" onClick={SearchButtonPressed} >
-            Search
-          </Button>
-        </div>
-      </Backdrop>
-    );
-  }
 
 
   const VisitSearchPressed = () => {
@@ -1372,124 +968,1830 @@ function Visit() {
         break;
     }
   }
-  //
-  const jsonData = [
-    {
-      id: 1,
-      name: "Wanda De Martinez",
-      address: "Upper tooting Road, SW14SW",
-      expectedClockOn: "07:11 AM",
-      expectedClockOut: "11:30 AM",
-      date: "03/12/2023",
-    },
-    {
-      id: 2,
-      name: "Wanda De Martinez",
-      address: "Upper tooting Road, SW14SW",
-      expectedClockOn: "07:11 AM",
-      expectedClockOut: "11:30 AM",
-      date: "03/12/2023",
-    },
-    {
-      id: 3,
-      name: "Hector",
-      address: "Upper tooting Road, SW14SW",
-      expectedClockOn: "07:11 AM",
-      expectedClockOut: "11:30 AM",
-      date: "03/12/2023",
-    },
-    {
-      id: 4,
-      name: "Adam",
-      address: "Upper tooting Road, SW14SW",
-      expectedClockOn: "07:11 AM",
-      expectedClockOut: "11:30 AM",
-      date: "03/12/2023",
-    },
-  ];
 
-  //
-  const VisitSearchView = () => {
-    return (
-      <div style={{ height: "100%", width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[15]}
-          checkboxSelection
-        />
-      </div>
 
-    );
-  };
-  // VisitSearchView
+
+  const visitsDataString = localStorage.getItem("Visits");
+  var visitData = JSON.parse(visitsDataString);
+  const [visitsDataRow, setVisitsDataRow] = useState([]);
+  const [currMember, setCurrMember] = useState(null);
+  const [currCaregiver, setCurrCaregiver] = useState(null);
+  const [currVisit, setCurrVisit] = useState(null);
+  const [allVisit, setAllVisit] = useState(null);
+  const [currSelectedRow, setCurrSelectedRow] = useState([]);
+
+  //Schedule States
+  const [scheduleStartCV, setScheduleStartCV] = useState(null);
+  const [scheduleEndCV, setScheduleEndCV] = useState(null);
+
+  const [visitStartCV, setVisitStartCV] = useState(null);
+  const [visitEndCV, setVisitEndCV] = useState(null);
+
+  const [caregiverCodeEditVisit, setCaregiverCodeEditVisit] = useState(null);
+  const [pocEditVisit, setPocEditVisit] = useState(null);
+  const [admissionIDEditVisit, setAdmissionIDEditVisit] = useState(null);
+  const [serviceCodeEditVisit, setServiceCodeEditVisit] = useState(null);
+  const [billtypeEditVisit, setBillTypeEditVisit] = useState(null);
+  const [hourEditVisit, setHourEditVisit] = useState(null);
+  const [minuteEditVisit, setMinuteEditVisit] = useState(null);
+  const [missedVisitNote, setMissedVisitNote] = useState(null);
+  const [pocDutiesRowVS, setPocDutiesRowVS] = useState([]);
+  const [memberDataCV, setMemberDataCV] = useState(null);
+  const [careGiverNotes, setCareGiverNotes] = useState(null);
+  const [visitEditReasonVS, setVisitReasonVS] = useState('');
+  const [actionTakenReasonVS, setActionTakenVS] = useState('');
+  const [actionTakenSelectedList, setActionTakenSelectedList] = useState([]);
+  const [TimeOverlay, setIsTimeOverlay] = useState(false);
+
+  const [enteredEIM, setEnteredEim] = useState('Select');
+  const [healthSafetyRiskName, setHealthSafetyRiskName] = useState(null);
+  const [healthSafetyRiskState, setHealthSafetyRiskState] = useState('Select');
+  const [maid, setMaid] = useState(null);
+
+
+  function getMemberVisitSearch(memberName) {
+    var obj = {};
+    var Mem = null;
+
+    for (var key in membersData) {
+
+      if (membersData[key].FirstName + " " + membersData[key].LastName == memberName) {
+        var myArray = membersData[key];
+        Mem = (myArray)
+      }
+    }
+    obj.Member = Mem;
+    return obj;
+
+  }
+
+  function getCareGiverVisitSearch(careGiverName) {
+    var obj = {};
+    var CG = null;
+
+    for (var key in cgData) {
+      if (cgData[key].FirstName + " " + cgData[key].LastName == careGiverName) {
+        var myArray = cgData[key];
+        CG = (myArray);
+      }
+    }
+    obj.CareGiver = CG;
+    return obj;
+
+  }
+
+
+
+  function getVisitById(id) {
+    for (var key in visitData) {
+      if (visitData[key].id == id) {
+        var myArray = visitData[key];
+        setCurrVisit(myArray)
+        // Setting States for Visit
+        setMemberFirstNameG(myArray.MemberFirstName);
+        setMemberLastNameG(myArray.MemberLastName);
+        setCareGiverFirstNameG(myArray.CaregiverFirstName);
+        setCareGiverLastNameG(myArray.CaregiverLastName);
+        setCareGiverGenderG(myArray.CaregiverGender);
+        setCareGiverDOBG(myArray.CaregiverDateofBirth);
+        setCareGiverSSNG(myArray.CaregiverSSN);
+        setCareGiverCodeG(myArray.CaregiverCode);
+
+
+        setMemberId(myArray.MemberID);
+        setVisitEndTime(myArray.VisitEndTime)
+        setVisitStartTime(myArray.VisitStartTime)
+        setScheduleStartTime(myArray.ScheduleStartTime)
+        setSelectedDutyEditVisit(myArray.Duties)
+        setScheduleID(myArray.ScheduleID)
+        setVisitID(myArray.VisitID);
+        setScheduleEndTime(myArray.ScheduleEndTime);
+        setEvvStartTime(myArray.EVVStartTime);
+        setEvvEndTime(myArray.EVVEndTime);
+        setClockInLocationAddressLine1(myArray['Clock-InServiceLocationAddressLine1'])
+        setClockInLocationAddressLine2(myArray['Clock-InServiceLocationAddressLine2'])
+        setClockInLocationCity(myArray['Clock-InServiceLocationCity'])
+        setClockInLocationState(myArray['Clock-InServiceLocationState'])
+        setClockInZipCode(myArray['Clock-InServiceLocationZipCode'])
+        setClockInLocationType(myArray['Clock-InServiceLocationType'])
+        setClockOutLocationCity(myArray['Clock-OutServiceLocationCity'])
+        setDiagnososCode(myArray.DiagnosisCode)
+        setProcedureCode(myArray.ProcedureCode)
+        setClockOutAddressLine1(myArray['Clock-OutServiceLocationAddressLine1'])
+        setClockOutAddressLine2(myArray['Clock-OutServiceLocationAddressLine2'])
+        setClockOutLocationState(myArray['Clock-OutServiceLocationState'])
+        setClockOutLocationZipCode(myArray['Clock-OutServiceLocationZipCode'])
+        setClockOutLocationType(myArray['Clock-OutServiceLocationType'])
+        setClockInPhone(myArray['Clock-InPhoneNumber'])
+        setClockInLatitude(myArray['Clock-InLatitude'])
+        setClockInLongitude(myArray['Clock-InLongitude'])
+        setClockOutLatitude(myArray['Clock-OutLatitude'])
+        setClockOutLongitude(myArray['Clock-OutLongitude'])
+        setClockInEvvOtherInfo(myArray['Clock-InEVVOtherInfo'])
+        setClockOutPhone(myArray['Clock-OutPhoneNumber'])
+        setClockOutEvvOtherInfo(myArray['Clock-OutEVVOtherInfo'])
+        setInvoiceNumber(myArray.InvoiceNumber)
+        setVisitEditReasonCode(myArray.VisitEditReasonCode)
+        setVisitEditActionTaken(myArray.VisitEditActionTaken)
+        setVisitEditMadeBy(myArray.VisitEditMadeBy)
+        setNotes(myArray.Notes)
+        setInDeletion(myArray.IsDeletion)
+        setInvoiceLineItemId(myArray['InvoiceLine-ItemID'])
+        setTotalBilledAmount(myArray.TotalBilledAmount)
+        setUnitsBilled(myArray.UnitsBilled)
+        setBilledRate(myArray.BilledRate)
+        setSubmissionType(myArray.SubmissionType)
+        setTrnNumber(myArray.TRNNumber)
+        setEnableSecondaryBilling(myArray.EnableSecondaryBilling)
+        setOtherSubscriberId(myArray.OtherSubscriberID)
+        setPrimaryPayerId(myArray.PrimaryPayerID)
+        setPrimaryPayerName(myArray.PrimaryPayerName)
+        setRelationshipToInsured(myArray.RelationshiptoInsured)
+        setPrimaryPayerPolicy(myArray.PrimaryPayerPolicyorGroupnumber)
+        setPrimaryPayerProgram(myArray.PrimaryPayerProgramName)
+        setPlanType(myArray.PlanType)
+        setTotalPaidAmount(myArray.TotalPaidAmount)
+        setTotalPaidUnits(myArray.TotalPaidUnits)
+        setPaidDate(myArray.PaidDate)
+        setDeductible(myArray.Deductible)
+        setCoinsurance(myArray.Coinsurance)
+        setCopay(myArray.Copay)
+        setContractedAdjustments(myArray.ContractedAdjustments)
+        setNotMedicallyNecessary(myArray.NotMedicallyNecessary)
+        setNonCoveredCharges(myArray['myArray.Non-CoveredCharges'])
+        setMaxBenefitExhausted(myArray.MaxBenefitExhausted)
+        setMissedVisit(myArray.MissedVisit)
+        setMissedVisitActionTakenCode(myArray.MissedVisitActionTakenCode)
+        setMissedVisitReasonCode(myArray.MissedVisitReasonCode)
+        setMissedVisitNotes(myArray.MissedVisitNotes)
+        setTravelTimeRequestHours(myArray.TravelTimeRequestHours)
+        setTravelTimeComments(myArray.TravelTimeComments)
+        setCancelTravelTimeRequest(myArray.CancelTravelTimeRequest)
+        setTimesheetRequired(myArray.TimesheetRequired)
+        setTimesheetApproved(myArray.TimesheetApproved)
+        setUnitField1(myArray.UserField1)
+        setUnitField2(myArray.UserField2)
+        setUnitField3(myArray.UserField3)
+        setUnitField4(myArray.UserField4)
+        setUnitField5(myArray.UserField5)
+        setUnitField6(myArray.UserField6)
+        setUnitField7Value(myArray.UserField7)
+        setUnitField8Value(myArray.UserField8)
+        setUnitField9Value(myArray.UserField9)
+        setUnitField10Value(myArray.UserField10)
+      }
+    }
+  }
+
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'firstName', headerName: 'First Name', width: 100 },
-    { field: 'lastName', headerName: 'Last Name', width: 100 },
-    { field: 'caregiverCode', headerName: 'CareGiver Code', width: 150 },
-    { field: 'assigmentID', headerName: 'Assigment ID', width: 100 },
-    { field: 'admissionID', headerName: 'Admission ID', width: 100 },
-    { field: 'memberFirstName', headerName: 'Member First Name', width: 150 },
-    { field: 'memberLastName', headerName: 'Member Last Name', width: 150 },
-    { field: 'cordinator', headerName: 'Cordinator', width: 100 },
-    { field: 'status', headerName: 'Status', width: 100 },
-    { field: 'memberTeam', headerName: 'Member Team', width: 150 },
-    { field: 'memberLocation', headerName: 'Member Location', width: 150 },
-    { field: 'memberBranch', headerName: 'Member Branch', width: 150 },
-    { field: 'fromDate', headerName: 'From Date', width: 100 },
-    { field: 'tillDate', headerName: 'Till Date', width: 100 },
+    { field: 'mcoName', headerName: 'MCO Name', width: 200 },
+    { field: 'coordinator', headerName: 'Coordinator', width: 100 },
+    { field: 'admissionID', headerName: 'Admission ID', width: 200 },
+    {
+      field: 'memberName',
+      headerName: 'Member Name',
+      width: 250,
+      renderCell: (params) => (
+        <div>
+          <Link to="/MemberDetails" state={{ selectedMemberID: null, selectedMemberName: params.value }}
+          >
+            {params.value}
+          </Link>
+        </div>
+      )
+    },
+    { field: 'memberTeam', headerName: 'Member Team', width: 200 },
+    {
+      field: 'caregiverName',
+      headerName: 'Care Giver Name',
+      width: 250,
+      renderCell: (params) => (
+        <Link to="/CareGiverDetail" state={{ selectedMemberName: params.value }}
+        >
+          {params.value}
+        </Link>
+      )
+    },
+    { field: 'assignmentID', headerName: 'Assignment ID', width: 200 },
+    { field: 'visitDate', headerName: 'Visit Date', width: 300 },
+    { field: 'schedule', headerName: 'Schedule', width: 300 },
+    { field: 'visit', headerName: 'Visit', width: 200 },
+    { field: 'i', headerName: 'I', width: 100 },
+    { field: 'o', headerName: 'O', width: 100 },
+    { field: 'billed', headerName: 'Billed', width: 100 },
+    {
+      field: 'edit',
+      headerName: 'Edit',
+      sortable: false,
+      width: 150,
+      renderCell: (params) => (
+        <Button variant="contained" onClick={() => {
+          var cgMem = getMemberVisitSearch(currSelectedRow.memberName);
+          var cgCG = getCareGiverVisitSearch(currSelectedRow.caregiverName);
+          if (cgMem.Member != null) {
+            setAdmissionIDEditVisit(cgMem.Member.AdmissionID);
+            setCurrMember(cgMem.Member);
+          }
+          setCurrCaregiver(cgCG.CareGiver);
+          setCurrSelectedRow(params.row);
+
+          if (currMember != null && currCaregiver != null) {
+            handleNonSkilledVisit()
+          }
+        }}>
+          Edit
+        </Button>
+      ),
+    },
+
+  ];
+
+
+  useEffect(() => {
+    var arr = [];
+    var arr2 = [];
+    for (var key in visitData) {
+
+      var myArray = visitData[key];
+      var cgMem = getMemberVisitSearch(myArray.MemberFirstName + " " + myArray.MemberLastName);
+
+      if (cgMem.Member != null) {
+        var obj = {
+          id: myArray.id,
+          mcoName: cgMem.Member.MCOName,
+          coordinator: cgMem.Member.CoordinatorName,
+          admissionID: cgMem.Member.AdmissionID,
+          memberName: myArray.MemberFirstName + " " + myArray.MemberLastName,
+          memberTeam: cgMem.Member.Team,
+          //
+          caregiverName: myArray.CaregiverFirstName + " " + myArray.CaregiverLastName,
+          assignmentID: "",
+
+          visitDate: myArray.VisitStartTime,
+          schedule: myArray.ScheduleStartTime,
+
+          visit: '',
+          i: '',
+          o: '',
+          billed: ''
+        }
+
+        arr.push(obj);
+
+        var obj2 = {
+          id: key,
+          visitDetails: myArray
+        }
+        arr2.push(obj2);
+
+      }
+    }
+    setAllVisit(arr2);
+    setVisitsDataRow(arr);
+  }, []);
+
+
+  // VisitSearchView
+  const [openTime, setOpenTime] = React.useState(false);
+  const [nonSkilledVisit, setNonSkilledVisit] = useState(false);
+  const [visitStartTimeHourVS, setVisitStartTimeHourVS] = useState(null);
+  const [visitStartTimeMinVS, setVisitStartTimeMinVS] = useState(null);
+
+  const [visitEndTimeHourVS, setVisitEndTimeHourVS] = useState(null);
+  const [visitEndTimeMinVS, setVisitEndTimeMinVS] = useState(null);
+  const [openMissedVisit, setOpenMissedVisit] = useState(false);
+
+
+
+  function getDateTimeDayJS(timeStr) {
+    const dateTimeString = timeStr;
+    const myDate = dayjs(dateTimeString);
+    const date = myDate.format('YYYY-MM-DD'); // Get date in 'YYYY-MM-DD' format
+    const time = myDate.format('HH:mm:ss'); // Get time in 'HH:mm:ss' format
+
+    var obj = { date: date, time: time };
+    return obj;
+  }
+
+  function convertTimeFormat(time) {
+    const formatString = "HH:mm";
+    var v2 = dayjs(time, formatString);
+    return v2;
+  }
+
+
+
+
+  function handleNonSkilledVisit(event) {
+    getVisitById(currSelectedRow.id)
+    setNonSkilledVisit(true);
+    if (currVisit != null) {
+      setCaregiverCodeEditVisit(currVisit.CaregiverCode)
+      //setServiceCodeEditVisit(currVisit.service_code)
+
+      var schStartTime = dayjs(currVisit.ScheduleStartTime)
+      setScheduleStartCV(schStartTime);
+
+      var schEndTime = dayjs(currVisit.ScheduleEndTime)
+      setScheduleEndCV(schEndTime)
+
+      var vStart = dayjs(currVisit.VisitStartTime);
+      setVisitStartCV(vStart);
+
+      var vEnd = dayjs(currVisit.VisitEndTime);
+      setVisitEndCV(vEnd);
+
+
+      setMissedVisitNote(currVisit.MissedVisitNotes);
+      var memberData = currVisit.member_data
+      memberData = JSON.parse(memberData);
+      setMemberDataCV(memberData);
+      var memPOC = memberData.POC;
+      var arrPOC = [];
+      for (var key in memPOC) {
+        var obj = {
+          id: memPOC[key].task_id,
+          category: memPOC[key].category,
+          duty: memPOC[key].duty
+        }
+        arrPOC.push(obj);
+      }
+      setPocDutiesRowVS(arrPOC);
+
+      setOpenTime(true);
+    }
+  }
+  //
+  const handleCloseTime = () => {
+    setNonSkilledVisit(false);
+    setOpenTime(false);
+  };
+
+  //
+  const [NavigationState, setNavigationState] = React.useState(0);
+  function SchedulePressed() {
+    setNavigationState(1);
+    renderOverlayViews()
+  }
+  function VisitInfoPressed() {
+    setNavigationState(2);
+  }
+  function BillInfoPreseed() {
+    setNavigationState(3);
+  }
+  function renderOverlayViews() {
+    switch (NavigationState) {
+      case 1:
+        return ScheduleView();
+      case 2:
+        return VisitInfoView();
+      case 3:
+        return BillingView();
+
+      default:
+        break;
+    }
+  }
+
+
+  const columns15 = [
+    { field: 'id', headerName: 'Duty Number', width: 250 },
+    { field: 'fromDate', headerName: 'Category', width: 200 },
+    { field: 'toDate', headerName: 'Duty', width: 400 },
+
+
 
   ];
   //demo data to display
-  const rows = [
-    {
-      id: 1, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
-    },
-    {
-      id: 2, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
-    },
-    {
-      id: 3, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
-    },
-    {
-      id: 4, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
-    },
-    {
-      id: 5, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
-    },
-    {
-      id: 6, firstName: "Justin", lastName: "Alo", caregiverCode: "02457894561", assigmentID: "XOXO", admissionID: "XZXZ", memberFirstName: "1123456", memberLastName: "1123456", cordinator: "Active", status: "Homecare", memberTeam: "51s",
-      memberLocation: "China", memberBranch: "Depot", fromDate: "10 Jul 2020", tillDate: "10 Jul 2021"
-    },
+  const rows15 = [
+    { id: 1, fromDate: "Justin", toDate: "Assist with Home" },
+    { id: 2, fromDate: "Justin", toDate: "Assist with Home" },
+    { id: 3, fromDate: "Justin", toDate: "Assist with Home" },
+    { id: 4, fromDate: "Justin", toDate: "Assist with Home" },
+    { id: 5, fromDate: "Justin", toDate: "Assist with Home" },
+    { id: 6, fromDate: "Justin", toDate: "Assist with Home" },
+  ];
+
+
+
+
+
+  const ScheduleView = () => {
+    return (
+      <div style={{ width: "100%", borderRadius: "10px", padding: '20px' }}>
+        <h2 style={{ textAlign: "center", color: "#564873" }}>Schedule</h2>
+
+        <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+          <h2 style={{ color: "grey", fontSize: '15px' }}>Schedule Time:</h2>
+          {currVisit != null &&
+            <div>
+              <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="Visit End Time"
+                      value={scheduleStartCV}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(scheduleStartCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleStartCV(datetime);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </div>
+
+              <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="Visit End Time"
+                      value={scheduleEndCV}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(scheduleEndCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleEndCV(datetime);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+          <h2 style={{ color: "grey", fontSize: '15px' }}>Care Giver Code:</h2>
+          {currVisit != null &&
+            <div>
+              <TextField
+                className="field"
+                id="outlined-basic"
+                label="Select Care Giver"
+                value={caregiverCodeEditVisit}
+                InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
+              >
+              </TextField>
+
+            </div>
+
+          }
+          <span style={{ color: "grey" }}>{careGiverForVisitName}</span>
+        </div>
+
+        <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+          <h2 style={{ color: "grey", fontSize: '15px' }}>POC:</h2>
+          {currVisit != null &&
+            <div>
+              <TextField
+
+                id="outlined-basic"
+                label="POC"
+                variant="outlined"
+              // value={pocEditVisit}
+              />
+            </div>
+          }
+        </div>
+
+
+        <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+          <h2 style={{ color: "grey", fontSize: '15px' }}>Assignment ID:</h2>
+          {currVisit != null &&
+            <div>
+              <TextField
+
+                id="outlined-basic"
+                label="Assignment ID"
+                variant="outlined"
+                value={admissionIDEditVisit}
+              />
+            </div>
+          }
+        </div>
+
+
+        <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+          <h2 style={{ color: "grey", fontSize: '15px' }}>Service Code:</h2>
+          {currVisit != null &&
+            <div>
+              <Select
+                style={{ width: '50%' }}
+                id="demo-simple-select"
+                value={serviceCodeEditVisit}
+                label="Status"
+                onChange={(evt) => { setServiceCodeEditVisit(evt.target.value) }}
+              >
+                {serviceCodes.map((l, i) => (
+                  <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                ))}
+              </Select>
+            </div>
+          }
+        </div>
+
+
+        <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+          <h2 style={{ color: "grey", fontSize: '15px' }}>Time of Visit:</h2>
+          {currVisit != null &&
+            <div>
+              <TextField
+
+                id="outlined-basic"
+                label="H"
+                variant="outlined"
+                value={scheduleStartCV.hour()}
+              />
+              <TextField
+
+                id="outlined-basic"
+                label="M"
+                variant="outlined"
+                value={scheduleStartCV.minute()}
+              />
+            </div>
+          }
+        </div>
+
+
+        <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+          <h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type:</h2>
+          {currVisit != null &&
+            <div>
+              <span style={{ color: "grey" }}>Hourly</span>
+            </div>
+          }
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+          <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={() => {
+
+            editVisit(
+              currVisit.id,
+
+              currMember.FirstName,
+              currMember.LastName,
+              memberId,
+              selectedCareGiverAllData.AideCode,
+              selectedCareGiverAllData.FirstName,
+              selectedCareGiverAllData.LastName,
+              selectedCareGiverAllData.Gender,
+              selectedCareGiverAllData.DateofBirth,
+              selectedCareGiverAllData.SSN,
+
+              scheduleID,
+              visitID,
+              procedureCode,
+              diagnosisCode,
+              scheduleStartCV,
+              scheduleEndCV,
+              visitStartTime,
+              visitEndTime,
+              evvStartTime,
+              evvEndTime,
+
+              clockInLocationAddressLine1,
+              clockInLocationAddressLine2,
+              clockInLocationCity,
+              clockInLocationState,
+              clockInZipCode,
+              clockInLocationType,
+
+              clockOutAddressLine1,
+              clockOutAddressLine2,
+              clockOutLocationCity,
+              clockOutLocationState,
+              clockOutLocationZipCode,
+              clockOutLocationType,
+
+              duties,
+              clockInPhone,
+              clockInLatitude,
+              clockInLongitude,
+              clockInEvvOtherInfo,
+              clockOutPhone,
+              clockOutLatitude,
+              clockOutLongitude,
+              clockOutEvvOtherInfo,
+
+              invoiceNumber,
+              visitEditReasonCode,
+              visitEditActionTaken,
+              visitEditMadeBy,
+              notes,
+              inDeletion,
+
+              invoiceLineItemId,
+              totalBilledAmount,
+              unitsBilled,
+              billedRate,
+              submissionType,
+              trnNumber,
+              enableSecondaryBilling,
+              otherSubscriberId,
+              primaryPayerId,
+              primaryPayerName,
+              relationshipToInsured,
+
+              primaryPayerPolicy,
+              primaryPayerProgram,
+              planType,
+              totalPaidAmount,
+              totalPaidUnits,
+              paidDate,
+              deductible,
+              coinsurance,
+              copay,
+              contractedAdjustments,
+              notMedicallyNecessary,
+              nonCoveredCharges,
+              maxBenefitExhausted,
+              missedVisit,
+              missedVisitReasonCode,
+              missedVisitActionTakenCode,
+              missedVisitNotes,
+              travelTimeRequestHours,
+
+              travelTimeComments,
+              cancelTravelTimeRequest,
+              timesheetRequired,
+              timesheetApproved,
+
+              unitField1,
+              unitField2,
+              unitField3,
+              unitField4,
+              unitField5,
+              unitField6,
+              unitField7Value,
+              unitField8Value,
+              unitField9Value,
+              unitField10Value,
+
+              careGiverNotes,
+              enteredEIM,
+              healthSafetyRiskName,
+              healthSafetyRiskState,
+              maid
+            ).then(res => {
+              console.log(res)
+              if (res.data.result == "success") {
+                showToastMessage();
+              }
+            });
+          }}>Save</Button>
+          <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={handleCloseTime}>Close</Button>
+        </div>
+
+      </div>
+
+
+
+    )
+  }
+  const VisitInfoView = () => {
+    return (
+      <div style={{ width: "100%" }}>
+        <h2 style={{ textAlign: "center", color: "#564873" }}>Visit Information</h2>
+        <h3 style={{ color: "grey", textAlign: "center" }}>Scheduled Time : <span style={{ color: "black" }}>{scheduleStartCV.format('HH:mm') + " " + "TO" + " " + scheduleEndCV.format('HH:mm')}</span></h3>
+        <div style={{ width: '100%' }}>
+          <div style={{ width: "100%", alignContent: "center", justifyContent: "center", textAlign: 'center' }}>
+            <h4 style={{ color: "grey", textAlign: "center" }}>Visit Start Time</h4>
+            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+
+              <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DatePicker']}>
+                  <DatePicker
+                    label="Date"
+                    value={visitStartCV}
+                    onChange={(newValue) => {
+                      {
+                        const timeDay = dayjs(visitStartCV).format('HH:mm:ss');
+                        const date = dayjs(newValue).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${timeDay}`, 'YYYY-MM-DD HH:mm:ss');
+                        setVisitStartCV(datetime);
+                      }
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+
+            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['TimePicker', 'TimePicker']}>
+                  <TimePicker
+                    label="Time"
+                    value={visitStartCV}
+                    onChange={(newValue) => {
+                      {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(visitStartCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setVisitStartCV(datetime);
+                      }
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+          </div>
+          <div style={{ width: "100%", alignContent: "center", justifyContent: "center", textAlign: 'center' }}>
+            <h4 style={{ color: "grey", textAlign: "center" }}>Visit End Time</h4>
+            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+
+              <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DatePicker']}>
+                  <DatePicker
+                    label="Date"
+                    value={visitEndCV}
+                    onChange={(newValue) => {
+                      {
+                        const timeDay = dayjs(visitEndCV).format('HH:mm:ss');
+                        const date = dayjs(newValue).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${timeDay}`, 'YYYY-MM-DD HH:mm:ss');
+                        setVisitEndCV(datetime);
+                      }
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+
+            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['TimePicker', 'TimePicker']}>
+                  <TimePicker
+                    label="Time"
+                    value={visitEndCV}
+                    onChange={(newValue) => {
+                      {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(visitEndCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setVisitEndCV(datetime);
+                      }
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+          </div>
+        </div>
+
+        <div>
+
+          <div className="GoBackButtonHolder">
+            <h1 style={{ textAlign: "center", cursor: 'pointer' }} >
+
+              <Button variant="outlined" onClick={() => setOpenMissedVisit(!openMissedVisit)}>Missed Visit
+              </Button>
+            </h1>
+          </div>
+
+
+          {openMissedVisit &&
+
+            <div>
+              <div style={{ padding: '20px' }}>
+
+                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                  <h1 style={{ color: "#564873", textAlign: "center" }}>Enter Missed Visit Details Here if Check Is Selected</h1>
+                  <Grid container spacing={2}>
+
+
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Missed Visit </h2></div>
+                    </Grid>
+
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}>
+                        <FormGroup style={{ textAlign: 'center', placeContent: 'center', justifyContent: 'center' }}>
+                          <FormControlLabel style={{ color: "grey", fontSize: "50px" }} control={<Checkbox defaultChecked />} />
+                        </FormGroup>
+                      </div>
+                    </Grid>
+
+
+
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Entered In EIM </h2></div>
+                    </Grid>
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={enteredEIM}
+                          label="Status"
+                          onChange={(evt) => {
+                            setEnteredEim(evt.target.value)
+                          }}
+                        >
+                          <MenuItem value={'Select'}>Select</MenuItem>
+                          <MenuItem value={'Yes'}>Yes</MenuItem>
+                          <MenuItem value={'No'}>No</MenuItem>
+                        </Select>
+                      </div>
+                    </Grid>
+
+
+
+
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>EIM# (If above Yes, enter 7-digit EIM#; If above No, enter N/A):	* Health and/or Safety Risk?: </h2></div>
+                    </Grid>
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}>
+                        <TextField
+                          id="outlined-basic"
+                          label=""
+                          variant="outlined"
+                          value={healthSafetyRiskName}
+                          onChange={(evt) => { setHealthSafetyRiskName(evt.target.value) }}
+                        />
+                      </div>
+                    </Grid>
+
+
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Health and/or Safety Risk? </h2></div>
+                    </Grid>
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={healthSafetyRiskState}
+                          label="Status"
+                          onChange={(evt) => {
+                            setHealthSafetyRiskState(evt.target.value)
+                          }}
+                        >
+                          <MenuItem value={'Select'}>Select</MenuItem>
+                          <MenuItem value={'Yes'}>Yes</MenuItem>
+                          <MenuItem value={'No'}>No</MenuItem>
+                        </Select>
+                      </div>
+                    </Grid>
+
+
+
+
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Numerical 13 Digit MAID (MPI including Service location - Format #############):	 </h2></div>
+                    </Grid>
+                    <Grid className="DataHolderGrid">
+                      <div style={{ margin: "5px" }}>
+                        <TextField
+                          id="outlined-basic"
+                          label=""
+                          variant="outlined"
+                          value={maid}
+                          onChange={(evt) => { setMaid(evt.target.value) }}
+                        />
+                      </div>
+                    </Grid>
+
+
+
+
+
+                  </Grid>
+
+
+
+                </div>
+
+
+              </div>
+            </div>
+          }
+        </div>
+        {/* <table style={{ color: "black", width: "100%" }}>
+              <tr style={{ backgroundColor: "#564873", color: "white" }}>
+                  <th>Reason</th>
+                  <th>Action Taken</th>
+                  <th>Note</th>
+                  <th>User</th>
+                  <th>Date/Time</th>
+              </tr>
+              <tr>
+                  <td style={{ textAlign: "center" }}>Other</td>
+                  <td style={{ textAlign: "center" }}>Supervised approved change</td>
+                  <td style={{ textAlign: "center" }}>Notes</td>
+                  <td style={{ textAlign: "center" }}>Hector</td>
+                  <td style={{ textAlign: "center" }}>2023-04-06</td>
+              </tr>
+          </table> */}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Box style={{ width: "75%", margin: "2%" }}>
+            <FormControl fullWidth>
+              <InputLabel>New Reason</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Status"
+                defaultValue={visitEditReasonVS}
+                onChange={(evt) => {
+                  setVisitReasonVS(evt.target.value)
+                }}
+              >
+                {visitEditReasonAll.map((l) => (
+                  <MenuItem key={l.id} value={l.description}>
+                    {l.description}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+
+
+        </div>
+
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Box style={{ width: "75%", margin: "2%" }}>
+            <FormControl fullWidth>
+              <InputLabel>Action Taken</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Status"
+                value={actionTakenReasonVS}
+                onChange={(evt) => setActionTakenVS(evt.target.value)}
+              >
+                {visitActionTakenAll.map((l) => (
+                  <MenuItem key={l.id} value={l.description}>
+                    {l.description}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </div>
+
+
+
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <TextField
+            style={{ margin: "1%", width: "75%" }}
+            id="outlined-basic"
+            label="New Note"
+            variant="outlined"
+            value={missedVisitNote}
+            onChange={(evt) => setMissedVisitNote(evt.target.value)}
+          />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+          <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
+          <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Close</Button>
+          <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Print</Button>
+        </div>
+        <hr></hr>
+
+        <h2 style={{ textAlign: "center", color: "#564873" }}>Audit</h2>
+        <div style={{ display: "grid" }}>
+
+          <h1 style={{ color: "grey" }}>Vertified By :</h1>
+          <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Member" />
+          <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Care Giver" />
+          <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Family Member" />
+          <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Other" />
+
+        </div>
+
+
+        <div style={{ display: "grid", width: '100%', placeContent: 'center', textAlign: 'center' }}>
+
+          <TextField
+            style={{ margin: "1%", width: "100%" }}
+            id="outlined-basic"
+            label="Date Verified"
+            variant="outlined"
+          />
+          <TextField
+            style={{ margin: "1%", width: "100%" }}
+            id="outlined-basic"
+            label="Time Verfied"
+            variant="outlined"
+          />
+          <TextField
+            style={{ margin: "1%", width: "100%" }}
+            id="outlined-basic"
+            label="Supervisor"
+            variant="outlined"
+          />
+        </div>
+        <hr></hr>
+        <div>
+
+        </div>
+        <h2 style={{ textAlign: "center", color: "#564873" }}>Daily Sheet</h2>
+        <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Timesheet Required" />
+        <h4 style={{ color: "#564873" }}>POC Duties</h4>
+        <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
+          <DataGrid
+            rows={pocDutiesRowVS}
+            columns={columns15}
+            pageSize={5}
+            rowsPerPageOptions={[15]}
+            checkboxSelection={false}
+          />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <TextField
+            style={{ margin: "1%", width: "75%" }}
+            id="outlined-basic"
+            label="Care Giver New Note"
+            variant="outlined"
+            value={careGiverNotes}
+            onChange={(evt) => setCareGiverNotes(evt.target.value)}
+          />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+          <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={() => {
+
+            editVisit(
+              currVisit.id,
+
+              memberFirstNameG,
+              memberLastNameG,
+              memberId,
+              careGiverCodeG,
+              careGiverFirstNameG,
+              careGiverLastNameG,
+              careGiverGenderG,
+              careGiverDOBG,
+              careGiverSSNG,
+
+              scheduleID,
+              visitID,
+              procedureCode,
+              diagnosisCode,
+              scheduleStartCV,
+              scheduleEndCV,
+              visitStartCV,
+              visitEndCV,
+              evvStartTime,
+              evvEndTime,
+
+              clockInLocationAddressLine1,
+              clockInLocationAddressLine2,
+              clockInLocationCity,
+              clockInLocationState,
+              clockInZipCode,
+              clockInLocationType,
+
+              clockOutAddressLine1,
+              clockOutAddressLine2,
+              clockOutLocationCity,
+              clockOutLocationState,
+              clockOutLocationZipCode,
+              clockOutLocationType,
+
+              duties,
+              clockInPhone,
+              clockInLatitude,
+              clockInLongitude,
+              clockInEvvOtherInfo,
+              clockOutPhone,
+              clockOutLatitude,
+              clockOutLongitude,
+              clockOutEvvOtherInfo,
+
+              invoiceNumber,
+              visitEditReasonCode,
+              visitEditActionTaken,
+              visitEditMadeBy,
+              notes,
+              inDeletion,
+
+              invoiceLineItemId,
+              totalBilledAmount,
+              unitsBilled,
+              billedRate,
+              submissionType,
+              trnNumber,
+              enableSecondaryBilling,
+              otherSubscriberId,
+              primaryPayerId,
+              primaryPayerName,
+              relationshipToInsured,
+
+              primaryPayerPolicy,
+              primaryPayerProgram,
+              planType,
+              totalPaidAmount,
+              totalPaidUnits,
+              paidDate,
+              deductible,
+              coinsurance,
+              copay,
+              contractedAdjustments,
+              notMedicallyNecessary,
+              nonCoveredCharges,
+              maxBenefitExhausted,
+              missedVisit,
+              missedVisitReasonCode,
+              missedVisitActionTakenCode,
+              missedVisitNotes,
+              travelTimeRequestHours,
+
+              travelTimeComments,
+              cancelTravelTimeRequest,
+              timesheetRequired,
+              timesheetApproved,
+
+              unitField1,
+              unitField2,
+              unitField3,
+              unitField4,
+              unitField5,
+              unitField6,
+              unitField7Value,
+              unitField8Value,
+              unitField9Value,
+              unitField10Value,
+
+              careGiverNotes,
+              enteredEIM,
+              healthSafetyRiskName,
+              healthSafetyRiskState,
+              maid
+            ).then(res => {
+              console.log(res)
+              if (res.data.result == "success") {
+                showToastMessage();
+
+              }
+            });
+          }}>Save</Button>
+          <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={handleCloseTime}>Close</Button>
+          <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Print</Button>
+        </div>
+      </div>
+    )
+  }
+  const BillingView = () => {
+    return (
+      <div style={{ width: "100%" }}>
+        <h1 style={{ color: "#564873", textAlign: "center" }}>Primary Bill To</h1>
+        <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Primary Bill To: <span style={{ color: "#F2A007" }}>{currVisit.PrimaryPayerName}</span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Code: <span style={{ color: "#F2A007" }}>
+                  {/* {currVisit.service_code} */}
+                </span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type: <span style={{ color: "#F2A007" }}>
+                  {""}
+                </span></h2></div>
+              }
+            </Grid>
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>TT Hours: <span style={{ color: "#F2A007" }}>
+                {""}
+              </span></h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>OT. Required: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Billable Hours: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Billable Units: <span style={{ color: "#F2A007" }}>{currVisit.UnitsBilled}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Rate: <span style={{ color: "#F2A007" }}>{currVisit.BilledRate}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Total: <span style={{ color: "#F2A007" }}>{currVisit.TotalBilledAmount}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Billed: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Invoice Number: <span style={{ color: "#F2A007" }}>{currVisit.InvoiceNumber}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Invoice Creation Date: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+              }
+            </Grid>
+
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Billing Hold: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+              }
+            </Grid>
+
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>TRN Number: <span style={{ color: "#F2A007" }}>{currVisit.TRNNumber}</span></h2></div>
+              }
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              {currVisit != null &&
+                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>E Billing Batch Number: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+              }
+            </Grid>
+          </Grid>
+
+
+
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+            <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={() => {
+
+              editVisit(
+                currVisit.id,
+
+                memberFirstNameG,
+                memberLastNameG,
+                memberId,
+                careGiverCodeG,
+                careGiverFirstNameG,
+                careGiverLastNameG,
+                careGiverGenderG,
+                careGiverDOBG,
+                careGiverSSNG,
+
+                scheduleID,
+                visitID,
+                procedureCode,
+                diagnosisCode,
+                scheduleStartCV,
+                scheduleEndCV,
+                visitStartCV,
+                visitEndCV,
+                evvStartTime,
+                evvEndTime,
+
+                clockInLocationAddressLine1,
+                clockInLocationAddressLine2,
+                clockInLocationCity,
+                clockInLocationState,
+                clockInZipCode,
+                clockInLocationType,
+
+                clockOutAddressLine1,
+                clockOutAddressLine2,
+                clockOutLocationCity,
+                clockOutLocationState,
+                clockOutLocationZipCode,
+                clockOutLocationType,
+
+                duties,
+                clockInPhone,
+                clockInLatitude,
+                clockInLongitude,
+                clockInEvvOtherInfo,
+                clockOutPhone,
+                clockOutLatitude,
+                clockOutLongitude,
+                clockOutEvvOtherInfo,
+
+                invoiceNumber,
+                visitEditReasonCode,
+                visitEditActionTaken,
+                visitEditMadeBy,
+                notes,
+                inDeletion,
+
+                invoiceLineItemId,
+                totalBilledAmount,
+                unitsBilled,
+                billedRate,
+                submissionType,
+                trnNumber,
+                enableSecondaryBilling,
+                otherSubscriberId,
+                primaryPayerId,
+                primaryPayerName,
+                relationshipToInsured,
+
+                primaryPayerPolicy,
+                primaryPayerProgram,
+                planType,
+                totalPaidAmount,
+                totalPaidUnits,
+                paidDate,
+                deductible,
+                coinsurance,
+                copay,
+                contractedAdjustments,
+                notMedicallyNecessary,
+                nonCoveredCharges,
+                maxBenefitExhausted,
+                missedVisit,
+                missedVisitReasonCode,
+                missedVisitActionTakenCode,
+                missedVisitNotes,
+                travelTimeRequestHours,
+
+                travelTimeComments,
+                cancelTravelTimeRequest,
+                timesheetRequired,
+                timesheetApproved,
+
+                unitField1,
+                unitField2,
+                unitField3,
+                unitField4,
+                unitField5,
+                unitField6,
+                unitField7Value,
+                unitField8Value,
+                unitField9Value,
+                unitField10Value,
+
+                careGiverNotes,
+                enteredEIM,
+                healthSafetyRiskName,
+                healthSafetyRiskState,
+                maid
+              ).then(res => {
+                console.log(res)
+                if (res.data.result == "success") {
+                  showToastMessage();
+
+                }
+              });
+            }}>Save</Button>
+            <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={handleCloseTime}>Close</Button>
+            <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Print</Button>
+          </div>
+        </div>
+
+      </div>
+
+    )
+  }
+
+
+  const columnsCareGiverList = [
+    { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'name', headerName: 'Name', width: 200 },
+    { field: 'city', headerName: 'City', width: 100 },
+    { field: 'phone', headerName: 'Phone', width: 150 },
+    { field: 'CoCode', headerName: 'Care Giver Code', width: 120 },
+    { field: 'Ethnicity', headerName: 'Ethnicity', width: 140 },
+    { field: 'SSN', headerName: 'SSN', width: 150 },
+    { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'EmployeeID', headerName: 'Employee ID', width: 200 },
+    { field: 'Discipline', headerName: 'Discipline', width: 100 },
 
   ];
+
+
+
+
+
+  const VisitSearchView = () => {
+    return (
+      <>
+        {open10 && !openTime && !open &&
+          <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+            <CloseIcon className="crossIcon" onClick={handleClose10} />
+            <h1 style={{ textAlign: "center", color: "black" }}>Search Care Giver</h1>
+            <div className="searchFieldsDiv">
+
+
+
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Name"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="City"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Code"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Ethnicity"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="SSN"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Discipline"
+                  variant="outlined"
+                />
+
+              </Grid>
+
+            </div>
+            <Button className="searchButton" onClick={handleClose10} >
+              Search
+            </Button>
+
+
+            {setCareGiverForVisitName == null &&
+              <h1 style={{ textAlign: "center" }}>Care Giver Not Selected</h1>
+            }
+            {setCareGiverForVisitName != null &&
+              <h1 style={{ textAlign: "center" }}>Selected Care Giver is {careGiverForVisitName}</h1>
+            }
+
+
+            <div style={{ cursor: 'pointer', height: 400, width: '100%', overflowX: 'auto', overflowY: 'auto' }}>
+              <DataGrid
+                rows={careGiverList}
+                columns={columnsCareGiverList}
+                pageSize={5}
+                rowsPerPageOptions={[15]}
+                checkboxSelection={false}
+                onRowClick={handleRowClickCareGiverForVisit}
+              />
+            </div>
+            <Button className="searchButton" onClick={() => {
+              handleClose10();
+            }}>
+              Close
+            </Button>
+
+
+          </div>
+        }
+        {openTime && !open && !open10 &&
+          <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+            <CloseIcon className="crossIcon" onClick={handleCloseTime} />
+
+
+            {/*  */}
+            <h1 style={{ textAlign: "center", color: "black" }}>Non Skilled Visit</h1>
+            <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+              <Grid container spacing={2}>
+                <Grid className="DataHolderGrid">
+                  <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Name:
+                    {currMember != null &&
+                      <span style={{ color: "#F2A007" }}>{currMember.FirstName + ' ' + currMember.LastName}</span>
+                    }
+                  </h2></div>
+                </Grid>
+                <Grid className="DataHolderGrid">
+                  <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Visit Date:
+                    {currVisit != null &&
+                      <span style={{ color: "#F2A007" }}>{currVisit.VisitStartTime.split(" ")[0]}</span>
+                    }
+                  </h2></div>
+                </Grid>
+                <Grid className="DataHolderGrid">
+                  <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Phone:
+                    {currMember != null &&
+                      <span style={{ color: "#F2A007" }}>{currMember.HomePhone}</span>
+                    }
+                  </h2></div>
+                </Grid>
+                <Grid className="DataHolderGrid">
+                  <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Assignment ID:
+                    {currMember != null &&
+                      <span style={{ color: "#F2A007" }}>{""}</span>
+                    }
+                  </h2></div>
+                </Grid>
+
+                <Grid className="DataHolderGrid">
+                  <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Coordinator:
+                    {currMember != null &&
+                      <span style={{ color: "#F2A007" }}>{currMember.MCOName}</span>}
+                  </h2></div>
+                </Grid>
+
+              </Grid>
+            </div>
+            {/*  */}
+
+
+
+            <hr />
+
+            <div style={{ display: "flex", alignContent: "center", marginLeft: "7%", justifyContent: "space-between", width: "85%", textAlign: "center" }}>
+              <Button onClick={SchedulePressed}>Schedule</Button>
+              <Button onClick={VisitInfoPressed}>Visit Info</Button>
+              <Button onClick={BillInfoPreseed}>Bill Info</Button>
+            </div>
+            <hr />
+            <div style={{ width: "100%", height: "100%", display: "flex" }}>
+
+
+              {renderOverlayViews()}
+
+            </div>
+          </div>
+        }
+        {open &&
+          <div>
+            <CloseIcon className="crossIcon" onClick={handleClose} />
+            <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+            <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Visit Search</p>
+            <div className="searchFieldsDiv">
+
+
+              <Grid className="griditem">
+                <TextField
+
+                  id="outlined-basic"
+                  label="Care Giver First Name"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid className="griditem">
+                <TextField
+                  id="outlined-basic"
+                  label="Care Giver Last Name"
+                  variant="outlined"
+                />
+              </Grid>
+
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Care Giver Code"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+                  id="outlined-basic"
+                  label="Assigment ID"
+                  variant="outlined"
+                />
+
+              </Grid>
+
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Admission ID"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Member First Name"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Member Last Name"
+                  variant="outlined"
+                />
+
+              </Grid>
+
+
+              <Grid className="griditem2">
+
+                <Box >
+                  <FormControl fullWidth>
+                    <InputLabel >Cordinator</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+              <Grid className="griditem2">
+
+                <Box>
+                  <FormControl fullWidth>
+                    <InputLabel >Status</InputLabel>
+                    <Select
+
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+              <Grid className="griditem2">
+
+                <Box >
+                  <FormControl fullWidth>
+                    <InputLabel >Member Team</InputLabel>
+                    <Select
+
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+
+              <Grid className="griditem2">
+
+                <Box >
+                  <FormControl fullWidth>
+                    <InputLabel >Member Location</InputLabel>
+                    <Select
+
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+              <Grid className="griditem2">
+
+                <Box >
+                  <FormControl fullWidth>
+                    <InputLabel >Member Branch</InputLabel>
+                    <Select
+
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="From Date dd/mm/yyyy"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Till Date dd/mm/yyyy"
+                  variant="outlined"
+                />
+
+              </Grid>
+
+            </div>
+
+            <Button className="searchButton" onClick={handleCloseOverlay}>
+              Search
+            </Button>
+          </div>
+        }
+        {!open && !openTime &&
+          <div style={{ height: "100%", width: '100%' }}>
+            <DataGrid
+              rows={visitsDataRow}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[15]}
+              checkboxSelection={false}
+            />
+          </div>
+        }
+      </>
+    );
+  };
+
+
   const [CareGiverSearch, setCareGiverSearch] = useState(false);
   function CareGiverIconClick() {
     setCareGiverSearch(true);
     setOpen10(true);
+    setOpenTime(false);
+    setOpen(false)
     renderCareGivers();
   }
   const [open10, setOpen10] = React.useState(false);
   const handleClose10 = () => {
     setOpen10(false);
     setCareGiverSearch(false);
+    setOpenTime(true)
   };
-
-
-
-
-  //
-
-
-  //=======================================Care Giver Data ========================================================
-
 
 
   function getAllCareGiverData(val) {
@@ -1505,9 +2807,10 @@ function Visit() {
 
     if (careGiverForVisit != null) {
       setCareGiverForVisitName(careGiverForVisit.name);
+      setCaregiverCodeEditVisit(careGiverForVisit.CoCode);
       getAllCareGiverData(careGiverForVisit);
+      console.log(careGiverForVisit.CoCode)
     }
-    handleClose10();
   };
 
 
@@ -1521,7 +2824,7 @@ function Visit() {
         name: caregiverArray[key].FirstName + ' ' + caregiverArray[key].LastName,
         city: caregiverArray[key].City,
         phone: caregiverArray[key].Phone,
-        CoCode: caregiverArray[key].CoCode,
+        CoCode: caregiverArray[key].AideCode,
         Ethnicity: caregiverArray[key].Ethnicity,
         SSN: caregiverArray[key].SSN,
         Status: caregiverArray[key].Status,
@@ -1536,95 +2839,95 @@ function Visit() {
 
 
   function OverlayCareGiverSearch() {
-    return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open10}
+    // return (
+    //   <Backdrop
+    //     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    //     open={open10}
 
-      >
-        <div className="overlayCareGiver">
-          <CloseIcon className="crossIcon" onClick={handleClose10} />
-          <h1 style={{ textAlign: "center", color: "black" }}>Search Care Giver</h1>
-          <div className="searchFieldsDiv">
+    //   >
+    //     <div className="overlayCareGiver">
+    //       <CloseIcon className="crossIcon" onClick={handleClose10} />
+    //       <h1 style={{ textAlign: "center", color: "black" }}>Search Care Giver</h1>
+    //       <div className="searchFieldsDiv">
 
 
 
-            <Grid className="griditem">
+    //         <Grid className="griditem">
 
-              <TextField
+    //           <TextField
 
-                id="outlined-basic"
-                label="Name"
-                variant="outlined"
-              />
+    //             id="outlined-basic"
+    //             label="Name"
+    //             variant="outlined"
+    //           />
 
-            </Grid>
-            <Grid className="griditem">
+    //         </Grid>
+    //         <Grid className="griditem">
 
-              <TextField
+    //           <TextField
 
-                id="outlined-basic"
-                label="City"
-                variant="outlined"
-              />
+    //             id="outlined-basic"
+    //             label="City"
+    //             variant="outlined"
+    //           />
 
-            </Grid>
-            <Grid className="griditem">
+    //         </Grid>
+    //         <Grid className="griditem">
 
-              <TextField
+    //           <TextField
 
-                id="outlined-basic"
-                label="Code"
-                variant="outlined"
-              />
+    //             id="outlined-basic"
+    //             label="Code"
+    //             variant="outlined"
+    //           />
 
-            </Grid>
-            <Grid className="griditem">
+    //         </Grid>
+    //         <Grid className="griditem">
 
-              <TextField
+    //           <TextField
 
-                id="outlined-basic"
-                label="Ethnicity"
-                variant="outlined"
-              />
+    //             id="outlined-basic"
+    //             label="Ethnicity"
+    //             variant="outlined"
+    //           />
 
-            </Grid>
-            <Grid className="griditem">
+    //         </Grid>
+    //         <Grid className="griditem">
 
-              <TextField
+    //           <TextField
 
-                id="outlined-basic"
-                label="SSN"
-                variant="outlined"
-              />
+    //             id="outlined-basic"
+    //             label="SSN"
+    //             variant="outlined"
+    //           />
 
-            </Grid>
-            <Grid className="griditem">
+    //         </Grid>
+    //         <Grid className="griditem">
 
-              <TextField
+    //           <TextField
 
-                id="outlined-basic"
-                label="Discipline"
-                variant="outlined"
-              />
+    //             id="outlined-basic"
+    //             label="Discipline"
+    //             variant="outlined"
+    //           />
 
-            </Grid>
+    //         </Grid>
 
-          </div>
-          <Button className="searchButton" onClick={handleClose10} >
-            Search
-          </Button>
-          <DataGrid
-            rows={careGiverList}
-            columns={columns12}
-            pageSize={5}
-            rowsPerPageOptions={[15]}
-            checkboxSelection
-            onRowClick={handleRowClickCareGiverForVisit}
-          />
-        </div>
-      </Backdrop>
-    );
+    //       </div>
+    //       <Button className="searchButton" onClick={handleClose10} >
+    //         Search
+    //       </Button>
+    //       <DataGrid
+    //         rows={careGiverList}
+    //         columns={columns12}
+    //         pageSize={5}
+    //         rowsPerPageOptions={[15]}
+    //         checkboxSelection
+    //         onRowClick={handleRowClickCareGiverForVisit}
+    //       />
+    //     </div>
+    //   </Backdrop>
+    // );
   }
 
   const columns12 = [
@@ -1647,354 +2950,674 @@ function Visit() {
 
   const VisitQuickSearchView = () => {
     return (
-
-      <div>
-        <div>
+      <>
+        {open10 &&
           <div>
-            <h1 style={{ textAlign: "center" }}> Active Authorization (-90 Days)</h1>
-            <Button className="showAllButton">Show All</Button>
-            <div style={{ height: "100%", width: '100%', marginBottom: "2%" }}>
+            <CloseIcon className="crossIcon" onClick={handleClose10} />
+            <h1 style={{ textAlign: "center", color: "black" }}>Search Care Giver</h1>
+            <div className="searchFieldsDiv">
+
+
+
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Name"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="City"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Code"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Ethnicity"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="SSN"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Discipline"
+                  variant="outlined"
+                />
+
+              </Grid>
+
+            </div>
+            <Button className="searchButton" onClick={handleClose10} >
+              Search
+            </Button>
+
+
+            {setCareGiverForVisitName == null &&
+              <h1 style={{ textAlign: "center" }}>Care Giver Not Selected</h1>
+            }
+            {setCareGiverForVisitName != null &&
+              <h1 style={{ textAlign: "center" }}>Selected Care Giver is {careGiverForVisitName}</h1>
+            }
+
+
+            <div style={{ cursor: 'pointer', height: 400, width: '100%', overflowX: 'auto', overflowY: 'auto' }}>
               <DataGrid
-                rows={rows11}
-                columns={columns11}
+                rows={careGiverList}
+                columns={columns12}
                 pageSize={5}
                 rowsPerPageOptions={[15]}
-                checkboxSelection
+                checkboxSelection={false}
+                onRowClick={handleRowClickCareGiverForVisit}
               />
             </div>
+            <Button className="searchButton" onClick={() => {
+              handleClose10();
+            }}>
+              Close
+            </Button>
+
+
           </div>
-          <hr />
-
-          {memberForVisitName == null &&
-            <h1 style={{ textAlign: "center" }}>Member Not Selected</h1>
-          }
-          {memberForVisitName != null &&
-            <h1 style={{ textAlign: "center" }}>Create A New Visit for {memberForVisitName}</h1>
-          }
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+        }
+        {open2 &&
+          <div>
+            <CloseIcon className="crossIcon" onClick={handleClose2} />
+            <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
+            <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Quick Visit Entry</p>
+            <div className="searchFieldsDiv">
 
 
 
-            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['DatePicker']}>
-                <DatePicker
-                  label="From Date"
-                  value={selectedDate}
-                  onChange={(newValue) => {
-                    setSelectedDate(newValue);
-                  }}
+              <Grid style={{ width: '100%' }}>
+
+                <Box >
+                  <FormControl fullWidth>
+                    <InputLabel >MCO</InputLabel>
+                    <Select
+
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedMCO}
+                      label="Status"
+                      onChange={(event) => { setSelectedMCO(event.target.value) }}
+                    >
+                      {mcoList.map((l, i) => (
+                        <MenuItem value={l}>{l}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+
+
+              <Grid style={{ width: '100%' }}>
+
+                <TextField
+                  id="outlined-basic"
+                  label="Member Search"
+                  variant="outlined"
                 />
-              </DemoContainer>
-            </LocalizationProvider>
 
+              </Grid>
 
+            </div>
+            <Button className="searchButton" onClick={SearchButtonPressed} >
+              Search
+            </Button>
+          </div>
+        }
+        {open3 &&
+          <div>
+            <CloseIcon className="crossIcon" onClick={handleClose3} />
+            <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Member Search</p>
+            <div className="searchFieldsDiv">
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['TimePicker', 'TimePicker']}>
-                <TimePicker
-                  label="Visit Start Time"
-                  value={visitStartTime}
-                  onChange={handleVisitStartTime}
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="selected-member-id-cg"
+                  label="Member ID"
+                  variant="outlined"
                 />
-              </DemoContainer>
-            </LocalizationProvider>
 
+              </Grid>
+              <Grid className="griditem">
 
+                <TextField
 
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['TimePicker', 'TimePicker']}>
-                <TimePicker
-                  label="Visit End Time"
-                  value={visitEndTime}
-                  onChange={handleVisitEndTime}
+                  id="selected-admission-id-cg"
+                  label="Admission ID"
+                  variant="outlined"
                 />
-              </DemoContainer>
-            </LocalizationProvider>
 
-          </div>
-          <div className="VisitAddDel">
+              </Grid>
 
+              <Grid className="griditem2">
 
+                <Box >
+                  <FormControl fullWidth>
+                    <InputLabel >Status</InputLabel>
+                    <Select
 
-            <FormControl style={{ width: '30%' }}>
-              <InputLabel>Service Codes</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectedServiceCode}
-                label="Status"
-                onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
-              >
-                {serviceCodes.map((l, i) => (
-                  <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-
-            <TextField
-              className="field"
-              id="duration"
-              label="Duration"
-              variant="outlined"
-              readOnly
-              value={duration}
-              onClick={() => { getTimeDuration(visitStartTime, visitEndTime) }}
-            />
-
-            <TextField
-              className="field"
-              id="outlined-basic"
-              label="Select Care Giver"
-              value={careGiverForVisitName}
-              InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
-            >
-              {/* <div  style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}> */}
-
-              {/* </div> */}
-            </TextField>
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedStatus}
+                      label="Status"
+                      onChange={(event) => { setSelectedStatus(event.target.value) }}
+                    >
+                      <MenuItem value={'Active'}>Active</MenuItem>
+                      <MenuItem value={'Inactive'}>Inactive</MenuItem>
+                      <MenuItem value={'Terminated'}>Terminated</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
 
 
+              <Grid className="griditem">
 
+                <TextField
 
-          </div>
-          {/* =========================To Check======================= */}
-          <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: '20px' }}>
-
-
-            <FormControl style={{ width: '30%' }}>
-              <InputLabel>Visit Type</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectedVisitType}
-                label="Visit Type"
-                onChange={(evt) => { setSelectedVisitType(evt.target.value) }}
-              >
-                {visitType.map((l, i) => (
-                  <MenuItem value={l}>{l}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            {/*======================================================== */}
-
-
-
-
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['TimePicker', 'TimePicker']}>
-                <TimePicker
-                  label="Schedule Start Time"
-                  value={scheduleStartTime}
-                  onChange={handleScheduleStartTimeChange}
+                  id="selected-last-name-cg"
+                  label="Last Name"
+                  variant="outlined"
                 />
-              </DemoContainer>
-            </LocalizationProvider>
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['TimePicker', 'TimePicker']}>
-                <TimePicker
-                  label="Schedule End Time"
-                  value={scheduleEndTime}
-                  onChange={handleScheduleEndTimeChange}
+              </Grid>
+
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="selected-first-name-cg"
+                  label="First Name"
+                  variant="outlined"
                 />
-              </DemoContainer>
-            </LocalizationProvider>
 
-          </div>
-          {/* ======================================================== */}
+              </Grid>
 
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: '20px' }}>
+              <Grid className="griditem">
 
+                <TextField
 
-            <TextField
-              className="field"
-              id="Authorization Number"
-              label="Member ID"
-              variant="outlined"
-              value={memberId}
-              onChange={(event) => setMemberId(event.target.value)}
-            />
-
-
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['TimePicker', 'TimePicker']}>
-                <TimePicker
-                  label="EVV Start Time"
-                  value={evvStartTime}
-                  onChange={handleEvvStartTimeChange}
-
+                  id="selected-phone-cg"
+                  label="Phone Number"
+                  variant="outlined"
                 />
-              </DemoContainer>
-            </LocalizationProvider>
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['TimePicker', 'TimePicker']}>
-                <TimePicker
-                  label="EVV End Time"
-                  value={evvEndTime}
-                  onChange={handleEvvEndTimeChange}
+              </Grid>
+
+              <Grid className="griditem2">
+
+                <Box >
+                  <FormControl fullWidth>
+                    <InputLabel >Member Team</InputLabel>
+                    <Select
+
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedMemberTeam}
+                      label="Status"
+                      onChange={(event) => { setSelectedMemberTeam(event.target.value) }}
+                    >
+                      <MenuItem value={'Unassigned'}>Unassigned</MenuItem>
+                      <MenuItem value={'Default'}>Default</MenuItem>
+                      <MenuItem value={'All'}>All</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+
+              <Grid className="griditem2">
+
+                <Box >
+                  <FormControl fullWidth>
+                    <InputLabel >Case Cordinator</InputLabel>
+                    <Select
+
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedCaseCoordinator}
+                      label="Status"
+                      onChange={(event) => { setSelectedCaseCoordinator(event.target.value) }}
+                    >
+                      <MenuItem value={'Default'}>Default</MenuItem>
+                      <MenuItem value={'All'}>All</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Grid>
+
+
+
+            </div>
+
+
+            <Button className="searchButton" onClick={() => {
+              setSelectedFirstName(document.getElementById('selected-first-name-cg').value)
+              setSelectedLastName(document.getElementById('selected-last-name-cg').value)
+              setSelectedPhone(document.getElementById('selected-phone-cg').value)
+
+              setSelectedMemberID(document.getElementById('selected-member-id-cg').value)
+              setSelectedAdmissionID(document.getElementById('selected-admission-id-cg').value)
+            }}>
+              Search
+            </Button>
+
+
+            {memberForVisitName == null &&
+              <h1 style={{ textAlign: "center" }}>Member Not Selected</h1>
+            }
+            {memberForVisitName != null &&
+              <h1 style={{ textAlign: "center" }}>Selected Member is {memberForVisitName}</h1>
+            }
+
+            <div style={{ cursor: 'pointer', height: 400, width: '100%', overflowX: 'auto', overflowY: 'auto' }}>
+              <DataGrid
+                rows={membersList}
+                columns={columns10}
+                pageSize={5}
+                rowsPerPageOptions={[15]}
+                checkboxSelection={false}
+                onRowClick={handleRowClick}
+              />
+            </div>
+
+
+            <Button className="searchButton" onClick={() => {
+              handleClose3();
+              handleClose2();
+            }}>
+              Close
+            </Button>
+
+
+          </div>
+        }
+
+        {!open2 && !open3 && !open10 &&
+          <div>
+            <div>
+              <div>
+                <h1 style={{ textAlign: "center" }}> Active Authorization (-90 Days)</h1>
+                <Button className="showAllButton">Show All</Button>
+                <div style={{ height: "100%", width: '100%', marginBottom: "2%" }}>
+                  <DataGrid
+                    rows={rows11}
+                    columns={columns11}
+                    pageSize={5}
+                    rowsPerPageOptions={[15]}
+                    checkboxSelection
+                  />
+                </div>
+              </div>
+              <hr />
+
+              {memberForVisitName == null &&
+                <h1 style={{ textAlign: "center" }}>Member Not Selected</h1>
+              }
+              {memberForVisitName != null &&
+                <h1 style={{ textAlign: "center" }}>Create A New Visit for {memberForVisitName}</h1>
+              }
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+
+                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      label="From Date"
+                      value={selectedDate}
+                      onChange={(newValue) => {
+                        setSelectedDate(newValue);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+
+
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="Visit Start Time"
+                      value={visitStartTime}
+                      onChange={handleVisitStartTime}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+
+
+
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="Visit End Time"
+                      value={visitEndTime}
+                      onChange={handleVisitEndTime}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+
+              </div>
+              <div className="VisitAddDel">
+
+
+
+                <FormControl style={{ width: '30%' }}>
+                  <InputLabel>Service Codes</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectedServiceCode}
+                    label="Status"
+                    onChange={(evt) => { setSelectedServiceCode(evt.target.value) }}
+                  >
+                    {serviceCodes.map((l, i) => (
+                      <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+
+                <TextField
+                  className="field"
+                  id="duration"
+                  label="Duration"
+                  variant="outlined"
+                  readOnly
+                  value={duration}
+                  onClick={() => { getTimeDuration(visitStartTime, visitEndTime) }}
                 />
-              </DemoContainer>
-            </LocalizationProvider>
-          </div>
-          {/* ======================================================== */}
 
+                <TextField
+                  className="field"
+                  id="outlined-basic"
+                  label="Select Care Giver"
+                  value={careGiverForVisitName}
+                  InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
+                >
+                  {/* <div  style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}> */}
 
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-in-location-address-line-1"
-              label="Clock In Service Location Address Line 1"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleClockInLocationAddressLine1Change}
-              value={clockInLocationAddressLine1}
-            />
-            <TextField
-              className="field"
-              id="clock-in-location-address-line-2"
-              label="Clock In Service Location Address Line 2"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleClockInLocationAddressLine2Change}
-              value={clockInLocationAddressLine2}
-            />
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-in-location-city"
-              label="Clock In Location City"
-              variant="outlined"
-              style={{ width: '200px' }}
-              onChange={handleClockInLocationCityChange}
-              value={clockInLocationCity}
-            />
-            <TextField
-              className="field"
-              id="clock-in-location-state"
-              label="Clock In Location State"
-              variant="outlined"
-              style={{ width: '200px' }}
-              onChange={handleClockInLocationStateChange}
-              value={clockInLocationState}
-            />
-            <TextField
-              className="field"
-              id="clock-in-zip-code"
-              label="Clock In Zip Code"
-              variant="outlined"
-              style={{ width: '200px' }}
-              onChange={handleClockInZipCodeChange}
-              value={clockInZipCode}
-            />
-          </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                  {/* </div> */}
+                </TextField>
 
 
 
-            <TextField
-              className="field"
-              id="Authorization Number"
-              label="Clock In Location Type"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleClockInLocationTypeChange}
-              value={clockInLocationType}
-            />
 
-            <TextField
-              className="field"
-              id="Authorization Number"
-              label="Clock Out Location City"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleClockOutLocationCityChange}
-              value={clockOutLocationCity}
-            />
-          </div>
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-out-location-address-line-1"
-              label="Clock Out Location Address Line 1"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockOutAddressLine1}
-              onChange={handleClockOutAddressLine1Change}
-            />
-            <TextField
-              className="field"
-              id="clock-out-location-address-line-2"
-              label="Clock Out Location Address Line 2"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockOutAddressLine2}
-              onChange={handleClockOutAddressLine2Change}
-            />
-          </div>
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-out-location-state"
-              label="Clock Out Location State"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockOutLocationState}
-              onChange={handleClockOutLocationStateChange}
-            />
-            <TextField
-              className="field"
-              id="clock-out-location-zip-code"
-              label="Clock Out Location Zip Code"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockOutLocationZipCode}
-              onChange={handleClockOutLocationZipCodeChange}
-            />
-          </div>
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-out-location-type"
-              label="Clock Out Location Type"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockOutLocationType}
-              onChange={handleClockOutLocationTypeChange}
-            />
-            <TextField
-              className="field"
-              id="clock-out-location-type"
-              label="Clock Out Location Type"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockOutLocationType}
-              onChange={handleClockOutLocationTypeChange}
-            />
-          </div>
-          {/* ======================================================== */}
+              </div>
+              {/* =========================To Check======================= */}
+              <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: '20px' }}>
 
 
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            {/* <TextField
+                <FormControl style={{ width: '30%' }}>
+                  <InputLabel>Visit Type</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectedVisitType}
+                    label="Visit Type"
+                    onChange={(evt) => { setSelectedVisitType(evt.target.value) }}
+                  >
+                    {visitType.map((l, i) => (
+                      <MenuItem value={l}>{l}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                {/*======================================================== */}
+
+
+
+
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="Schedule Start Time"
+                      value={scheduleStartTime}
+                      onChange={handleScheduleStartTimeChange}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="Schedule End Time"
+                      value={scheduleEndTime}
+                      onChange={handleScheduleEndTimeChange}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+
+              </div>
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: '20px' }}>
+
+
+                <TextField
+                  className="field"
+                  id="Authorization Number"
+                  label="Member ID"
+                  variant="outlined"
+                  value={memberId}
+                  onChange={(event) => setMemberId(event.target.value)}
+                />
+
+
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="EVV Start Time"
+                      value={evvStartTime}
+                      onChange={handleEvvStartTimeChange}
+
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="EVV End Time"
+                      value={evvEndTime}
+                      onChange={handleEvvEndTimeChange}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </div>
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-in-location-address-line-1"
+                  label="Clock In Service Location Address Line 1"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleClockInLocationAddressLine1Change}
+                  value={clockInLocationAddressLine1}
+                />
+                <TextField
+                  className="field"
+                  id="clock-in-location-address-line-2"
+                  label="Clock In Service Location Address Line 2"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleClockInLocationAddressLine2Change}
+                  value={clockInLocationAddressLine2}
+                />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-in-location-city"
+                  label="Clock In Location City"
+                  variant="outlined"
+                  style={{ width: '200px' }}
+                  onChange={handleClockInLocationCityChange}
+                  value={clockInLocationCity}
+                />
+                <TextField
+                  className="field"
+                  id="clock-in-location-state"
+                  label="Clock In Location State"
+                  variant="outlined"
+                  style={{ width: '200px' }}
+                  onChange={handleClockInLocationStateChange}
+                  value={clockInLocationState}
+                />
+                <TextField
+                  className="field"
+                  id="clock-in-zip-code"
+                  label="Clock In Zip Code"
+                  variant="outlined"
+                  style={{ width: '200px' }}
+                  onChange={handleClockInZipCodeChange}
+                  value={clockInZipCode}
+                />
+              </div>
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+
+                <TextField
+                  className="field"
+                  id="Authorization Number"
+                  label="Clock In Location Type"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleClockInLocationTypeChange}
+                  value={clockInLocationType}
+                />
+
+                <TextField
+                  className="field"
+                  id="Authorization Number"
+                  label="Clock Out Location City"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleClockOutLocationCityChange}
+                  value={clockOutLocationCity}
+                />
+              </div>
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-out-location-address-line-1"
+                  label="Clock Out Location Address Line 1"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockOutAddressLine1}
+                  onChange={handleClockOutAddressLine1Change}
+                />
+                <TextField
+                  className="field"
+                  id="clock-out-location-address-line-2"
+                  label="Clock Out Location Address Line 2"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockOutAddressLine2}
+                  onChange={handleClockOutAddressLine2Change}
+                />
+              </div>
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-out-location-state"
+                  label="Clock Out Location State"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockOutLocationState}
+                  onChange={handleClockOutLocationStateChange}
+                />
+                <TextField
+                  className="field"
+                  id="clock-out-location-zip-code"
+                  label="Clock Out Location Zip Code"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockOutLocationZipCode}
+                  onChange={handleClockOutLocationZipCodeChange}
+                />
+              </div>
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-out-location-type"
+                  label="Clock Out Location Type"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockOutLocationType}
+                  onChange={handleClockOutLocationTypeChange}
+                />
+                <TextField
+                  className="field"
+                  id="clock-out-location-type"
+                  label="Clock Out Location Type"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockOutLocationType}
+                  onChange={handleClockOutLocationTypeChange}
+                />
+              </div>
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                {/* <TextField
               className="field"
               id="Duties"
               label="Duties"
@@ -2004,917 +3627,921 @@ function Visit() {
               value={duties}
             /> */}
 
-            <FormControl style={{ width: '30%' }}>
-              <InputLabel>Duties</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectedDuty}
-                label="Duties"
-                onChange={(evt) => { setSelectedDuty(evt.target.value) }}
-              >
-                {dutiesList.map((l, i) => (
-                  <MenuItem value={l.task_name}>{l.task_name}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                <FormControl style={{ width: '30%' }}>
+                  <InputLabel>Duties</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectedDuty}
+                    label="Duties"
+                    onChange={(evt) => { setSelectedDuty(evt.target.value) }}
+                  >
+                    {dutiesList.map((l, i) => (
+                      <MenuItem value={l.task_name}>{l.task_name}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
 
-            <TextField
-              className="field"
-              id="Authorization Number"
-              label="Clock In Phone Number"
-              variant="outlined"
-              style={{ width: "400px" }}
-              onChange={handleClockInPhoneChange}
-              value={clockInPhone}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-in-latitude"
-              label="Clock In Latitude"
-              variant="outlined"
-              style={{ width: "400px" }}
-              onChange={handleClockInLatitudeChange}
-              value={clockInLatitude}
-            />
-
-            <TextField
-              className="field"
-              id="clock-in-longitude"
-              label="Clock In Longitude"
-              variant="outlined"
-              style={{ width: "400px" }}
-              onChange={handleClockInLongitudeChange}
-              value={clockInLongitude}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-out-latitude"
-              label="Clock Out Latitude"
-              variant="outlined"
-              style={{ width: "400px" }}
-              onChange={handleClockOutLatitudeChange}
-              value={clockOutLatitude}
-            />
-
-            <TextField
-              className="field"
-              id="clock-out-longitude"
-              label="Clock Out Longitude"
-              variant="outlined"
-              style={{ width: "400px" }}
-              onChange={handleClockOutLongitudeChange}
-              value={clockOutLongitude}
-            />
-          </div>
-
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-in-evv-other-info"
-              label="Clock In EVV Other Info"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockInEvvOtherInfo}
-              onChange={handleClockInEvvOtherInfoChange}
-            />
-
-            <TextField
-              className="field"
-              id="clock-out-phone"
-              label="Clock Out Phone Number"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockOutPhone}
-              onChange={handleClockOutPhoneChange}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="clock-out-evv-other-info"
-              label="Clock Out EVV Other Info"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={clockOutEvvOtherInfo}
-              onChange={handleClockOutEvvOtherInfoChange}
-            />
-
-            <TextField
-              className="field"
-              id="invoice-number"
-              label="Invoice Number"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={invoiceNumber}
-              onChange={handleInvoiceNumberChange}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="visit-edit-reason-code"
-              label="Visit Edit Reason Code"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={visitEditReasonCode}
-              onChange={handleVisitEditReasonCodeChange}
-            />
-
-            <TextField
-              className="field"
-              id="visit-edit-action-takem"
-              label="Visit Edit Action Taken"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={visitEditActionTaken}
-              onChange={handleVisitEditActionTakenChange}
-            />
-          </div>
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="diagnosis_code"
-              label="Diagnosis Code"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={diagnosisCode}
-              onChange={(event) => setDiagnososCode(event.target.value)}
-            />
-
-            <TextField
-              className="field"
-              id="visit-edit-made-by"
-              label="Visit Edit Made By"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={visitEditMadeBy}
-              onChange={handleVisitEditMadeByChange}
-            />
-          </div>
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="notes"
-              label="Notes"
-              variant="outlined"
-              style={{ width: "500px" }}
-              value={notes}
-              onChange={handleNotesChange}
-            />
-          </div>
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="in-delition"
-              label="In Deletion"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={inDeletion}
-              onChange={handleInDeletionChange}
-            />
-
-            <TextField
-              className="field"
-              id="invoice-line-item-id"
-              label="Visit Line Item ID"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={invoiceLineItemId}
-              onChange={handleInvoiceLineItemIdChange}
-            />
-          </div>
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="total-billed-amount"
-              label="Total Billed Amount"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={totalBilledAmount}
-              onChange={handleTotalBilledAmountChange}
-            />
-
-            <TextField
-              className="field"
-              id="units-billed"
-              label="Units Billed"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={unitsBilled}
-              onChange={handleUnitsBilledChange}
-            />
-          </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="billed-rate"
-              label="Billed Rate"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleBilledRateChange}
-              value={billedRate}
-            />
-            <TextField
-              className="field"
-              id="submission-type"
-              label="Submission Type"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleSubmissionTypeChange}
-              value={submissionType}
-            />
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="trn-number"
-              label="TRN Number"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleTrnNumberChange}
-              value={trnNumber}
-            />
-            <TextField
-              className="field"
-              id="enable-secondary-billing"
-              label="Enable Secondary Billing"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleEnableSecondaryBillingChange}
-              value={enableSecondaryBilling}
-            />
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="other-subscriber-id"
-              label="Other Subscriber ID"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleOtherSubscriberIdChange}
-              value={otherSubscriberId}
-            />
-            <TextField
-              className="field"
-              id="primary-payer-id"
-              label="Primary Payer ID"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handlePrimaryPayerIdChange}
-              value={primaryPayerId}
-            />
-          </div>
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="primary-payer-name"
-              label="Primary Payer Name"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={primaryPayerName}
-              onChange={handlePrimaryPayerNameChange}
-            />
-
-            <TextField
-              className="field"
-              id="relationship-to-insured"
-              label="Relationship To Insured"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={relationshipToInsured}
-              onChange={handleRelationshipToInsuredChange}
-            />
-          </div>
-
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="primary-payer-policy-or-group-number"
-              label="Primary Payer Policy or Group Number"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={primaryPayerPolicy}
-              onChange={handlePrimaryPayerPolicyChange}
-            />
-          </div>
-
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="primary-payer-policy-or-group-number"
-              label="Visit ID"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={visitID}
-              onChange={(event) => setVisitID(event.target.value)}
-            />
-
-            <TextField
-              className="field"
-              id="primary-payer-policy-or-group-number"
-              label="Schedule ID"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={scheduleID}
-              onChange={(event) => setScheduleID(event.target.value)}
-            />
-          </div>
-
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="primary-payer-program-name"
-              label="Primary Payer Program Name"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={primaryPayerProgram}
-              onChange={handlePrimaryPayerProgramChange}
-            />
-
-            <TextField
-              className="field"
-              id="notes"
-              label="Procedure Code"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={procedureCode}
-              onChange={(event) => setProcedureCode(event.target.value)}
-            />
-          </div>
-
-          {/* ======================================================== */}
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="plan-type"
-              label="Plan Type"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={planType}
-              onChange={handlePlanTypeChange}
-            />
-
-            <TextField
-              className="field"
-              id="total-paid-amount"
-              label="Total Paid Amount"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={totalPaidAmount}
-              onChange={handleTotalPaidAmountChange}
-            />
-          </div>
-
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="total-paid-units"
-              label="Total Paid Units"
-              variant="outlined"
-              style={{ width: "250px" }}
-              value={totalPaidUnits}
-              onChange={handleTotalPaidUnitsChange}
-            />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["TimePicker", "TimePicker"]}>
-                <TimePicker
-                  label="Paid Date"
-                  value={paidDate}
-                  onChange={handlePaidDateChange}
-                  defaultValue={dayjs("2022-04-17T15:30")}
+                <TextField
+                  className="field"
+                  id="Authorization Number"
+                  label="Clock In Phone Number"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  onChange={handleClockInPhoneChange}
+                  value={clockInPhone}
                 />
-              </DemoContainer>
-            </LocalizationProvider>
-          </div>
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="deductible"
-              label="Deductible"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={deductible}
-              onChange={handleDeductibleChange}
-            />
-            <TextField
-              className="field"
-              id="coinsurance"
-              label="Coinsurance"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={coinsurance}
-              onChange={handleCoinsuranceChange}
-            />
-          </div>
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="copay"
-              label="Copay"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={copay}
-              onChange={handleCopayChange}
-            />
-            <TextField
-              className="field"
-              id="contracted-adjustments"
-              label="Contracted-adjustments"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={contractedAdjustments}
-              onChange={handleContractedAdjustmentsChange}
-            />
-          </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
-            <TextField
-              className="field"
-              id="not-medically-necessary"
-              label="Not Medically Necassary"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleNotMedicallyNecessaryChange}
-              value={notMedicallyNecessary}
-            />
-
-            <TextField
-              className="field"
-              id="non-covered-charges"
-              label="Non Covered Charges"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleNonCoveredChargesChange}
-              value={nonCoveredCharges}
-            />
-
-
-          </div>
-          {/* ======================================================== */}
-
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
-            <TextField
-              className="field"
-              id="max-benefit-exhausted"
-              label="Max Benefit Exhausted"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleMaxBenefitExhaustedChange}
-              value={maxBenefitExhausted}
-            />
-
-            <TextField
-              className="field"
-              id="missed-visit"
-              label="Missed Visit"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleMissedVisitChange}
-              value={missedVisit}
-            />
-
-
-          </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-
-
-            <TextField
-              className="field"
-              id="missed-visit-action-taken-code"
-              label="Missed Visit Action Taken Code"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleMissedVisitActionTakenCodeChange}
-              value={missedVisitActionTakenCode}
-            />
-
-            <TextField
-              className="field"
-              id="missed-visit-reason-code"
-              label="Missed Visit Reason Code"
-              variant="outlined"
-              style={{ width: '400px' }}
-              onChange={handleMissedVisitReasonCodeChange}
-              value={missedVisitReasonCode}
-            />
-
-
-          </div>
-          {/* ======================================================== */}
-
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-            <TextField
-              className="field"
-              id="missed-visit-notes"
-              label="Missed Visit Notes"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={missedVisitNotes}
-              onChange={handleMissedVisitNotesChange}
-            />
-
-          </div>
-
-          {/* ======================================================== */}
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-            <TextField
-              className="field"
-              id="travel-time-request-hours"
-              label="Travel Time Request Hours"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={travelTimeRequestHours}
-              onChange={handleTravelTimeRequestHoursChange}
-            />
-
-            <TextField
-              className="field"
-              id="travel-time-comments"
-              label="Travel Time Comments"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={travelTimeComments}
-              onChange={handleTravelTimeCommentsChange}
-            />
-
-          </div>
-
-          {/* ======================================================== */}
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-            <TextField
-              className="field"
-              id="cancel-travel-time-request"
-              label="Cancel Travel Time Request"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={cancelTravelTimeRequest}
-              onChange={handleCancelTravelTimeRequestChange}
-            />
-
-            <TextField
-              className="field"
-              id="timesheet-required"
-              label="Timesheet Required"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={timesheetRequired}
-              onChange={handleTimesheetRequiredChange}
-            />
-
-
-          </div>
-          {/* ======================================================== */}
-
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-
-            <TextField
-              className="field"
-              id="timesheet-approved"
-              label="Timesheet Approved"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={timesheetApproved}
-              onChange={handleTimesheetApprovedChange}
-            />
-
-
-
-          </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="unit-field-1"
-              label="Unit Field 1"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={unitField1}
-              onChange={handleUnitField1Change}
-            />
-
-            <TextField
-              className="field"
-              id="unit-field-2"
-              label="Unit Field 2"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={unitField2}
-              onChange={handleUnitField2Change}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="unit-field-3"
-              label="Unit Field 3"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={unitField3}
-              onChange={handleUnitField3Change}
-            />
-
-            <TextField
-              className="field"
-              id="unit-field-4"
-              label="Unit Field 4"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={unitField4}
-              onChange={handleUnitField4Change}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="unit-field-5"
-              label="Unit Field 5"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={unitField5}
-              onChange={handleUnitField5Change}
-            />
-
-            <TextField
-              className="field"
-              id="unit-field-6"
-              label="Unit Field 6"
-              variant="outlined"
-              style={{ width: "400px" }}
-              value={unitField6}
-              onChange={handleUnitField6Change}
-            />
-          </div>
-          {/* ======================================================== */}
-
-
-          {/* ======================================================== */}
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="unit-field-7"
-              label="Unit Field 7"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={unitField7Value}
-              onChange={handleUnitField7Change}
-            />
-
-            <TextField
-              className="field"
-              id="unit-field-8"
-              label="Unit Field 8"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={unitField8Value}
-              onChange={handleUnitField8Change}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="unit-field-8"
-              label="Unit Field 8"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={unitField8Value}
-              onChange={handleUnitField8Change}
-            />
-
-            <TextField
-              className="field"
-              id="unit-field-9"
-              label="Unit Field 9"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={unitField9Value}
-              onChange={handleUnitField9Change}
-            />
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <TextField
-              className="field"
-              id="unit-field-10"
-              label="Unit Field 10"
-              variant="outlined"
-              style={{ width: '400px' }}
-              value={unitField10Value}
-              onChange={handleUnitField10Change}
-            />
-          </div>
-          {/* ======================================================== */}
-
-
-
-
-
-          <div >
-
-            <Button className="delButton"> Delete </Button>
-            <Button className="addButton"> Add </Button>
-            <Button className="PreviewAuthButton"> Preview Authorization </Button>
-
-          </div>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-            <Button className="createVisitButton"
-              onClick={() => {
-                if (selectedMemberAllData != null && selectedCareGiverAllData != null) {
-                  console.log(selectedMemberAllData)
-                  console.log(selectedCareGiverAllData)
-                  addVisit(
-                    selectedMemberAllData.FirstName,
-                    selectedMemberAllData.LastName,
-                    selectedMemberAllData.MemberID,
-                    selectedCareGiverAllData.AideCode,
-                    selectedCareGiverAllData.FirstName,
-                    selectedCareGiverAllData.LastName,
-                    selectedCareGiverAllData.Gender,
-                    selectedCareGiverAllData.DateofBirth,
-                    selectedCareGiverAllData.SSN,
-
-                    scheduleID,
-                    visitID,
-                    procedureCode,
-                    diagnosisCode,
-                    scheduleStartTime,
-                    scheduleEndTime,
-                    visitStartTime,
-                    visitEndTime,
-                    evvStartTime,
-                    evvEndTime,
-
-                    clockInLocationAddressLine1,
-                    clockInLocationAddressLine2,
-                    clockInLocationCity,
-                    clockInLocationState,
-                    clockInZipCode,
-                    clockInLocationType,
-
-                    clockOutAddressLine1,
-                    clockOutAddressLine2,
-                    clockOutLocationCity,
-                    clockOutLocationState,
-                    clockOutLocationZipCode,
-                    clockOutLocationType,
-
-                    duties,
-                    clockInPhone,
-                    clockInLatitude,
-                    clockInLongitude,
-                    clockInEvvOtherInfo,
-                    clockOutPhone,
-                    clockOutLatitude,
-                    clockOutLongitude,
-                    clockOutEvvOtherInfo,
-
-                    invoiceNumber,
-                    visitEditReasonCode,
-                    visitEditActionTaken,
-                    visitEditMadeBy,
-                    notes,
-                    inDeletion,
-
-                    invoiceLineItemId,
-                    totalBilledAmount,
-                    unitsBilled,
-                    billedRate,
-                    submissionType,
-                    trnNumber,
-                    enableSecondaryBilling,
-                    otherSubscriberId,
-                    primaryPayerId,
-                    primaryPayerName,
-                    relationshipToInsured,
-
-                    primaryPayerPolicy,
-                    primaryPayerProgram,
-                    planType,
-                    totalPaidAmount,
-                    totalPaidUnits,
-                    paidDate,
-                    deductible,
-                    coinsurance,
-                    copay,
-                    contractedAdjustments,
-                    notMedicallyNecessary,
-                    nonCoveredCharges,
-                    maxBenefitExhausted,
-                    missedVisit,
-                    missedVisitReasonCode,
-                    missedVisitActionTakenCode,
-                    missedVisitNotes,
-                    travelTimeRequestHours,
-
-                    travelTimeComments,
-                    cancelTravelTimeRequest,
-                    timesheetRequired,
-                    timesheetApproved,
-
-                    unitField1,
-                    unitField2,
-                    unitField3,
-                    unitField4,
-                    unitField5,
-                    unitField6,
-                    unitField7Value,
-                    unitField8Value,
-                    unitField9Value,
-                    unitField10Value,
-                  ).then(res => {
-                    if (res.data.result == "success") {
-                      showToastMessage();
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-in-latitude"
+                  label="Clock In Latitude"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  onChange={handleClockInLatitudeChange}
+                  value={clockInLatitude}
+                />
+
+                <TextField
+                  className="field"
+                  id="clock-in-longitude"
+                  label="Clock In Longitude"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  onChange={handleClockInLongitudeChange}
+                  value={clockInLongitude}
+                />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-out-latitude"
+                  label="Clock Out Latitude"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  onChange={handleClockOutLatitudeChange}
+                  value={clockOutLatitude}
+                />
+
+                <TextField
+                  className="field"
+                  id="clock-out-longitude"
+                  label="Clock Out Longitude"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  onChange={handleClockOutLongitudeChange}
+                  value={clockOutLongitude}
+                />
+              </div>
+
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-in-evv-other-info"
+                  label="Clock In EVV Other Info"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockInEvvOtherInfo}
+                  onChange={handleClockInEvvOtherInfoChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="clock-out-phone"
+                  label="Clock Out Phone Number"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockOutPhone}
+                  onChange={handleClockOutPhoneChange}
+                />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="clock-out-evv-other-info"
+                  label="Clock Out EVV Other Info"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={clockOutEvvOtherInfo}
+                  onChange={handleClockOutEvvOtherInfoChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="invoice-number"
+                  label="Invoice Number"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={invoiceNumber}
+                  onChange={handleInvoiceNumberChange}
+                />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="visit-edit-reason-code"
+                  label="Visit Edit Reason Code"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={visitEditReasonCode}
+                  onChange={handleVisitEditReasonCodeChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="visit-edit-action-takem"
+                  label="Visit Edit Action Taken"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={visitEditActionTaken}
+                  onChange={handleVisitEditActionTakenChange}
+                />
+              </div>
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="diagnosis_code"
+                  label="Diagnosis Code"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={diagnosisCode}
+                  onChange={(event) => setDiagnososCode(event.target.value)}
+                />
+
+                <TextField
+                  className="field"
+                  id="visit-edit-made-by"
+                  label="Visit Edit Made By"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={visitEditMadeBy}
+                  onChange={handleVisitEditMadeByChange}
+                />
+              </div>
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="notes"
+                  label="Notes"
+                  variant="outlined"
+                  style={{ width: "500px" }}
+                  value={notes}
+                  onChange={handleNotesChange}
+                />
+              </div>
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="in-delition"
+                  label="In Deletion"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={inDeletion}
+                  onChange={handleInDeletionChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="invoice-line-item-id"
+                  label="Visit Line Item ID"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={invoiceLineItemId}
+                  onChange={handleInvoiceLineItemIdChange}
+                />
+              </div>
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="total-billed-amount"
+                  label="Total Billed Amount"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={totalBilledAmount}
+                  onChange={handleTotalBilledAmountChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="units-billed"
+                  label="Units Billed"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={unitsBilled}
+                  onChange={handleUnitsBilledChange}
+                />
+              </div>
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="billed-rate"
+                  label="Billed Rate"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleBilledRateChange}
+                  value={billedRate}
+                />
+                <TextField
+                  className="field"
+                  id="submission-type"
+                  label="Submission Type"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleSubmissionTypeChange}
+                  value={submissionType}
+                />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="trn-number"
+                  label="TRN Number"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleTrnNumberChange}
+                  value={trnNumber}
+                />
+                <TextField
+                  className="field"
+                  id="enable-secondary-billing"
+                  label="Enable Secondary Billing"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleEnableSecondaryBillingChange}
+                  value={enableSecondaryBilling}
+                />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="other-subscriber-id"
+                  label="Other Subscriber ID"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleOtherSubscriberIdChange}
+                  value={otherSubscriberId}
+                />
+                <TextField
+                  className="field"
+                  id="primary-payer-id"
+                  label="Primary Payer ID"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handlePrimaryPayerIdChange}
+                  value={primaryPayerId}
+                />
+              </div>
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="primary-payer-name"
+                  label="Primary Payer Name"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={primaryPayerName}
+                  onChange={handlePrimaryPayerNameChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="relationship-to-insured"
+                  label="Relationship To Insured"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={relationshipToInsured}
+                  onChange={handleRelationshipToInsuredChange}
+                />
+              </div>
+
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="primary-payer-policy-or-group-number"
+                  label="Primary Payer Policy or Group Number"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={primaryPayerPolicy}
+                  onChange={handlePrimaryPayerPolicyChange}
+                />
+              </div>
+
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="primary-payer-policy-or-group-number"
+                  label="Visit ID"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={visitID}
+                  onChange={(event) => setVisitID(event.target.value)}
+                />
+
+                <TextField
+                  className="field"
+                  id="primary-payer-policy-or-group-number"
+                  label="Schedule ID"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={scheduleID}
+                  onChange={(event) => setScheduleID(event.target.value)}
+                />
+              </div>
+
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="primary-payer-program-name"
+                  label="Primary Payer Program Name"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={primaryPayerProgram}
+                  onChange={handlePrimaryPayerProgramChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="notes"
+                  label="Procedure Code"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={procedureCode}
+                  onChange={(event) => setProcedureCode(event.target.value)}
+                />
+              </div>
+
+              {/* ======================================================== */}
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="plan-type"
+                  label="Plan Type"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={planType}
+                  onChange={handlePlanTypeChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="total-paid-amount"
+                  label="Total Paid Amount"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={totalPaidAmount}
+                  onChange={handleTotalPaidAmountChange}
+                />
+              </div>
+
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="total-paid-units"
+                  label="Total Paid Units"
+                  variant="outlined"
+                  style={{ width: "250px" }}
+                  value={totalPaidUnits}
+                  onChange={handleTotalPaidUnitsChange}
+                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={["TimePicker", "TimePicker"]}>
+                    <TimePicker
+                      label="Paid Date"
+                      value={paidDate}
+                      onChange={handlePaidDateChange}
+                      defaultValue={dayjs("2022-04-17T15:30")}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </div>
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="deductible"
+                  label="Deductible"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={deductible}
+                  onChange={handleDeductibleChange}
+                />
+                <TextField
+                  className="field"
+                  id="coinsurance"
+                  label="Coinsurance"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={coinsurance}
+                  onChange={handleCoinsuranceChange}
+                />
+              </div>
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="copay"
+                  label="Copay"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={copay}
+                  onChange={handleCopayChange}
+                />
+                <TextField
+                  className="field"
+                  id="contracted-adjustments"
+                  label="Contracted-adjustments"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={contractedAdjustments}
+                  onChange={handleContractedAdjustmentsChange}
+                />
+              </div>
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+                <TextField
+                  className="field"
+                  id="not-medically-necessary"
+                  label="Not Medically Necassary"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleNotMedicallyNecessaryChange}
+                  value={notMedicallyNecessary}
+                />
+
+                <TextField
+                  className="field"
+                  id="non-covered-charges"
+                  label="Non Covered Charges"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleNonCoveredChargesChange}
+                  value={nonCoveredCharges}
+                />
+
+
+              </div>
+              {/* ======================================================== */}
+
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+                <TextField
+                  className="field"
+                  id="max-benefit-exhausted"
+                  label="Max Benefit Exhausted"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleMaxBenefitExhaustedChange}
+                  value={maxBenefitExhausted}
+                />
+
+                <TextField
+                  className="field"
+                  id="missed-visit"
+                  label="Missed Visit"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleMissedVisitChange}
+                  value={missedVisit}
+                />
+
+
+              </div>
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+
+                <TextField
+                  className="field"
+                  id="missed-visit-action-taken-code"
+                  label="Missed Visit Action Taken Code"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleMissedVisitActionTakenCodeChange}
+                  value={missedVisitActionTakenCode}
+                />
+
+                <TextField
+                  className="field"
+                  id="missed-visit-reason-code"
+                  label="Missed Visit Reason Code"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  onChange={handleMissedVisitReasonCodeChange}
+                  value={missedVisitReasonCode}
+                />
+
+
+              </div>
+              {/* ======================================================== */}
+
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+                <TextField
+                  className="field"
+                  id="missed-visit-notes"
+                  label="Missed Visit Notes"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={missedVisitNotes}
+                  onChange={handleMissedVisitNotesChange}
+                />
+
+              </div>
+
+              {/* ======================================================== */}
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+                <TextField
+                  className="field"
+                  id="travel-time-request-hours"
+                  label="Travel Time Request Hours"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={travelTimeRequestHours}
+                  onChange={handleTravelTimeRequestHoursChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="travel-time-comments"
+                  label="Travel Time Comments"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={travelTimeComments}
+                  onChange={handleTravelTimeCommentsChange}
+                />
+
+              </div>
+
+              {/* ======================================================== */}
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+                <TextField
+                  className="field"
+                  id="cancel-travel-time-request"
+                  label="Cancel Travel Time Request"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={cancelTravelTimeRequest}
+                  onChange={handleCancelTravelTimeRequestChange}
+                />
+
+                <TextField
+                  className="field"
+                  id="timesheet-required"
+                  label="Timesheet Required"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={timesheetRequired}
+                  onChange={handleTimesheetRequiredChange}
+                />
+
+
+              </div>
+              {/* ======================================================== */}
+
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+                <TextField
+                  className="field"
+                  id="timesheet-approved"
+                  label="Timesheet Approved"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={timesheetApproved}
+                  onChange={handleTimesheetApprovedChange}
+                />
+
+
+
+              </div>
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="unit-field-1"
+                  label="Unit Field 1"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={unitField1}
+                  onChange={handleUnitField1Change}
+                />
+
+                <TextField
+                  className="field"
+                  id="unit-field-2"
+                  label="Unit Field 2"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={unitField2}
+                  onChange={handleUnitField2Change}
+                />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="unit-field-3"
+                  label="Unit Field 3"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={unitField3}
+                  onChange={handleUnitField3Change}
+                />
+
+                <TextField
+                  className="field"
+                  id="unit-field-4"
+                  label="Unit Field 4"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={unitField4}
+                  onChange={handleUnitField4Change}
+                />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="unit-field-5"
+                  label="Unit Field 5"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={unitField5}
+                  onChange={handleUnitField5Change}
+                />
+
+                <TextField
+                  className="field"
+                  id="unit-field-6"
+                  label="Unit Field 6"
+                  variant="outlined"
+                  style={{ width: "400px" }}
+                  value={unitField6}
+                  onChange={handleUnitField6Change}
+                />
+              </div>
+              {/* ======================================================== */}
+
+
+              {/* ======================================================== */}
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="unit-field-7"
+                  label="Unit Field 7"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={unitField7Value}
+                  onChange={handleUnitField7Change}
+                />
+
+                <TextField
+                  className="field"
+                  id="unit-field-8"
+                  label="Unit Field 8"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={unitField8Value}
+                  onChange={handleUnitField8Change}
+                />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="unit-field-8"
+                  label="Unit Field 8"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={unitField8Value}
+                  onChange={handleUnitField8Change}
+                />
+
+                <TextField
+                  className="field"
+                  id="unit-field-9"
+                  label="Unit Field 9"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={unitField9Value}
+                  onChange={handleUnitField9Change}
+                />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <TextField
+                  className="field"
+                  id="unit-field-10"
+                  label="Unit Field 10"
+                  variant="outlined"
+                  style={{ width: '400px' }}
+                  value={unitField10Value}
+                  onChange={handleUnitField10Change}
+                />
+              </div>
+              {/* ======================================================== */}
+
+
+
+
+
+              <div >
+
+                <Button className="delButton"> Delete </Button>
+                <Button className="addButton"> Add </Button>
+                <Button className="PreviewAuthButton"> Preview Authorization </Button>
+
+              </div>
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+                <Button className="createVisitButton"
+                  onClick={() => {
+                    console.log(selectedMemberAllData)
+                    console.log(selectedCareGiverAllData)
+                    if (selectedMemberAllData != null && selectedCareGiverAllData != null) {
+                      addVisit(
+                        selectedMemberAllData.FirstName,
+                        selectedMemberAllData.LastName,
+                        selectedMemberAllData.MemberID,
+                        selectedCareGiverAllData.AideCode,
+                        selectedCareGiverAllData.FirstName,
+                        selectedCareGiverAllData.LastName,
+                        selectedCareGiverAllData.Gender,
+                        selectedCareGiverAllData.DateofBirth,
+                        selectedCareGiverAllData.SSN,
+
+                        scheduleID,
+                        visitID,
+                        procedureCode,
+                        diagnosisCode,
+                        scheduleStartTime,
+                        scheduleEndTime,
+                        visitStartTime,
+                        visitEndTime,
+                        evvStartTime,
+                        evvEndTime,
+
+                        clockInLocationAddressLine1,
+                        clockInLocationAddressLine2,
+                        clockInLocationCity,
+                        clockInLocationState,
+                        clockInZipCode,
+                        clockInLocationType,
+
+                        clockOutAddressLine1,
+                        clockOutAddressLine2,
+                        clockOutLocationCity,
+                        clockOutLocationState,
+                        clockOutLocationZipCode,
+                        clockOutLocationType,
+
+                        duties,
+                        clockInPhone,
+                        clockInLatitude,
+                        clockInLongitude,
+                        clockInEvvOtherInfo,
+                        clockOutPhone,
+                        clockOutLatitude,
+                        clockOutLongitude,
+                        clockOutEvvOtherInfo,
+
+                        invoiceNumber,
+                        visitEditReasonCode,
+                        visitEditActionTaken,
+                        visitEditMadeBy,
+                        notes,
+                        inDeletion,
+
+                        invoiceLineItemId,
+                        totalBilledAmount,
+                        unitsBilled,
+                        billedRate,
+                        submissionType,
+                        trnNumber,
+                        enableSecondaryBilling,
+                        otherSubscriberId,
+                        primaryPayerId,
+                        primaryPayerName,
+                        relationshipToInsured,
+
+                        primaryPayerPolicy,
+                        primaryPayerProgram,
+                        planType,
+                        totalPaidAmount,
+                        totalPaidUnits,
+                        paidDate,
+                        deductible,
+                        coinsurance,
+                        copay,
+                        contractedAdjustments,
+                        notMedicallyNecessary,
+                        nonCoveredCharges,
+                        maxBenefitExhausted,
+                        missedVisit,
+                        missedVisitReasonCode,
+                        missedVisitActionTakenCode,
+                        missedVisitNotes,
+                        travelTimeRequestHours,
+
+                        travelTimeComments,
+                        cancelTravelTimeRequest,
+                        timesheetRequired,
+                        timesheetApproved,
+
+                        unitField1,
+                        unitField2,
+                        unitField3,
+                        unitField4,
+                        unitField5,
+                        unitField6,
+                        unitField7Value,
+                        unitField8Value,
+                        unitField9Value,
+                        unitField10Value,
+                      ).then(res => {
+
+                        console.log(res);
+                        if (res.data.result == "success") {
+                          showToastMessage();
+                        }
+                      });
                     }
-                  });
-                }
-              }
-              }
+                  }
+                  }
 
-            > Create Visit </Button>
-          </div>
-        </div>
-      </div >
+                > Create Visit </Button>
+              </div>
+            </div>
+          </div >
+        }
+      </>
     );
   };
 
@@ -3039,10 +4666,6 @@ function Visit() {
         <Card className="dataDisplay" style={{ overflow: 'auto' }} >
 
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
-          {isOverlayOpen && <Overlay />}
-          {isOverlayOpen2 && <Overlay2 />}
-          {isOverlayOpen3 && <Overlay3 />}
-          {CareGiverSearch && <OverlayCareGiverSearch />}
           {RenderViews()}
         </Card>
       </div>
@@ -3059,12 +4682,34 @@ const Wrapper = styled.section`
 height: 100%;
 width: 100%;
 
+
+.DataHolderGrid{
+    width: 50%;
+    text-align: center;
+  }
+
+
+  .DateFieldHolder {
+    }
+
+  .DateFieldHolder::-webkit-scrollbar {
+  width: 10px;
+    }
+
+    .DateFieldHolder::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    }
+
+    .DateFieldHolder::-webkit-scrollbar-thumb {
+    background-color: #888;
+    }
+
+
 .showAllButton{
 
 }
 
 .scrollable-form{
-  backgroundColor: black;
 }
 
 .delButton{
@@ -3126,7 +4771,7 @@ width: 100%;
   padding: 0.5%;
   border-radius: 10px;
   margin-top:0;
-  jusfity-content:center;
+  justify-content:center;
 }
 .CardHolder{
     display:flex;
@@ -3225,17 +4870,18 @@ width: 100%;
   z-index: 1000;
   background-color: white;
   overflow-y: auto;
-    padding: 50px;
+  padding: 50px;
 }
 .crossIcon{
-    margin-left:95%;
+    margin-right:95%;
     margin-top:2%;
     color:black;
+    cursor: pointer;
 }
 .searchFieldsDiv {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* create 3 equal columns */
-  grid-gap: 10px; /* add some space between the columns */
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
   margin-top: 2.5%;
   width: 85%;
   margin-left: 10%;
@@ -3483,6 +5129,10 @@ color:black;
   display:none;
 }
 @media only screen and (max-width: 600px) {
+  .DataHolderGrid{
+    width: 100%;
+    text-align: center;
+  }
   .GoBackButtonHolder{
     margin-top:2%;
   }

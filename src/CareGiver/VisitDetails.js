@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -20,125 +20,449 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import {AuthContext} from '../components/context'
+import { AuthContext } from '../components/context'
+import TextField from "@mui/material/TextField";
+import dayjs from 'dayjs';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { editVisit } from "../API/visitAPI";
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 //
-const jsonData = [
+
+const PlanOfCareList = [
   {
     id: 1,
-    name: "Wanda De Martinez",
-    address: "Upper tooting Road, SW14SW",
-    expectedClockOn: "07:11 AM",
-    expectedClockOut: "11:30 AM",
-    date: "03/12/2023",
+    name: "Clothes Washing",
   },
   {
     id: 2,
-    name: "Wanda De Martinez",
-    address: "Upper tooting Road, SW14SW",
-    expectedClockOn: "07:11 AM",
-    expectedClockOut: "11:30 AM",
-    date: "03/12/2023",
+    name: "Bath",
   },
   {
     id: 3,
-    name: "Hector",
-    address: "Upper tooting Road, SW14SW",
-    expectedClockOn: "07:11 AM",
-    expectedClockOut: "11:30 AM",
-    date: "03/12/2023",
+    name: "House Clean",
   },
   {
     id: 4,
-    name: "Adam",
-    address: "Upper tooting Road, SW14SW",
-    expectedClockOn: "07:11 AM",
-    expectedClockOut: "11:30 AM",
-    date: "03/12/2023",
+    name: "House Clean",
+  },
+  {
+    id: 5,
+    name: "House Clean",
+  },
+  {
+    id: 6,
+    name: "House Clean",
+  },
+  {
+    id: 7,
+    name: "House Clean",
+  },
+  {
+    id: 8,
+    name: "House Clean",
+  },
+  {
+    id: 9,
+    name: "House Clean",
+  },
+  {
+    id: 10,
+    name: "House Clean",
+  },
+
+];
+const OtherTaskList = [
+  {
+    id: 1,
+    name: "Bath",
+  },
+  {
+    id: 2,
+    name: "Hair Care",
+  },
+  {
+    id: 3,
+    name: "Park Visit",
+  },
+  {
+    id: 3,
+    name: "Park Visit",
+  },
+  {
+    id: 3,
+    name: "Park Visit",
+  },
+  {
+    id: 3,
+    name: "Park Visit",
   },
 ];
 
-const PlanOfCareList = [
-    {
-      id: 1,
-      name: "Clothes Washing",
-    },
-    {
-      id: 2,
-      name: "Bath",
-    },
-    {
-      id: 3,
-      name: "House Clean",
-    },
-    {
-      id: 4,
-      name: "House Clean",
-    },
-    {
-      id: 5,
-      name: "House Clean",
-    },
-    {
-      id: 6,
-      name: "House Clean",
-    },
-    {
-      id: 7,
-      name: "House Clean",
-    },
-    {
-      id: 8,
-      name: "House Clean",
-    },
-    {
-      id: 9,
-      name: "House Clean",
-    },
-    {
-      id: 10,
-      name: "House Clean",
-    },
-
-  ];
-  const OtherTaskList = [
-    {
-      id: 1,
-      name: "Bath",
-    },
-    {
-      id: 2,
-      name: "Hair Care",
-    },
-    {
-      id: 3,
-      name: "Park Visit",
-    },
-    {
-      id: 3,
-      name: "Park Visit",
-    },
-    {
-      id: 3,
-      name: "Park Visit",
-    },
-    {
-      id: 3,
-      name: "Park Visit",
-    },
-  ];
-
 const VisitDetails = () => {
+
+
+  const containerStyle = {
+    width: '400px',
+    height: '400px'
+  };
+
+  const center = {
+    lat: -3.745,
+    lng: -38.523
+  };
+
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "AIzaSyAJljHi51Eh_BGroByR6lSrP6vwfgrsExs"
+  })
+
+  const [map, setMap] = React.useState(null)
+
+  const showToastMessage = () => {
+    toast.success('Visit Updated Successfully!', {
+      position: toast.POSITION.TOP_CENTER
+    });
+  };
+
+
+  const onLoad = React.useCallback(function callback(map) {
+    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
+
+    setMap(map)
+  }, [])
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null)
+  }, [])
+
+
+  // States for Visit
+
+  const [memberId, setMemberId] = useState('');
+
+
+  const [careGiverCodeG, setCareGiverCodeG] = useState('');
+  const [careGiverFirstNameG, setCareGiverFirstNameG] = useState('');
+  const [careGiverLastNameG, setCareGiverLastNameG] = useState('');
+  const [careGiverGenderG, setCareGiverGenderG] = useState('');
+  const [careGiverDOBG, setCareGiverDOBG] = useState('');
+  const [careGiverSSNG, setCareGiverSSNG] = useState('');
+
+  const [memberFirstNameG, setMemberFirstNameG] = useState('');
+  const [memberLastNameG, setMemberLastNameG] = useState('');
+
+  const [duration, setDuration] = useState('');
+  const [selectedDateEditVisit, setSelectedDateEditVisit] = useState(null);
+  const [visitEndTime, setVisitEndTime] = useState(dayjs('2022-04-17T15:30'));
+  const [visitStartTime, setVisitStartTime] = useState(dayjs('2022-04-17T15:30'));
+  const [scheduleStartTime, setScheduleStartTime] = useState(dayjs('2022-04-17T15:30'));
+  const [dutiesListEditVisit, setDutiesListEditVisit] = useState([]);
+  const [selectedDutyEditVisit, setSelectedDutyEditVisit] = useState('');
+  const [scheduleID, setScheduleID] = useState('13252546');
+  const [visitID, setVisitID] = useState('');
+  const [scheduleEndTime, setScheduleEndTime] = useState(dayjs('2022-04-17T15:30'));
+  const [evvStartTime, setEvvStartTime] = useState(dayjs('2022-04-17T15:30'));
+  const [evvEndTime, setEvvEndTime] = useState(dayjs('2022-04-17T15:30'));
+
+
+  const [clockInLocationAddressLine1, setClockInLocationAddressLine1] = useState("123 Street");
+  const [clockInLocationAddressLine2, setClockInLocationAddressLine2] = useState("");
+  const [clockInLocationCity, setClockInLocationCity] = useState("BOILING SPRINGS");
+  const [clockInLocationState, setClockInLocationState] = useState("NC");
+  const [clockInZipCode, setClockInZipCode] = useState("28017");
+  const [clockInLocationType, setClockInLocationType] = useState("Home");
+  const [clockOutLocationCity, setClockOutLocationCity] = useState("BOILING SPRINGS");
+  const [diagnosisCode, setDiagnososCode] = useState("F71 | G40.901");
+  const [procedureCode, setProcedureCode] = useState("T2013:TF");
+
+
+
+  //CC2
+  const [clockOutAddressLine1, setClockOutAddressLine1] = useState('123 Street');
+  const [clockOutAddressLine2, setClockOutAddressLine2] = useState('');
+  const [clockOutLocationState, setClockOutLocationState] = useState('NC');
+  const [clockOutLocationZipCode, setClockOutLocationZipCode] = useState('28017');
+  const [clockOutLocationType, setClockOutLocationType] = useState('Home');
+
+
+  //CC3
+  const [duties, setDuties] = useState("");
+  const [clockInPhone, setClockInPhone] = useState("7324878977");
+  const [clockInLatitude, setClockInLatitude] = useState("40.296139");
+  const [clockInLongitude, setClockInLongitude] = useState("-74.773369");
+  const [clockOutLatitude, setClockOutLatitude] = useState("40.296139");
+  const [clockOutLongitude, setClockOutLongitude] = useState("-74.773369");
+
+
+  //CC4
+
+  const [clockInEvvOtherInfo, setClockInEvvOtherInfo] = useState("non");
+  const [clockOutPhone, setClockOutPhone] = useState("7324878977");
+  const [clockOutEvvOtherInfo, setClockOutEvvOtherInfo] = useState("");
+  const [invoiceNumber, setInvoiceNumber] = useState("1977171");
+  const [visitEditReasonCode, setVisitEditReasonCode] = useState("118");
+  const [visitEditActionTaken, setVisitEditActionTaken] = useState("25");
+
+
+  //CC5
+
+  const [visitEditMadeBy, setVisitEditMadeBy] = useState("");
+  const [notes, setNotes] = useState("");
+  const [inDeletion, setInDeletion] = useState("N");
+  const [invoiceLineItemId, setInvoiceLineItemId] = useState("");
+  const [totalBilledAmount, setTotalBilledAmount] = useState("60.84");
+  const [unitsBilled, setUnitsBilled] = useState("12");
+
+
+  //CC6
+
+
+  const [billedRate, setBilledRate] = useState('5.07');
+  const [submissionType, setSubmissionType] = useState('');
+  const [trnNumber, setTrnNumber] = useState('');
+  const [enableSecondaryBilling, setEnableSecondaryBilling] = useState('');
+  const [otherSubscriberId, setOtherSubscriberId] = useState('');
+  const [primaryPayerId, setPrimaryPayerId] = useState('');
+
+
+  //CC7
+  const [primaryPayerName, setPrimaryPayerName] = useState('');
+  const [relationshipToInsured, setRelationshipToInsured] = useState('');
+  const [primaryPayerPolicy, setPrimaryPayerPolicy] = useState('');
+  const [primaryPayerProgram, setPrimaryPayerProgram] = useState('');
+  const [planType, setPlanType] = useState('');
+  const [totalPaidAmount, setTotalPaidAmount] = useState('');
+
+
+  //CC8
+  const [totalPaidUnits, setTotalPaidUnits] = useState("");
+  const [paidDate, setPaidDate] = useState(dayjs('2022-04-17T15:30'));
+  const [deductible, setDeductible] = useState("");
+  const [coinsurance, setCoinsurance] = useState("");
+  const [copay, setCopay] = useState("");
+  const [contractedAdjustments, setContractedAdjustments] = useState("");
+
+
+  //CC9
+  const [notMedicallyNecessary, setNotMedicallyNecessary] = useState('');
+  const [nonCoveredCharges, setNonCoveredCharges] = useState('');
+  const [maxBenefitExhausted, setMaxBenefitExhausted] = useState('');
+  const [missedVisit, setMissedVisit] = useState('');
+  const [missedVisitActionTakenCode, setMissedVisitActionTakenCode] = useState('');
+  const [missedVisitReasonCode, setMissedVisitReasonCode] = useState('');
+
+
+
+  //CC10
+  // State for 'Missed Visit Notes' TextField
+  const [missedVisitNotes, setMissedVisitNotes] = useState('');
+  const [travelTimeRequestHours, setTravelTimeRequestHours] = useState('');
+  const [travelTimeComments, setTravelTimeComments] = useState('');
+  const [cancelTravelTimeRequest, setCancelTravelTimeRequest] = useState('');
+  const [timesheetRequired, setTimesheetRequired] = useState('');
+  const [timesheetApproved, setTimesheetApproved] = useState('');
+
+
+  //CC10
+
+
+
+  //CC11
+  const [unitField1, setUnitField1] = useState("");
+  const [unitField2, setUnitField2] = useState("");
+  const [unitField3, setUnitField3] = useState("");
+  const [unitField4, setUnitField4] = useState("");
+  const [unitField5, setUnitField5] = useState("");
+  const [unitField6, setUnitField6] = useState("");
+
+
+  const [unitField7Value, setUnitField7Value] = useState('');
+  const [unitField8Value, setUnitField8Value] = useState('');
+  const [unitField9Value, setUnitField9Value] = useState('');
+  const [unitField10Value, setUnitField10Value] = useState('');
+
+
+
+
+
+  // 
+
+
   const { signOut } = React.useContext(AuthContext);
-  
+
+  const cgDataString = localStorage.getItem("CareGivers");
+  var cgData = JSON.parse(cgDataString);
+
+
+  const visitsString = localStorage.getItem("Visits");
+  var visitData = JSON.parse(visitsString);
+
+  const mS = localStorage.getItem("Members");
+  var meData = JSON.parse(mS);
+
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+
+  const [locationClockIn, setLocationClockIn] = useState(null);
+  const [locationClockOut, setLocationClockOut] = useState(null)
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const selectedItem = jsonData.find((item) => item.id === parseInt(id));
+  const selectedItem = visitData.find((item) => item.id === parseInt(id));
+  var myArray = selectedItem;
+
+  //Setting States
+
+  //==================
+
   const [ViewSelected, setViewSelected] = useState(1);
+  const [pocDutiesList, setPocDutiesList] = useState([]);
+  const [currMember, setCurrMember] = useState(null);
+
+
+  useEffect(() => {
+    var memberData = selectedItem.member_data
+    memberData = JSON.parse(memberData);
+    var memPOC = memberData.POC;
+    var arrPOC = [];
+    for (var key in memPOC) {
+      var obj = {
+        id: memPOC[key].task_id,
+        category: memPOC[key].category,
+        duty: memPOC[key].duty
+      }
+      arrPOC.push(obj);
+    }
+    setPocDutiesList(arrPOC);
+
+    var arrMem = [];
+    for (var key in meData) {
+      console.log(meData[key])
+      if (meData[key].MemberID == selectedItem.MemberID) {
+        setCurrMember(meData[key])
+        console.log(meData)
+      }
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        error => console.error(error)
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }, []);
+
+
+  useEffect(() => {
+    setMemberFirstNameG(myArray.MemberFirstName);
+    setMemberLastNameG(myArray.MemberLastName);
+    setCareGiverFirstNameG(myArray.CaregiverFirstName);
+    setCareGiverLastNameG(myArray.CaregiverLastName);
+    setCareGiverGenderG(myArray.CaregiverGender);
+    setCareGiverDOBG(myArray.CaregiverDateofBirth);
+    setCareGiverSSNG(myArray.CaregiverSSN);
+    setCareGiverCodeG(myArray.CaregiverCode);
+
+    setMemberId(myArray.MemberID);
+    setVisitEndTime(myArray.VisitEndTime)
+    setVisitStartTime(myArray.VisitStartTime)
+    setScheduleStartTime(myArray.ScheduleStartTime)
+    setSelectedDutyEditVisit(myArray.Duties)
+    setScheduleID(myArray.ScheduleID)
+    setVisitID(myArray.VisitID);
+    setScheduleEndTime(myArray.ScheduleEndTime);
+    setEvvStartTime(myArray.EVVStartTime);
+    setEvvEndTime(myArray.EVVEndTime);
+    setClockInLocationAddressLine1(myArray['Clock-InServiceLocationAddressLine1'])
+    setClockInLocationAddressLine2(myArray['Clock-InServiceLocationAddressLine2'])
+    setClockInLocationCity(myArray['Clock-InServiceLocationCity'])
+    setClockInLocationState(myArray['Clock-InServiceLocationState'])
+    setClockInZipCode(myArray['Clock-InServiceLocationZipCode'])
+    setClockInLocationType(myArray['Clock-InServiceLocationType'])
+    setClockOutLocationCity(myArray['Clock-OutServiceLocationCity'])
+    setDiagnososCode(myArray.DiagnosisCode)
+    setProcedureCode(myArray.ProcedureCode)
+    setClockOutAddressLine1(myArray['Clock-OutServiceLocationAddressLine1'])
+    setClockOutAddressLine2(myArray['Clock-OutServiceLocationAddressLine2'])
+    setClockOutLocationState(myArray['Clock-OutServiceLocationState'])
+    setClockOutLocationZipCode(myArray['Clock-OutServiceLocationZipCode'])
+    setClockOutLocationType(myArray['Clock-OutServiceLocationType'])
+    setClockInPhone(myArray['Clock-InPhoneNumber'])
+    setClockInLatitude(myArray['Clock-InLatitude'])
+    setClockInLongitude(myArray['Clock-InLongitude'])
+    setClockOutLatitude(myArray['Clock-OutLatitude'])
+    setClockOutLongitude(myArray['Clock-OutLongitude'])
+    setClockInEvvOtherInfo(myArray['Clock-InEVVOtherInfo'])
+    setClockOutPhone(myArray['Clock-OutPhoneNumber'])
+    setClockOutEvvOtherInfo(myArray['Clock-OutEVVOtherInfo'])
+    setInvoiceNumber(myArray.InvoiceNumber)
+    setVisitEditReasonCode(myArray.VisitEditReasonCode)
+    setVisitEditActionTaken(myArray.VisitEditActionTaken)
+    setVisitEditMadeBy(myArray.VisitEditMadeBy)
+    setNotes(myArray.Notes)
+    setInDeletion(myArray.IsDeletion)
+    setInvoiceLineItemId(myArray['InvoiceLine-ItemID'])
+    setTotalBilledAmount(myArray.TotalBilledAmount)
+    setUnitsBilled(myArray.UnitsBilled)
+    setBilledRate(myArray.BilledRate)
+    setSubmissionType(myArray.SubmissionType)
+    setTrnNumber(myArray.TRNNumber)
+    setEnableSecondaryBilling(myArray.EnableSecondaryBilling)
+    setOtherSubscriberId(myArray.OtherSubscriberID)
+    setPrimaryPayerId(myArray.PrimaryPayerID)
+    setPrimaryPayerName(myArray.PrimaryPayerName)
+    setRelationshipToInsured(myArray.RelationshiptoInsured)
+    setPrimaryPayerPolicy(myArray.PrimaryPayerPolicyorGroupnumber)
+    setPrimaryPayerProgram(myArray.PrimaryPayerProgramName)
+    setPlanType(myArray.PlanType)
+    setTotalPaidAmount(myArray.TotalPaidAmount)
+    setTotalPaidUnits(myArray.TotalPaidUnits)
+    setPaidDate(myArray.PaidDate)
+    setDeductible(myArray.Deductible)
+    setCoinsurance(myArray.Coinsurance)
+    setCopay(myArray.Copay)
+    setContractedAdjustments(myArray.ContractedAdjustments)
+    setNotMedicallyNecessary(myArray.NotMedicallyNecessary)
+    setNonCoveredCharges(myArray['myArray.Non-CoveredCharges'])
+    setMaxBenefitExhausted(myArray.MaxBenefitExhausted)
+    setMissedVisit(myArray.MissedVisit)
+    setMissedVisitActionTakenCode(myArray.MissedVisitActionTakenCode)
+    setMissedVisitReasonCode(myArray.MissedVisitReasonCode)
+    setMissedVisitNotes(myArray.MissedVisitNotes)
+    setTravelTimeRequestHours(myArray.TravelTimeRequestHours)
+    setTravelTimeComments(myArray.TravelTimeComments)
+    setCancelTravelTimeRequest(myArray.CancelTravelTimeRequest)
+    setTimesheetRequired(myArray.TimesheetRequired)
+    setTimesheetApproved(myArray.TimesheetApproved)
+    setUnitField1(myArray.UserField1)
+    setUnitField2(myArray.UserField2)
+    setUnitField3(myArray.UserField3)
+    setUnitField4(myArray.UserField4)
+    setUnitField5(myArray.UserField5)
+    setUnitField6(myArray.UserField6)
+    setUnitField7Value(myArray.UserField7)
+    setUnitField8Value(myArray.UserField8)
+    setUnitField9Value(myArray.UserField9)
+    setUnitField10Value(myArray.UserField10)
+
+  }, []);
+
+
+
   const [state, setState] = React.useState({
     left: false,
   });
-  
+
 
   if (!selectedItem) {
     return <div>Item not found</div>;
@@ -155,10 +479,20 @@ const VisitDetails = () => {
       case 3:
         return PatientView();
 
+      case 4:
+        return ClockInView();
+
+      case 5:
+        return ClockOutView();
+
       default:
         break;
     }
   }
+
+
+
+  var prevState = null;
 
   const PatientInfoPressed = () => {
     setViewSelected(3);
@@ -170,78 +504,101 @@ const VisitDetails = () => {
     setViewSelected(1);
   };
 
+  const ClockInPressed = () => {
+    setViewSelected(4);
+  };
+
+  const ClockOutPressed = () => {
+    setViewSelected(5);
+  };
+
   const ClockInOutView = () => {
     return (
-        <div>
-      <div className="ClockCardHolder">
-        <Card className="clockInCard">
-          <div className="DateHolder">
-            <CalendarMonthIcon className="dateIcon" />
-            <p style={{ color: "white", fontWeight: "bold" }}>
-              {selectedItem.date}
-            </p>
-          </div>
-          <Button className="clockBtn">Clock In</Button>
-          <div className="DateHolder">
-            <QueryBuilderIcon className="ClockIcon" />
-            <p style={{ color: "white", fontWeight: "bold" }}>
-              {selectedItem.expectedClockOn}
-            </p>
-          </div>
-        </Card>
+      <div style={{ overflow: 'auto' }}>
+        <div className="ClockCardHolder">
+          <Card className="clockInCard">
 
-        <Card className="clockOutCard">
-          <div className="DateHolder">
-            <CalendarMonthIcon className="dateIcon" />
-            <p style={{ color: "white", fontWeight: "bold" }}>
-              {selectedItem.date}
-            </p>
-          </div>
-          <Button className="clockBtn">Clock Out</Button>
-          <div className="DateHolder">
-            <QueryBuilderIcon className="ClockIcon" />
-            <p style={{ color: "white", fontWeight: "bold" }}>
-              {selectedItem.expectedClockOut}
-            </p>
-          </div>
-        </Card>
-      </div>
-      <div className="ListHolder">
+            <div className="DateHolder">
+              <CalendarMonthIcon className="dateIcon" />
+              <div style={{ color: 'white', padding: '10px' }}>
+                {dayjs(selectedItem.ScheduleStartTime).format('YYYY-MM-DD')}
+              </div>
 
-        <div className="PlanofCareList">
-          <p style ={{color:"white",fontWeight:"bold",fontSize:"20px",textAlign:"center"}}>Plan Of Care</p>
-        <List style={{maxHeight: "75%", overflow: "auto" }}>
-        {PlanOfCareList.map((item) => (
-          <ListItem
-            className="ListItem"
-          >
-            <ListItemText
-              primary={<p style={{ fontSize: "20px",fontWeight:"bold",color:"white"}}> {item.id}- {item.name}</p>}
-              className="ListText"
-            />
-            
-          </ListItem>
-        ))}
-      </List>
+
+            </div>
+            <Button className="clockBtn" onClick={() => {
+              ClockInPressed()
+              const currentTime = dayjs();
+              setVisitStartTime(currentTime);
+            }}>Clock In</Button>
+            <div className="DateHolder">
+              <QueryBuilderIcon className="dateIcon" />
+              <div style={{ color: 'white', padding: '10px' }}>
+                {dayjs(selectedItem.ScheduleStartTime).format('HH:mm:ss')}
+              </div>
+            </div>
+          </Card>
+
+          <Card className="clockInCard">
+
+            <div className="DateHolder">
+              <CalendarMonthIcon className="dateIcon" />
+              <div style={{ color: 'white', padding: '10px' }}>
+                {dayjs(selectedItem.ScheduleEndTime).format('YYYY-MM-DD')}
+              </div>
+
+
+            </div>
+            <Button className="clockBtn" onClick={() => {
+              ClockOutPressed()
+              const currentTime = dayjs();
+              setVisitEndTime(currentTime);
+            }}>Clock Out</Button>
+            <div className="DateHolder">
+              <QueryBuilderIcon className="dateIcon" />
+              <div style={{ color: 'white', padding: '10px' }}>
+                {dayjs(selectedItem.ScheduleEndTime).format('HH:mm:ss')}
+              </div>
+            </div>
+          </Card>
+
         </div>
-        <div className="OtherList">
-          <p style ={{color:"white",fontSize:"20px",fontWeight:"bold",textAlign:"center"}}>Other Task</p>
-        <List style={{ maxHeight: "75%", overflow: "auto" }}>
-        {OtherTaskList.map((item) => (
-          <ListItem
-            className="ListItem"
-          >
-            <ListItemText
-              primary={<p style={{ fontSize: "20px",fontWeight:"bold",color:"white" }}> {item.id}- {item.name}</p>}
-              className="ListText"
-            />
-            
-          </ListItem>
-        ))}
-      </List>
-        </div>
+        <div className="ListHolder">
 
-      </div>
+          <div className="PlanofCareList">
+            <p style={{ color: "white", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan Of Care</p>
+            <List style={{ maxHeight: "75%", overflow: "auto" }}>
+              {pocDutiesList.map((item) => (
+                <ListItem
+                  className="ListItem"
+                >
+                  <ListItemText
+                    primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}> {item.id}- {item.duty}</p>}
+                    className="ListText"
+                  />
+
+                </ListItem>
+              ))}
+            </List>
+          </div>
+          <div className="OtherList">
+            <p style={{ color: "white", fontSize: "20px", fontWeight: "bold", textAlign: "center" }}>Other Task</p>
+            <List style={{ maxHeight: "75%", overflow: "auto" }}>
+              {OtherTaskList.map((item) => (
+                <ListItem
+                  className="ListItem"
+                >
+                  <ListItemText
+                    primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}> {item.id}- {item.name}</p>}
+                    className="ListText"
+                  />
+
+                </ListItem>
+              ))}
+            </List>
+          </div>
+
+        </div>
       </div>
     );
   };
@@ -249,82 +606,604 @@ const VisitDetails = () => {
     return (
       <div>
         <Card className="DirectionCard">
-         <div style={{textAlign:"center"}}>
-         <p style={{fontSize:"15px",color:"white",fontWeight:"bold"}}>Primary Address</p>
-         </div>
-         <div>
-         <p style={{fontSize:"25px",fontWeight:"bold",color:"white",textAlign:"center"}}>{" 262A Upper Tooting Road South West London, SW15DR"}</p>
-         </div>
+          <div style={{ textAlign: "center" }}>
+            <p style={{ fontSize: "15px", color: "white", fontWeight: "bold" }}>Primary Address</p>
+          </div>
+          <div>
+            <p style={{ fontSize: "25px", fontWeight: "bold", color: "white", textAlign: "center" }}>{" 262A Upper Tooting Road South West London, SW15DR"}</p>
+          </div>
         </Card>
         <div className="mapholder">
-            <h2>**Map Here**</h2>
-         </div>
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={10}
+            onLoad={onLoad}
+            onUnmount={onUnmount}
+          >
+            { /* Child components, such as markers, info windows, etc. */}
+            <></>
+          </GoogleMap>
+        </div>
       </div>
     );
   };
   const PatientView = () => {
     return (
-      <div className="PatientViewHolder" >
+      // <div className="PatientViewHolder" >
 
-        <Card className="contactCard">
-          <p style={{textAlign:"center",fontSize:"15px",color:"white",fontWeight:"bold"}}>Contact Information</p>
+      //   <Card className="contactCard">
+      //     <p style={{ textAlign: "center", fontSize: "15px", color: "white", fontWeight: "bold" }}>Contact Information</p>
 
-          <div className="phoneNumber">
-          <PhoneIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
-          </div>
-          <div className="phoneNumber">
-          <PhoneIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
-          </div>
-          <div className="phoneNumber">
-          <PhoneIcon style={{fontSize:"30px",color:"whitesmoke",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
-          </div>
-          <div className="phoneNumber">
-          <LocationOnIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"6%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>262 A Upper Tooting Road, SW10DS</p>
-          </div>
-        </Card>
+      //     <div className="phoneNumber">
+      //       <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
+      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
+      //     </div>
+      //     <div className="phoneNumber">
+      //       <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
+      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
+      //     </div>
+      //     <div className="phoneNumber">
+      //       <PhoneIcon style={{ fontSize: "30px", color: "whitesmoke", marginTop: "15%", marginRight: "5%" }} />
+      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
+      //     </div>
+      //     <div className="phoneNumber">
+      //       <LocationOnIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "6%" }} />
+      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>262 A Upper Tooting Road, SW10DS</p>
+      //     </div>
+      //   </Card>
 
-        <Card className="EmergencyCard">
-          <p style={{textAlign:"center",fontSize:"15px",color:"white",fontWeight:"bold"}}>Emergency Contact</p>
+      //   <Card className="EmergencyCard">
+      //     <p style={{ textAlign: "center", fontSize: "15px", color: "white", fontWeight: "bold" }}>Emergency Contact</p>
 
-          <div className="phoneNumber">
-          <PhoneIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
+      //     <div className="phoneNumber">
+      //       <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
+      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
+      //     </div>
+      //     <div className="phoneNumber">
+      //       <PhoneIcon style={{ color: "whitesmoke", fontSize: "30px", marginTop: "15%", marginRight: "5%" }} />
+      //       <p style={{ fontWeight: "bold", color: "whitesmoke", fontSize: "25px" }}>07024587956</p>
+      //     </div>
+
+      //   </Card>
+      // </div>
+
+      <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+        <h1 style={{ color: "#564873", textAlign: "center" }}>Patient Information</h1>
+        <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+          <Grid container spacing={2}>
+
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 1:
+                {currMember != null &&
+                  <span style={{ color: "#F2A007" }}>{" " + currMember.HomePhone}</span>
+                }
+              </h2></div>
+            </Grid>
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 2:
+                {currMember != null &&
+                  <span style={{ color: "#F2A007" }}>{" " + currMember.HomePhone2}</span>
+                }
+              </h2></div>
+            </Grid>
+
+
+            <Grid className="DataHolderGrid">
+              <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Phone 3:
+                {currMember != null &&
+                  <span style={{ color: "#F2A007" }}>{" " + currMember.HomePhone3}</span>
+                }
+              </h2></div>
+            </Grid>
+
+          </Grid>
+        </div>
+
+
+
+        <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px', marginTop: '30px' }}>
+          <h1 style={{ color: "#564873", textAlign: "center" }}>Address</h1>
+          <div style={{ textAlign: 'center' }}>{currMember != null &&
+            <>
+              <h1 style={{ color: "white", textAlign: "center" }}>{" " + currMember.Address1}</h1>
+              <h1 style={{ color: "white", textAlign: "center" }}>{" " + currMember.Address2}</h1>
+            </>
+          }
           </div>
-          <div className="phoneNumber">
-          <PhoneIcon style={{color:"whitesmoke",fontSize:"30px",marginTop:"15%",marginRight:"5%"}} />
-          <p style={{fontWeight:"bold",color:"whitesmoke",fontSize:"25px"}}>07024587956</p>
-          </div>
-         
-        </Card>
+        </div>
       </div>
     );
   };
-    //
-   
-  
-    const toggleDrawer = (anchor, open) => (event) => {
-      if (
-        event.type === "keydown" &&
-        (event.key === "Tab" || event.key === "Shift")
-      ) {
-        return;
-      }
-  
-      setState({ ...state, [anchor]: open });
-    };
-  
-    const list = (anchor) => (
-      <div  style={{
-        height: "100vh",
-        backgroundColor: "#2E0F59",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-      }}>
+
+
+  const ClockInView = () => {
+    return (
+      <div style={{ width: "100%" }}>
+        <h2 style={{ textAlign: "center", color: "#564873" }}>Clock IN</h2>
+
+        <div style={{ width: '100%' }}>
+          <div style={{ width: "100%", alignContent: "center", justifyContent: "center", textAlign: 'center' }}>
+            <h4 style={{ color: "grey", textAlign: "center" }}>Latitude</h4>
+            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+              <span style={{ color: "black" }}>{latitude}</span>
+
+            </div>
+          </div>
+
+          <div style={{ width: "100%", alignContent: "center", justifyContent: "center", textAlign: 'center' }}>
+            <h4 style={{ color: "grey", textAlign: "center" }}>Longitude</h4>
+            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+              <span style={{ color: "black" }}>{longitude}</span>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div style={{ display: "grid", width: '100%', placeContent: 'center', textAlign: 'center' }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "100%" }}
+              id="outlined-basic"
+              label="Clock In Phone Number"
+              variant="outlined"
+              value={clockInPhone}
+              onChange={(evt) => setClockInPhone(evt.target.value)}
+            />
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "300px" }}
+              id="outlined-basic"
+              label="EVV Other Info"
+              variant="outlined"
+              value={clockInEvvOtherInfo}
+              onChange={(evt) => setClockInEvvOtherInfo(evt.target.value)}
+            />
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "100%" }}
+              id="outlined-basic"
+              label="Service Location City"
+              variant="outlined"
+              value={clockInLocationCity}
+              onChange={(evt) => setClockInLocationCity(evt.target.value)}
+            />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "100%" }}
+              id="outlined-basic"
+              label="Service Location Type"
+              variant="outlined"
+              value={clockInLocationType}
+              onChange={(evt) => setClockInLocationType(evt.target.value)}
+            />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "100%" }}
+              id="outlined-basic"
+              label="Service Location Zip Code"
+              variant="outlined"
+            //   value={zipCode}
+            // onChange={(evt) => setZipCode(evt.target.value)}
+            />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "300px" }}
+              id="outlined-basic"
+              label="Service Location Address Line 1"
+              variant="outlined"
+              value={clockInLocationAddressLine1}
+              onChange={(evt) => setClockInLocationAddressLine1(evt.target.value)}
+            />
+          </div>
+
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "300px" }}
+              id="outlined-basic"
+              label="Service Location Address Line 2"
+              variant="outlined"
+              value={clockInLocationAddressLine2}
+              onChange={(evt) => setClockInLocationAddressLine2(evt.target.value)}
+            />
+          </div>
+        </div>
+
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: '50px' }}>
+          <Button className="EditButton" variant="outlined" onClick={() => {
+            editVisit(
+              selectedItem.id,
+
+              memberFirstNameG,
+              memberLastNameG,
+              memberId,
+              careGiverCodeG,
+              careGiverFirstNameG,
+              careGiverLastNameG,
+              careGiverGenderG,
+              careGiverDOBG,
+              careGiverSSNG,
+
+              scheduleID,
+              visitID,
+              procedureCode,
+              diagnosisCode,
+              scheduleStartTime,
+              scheduleEndTime,
+              visitStartTime,
+              visitEndTime,
+              evvStartTime,
+              evvEndTime,
+
+              clockInLocationAddressLine1,
+              clockInLocationAddressLine2,
+              clockInLocationCity,
+              clockInLocationState,
+              clockInZipCode,
+              clockInLocationType,
+
+              clockOutAddressLine1,
+              clockOutAddressLine2,
+              clockOutLocationCity,
+              clockOutLocationState,
+              clockOutLocationZipCode,
+              clockOutLocationType,
+
+              duties,
+              clockInPhone,
+              clockInLatitude,
+              clockInLongitude,
+              clockInEvvOtherInfo,
+              clockOutPhone,
+              clockOutLatitude,
+              clockOutLongitude,
+              clockOutEvvOtherInfo,
+
+              invoiceNumber,
+              visitEditReasonCode,
+              visitEditActionTaken,
+              visitEditMadeBy,
+              notes,
+              inDeletion,
+
+              invoiceLineItemId,
+              totalBilledAmount,
+              unitsBilled,
+              billedRate,
+              submissionType,
+              trnNumber,
+              enableSecondaryBilling,
+              otherSubscriberId,
+              primaryPayerId,
+              primaryPayerName,
+              relationshipToInsured,
+
+              primaryPayerPolicy,
+              primaryPayerProgram,
+              planType,
+              totalPaidAmount,
+              totalPaidUnits,
+              paidDate,
+              deductible,
+              coinsurance,
+              copay,
+              contractedAdjustments,
+              notMedicallyNecessary,
+              nonCoveredCharges,
+              maxBenefitExhausted,
+              missedVisit,
+              missedVisitReasonCode,
+              missedVisitActionTakenCode,
+              missedVisitNotes,
+              travelTimeRequestHours,
+
+              travelTimeComments,
+              cancelTravelTimeRequest,
+              timesheetRequired,
+              timesheetApproved,
+
+              unitField1,
+              unitField2,
+              unitField3,
+              unitField4,
+              unitField5,
+              unitField6,
+              unitField7Value,
+              unitField8Value,
+              unitField9Value,
+              unitField10Value,
+
+              "",
+              "",
+              "",
+              "",
+              ""
+            ).then(res => {
+              console.log(res)
+              if (res.data.result == "success") {
+                showToastMessage();
+              }
+            });
+          }}>
+            Save Changes
+          </Button>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: '50px' }}>
+          <Button className="EditButton" variant="outlined" onClick={ClockInOutPressed}>
+            Close
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
+  const ClockOutView = () => {
+    return (
+      <div style={{ width: "100%" }}>
+        <h2 style={{ textAlign: "center", color: "#564873" }}>Clock Out</h2>
+
+        <div style={{ width: '100%' }}>
+          <div style={{ width: "100%", alignContent: "center", justifyContent: "center", textAlign: 'center' }}>
+            <h4 style={{ color: "grey", textAlign: "center" }}>Latitude</h4>
+            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+              <span style={{ color: "black" }}>{latitude}</span>
+
+            </div>
+          </div>
+
+          <div style={{ width: "100%", alignContent: "center", justifyContent: "center", textAlign: 'center' }}>
+            <h4 style={{ color: "grey", textAlign: "center" }}>Longitude</h4>
+            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+              <span style={{ color: "black" }}>{longitude}</span>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div style={{ display: "grid", width: '100%', placeContent: 'center', textAlign: 'center' }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "100%" }}
+              id="outlined-basic"
+              label="Clock Out Phone Number"
+              variant="outlined"
+              value={clockOutPhone}
+              onChange={(evt) => setClockOutPhone(evt.target.value)}
+            />
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "300px" }}
+              id="outlined-basic"
+              label="EVV Other Info"
+              variant="outlined"
+              value={clockOutEvvOtherInfo}
+              onChange={(evt) => setClockOutEvvOtherInfo(evt.target.value)}
+            />
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "100%" }}
+              id="outlined-basic"
+              label="Service Location City"
+              variant="outlined"
+              value={clockOutLocationCity}
+              onChange={(evt) => setClockOutLocationCity(evt.target.value)}
+            />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "100%" }}
+              id="outlined-basic"
+              label="Service Location Type"
+              variant="outlined"
+              value={clockOutLocationType}
+              onChange={(evt) => setClockOutLocationType(evt.target.value)}
+            />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "100%" }}
+              id="outlined-basic"
+              label="Service Location Zip Code"
+              variant="outlined"
+            //   value={zipCode}
+            // onChange={(evt) => setZipCode(evt.target.value)}
+            />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "300px" }}
+              id="outlined-basic"
+              label="Service Location Address Line 1"
+              variant="outlined"
+              value={clockOutAddressLine1}
+              onChange={(evt) => setClockOutAddressLine1(evt.target.value)}
+            />
+          </div>
+
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              style={{ marginTop: "20px", width: "300px" }}
+              id="outlined-basic"
+              label="Service Location Address Line 2"
+              variant="outlined"
+              value={clockOutAddressLine2}
+              onChange={(evt) => setClockOutAddressLine2(evt.target.value)}
+            />
+          </div>
+        </div>
+
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: '50px' }}>
+          <Button className="EditButton" variant="outlined" onClick={() => {
+            editVisit(
+              selectedItem.id,
+
+              memberFirstNameG,
+              memberLastNameG,
+              memberId,
+              careGiverCodeG,
+              careGiverFirstNameG,
+              careGiverLastNameG,
+              careGiverGenderG,
+              careGiverDOBG,
+              careGiverSSNG,
+
+              scheduleID,
+              visitID,
+              procedureCode,
+              diagnosisCode,
+              scheduleStartTime,
+              scheduleEndTime,
+              visitStartTime,
+              visitEndTime,
+              evvStartTime,
+              evvEndTime,
+
+              clockInLocationAddressLine1,
+              clockInLocationAddressLine2,
+              clockInLocationCity,
+              clockInLocationState,
+              clockInZipCode,
+              clockInLocationType,
+
+              clockOutAddressLine1,
+              clockOutAddressLine2,
+              clockOutLocationCity,
+              clockOutLocationState,
+              clockOutLocationZipCode,
+              clockOutLocationType,
+
+              duties,
+              clockInPhone,
+              clockInLatitude,
+              clockInLongitude,
+              clockInEvvOtherInfo,
+              clockOutPhone,
+              clockOutLatitude,
+              clockOutLongitude,
+              clockOutEvvOtherInfo,
+
+              invoiceNumber,
+              visitEditReasonCode,
+              visitEditActionTaken,
+              visitEditMadeBy,
+              notes,
+              inDeletion,
+
+              invoiceLineItemId,
+              totalBilledAmount,
+              unitsBilled,
+              billedRate,
+              submissionType,
+              trnNumber,
+              enableSecondaryBilling,
+              otherSubscriberId,
+              primaryPayerId,
+              primaryPayerName,
+              relationshipToInsured,
+
+              primaryPayerPolicy,
+              primaryPayerProgram,
+              planType,
+              totalPaidAmount,
+              totalPaidUnits,
+              paidDate,
+              deductible,
+              coinsurance,
+              copay,
+              contractedAdjustments,
+              notMedicallyNecessary,
+              nonCoveredCharges,
+              maxBenefitExhausted,
+              missedVisit,
+              missedVisitReasonCode,
+              missedVisitActionTakenCode,
+              missedVisitNotes,
+              travelTimeRequestHours,
+
+              travelTimeComments,
+              cancelTravelTimeRequest,
+              timesheetRequired,
+              timesheetApproved,
+
+              unitField1,
+              unitField2,
+              unitField3,
+              unitField4,
+              unitField5,
+              unitField6,
+              unitField7Value,
+              unitField8Value,
+              unitField9Value,
+              unitField10Value,
+
+              "",
+              "",
+              "",
+              "",
+              ""
+            ).then(res => {
+              console.log(res)
+              if (res.data.result == "success") {
+                showToastMessage();
+              }
+            });
+          }}>
+            Save Changes
+          </Button>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: '50px' }}>
+          <Button className="EditButton" variant="outlined" onClick={ClockInOutPressed}>
+            Close
+          </Button>
+        </div>
+      </div>
+    );
+  };
+  //
+
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div style={{
+      height: "100vh",
+      backgroundColor: "#2E0F59",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }}>
       <Box
         sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
         role="presentation"
@@ -354,31 +1233,32 @@ const VisitDetails = () => {
             className="line"
             style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
           />
-  
-          <h3 onClick={ClockInOutPressed}  style={{ color: "#F2B90F" }}>Clock In / Out</h3>
-          <h3 onClick={DirectionPressed}  style={{ color: "#F2B90F" }}>Direction</h3>
-          <h3 onClick={PatientInfoPressed}  style={{ color: "#F2B90F" }}>Patient Info</h3>
-      
+
+          <h3 onClick={ClockInOutPressed} style={{ color: "#F2B90F" }}>Clock In / Out</h3>
+          <h3 onClick={DirectionPressed} style={{ color: "#F2B90F" }}>Direction</h3>
+          <h3 onClick={PatientInfoPressed} style={{ color: "#F2B90F" }}>Patient Info</h3>
+
         </div>
       </Box>
-      </div>
-    );
-    //
-  
+    </div>
+  );
+  //
+
   return (
-  <Wrapper>
+    <Wrapper>
+      <ToastContainer />
       <div className="Header">
-      <MenuIcon
+        <MenuIcon
           className="menuIcon"
           onClick={toggleDrawer("left", true)}
           anchor={"left"}
           open={state["left"]}
           onClose={toggleDrawer("left", false)}
         ></MenuIcon>
-        <img className="headerImage" src="/EmpireHomeCareLogo.png" 
-        onClick={() =>navigate("/CareGiverHome")}/>
-       
-        <Button  className="LogOutbutton" variant="outlined" onClick={signOut}>
+        <img className="headerImage" src="/EmpireHomeCareLogo.png"
+          onClick={() => navigate("/CareGiverHome")} />
+
+        <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
           Log Out
         </Button>
         <LogoutIcon onClick={signOut} className="LogoutIcon"></LogoutIcon>
@@ -428,7 +1308,7 @@ const VisitDetails = () => {
           >
             Files
           </p>
-          <hr style={{width:"50%",fontSize:"10px",opacity:"0.2"}}/>
+          <hr style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
           <div className="buttonHolder">
             <Button
               className="navigationButton"
@@ -473,7 +1353,7 @@ const VisitDetails = () => {
         <Card className="dataDisplay">{RenderViews()}</Card>
       </div>
 
-     <Footer/>
+      <Footer />
     </Wrapper>
   );
 };
@@ -487,6 +1367,41 @@ width: 100%;
     display:flex;
     flex-direction:row;
 }
+
+.CardHolder::-webkit-scrollbar {
+  width: 10px;
+    }
+
+    .CardHolder::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    }
+
+    .CardHolder::-webkit-scrollbar-thumb {
+    background-color: #888;
+    }
+
+    .DataHolderGrid{
+    width: 50%;
+    text-align: center;
+  }
+
+
+    .DateFieldHolder {
+  }
+
+  .DateFieldHolder::-webkit-scrollbar {
+  width: 10px;
+    }
+
+    .DateFieldHolder::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    }
+
+    .DateFieldHolder::-webkit-scrollbar-thumb {
+    background-color: #888;
+    }
+
+
 //patient view start
 .PatientViewHolder{
   display:flex;
@@ -519,6 +1434,17 @@ width: 100%;
   flex-direction:column;
 
 }
+
+.EditButton{
+    background-color: #564873;
+   
+    font-weight:bold;
+    width:15%;
+    color:white;
+  }
+  .EditButton:hover {
+    color:black;
+  }
 
 // patient view end
 
@@ -588,7 +1514,7 @@ width: 100%;
 
 }
 .clockInCard{
-  background-color:#564873;
+    background-color:#564873;
     width:50%;
     display:flex;
     align-items:center;
@@ -597,6 +1523,7 @@ width: 100%;
     flex-direction:column;
     height:180px;
     border-radius:15px;
+    margin: 20px;
 }
 .clockOutCard{
     
@@ -612,17 +1539,17 @@ width: 100%;
     border-radius:15px;
 }
 .DateHolder{
-    display:flex;
-    flex-direction:row;
-    
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }
 .dateIcon{
-    margin-top:12%;
-    margin-right:5%;
     color:white;
 }
 .ClockIcon{
-    margin-top:14%;
     color:white;
 }
 .clockBtn{

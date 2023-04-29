@@ -33,12 +33,17 @@ const Link = require("react-router-dom").Link;
 
 
 function CareGiver() {
-  
+
   // const data2 = localStorage.getItem("Members");
   // console.log("data2: ", JSON.parse(data2));
-  
+
   const notify = () => toast("Data Fetching for Care Givers!");
   const notifyAdd = () => toast("Care Giver Added Sucessfuly!");
+  const showToastMessage = () => {
+    toast.error('Some Important Fields Are Missing Please Enter Data!', {
+      position: toast.POSITION.TOP_CENTER
+    });
+  };
 
   // Set Alert
   const [alertState, setAlertState] = useState(false);
@@ -70,43 +75,43 @@ function CareGiver() {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [middleName, setMiddleName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [initials, setInitials] = useState('');
-  const [gender, setGender] = useState('');
-  const [dob, setDob] = useState('');
-  const [status, setStatus] = useState('');
-  const [careGiverCode, setCareGiverCode] = useState('');
-  const [ssn, setSSN] = useState('');
-  const [mobileID, setMobileID] = useState('');
-  const [mobileDeviceID, setMobileDeviceID] = useState('');
-  const [primaryMemberTeam, setPrimaryMemberTeam] = useState('');
-  const [NPINumber, setNPINumber] = useState('');
-  const [rehire, setRehire] = useState('');
-  const [rehireDate, setRehireDate] = useState('');
-  const [employmentType, setEmploymentType] = useState('');
+  const [firstName, setFirstName] = useState(null);
+  const [middleName, setMiddleName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [initials, setInitials] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [dob, setDob] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [careGiverCode, setCareGiverCode] = useState(null);
+  const [ssn, setSSN] = useState(null);
+  const [mobileID, setMobileID] = useState(null);
+  const [mobileDeviceID, setMobileDeviceID] = useState(null);
+  const [primaryMemberTeam, setPrimaryMemberTeam] = useState(null);
+  const [NPINumber, setNPINumber] = useState(null);
+  const [rehire, setRehire] = useState(null);
+  const [rehireDate, setRehireDate] = useState(null);
+  const [employmentType, setEmploymentType] = useState(null);
 
-  const [addressStreet1, setAddressStreet1] = useState('');
-  const [addressStreet2, setAddressStreet2] = useState('');
-  const [addressCity, setAddressCity] = useState('');
-  const [addressZip, setAddressZip] = useState('');
-  const [addressPhone, setAddressPhone] = useState('');
-  const [addressPhone2, setAddressPhone2] = useState('');
-  const [addressHomePhone, setAddressHomePhone] = useState('');
-  const [addressState, setAddressState] = useState('');
+  const [addressStreet1, setAddressStreet1] = useState(null);
+  const [addressStreet2, setAddressStreet2] = useState(null);
+  const [addressCity, setAddressCity] = useState(null);
+  const [addressZip, setAddressZip] = useState(null);
+  const [addressPhone, setAddressPhone] = useState(null);
+  const [addressPhone2, setAddressPhone2] = useState(null);
+  const [addressHomePhone, setAddressHomePhone] = useState(null);
+  const [addressState, setAddressState] = useState(null);
 
-  const [emergencyContact1Name, setEmergencyContact1Name] = useState('');
-  const [emergencyContact1Relation, setEmergencyContact1Relation] = useState('');
-  const [emergencyContact1Address, setEmergencyContact1Address] = useState('');
-  const [emergencyContact1Phone1, setEmergencyContact1Phone1] = useState('');
-  const [emergencyContact1Phone2, setEmergencyContact1Phone2] = useState('');
+  const [emergencyContact1Name, setEmergencyContact1Name] = useState(null);
+  const [emergencyContact1Relation, setEmergencyContact1Relation] = useState(null);
+  const [emergencyContact1Address, setEmergencyContact1Address] = useState(null);
+  const [emergencyContact1Phone1, setEmergencyContact1Phone1] = useState(null);
+  const [emergencyContact1Phone2, setEmergencyContact1Phone2] = useState(null);
 
-  const [emergencyContact2Name, setEmergencyContact2Name] = useState('');
-  const [emergencyContact2Relation, setEmergencyContact2Relation] = useState('');
-  const [emergencyContact2Address, setEmergencyContact2Address] = useState('');
-  const [emergencyContact2Phone1, setEmergencyContact2Phone1] = useState('');
-  const [emergencyContact2Phone2, setEmergencyContact2Phone2] = useState('');
+  const [emergencyContact2Name, setEmergencyContact2Name] = useState(null);
+  const [emergencyContact2Relation, setEmergencyContact2Relation] = useState(null);
+  const [emergencyContact2Address, setEmergencyContact2Address] = useState(null);
+  const [emergencyContact2Phone1, setEmergencyContact2Phone1] = useState(null);
+  const [emergencyContact2Phone2, setEmergencyContact2Phone2] = useState(null);
 
   // 
 
@@ -127,7 +132,7 @@ function CareGiver() {
   const handleCloseOverlay = () => {
     setIsOverlayOpen(false);
   };
-  
+
   function GoBackButtonPressed() {
     navigate(-1);
 
@@ -448,124 +453,156 @@ function CareGiver() {
     return (
       <div className="Holder"  >
 
-        <div >
+        <div className="rowFieldsHolder">
           <h1 className="Heading" >Account Credentials</h1>
-          <TextField className="input" label="Username" variant="outlined" onChange={(username) => { setUsername(username) }} />
-          <TextField className="input" label="Password" variant="outlined" onChange={(password) => { setPassword(password) }} />
-          <TextField className="input" label="Email" variant="outlined" onChange={(email) => { setUserEmail(email) }} />
+          <TextField className="input" label="Username" variant="outlined" onChange={(evt) => { setUsername(evt.target.value) }} />
+          <TextField className="input" label="Password" variant="outlined" onChange={(evt) => { setPassword(evt.target.value) }} />
+          <TextField className="input" label="Email" variant="outlined" onChange={(evt) => { setUserEmail(evt.target.value) }} />
         </div>
 
-        <div >
+        <div className="rowFieldsHolder">
           <h1 className="Heading" >Demographics</h1>
-          <TextField className="input" label="First Name" variant="outlined" onChange={(firstName) => { setFirstName(firstName) }} />
-          <TextField className="input" label="Middle Name" variant="outlined" onChange={(middleName) => { setMiddleName(middleName) }} />
-          <TextField className="input" label="Last Name" variant="outlined" onChange={(lastName) => { setLastName(lastName) }} />
-          <TextField className="input" label="Intials" variant="outlined" onChange={(initials) => { setInitials(initials) }} />
-          <TextField className="input" label="Gender" variant="outlined" onChange={(gender) => { setGender(gender) }} />
-          <TextField className="input" label="DOB" variant="outlined" onChange={(dob) => { setDob(dob) }} />
-          <TextField className="input" label="Status" variant="outlined" onChange={(status) => { setStatus(status) }} />
-          <TextField className="input" label="Alt Caregiver Code" variant="outlined" onChange={(careGiverCode) => { setCareGiverCode(careGiverCode) }} />
-          <TextField className="input" label="SSN" variant="outlined" onChange={(ssn) => { setSSN(ssn) }} />
-          <TextField className="input" label="Mobile ID" variant="outlined" onChange={(mobileID) => { setMobileID(mobileID) }} />
-          <TextField className="input" label="Primary Member Team" variant="outlined" onChange={(primaryMemberTeam) => { setPrimaryMemberTeam(primaryMemberTeam) }} />
-          <TextField className="input" label="NPI Number" variant="outlined" onChange={(npi) => { setNPINumber(npi) }} />
-          <TextField className="input" label="Rehire ?" variant="outlined" onChange={(rehire) => { setRehire(rehire) }} />
-          <TextField className="input" label="Rehire Date" variant="outlined" onChange={(rehireDate) => { setRehireDate(rehireDate) }} />
-          <TextField className="input" label="Employment Type" variant="outlined" onChange={(employmentType) => { setEmploymentType(employmentType) }} />
+          <TextField className="input" label="First Name" variant="outlined" onChange={(evt) => { setFirstName(evt.target.value) }} />
+          <TextField className="input" label="Middle Name" variant="outlined" onChange={(evt) => { setMiddleName(evt.target.value) }} />
+          <TextField className="input" label="Last Name" variant="outlined" onChange={(evt) => { setLastName(evt.target.value) }} />
+          <TextField className="input" label="Aide Intials" variant="outlined" onChange={(evt) => { setInitials(evt.target.value) }} />
+          <TextField className="input" label="Gender" variant="outlined" onChange={(evt) => { setGender(evt.target.value) }} />
+          <TextField className="input" label="DOB" variant="outlined" onChange={(evt) => { setDob(evt.target.value) }} />
+          <TextField className="input" label="Status" variant="outlined" onChange={(evt) => { setStatus(evt.target.value) }} />
+          <TextField className="input" label="Alt Caregiver Code" variant="outlined" onChange={(evt) => { setCareGiverCode(evt.target.value) }} />
+          <TextField className="input" label="SSN" variant="outlined" onChange={(evt) => { setSSN(evt.target.value) }} />
+          <TextField className="input" label="Mobile ID" variant="outlined" onChange={(evt) => { setMobileID(evt.target.value) }} />
+          <TextField className="input" label="Primary Member Team" variant="outlined" onChange={(evt) => { setPrimaryMemberTeam(evt.target.value) }} />
+          <TextField className="input" label="NPI Number" variant="outlined" onChange={(evt) => { setNPINumber(evt.target.value) }} />
+          <TextField className="input" label="Rehire ?" variant="outlined" onChange={(evt) => { setRehire(evt.target.value) }} />
+          <TextField className="input" label="Rehire Date" variant="outlined" onChange={(evt) => { setRehireDate(evt.target.value) }} />
+          <TextField className="input" label="Employment Type" variant="outlined" onChange={(evt) => { setEmploymentType(evt.target.value) }} />
 
         </div>
-        <div>
+
+
+        <div className="rowFieldsHolder">
           <h1 className="Heading">Address</h1>
-          <TextField className="input" label="Street 1" variant="outlined" onChange={(street1) => { setAddressStreet1(street1) }} />
-          <TextField className="input" label="Street 2" variant="outlined" onChange={(street2) => { setAddressStreet2(street2) }} />
-          <TextField className="input" label="City" variant="outlined" onChange={(city) => { setAddressCity(city) }} />
-          <TextField className="input" label="Zip" variant="outlined" onChange={(zip) => { setAddressZip(zip) }} />
-          <TextField className="input" label="State" variant="outlined" onChange={(state) => { setAddressState(state) }} />
-          <TextField className="input" label="Phone" variant="outlined" onChange={(phone) => { setAddressPhone(phone) }} />
-          <TextField className="input" label="Phone 2" variant="outlined" onChange={(phone2) => { setAddressPhone2(phone2) }} />
-          <TextField className="input" label="Home Phone" variant="outlined" onChange={(homephone) => { setAddressHomePhone(homephone) }} />
+          <TextField className="input" label="Street 1" variant="outlined" onChange={(evt) => { setAddressStreet1(evt.target.value) }} />
+          <TextField className="input" label="Street 2" variant="outlined" onChange={(evt) => { setAddressStreet2(evt.target.value) }} />
+          <TextField className="input" label="City" variant="outlined" onChange={(evt) => { setAddressCity(evt.target.value) }} />
+          <TextField className="input" label="Zip" variant="outlined" onChange={(evt) => { setAddressZip(evt.target.value) }} />
+          <TextField className="input" label="State" variant="outlined" onChange={(evt) => { setAddressState(evt.target.value) }} />
+          <TextField className="input" label="Phone" variant="outlined" onChange={(evt) => { setAddressPhone(evt.target.value) }} />
+          <TextField className="input" label="Phone 2" variant="outlined" onChange={(evt) => { setAddressPhone2(evt.target.value) }} />
+          <TextField className="input" label="Home Phone" variant="outlined" onChange={(evt) => { setAddressHomePhone(evt.target.value) }} />
         </div>
-        <div>
+        
+        
+        
+        <div className="rowFieldsHolder">
           <h1 className="Heading">Emergency Contact 1</h1>
-          <TextField className="input" label="Name" variant="outlined" onChange={(name) => { setEmergencyContact1Name(name) }} />
-          <TextField className="input" label="Relationship" variant="outlined" onChange={(relation) => { setEmergencyContact1Relation(relation) }} />
-          <TextField className="input" label="Address" variant="outlined" onChange={(address) => { setEmergencyContact1Address(address) }} />
-          <TextField className="input" label="Phone 1" variant="outlined" onChange={(phone1) => { setEmergencyContact1Phone1(phone1) }} />
-          <TextField className="input" label="Phone 2" variant="outlined" onChange={(phone2) => { setEmergencyContact1Phone2(phone2) }} />
+          <TextField className="input" label="Name" variant="outlined" onChange={(evt) => { setEmergencyContact1Name(evt.target.value) }} />
+          <TextField className="input" label="Relationship" variant="outlined" onChange={(evt) => { setEmergencyContact1Relation(evt.target.value) }} />
+          <TextField className="input" label="Address" variant="outlined" onChange={(evt) => { setEmergencyContact1Address(evt.target.value) }} />
+          <TextField className="input" label="Phone 1" variant="outlined" onChange={(evt) => { setEmergencyContact1Phone1(evt.target.value) }} />
+          <TextField className="input" label="Phone 2" variant="outlined" onChange={(evt) => { setEmergencyContact1Phone2(evt.target.value) }} />
         </div>
-        <div>
+        
+        
+
+        <div className="rowFieldsHolder">
           <h1 className="Heading">Emergency Contact 2</h1>
-          <TextField className="input" label="Name" variant="outlined" onChange={(name) => { setEmergencyContact2Name(name) }} />
-          <TextField className="input" label="Relationship" variant="outlined" onChange={(relation) => { setEmergencyContact2Relation(relation) }} />
-          <TextField className="input" label="Address" variant="outlined" onChange={(address) => { setEmergencyContact2Address(address) }} />
-          <TextField className="input" label="Phone 1" variant="outlined" onChange={(phone1) => { setEmergencyContact2Phone1(phone1) }} />
-          <TextField className="input" label="Phone 2" variant="outlined" onChange={(phone2) => { setEmergencyContact2Phone2(phone2) }} />
+          <TextField className="input" label="Name" variant="outlined" onChange={(evt) => { setEmergencyContact2Name(evt.target.value) }} />
+          <TextField className="input" label="Relationship" variant="outlined" onChange={(evt) => { setEmergencyContact2Relation(evt.target.value) }} />
+          <TextField className="input" label="Address" variant="outlined" onChange={(evt) => { setEmergencyContact2Address(evt.target.value) }} />
+          <TextField className="input" label="Phone 1" variant="outlined" onChange={(evt) => { setEmergencyContact2Phone1(evt.target.value) }} />
+          <TextField className="input" label="Phone 2" variant="outlined" onChange={(evt) => { setEmergencyContact2Phone2(evt.target.value) }} />
         </div>
         <Button className="Signup" variant="contained"
           onClick={
             function () {
               var state = 0;
-              addCareGiver(
-                firstName.target.value,
-                middleName.target.value,
-                lastName.target.value,
-                initials.target.value,
-                gender.target.value,
-                dob.target.value,
-                status.target.value,
-                careGiverCode.target.value,
-                ssn.target.value,
-                mobileID.target.value,
-                mobileDeviceID.target.value,
-                primaryMemberTeam.target.value,
-                NPINumber.target.value,
-                rehire.target.value,
-                rehireDate.target.value,
-                employmentType.target.value,
-                addressStreet1.target.value,
-                addressStreet2.target.value,
-                addressCity.target.value,
-                addressZip.target.value,
-                addressPhone.target.value,
-                addressState.target.value,
-                addressHomePhone.target.value,
-                addressPhone2.target.value,
-                emergencyContact1Name.target.value,
-                emergencyContact1Relation.target.value,
-                emergencyContact1Address.target.value,
-                emergencyContact1Phone1.target.value,
-                emergencyContact1Phone2.target.value,
-                emergencyContact2Name.target.value,
-                emergencyContact2Relation.target.value,
-                emergencyContact2Address.target.value,
-                emergencyContact2Phone1.target.value,
-                emergencyContact2Phone2.target.value,
-              ).then(res => {
-                if (res.data.result == "success") {
-                  state = 1;
+              if (firstName != null &&
+                lastName != null &&
+                gender != null &&
+                dob != null &&
+                status != null &&
+                careGiverCode != null &&
+                ssn != null &&
+                mobileID != null &&
+                addressStreet1 != null &&
+                addressCity != null &&
+                addressZip != null &&
+                addressPhone != null &&
+                addressState != null &&
+                emergencyContact1Name != null &&
+                emergencyContact1Relation != null &&
+                emergencyContact1Address != null &&
+                emergencyContact1Phone1 != null &&
+                emergencyContact2Name != null &&
+                emergencyContact2Relation != null &&
+                emergencyContact2Address != null &&
+                emergencyContact2Phone1 != null) {
+                addCareGiver(
+                  firstName,
+                  middleName,
+                  lastName,
+                  initials,
+                  gender,
+                  dob,
+                  status,
+                  careGiverCode,
+                  ssn,
+                  mobileID,
+                  mobileDeviceID,
+                  primaryMemberTeam,
+                  NPINumber,
+                  rehire,
+                  rehireDate,
+                  employmentType,
+                  addressStreet1,
+                  addressStreet2,
+                  addressCity,
+                  addressZip,
+                  addressPhone,
+                  addressState,
+                  addressHomePhone,
+                  addressPhone2,
+                  emergencyContact1Name,
+                  emergencyContact1Relation,
+                  emergencyContact1Address,
+                  emergencyContact1Phone1,
+                  emergencyContact1Phone2,
+                  emergencyContact2Name,
+                  emergencyContact2Relation,
+                  emergencyContact2Address,
+                  emergencyContact2Phone1,
+                  emergencyContact2Phone2,
+                ).then(res => {
+                  if (res.data.result == "success") {
+                    state = 1;
+                  }
+                });
+
+                createCareGiverLogin(
+                  userEmail,
+                  username,
+                  password
+                ).then(res => {
+
+                  if (res.data.result == "success") {
+                    state = 2;
+                    notifyAdd();
+                  }
+                });
+
+                if (state == 2) {
+                  setAlertState(true);
                 }
-              });
-
-              createCareGiverLogin(
-                userEmail.target.value,
-                username.target.value,
-                password.target.value
-              ).then(res => {
-
-                if (res.data.result == "success") {
-                  // aler
-                  state = 2;
-                  notifyAdd();
-                }
-              });
-
-              if (state == 2) {
-                setAlertState(true);
+              }
+              else {
+                showToastMessage();
               }
             }
           }
-        >Sign Up</Button>
-      </div>
+        >Create Care Giver</Button>
+      </div >
     );
   };
 
@@ -604,7 +641,7 @@ function CareGiver() {
       headerName: 'Name',
       width: 200,
       renderCell: (params) => (
-        <Link to="/CareGiverDetail" state={{ from: "occupation" }}
+        <Link to="/CareGiverDetail" state={{ selectedMemberName: params.value }}
         >
           {params.value}
         </Link>
@@ -702,7 +739,7 @@ function CareGiver() {
 
       <div className="CardHolder">
         <Card className="TaskBar">
-          <UserName/>
+          <UserName />
           <hr />
           <p
             style={{
@@ -776,18 +813,17 @@ width: 100%;
 .GoBackButtonHolder{
     display:flex;
     justify-content:center;
-    margin-top:0;
+    margin-top:20px;
     margin-bottom:3%;
   }
   .GoBackButton{
     background-color: #f26e22;
     color: white;
     width: 10%;
-    height: 150%;
-    padding: 0.5%;
+    height: 50px;
     border-radius: 10px;
-    margin-top:0;
-    jusfity-content:center;
+    justify-content:center;
+    width: 200px;
   }
 
 
@@ -807,6 +843,13 @@ width: 100%;
   margin:2%;
   font-weight:bold;
 }
+.rowFieldsHolder{
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
 .menuIcon{
   display:none;
 }
@@ -1192,7 +1235,7 @@ color:black;
     margin-bottom: 2%;
   }
   .input{
-    margin-left:20%;
+    /* margin-left:20%; */
   }
   
   .Signup{

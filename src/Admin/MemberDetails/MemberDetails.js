@@ -20,6 +20,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import dayjs from 'dayjs';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 //
 
 import FormGroup from '@mui/material/FormGroup';
@@ -43,6 +45,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Paper from '@mui/material/Paper';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
+import UserName from "../../UserName";
+import { getLast3Authorizations } from "../../API/last3AuthorizationsAPI";
+import { editVisit } from "../../API/visitAPI";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+//
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { addMasterWeek, editMasterWeek } from "../../API/masterWeekAPI";
+
 //
 
 
@@ -50,9 +61,475 @@ function MemberDetails() {
     const [selectedDate, setSelectedDate] = useState(null);
     const { signOut } = React.useContext(AuthContext);
     const location = useLocation()
-    const { selectedMemberID } = location.state;
+    const { selectedMemberID, selectedMemberName } = location.state;
     const [profileAddressTableRows, setProfileAddressTableRows] = useState([]);
-    const [callMember, setCallMember] = useState(false)
+    const [callMember, setCallMember] = useState(false);
+
+    const showToastMessage = () => {
+        toast.success('Visit Updated Successfully!', {
+            position: toast.POSITION.TOP_CENTER
+        });
+    };
+
+
+
+    // For Edit Visit
+
+
+    //  
+
+    const [memberId, setMemberId] = useState('');
+
+
+    const [careGiverCodeG, setCareGiverCodeG] = useState('');
+    const [careGiverFirstNameG, setCareGiverFirstNameG] = useState('');
+    const [careGiverLastNameG, setCareGiverLastNameG] = useState('');
+    const [careGiverGenderG, setCareGiverGenderG] = useState('');
+    const [careGiverDOBG, setCareGiverDOBG] = useState('');
+    const [careGiverSSNG, setCareGiverSSNG] = useState('');
+
+    const [memberFirstNameG, setMemberFirstNameG] = useState('');
+    const [memberLastNameG, setMemberLastNameG] = useState('');
+
+    const [duration, setDuration] = useState('');
+    const [selectedDateEditVisit, setSelectedDateEditVisit] = useState(null);
+    const [visitEndTime, setVisitEndTime] = useState(dayjs('2022-04-17T15:30'));
+    const [visitStartTime, setVisitStartTime] = useState(dayjs('2022-04-17T15:30'));
+    const [scheduleStartTime, setScheduleStartTime] = useState(dayjs('2022-04-17T15:30'));
+    const [dutiesListEditVisit, setDutiesListEditVisit] = useState([]);
+    const [selectedDutyEditVisit, setSelectedDutyEditVisit] = useState('');
+    const [scheduleID, setScheduleID] = useState('13252546');
+    const [visitID, setVisitID] = useState('');
+    const [scheduleEndTime, setScheduleEndTime] = useState(dayjs('2022-04-17T15:30'));
+    const [evvStartTime, setEvvStartTime] = useState(dayjs('2022-04-17T15:30'));
+    const [evvEndTime, setEvvEndTime] = useState(dayjs('2022-04-17T15:30'));
+
+
+    const [clockInLocationAddressLine1, setClockInLocationAddressLine1] = useState("123 Street");
+    const [clockInLocationAddressLine2, setClockInLocationAddressLine2] = useState("");
+    const [clockInLocationCity, setClockInLocationCity] = useState("BOILING SPRINGS");
+    const [clockInLocationState, setClockInLocationState] = useState("NC");
+    const [clockInZipCode, setClockInZipCode] = useState("28017");
+    const [clockInLocationType, setClockInLocationType] = useState("Home");
+    const [clockOutLocationCity, setClockOutLocationCity] = useState("BOILING SPRINGS");
+    const [diagnosisCode, setDiagnososCode] = useState("F71 | G40.901");
+    const [procedureCode, setProcedureCode] = useState("T2013:TF");
+
+
+
+    //CC2
+    const [clockOutAddressLine1, setClockOutAddressLine1] = useState('123 Street');
+    const [clockOutAddressLine2, setClockOutAddressLine2] = useState('');
+    const [clockOutLocationState, setClockOutLocationState] = useState('NC');
+    const [clockOutLocationZipCode, setClockOutLocationZipCode] = useState('28017');
+    const [clockOutLocationType, setClockOutLocationType] = useState('Home');
+
+
+    //CC3
+    const [duties, setDuties] = useState("");
+    const [clockInPhone, setClockInPhone] = useState("7324878977");
+    const [clockInLatitude, setClockInLatitude] = useState("40.296139");
+    const [clockInLongitude, setClockInLongitude] = useState("-74.773369");
+    const [clockOutLatitude, setClockOutLatitude] = useState("40.296139");
+    const [clockOutLongitude, setClockOutLongitude] = useState("-74.773369");
+
+
+    //CC4
+
+    const [clockInEvvOtherInfo, setClockInEvvOtherInfo] = useState("non");
+    const [clockOutPhone, setClockOutPhone] = useState("7324878977");
+    const [clockOutEvvOtherInfo, setClockOutEvvOtherInfo] = useState("");
+    const [invoiceNumber, setInvoiceNumber] = useState("1977171");
+    const [visitEditReasonCode, setVisitEditReasonCode] = useState("118");
+    const [visitEditActionTaken, setVisitEditActionTaken] = useState("25");
+
+
+    //CC5
+
+    const [visitEditMadeBy, setVisitEditMadeBy] = useState("");
+    const [notes, setNotes] = useState("");
+    const [inDeletion, setInDeletion] = useState("N");
+    const [invoiceLineItemId, setInvoiceLineItemId] = useState("");
+    const [totalBilledAmount, setTotalBilledAmount] = useState("60.84");
+    const [unitsBilled, setUnitsBilled] = useState("12");
+
+
+    //CC6
+
+
+    const [billedRate, setBilledRate] = useState('5.07');
+    const [submissionType, setSubmissionType] = useState('');
+    const [trnNumber, setTrnNumber] = useState('');
+    const [enableSecondaryBilling, setEnableSecondaryBilling] = useState('');
+    const [otherSubscriberId, setOtherSubscriberId] = useState('');
+    const [primaryPayerId, setPrimaryPayerId] = useState('');
+
+
+    //CC7
+    const [primaryPayerName, setPrimaryPayerName] = useState('');
+    const [relationshipToInsured, setRelationshipToInsured] = useState('');
+    const [primaryPayerPolicy, setPrimaryPayerPolicy] = useState('');
+    const [primaryPayerProgram, setPrimaryPayerProgram] = useState('');
+    const [planType, setPlanType] = useState('');
+    const [totalPaidAmount, setTotalPaidAmount] = useState('');
+
+
+    //CC8
+    const [totalPaidUnits, setTotalPaidUnits] = useState("");
+    const [paidDate, setPaidDate] = useState(dayjs('2022-04-17T15:30'));
+    const [deductible, setDeductible] = useState("");
+    const [coinsurance, setCoinsurance] = useState("");
+    const [copay, setCopay] = useState("");
+    const [contractedAdjustments, setContractedAdjustments] = useState("");
+
+
+    //CC9
+    const [notMedicallyNecessary, setNotMedicallyNecessary] = useState('');
+    const [nonCoveredCharges, setNonCoveredCharges] = useState('');
+    const [maxBenefitExhausted, setMaxBenefitExhausted] = useState('');
+    const [missedVisit, setMissedVisit] = useState('');
+    const [missedVisitActionTakenCode, setMissedVisitActionTakenCode] = useState('');
+    const [missedVisitReasonCode, setMissedVisitReasonCode] = useState('');
+
+
+
+    //CC10
+    // State for 'Missed Visit Notes' TextField
+    const [missedVisitNotes, setMissedVisitNotes] = useState('');
+    const [travelTimeRequestHours, setTravelTimeRequestHours] = useState('');
+    const [travelTimeComments, setTravelTimeComments] = useState('');
+    const [cancelTravelTimeRequest, setCancelTravelTimeRequest] = useState('');
+    const [timesheetRequired, setTimesheetRequired] = useState('');
+    const [timesheetApproved, setTimesheetApproved] = useState('');
+
+
+    //CC10
+
+
+
+    //CC11
+    const [unitField1, setUnitField1] = useState("");
+    const [unitField2, setUnitField2] = useState("");
+    const [unitField3, setUnitField3] = useState("");
+    const [unitField4, setUnitField4] = useState("");
+    const [unitField5, setUnitField5] = useState("");
+    const [unitField6, setUnitField6] = useState("");
+
+
+    const [unitField7Value, setUnitField7Value] = useState('');
+    const [unitField8Value, setUnitField8Value] = useState('');
+    const [unitField9Value, setUnitField9Value] = useState('');
+    const [unitField10Value, setUnitField10Value] = useState('');
+
+
+
+    //Member States
+    const [altMemberID, setAltMemberID] = useState("");
+    const [branch, setBranch] = useState("");
+    const [cluster, setCluster] = useState("");
+    const [mcoName, setMcoName] = useState("");
+    const [isDefault, setIsDefault] = useState("");
+    const [discipline, setDiscipline] = useState("");
+    const [evvRequired, setEvvRequired] = useState("");
+    const [firstDayOfService, setFirstDayOfService] = useState("");
+    const [fobRequired, setFobRequired] = useState("");
+    const [fobSealID, setFobSealID] = useState("");
+    const [lastDayOfService, setLastDayOfService] = useState("");
+    const [isLinked, setIsLinked] = useState("");
+    const [locationMember, setLocationMember] = useState("");
+    const [mdOrderRequired, setMdOrderRequired] = useState("");
+    const [isMutual, setIsMutual] = useState("");
+    const [nurse, setNurse] = useState("");
+    const [memberProfileHeaderAlert, setMemberProfileHeaderAlert] = useState("");
+    const [projectedDCDate, setProjectedDCDate] = useState("");
+    const [sourceOfAdmission, setSourceOfAdmission] = useState("");
+    const [status, setStatus] = useState("");
+    const [team, setTeam] = useState("");
+    const [uniqueDeviceSerialNumber, setUniqueDeviceSerialNumber] = useState("");
+    const [providerName, setProviderName] = useState("");
+    const [acceptedServices, setAcceptedServices] = useState("");
+    const [admissionID, setAdmissionID] = useState("");
+    const [alert, setAlert] = useState("");
+    const [coordinatorName, setCoordinatorName] = useState("");
+    const [coordinatorName2, setCoordinatorName2] = useState("");
+    const [coordinatorName3, setCoordinatorName3] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [gender, setGender] = useState("");
+    const [icd10, setIcd10] = useState("");
+    const [icd9, setIcd9] = useState("");
+    const [ivrRequired, setIvrRequired] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [medicaidNumber, setMedicaidNumber] = useState("");
+    const [medicareNumber, setMedicareNumber] = useState("");
+    const [middleName, setMiddleName] = useState("");
+    const [memberHIClaimNo, setMemberHIClaimNo] = useState("");
+    const [memberID, setMemberID] = useState("");
+    const [ssn, setSsn] = useState("");
+    const [startDate, setStartDate] = useState("");
+    const [isWageParity, setIsWageParity] = useState("");
+    const [wageParityFromDate1, setWageParityFromDate1] = useState("");
+    const [wageParityFromDate2, setWageParityFromDate2] = useState("");
+    const [wageParityToDate1, setWageParityToDate1] = useState("");
+    const [wageParityToDate2, setWageParityToDate2] = useState("");
+    const [address1, setAddress1] = useState("");
+    const [address2, setAddress2] = useState("");
+    const [city, setCity] = useState("");
+    const [crossStreet, setCrossStreet] = useState("");
+    const [homePhone, setHomePhone] = useState("");
+    const [homePhone2, setHomePhone2] = useState("");
+    const [homePhone3, setHomePhone3] = useState("");
+    const [stateMember, setStateMember] = useState("");
+    const [zipCode, setZipCode] = useState("");
+    const [billingCity, setBillingCity] = useState("");
+    const [billingFirstName, setBillingFirstName] = useState("");
+    const [billingLastName, setBillingLastName] = useState("");
+    const [billingMiddleName, setBillingMiddleName] = useState("");
+    const [billingResponsibleParty, setBillingResponsibleParty] = useState("");
+    const [billingState, setBillingState] = useState("");
+    const [billingStreet, setBillingStreet] = useState("");
+    const [billingZipCode, setBillingZipCode] = useState("");
+    const [differentBillingAddress, setDifferentBillingAddress] = useState("");
+    const [emergency1Address, setEmergency1Address] = useState("");
+    const [emergency1Name, setEmergency1Name] = useState("");
+    const [emergency1Phone1, setEmergency1Phone1] = useState("");
+    const [emergency1phone2, setEmergency1phone2] = useState("");
+    const [emergency1Relationship, setEmergency1Relationship] = useState("");
+    const [emergency2Address, setEmergency2Address] = useState("");
+    const [emergency2Name, setEmergency2Name] = useState("");
+    const [emergency2Phone1, setEmergency2Phone1] = useState("");
+    const [emergency2Phone2, setEmergency2Phone2] = useState("");
+    const [emergency2Relationship, setEmergency2Relationship] = useState("");
+    const [priorityCode, setPriorityCode] = useState("");
+    const [evacuationZone, setEvacuationZone] = useState("");
+    const [evacuationLocation, setEvacuationLocation] = useState("");
+    const [mobilityStatus, setMobilityStatus] = useState("");
+    const [electricEquipmentDependency, setElectricEquipmentDependency] = useState("");
+    const [mcoPriorityCode, setMcoPriorityCode] = useState("");
+    const [preferredGender, setPreferredGender] = useState("");
+    const [shabbatObservant, setShabbatObservant] = useState("");
+    const [accountManager, setAccountManager] = useState("");
+    const [commissionStatus, setCommissionStatus] = useState("");
+    const [contactPerson, setContactPerson] = useState("");
+    const [intakePerson, setIntakePerson] = useState("");
+    const [receivedDate, setReceivedDate] = useState("");
+    const [source, setSource] = useState("");
+    const [type, setType] = useState("");
+    const [clinicalComments, setClinicalComments] = useState("");
+    const [mdVisitDue, setMdVisitDue] = useState("");
+    const [allergies, setAllergies] = useState("");
+    const [lastSkilledRNVisit, setLastSkilledRNVisit] = useState("");
+    const [phiMemberID, setPhiMemberID] = useState("");
+
+
+
+
+
+
+
+    //Master Week States ADD
+
+
+    const [fromDate, setFromDate] = useState(null);
+    const [toDate, setToDate] = useState(null);
+
+    const [startTimeM, setStartTimeM] = useState('');
+    const [endTimeM, setEndTimeM] = useState('');
+    const [careGiverCodeM, setCareGiverCodeM] = useState('');
+    const [careGiverNameM, setCareGiverNameM] = useState('');
+    const [assIdM, setAssIdM] = useState('');
+    const [pocM, setPocM] = useState('');
+    const [hoursM, setHoursM] = useState('');
+    const [minutesM, setMinutesM] = useState('');
+    const [secondsM, setSecondsM] = useState('');
+    const [serviceCodeM, setServiceCodeM] = useState('');
+    const [modeM, setModeM] = useState('');
+
+
+    const [startTimeT, setStartTimeT] = useState('');
+    const [endTimeT, setEndTimeT] = useState('');
+    const [careGiverCodeT, setCareGiverCodeT] = useState('');
+    const [careGiverNameT, setCareGiverNameT] = useState('');
+    const [assIdT, setAssIdT] = useState('');
+    const [pocT, setPocT] = useState('');
+    const [hoursT, setHoursT] = useState('');
+    const [minutesT, setMinutesT] = useState('');
+    const [serviceCodeT, setServiceCodeT] = useState('');
+    const [secondsT, setSecondsT] = useState('');
+    const [modeT, setModeT] = useState('');
+
+
+    const [startTimeW, setStartTimeW] = useState('');
+    const [endTimeW, setEndTimeW] = useState('');
+    const [careGiverCodeW, setCareGiverCodeW] = useState('');
+    const [careGiverNameW, setCareGiverNameW] = useState('');
+    const [assIdW, setAssIdW] = useState('');
+    const [pocW, setPocW] = useState('');
+    const [hoursW, setHoursW] = useState('');
+    const [minutesW, setMinutesW] = useState('');
+    const [serviceCodeW, setServiceCodeW] = useState('');
+    const [secondsW, setSecondsW] = useState('');
+    const [modeW, setModeW] = useState('');
+
+    const [startTimeTH, setStartTimeTH] = useState('');
+    const [endTimeTH, setEndTimeTH] = useState('');
+    const [careGiverCodeTH, setCareGiverCodeTH] = useState('');
+    const [careGiverNameTH, setCareGiverNameTH] = useState('');
+    const [assIdTH, setAssIdTH] = useState('');
+    const [pocTH, setPocTH] = useState('');
+    const [hoursTH, setHoursTH] = useState('');
+    const [minutesTH, setMinutesTH] = useState('');
+    const [serviceCodeTH, setServiceCodeTH] = useState('');
+    const [secondsTH, setSecondsTH] = useState('');
+    const [modeTH, setModeTH] = useState('');
+
+
+    const [startTimeF, setStartTimeF] = useState('');
+    const [endTimeF, setEndTimeF] = useState('');
+    const [careGiverCodeF, setCareGiverCodeF] = useState('');
+    const [careGiverNameF, setCareGiverNameF] = useState('');
+    const [assIdF, setAssIdF] = useState('');
+    const [pocF, setPocF] = useState('');
+    const [hoursF, setHoursF] = useState('');
+    const [minutesF, setMinutesF] = useState('');
+    const [serviceCodeF, setServiceCodeF] = useState('');
+    const [secondsF, setSecondsF] = useState('');
+    const [modeF, setModeF] = useState('');
+
+    const [startTimeST, setStartTimeST] = useState('');
+    const [endTimeST, setEndTimeST] = useState('');
+    const [careGiverCodeST, setCareGiverCodeST] = useState('');
+    const [careGiverNameST, setCareGiverNameST] = useState('');
+    const [assIdST, setAssIdST] = useState('');
+    const [pocST, setPocST] = useState('');
+    const [hoursST, setHoursST] = useState('');
+    const [minutesST, setMinutesST] = useState('');
+    const [serviceCodeST, setServiceCodeST] = useState('');
+    const [secondsST, setSecondsST] = useState('');
+    const [modeST, setModeST] = useState('');
+
+
+    const [startTimeSU, setStartTimeSU] = useState('');
+    const [endTimeSU, setEndTimeSU] = useState('');
+    const [careGiverCodeSU, setCareGiverCodeSU] = useState('');
+    const [careGiverNameSU, setCareGiverNameSU] = useState('');
+    const [assIdSU, setAssIdSU] = useState('');
+    const [pocSU, setPocSU] = useState('');
+    const [hoursSU, setHoursSU] = useState('');
+    const [minutesSU, setMinutesSU] = useState('');
+    const [serviceCodeSU, setServiceCodeSU] = useState('');
+    const [secondsSU, setSecondsSU] = useState('');
+    const [modeSU, setModeSU] = useState('');
+
+
+    //====================
+
+
+
+    //Master Week States Edit
+
+    const [fromDateE, setFromDateE] = useState(null);
+    const [toDateE, setToDateE] = useState(null);
+
+    const [startTimeME, setStartTimeME] = useState('');
+    const [endTimeME, setEndTimeME] = useState('');
+    const [careGiverCodeME, setCareGiverCodeME] = useState('');
+    const [careGiverNameME, setCareGiverNameME] = useState('');
+    const [assIdME, setAssIdME] = useState('');
+    const [pocME, setPocME] = useState('');
+    const [hoursME, setHoursME] = useState('');
+    const [minutesME, setMinutesME] = useState('');
+    const [serviceCodeME, setServiceCodeME] = useState('');
+    const [secondsME, setSecondsME] = useState('');
+    const [modeME, setModeME] = useState('');
+
+
+    const [startTimeTE, setStartTimeTE] = useState('');
+    const [endTimeTE, setEndTimeTE] = useState('');
+    const [careGiverCodeTE, setCareGiverCodeTE] = useState('');
+    const [careGiverNameTE, setCareGiverNameTE] = useState('');
+    const [assIdTE, setAssIdTE] = useState('');
+    const [pocTE, setPocTE] = useState('');
+    const [hoursTE, setHoursTE] = useState('');
+    const [minutesTE, setMinutesTE] = useState('');
+    const [serviceCodeTE, setServiceCodeTE] = useState('');
+    const [secondsTE, setSecondsTE] = useState('');
+    const [modeTE, setModeTE] = useState('');
+
+
+    const [startTimeWE, setStartTimeWE] = useState('');
+    const [endTimeWE, setEndTimeWE] = useState('');
+    const [careGiverCodeWE, setCareGiverCodeWE] = useState('');
+    const [careGiverNameWE, setCareGiverNameWE] = useState('');
+    const [assIdWE, setAssIdWE] = useState('');
+    const [pocWE, setPocWE] = useState('');
+    const [hoursWE, setHoursWE] = useState('');
+    const [minutesWE, setMinutesWE] = useState('');
+    const [serviceCodeWE, setServiceCodeWE] = useState('');
+    const [secondsWE, setSecondsWE] = useState('');
+    const [modeWE, setModeWE] = useState('');
+
+    const [startTimeTHE, setStartTimeTHE] = useState('');
+    const [endTimeTHE, setEndTimeTHE] = useState('');
+    const [careGiverCodeTHE, setCareGiverCodeTHE] = useState('');
+    const [careGiverNameTHE, setCareGiverNameTHE] = useState('');
+    const [assIdTHE, setAssIdTHE] = useState('');
+    const [pocTHE, setPocTHE] = useState('');
+    const [hoursTHE, setHoursTHE] = useState('');
+    const [minutesTHE, setMinutesTHE] = useState('');
+    const [serviceCodeTHE, setServiceCodeTHE] = useState('');
+    const [secondsTHE, setSecondsTHE] = useState('');
+    const [modeTHE, setModeTHE] = useState('');
+
+
+    const [startTimeFE, setStartTimeFE] = useState('');
+    const [endTimeFE, setEndTimeFE] = useState('');
+    const [careGiverCodeFE, setCareGiverCodeFE] = useState('');
+    const [careGiverNameFE, setCareGiverNameFE] = useState('');
+    const [assIdFE, setAssIdFE] = useState('');
+    const [pocFE, setPocFE] = useState('');
+    const [hoursFE, setHoursFE] = useState('');
+    const [minutesFE, setMinutesFE] = useState('');
+    const [serviceCodeFE, setServiceCodeFE] = useState('');
+    const [secondsFE, setSecondsFE] = useState('');
+    const [modeFE, setModeFE] = useState('');
+
+    const [startTimeSTE, setStartTimeSTE] = useState('');
+    const [endTimeSTE, setEndTimeSTE] = useState('');
+    const [careGiverCodeSTE, setCareGiverCodeSTE] = useState('');
+    const [careGiverNameSTE, setCareGiverNameSTE] = useState('');
+    const [assIdSTE, setAssIdSTE] = useState('');
+    const [pocSTE, setPocSTE] = useState('');
+    const [hoursSTE, setHoursSTE] = useState('');
+    const [minutesSTE, setMinutesSTE] = useState('');
+    const [serviceCodeSTE, setServiceCodeSTE] = useState('');
+    const [secondsSTE, setSecondsSTE] = useState('');
+    const [modeSTE, setModeSTE] = useState('');
+
+
+    const [startTimeSUE, setStartTimeSUE] = useState('');
+    const [endTimeSUE, setEndTimeSUE] = useState('');
+    const [careGiverCodeSUE, setCareGiverCodeSUE] = useState('');
+    const [careGiverNameSUE, setCareGiverNameSUE] = useState('');
+    const [assIdSUE, setAssIdSUE] = useState('');
+    const [pocSUE, setPocSUE] = useState('');
+    const [hoursSUE, setHoursSUE] = useState('');
+    const [minutesSUE, setMinutesSUE] = useState('');
+    const [serviceCodeSUE, setServiceCodeSUE] = useState('');
+    const [secondsSUE, setSecondsSUE] = useState('');
+    const [modeSUE, setModeSUE] = useState('');
+
+
+    //====================
+
+
+
+
+
+
+
+
+    // =========================
 
     const [age, setAge] = React.useState("");
 
@@ -70,29 +547,336 @@ function MemberDetails() {
 
     useEffect(() => {
         for (var key in membersData) {
-            if (membersData[key].MemberID == selectedMemberID) {
-                var myArray = membersData[key];
-                setMember(myArray)
+            if (selectedMemberID != null) {
+                if (membersData[key].MemberID == selectedMemberID) {
+                    var myArray = membersData[key];
+                    setMember(myArray)
 
-                //For Profile Tab Address Section
-                var arr = [];
-                var obj = {
-                    id: myArray.MemberID,
-                    address1: myArray.Address1,
-                    address2: myArray.Address2,
-                    city: myArray.City,
-                    state: myArray.State,
-                    country: myArray.Country,
-                    zip: myArray.ZipCode,
-                    crossStreet: myArray.CrossStreet,
-                    primaryAddress: "",
-                    notes: '',
+                    //For Profile Tab Address Section
+                    var arr = [];
+                    var obj = {
+                        id: myArray.MemberID,
+                        address1: myArray.Address1,
+                        address2: myArray.Address2,
+                        city: myArray.City,
+                        state: myArray.State,
+                        country: myArray.Country,
+                        zip: myArray.ZipCode,
+                        crossStreet: myArray.CrossStreet,
+                        primaryAddress: "",
+                        notes: '',
+                    }
+                    arr.push(obj);
+                    if (myArray.FOBRequired == 'Yes') {
+                        setIsCheckedFOBConfirmation(true);
+                    }
+                    if (myArray.FOBRequired == 'No') {
+                        setIsCheckedFOBConfirmation(false);
+                    }
+                    setProfileAddressTableRows(arr);
+
+                    setAltMemberID(myArray.AltMemberID)
+                    setBranch(myArray.Branch)
+                    setCluster(myArray.Cluster)
+                    setMcoName(myArray.MCOName)
+                    setIsDefault(myArray.Default)
+                    setDiscipline(myArray.Discipline)
+                    setEvvRequired(myArray.EVVRequired)
+                    setFirstDayOfService(myArray.FirstDayofService)
+                    setFobRequired(myArray.FOBRequired)
+                    setFobSealID(myArray.FOBSealID)
+                    setLastDayOfService(myArray.LastDayofService)
+                    setIsLinked(myArray.Linked)
+                    setLocationMember(myArray.Location)
+                    setMdOrderRequired(myArray.MDOrderRequired)
+                    setIsMutual(myArray.Mutual)
+                    setNurse(myArray.Nurse)
+                    setMemberProfileHeaderAlert(myArray.MemberProfileHeaderAlert)
+                    setProjectedDCDate(myArray.ProjectedDCDate)
+                    setSourceOfAdmission(myArray.SourceOfAdmission)
+                    setStatus(myArray.Status)
+                    setTeam(myArray.Team)
+                    setUniqueDeviceSerialNumber(myArray.UniqueDeviceSerialNumber)
+                    setProviderName(myArray.ProviderName)
+                    setAcceptedServices(myArray.AcceptedServices)
+                    setAdmissionID(myArray.AdmissionID)
+                    setAlert(myArray.Alert)
+                    setCoordinatorName(myArray.CoordinatorName)
+                    setCoordinatorName2(myArray.CoordinatorName2)
+                    setCoordinatorName3(myArray.CoordinatorName3)
+                    setDateOfBirth(myArray.DateofBirth)
+                    setFirstName(myArray.FirstName)
+                    setGender(myArray.Gender)
+                    setIcd10(myArray['ICD-10'])
+                    setIcd9(myArray['ICD-9'])
+                    setIvrRequired(myArray.IVRRequired)
+                    setLastName(myArray.LastName)
+                    setMedicaidNumber(myArray.MedicaidNumber)
+                    setMedicareNumber(myArray.MedicareNumber)
+                    setMiddleName(myArray.MiddleName)
+                    setMemberHIClaimNo(myArray.MemberHIClaimNo)
+                    setMemberID(myArray.MemberID)
+                    setSsn(myArray.SSN)
+                    setStartDate(myArray.StartDate)
+                    setIsWageParity(myArray.WageParity)
+                    setWageParityFromDate1(myArray.WageParityFromDate1)
+                    setWageParityFromDate2(myArray.WageParityFromDate2)
+                    setWageParityToDate1(myArray.WageParityToDate1)
+                    setWageParityToDate2(myArray.WageParityToDate2)
+                    setAddress1(myArray.Address1)
+                    setAddress2(myArray.Address2)
+                    setCity(myArray.City)
+                    setCrossStreet(myArray.CrossStreet)
+                    setHomePhone(myArray.HomePhone)
+                    setHomePhone2(myArray.HomePhone2)
+                    setHomePhone3(myArray.HomePhone3)
+                    setStateMember(myArray.State)
+                    setZipCode(myArray.ZipCode)
+                    setBillingCity(myArray.BillingCity)
+                    setBillingFirstName(myArray.BillingFirstName)
+                    setBillingLastName(myArray.BillingLastName)
+                    setBillingMiddleName(myArray.BillingMiddleName)
+                    setBillingResponsibleParty(myArray.BillingResponsibleParty)
+                    setBillingState(myArray.BillingState)
+                    setBillingStreet(myArray.BillingStreet)
+                    setBillingZipCode(myArray.BillingZipCode)
+                    setDifferentBillingAddress(myArray.DifferentBillingAddress)
+                    setEmergency1Address(myArray.Emergency1Address)
+                    setEmergency1Name(myArray.Emergency1Name)
+                    setEmergency1Phone1(myArray.Emergency1Phone1)
+                    setEmergency1phone2(myArray.Emergency1phone2)
+                    setEmergency1Relationship(myArray.Emergency1Relationship)
+                    setEmergency2Address(myArray.Emergency2Address)
+                    setEmergency2Name(myArray.Emergency2Name)
+                    setEmergency2Phone1(myArray.Emergency2Phone1)
+                    setEmergency2Phone2(myArray.Emergency2Phone2)
+                    setEmergency2Relationship(myArray.Emergency2Relationship)
+                    setPriorityCode(myArray.PriorityCode)
+                    setEvacuationZone(myArray.EvacuationZone)
+                    setEvacuationLocation(myArray.EvacuationLocation)
+                    setMobilityStatus(myArray.MobilityStatus)
+                    setElectricEquipmentDependency(myArray.ElectricEquipmentDependency)
+                    setMcoPriorityCode(myArray.MCOPriorityCode)
+                    setPreferredGender(myArray.PreferredGender)
+                    setShabbatObservant(myArray.ShabbatObservant)
+                    setAccountManager(myArray.AccountManager)
+                    setCommissionStatus(myArray.CommissionStatus)
+                    setContactPerson(myArray.ContactPerson)
+                    setIntakePerson(myArray.IntakePerson)
+                    setReceivedDate(myArray.ReceivedDate)
+                    setSource(myArray.Source)
+                    setType(myArray.Type)
+                    setClinicalComments(myArray.ClinicalComments)
+                    setMdVisitDue(myArray.MDVisitDue)
+                    setAllergies(myArray.Allergies)
+                    setLastSkilledRNVisit(myArray['LastSkilled/RNVisit'])
+                    setPhiMemberID(myArray.PHIMemberID)
                 }
-                arr.push(obj);
-                setProfileAddressTableRows(arr);
+            }
+            else if (selectedMemberName != null) {
+                if (membersData[key].FirstName + " " + membersData[key].LastName == selectedMemberName) {
+                    var myArray = membersData[key];
+                    setMember(myArray)
+
+                    //For Profile Tab Address Section
+                    var arr = [];
+                    var obj = {
+                        id: myArray.MemberID,
+                        address1: myArray.Address1,
+                        address2: myArray.Address2,
+                        city: myArray.City,
+                        state: myArray.State,
+                        country: myArray.Country,
+                        zip: myArray.ZipCode,
+                        crossStreet: myArray.CrossStreet,
+                        primaryAddress: "",
+                        notes: '',
+                    }
+                    arr.push(obj);
+                    setProfileAddressTableRows(arr);
+
+
+                    setAltMemberID(myArray.AltMemberID)
+                    setBranch(myArray.Branch)
+                    setCluster(myArray.Cluster)
+                    setMcoName(myArray.MCOName)
+                    setIsDefault(myArray.Default)
+                    setDiscipline(myArray.Discipline)
+                    setEvvRequired(myArray.EVVRequired)
+                    setFirstDayOfService(myArray.FirstDayofService)
+                    setFobRequired(myArray.FOBRequired)
+                    setFobSealID(myArray.FOBSealID)
+                    setLastDayOfService(myArray.LastDayofService)
+                    setIsLinked(myArray.Linked)
+                    setLocationMember(myArray.Location)
+                    setMdOrderRequired(myArray.MDOrderRequired)
+                    setIsMutual(myArray.Mutual)
+                    setNurse(myArray.Nurse)
+                    setMemberProfileHeaderAlert(myArray.MemberProfileHeaderAlert)
+                    setProjectedDCDate(myArray.ProjectedDCDate)
+                    setSourceOfAdmission(myArray.SourceOfAdmission)
+                    setStatus(myArray.Status)
+                    setTeam(myArray.Team)
+                    setUniqueDeviceSerialNumber(myArray.UniqueDeviceSerialNumber)
+                    setProviderName(myArray.ProviderName)
+                    setAcceptedServices(myArray.AcceptedServices)
+                    setAdmissionID(myArray.AdmissionID)
+                    setAlert(myArray.Alert)
+                    setCoordinatorName(myArray.CoordinatorName)
+                    setCoordinatorName2(myArray.CoordinatorName2)
+                    setCoordinatorName3(myArray.CoordinatorName3)
+                    setDateOfBirth(myArray.DateofBirth)
+                    setFirstName(myArray.FirstName)
+                    setGender(myArray.Gender)
+                    setIcd10(myArray['ICD-10'])
+                    setIcd9(myArray['ICD-9'])
+                    setIvrRequired(myArray.IVRRequired)
+                    setLastName(myArray.LastName)
+                    setMedicaidNumber(myArray.MedicaidNumber)
+                    setMedicareNumber(myArray.MedicareNumber)
+                    setMiddleName(myArray.MiddleName)
+                    setMemberHIClaimNo(myArray.MemberHIClaimNo)
+                    setMemberID(myArray.MemberID)
+                    setSsn(myArray.SSN)
+                    setStartDate(myArray.StartDate)
+                    setIsWageParity(myArray.WageParity)
+                    setWageParityFromDate1(myArray.WageParityFromDate1)
+                    setWageParityFromDate2(myArray.WageParityFromDate2)
+                    setWageParityToDate1(myArray.WageParityToDate1)
+                    setWageParityToDate2(myArray.WageParityToDate2)
+                    setAddress1(myArray.Address1)
+                    setAddress2(myArray.Address2)
+                    setCity(myArray.City)
+                    setCrossStreet(myArray.CrossStreet)
+                    setHomePhone(myArray.HomePhone)
+                    setHomePhone2(myArray.HomePhone2)
+                    setHomePhone3(myArray.HomePhone3)
+                    setStateMember(myArray.State)
+                    setZipCode(myArray.ZipCode)
+                    setBillingCity(myArray.BillingCity)
+                    setBillingFirstName(myArray.BillingFirstName)
+                    setBillingLastName(myArray.BillingLastName)
+                    setBillingMiddleName(myArray.BillingMiddleName)
+                    setBillingResponsibleParty(myArray.BillingResponsibleParty)
+                    setBillingState(myArray.BillingState)
+                    setBillingStreet(myArray.BillingStreet)
+                    setBillingZipCode(myArray.BillingZipCode)
+                    setDifferentBillingAddress(myArray.DifferentBillingAddress)
+                    setEmergency1Address(myArray.Emergency1Address)
+                    setEmergency1Name(myArray.Emergency1Name)
+                    setEmergency1Phone1(myArray.Emergency1Phone1)
+                    setEmergency1phone2(myArray.Emergency1phone2)
+                    setEmergency1Relationship(myArray.Emergency1Relationship)
+                    setEmergency2Address(myArray.Emergency2Address)
+                    setEmergency2Name(myArray.Emergency2Name)
+                    setEmergency2Phone1(myArray.Emergency2Phone1)
+                    setEmergency2Phone2(myArray.Emergency2Phone2)
+                    setEmergency2Relationship(myArray.Emergency2Relationship)
+                    setPriorityCode(myArray.PriorityCode)
+                    setEvacuationZone(myArray.EvacuationZone)
+                    setEvacuationLocation(myArray.EvacuationLocation)
+                    setMobilityStatus(myArray.MobilityStatus)
+                    setElectricEquipmentDependency(myArray.ElectricEquipmentDependency)
+                    setMcoPriorityCode(myArray.MCOPriorityCode)
+                    setPreferredGender(myArray.PreferredGender)
+                    setShabbatObservant(myArray.ShabbatObservant)
+                    setAccountManager(myArray.AccountManager)
+                    setCommissionStatus(myArray.CommissionStatus)
+                    setContactPerson(myArray.ContactPerson)
+                    setIntakePerson(myArray.IntakePerson)
+                    setReceivedDate(myArray.ReceivedDate)
+                    setSource(myArray.Source)
+                    setType(myArray.Type)
+                    setClinicalComments(myArray.ClinicalComments)
+                    setMdVisitDue(myArray.MDVisitDue)
+                    setAllergies(myArray.Allergies)
+                    setLastSkilledRNVisit(myArray['LastSkilled/RNVisit'])
+                    setPhiMemberID(myArray.PHIMemberID)
+                }
             }
         }
     }, []);
+
+    // Get Misc
+    const [serviceCodes, setServiceCodes] = useState(null);
+    const [selectedServiceCode, setSelectedServiceCode] = useState(null);
+    const [dutiesList, setDutiesList] = useState([]);
+    const [visitType, setVisitType] = useState(null);
+    const [selectedVisitType, setSelectedVisitType] = useState(null);
+    const [pocIds, setPocIds] = useState([])
+    const [visitEditReasonAll, setVisitEditReasonAll] = useState([]);
+    const [visitActionTakenAll, setVisitActionTakenAll] = useState([]);
+
+
+    var miscValuesString = localStorage.getItem("MISC");
+    var miscValues = JSON.parse(miscValuesString)
+    miscValues = miscValues.data;
+    useEffect(() => {
+        var arr = [];
+        var arr2 = [];
+        var arr3 = [];
+        var arr4 = [];
+
+
+
+        for (var key in miscValues) {
+            if (miscValues[key].tag == "services") {
+                for (var key2 in miscValues[key].fields) {
+                    if (miscValues[key].fields[key2].service_code != null) {
+                        var obj = {};
+                        obj.service_code = miscValues[key].fields[key2].service_code;
+                        obj.payer = miscValues[key].fields[key2].payer;
+                        obj.description = miscValues[key].fields[key2].description;
+                        arr.push(obj);
+                    }
+                }
+            }
+
+            if (miscValues[key].tag == "poc") {
+                for (var key2 in miscValues[key].fields) {
+                    if (miscValues[key].fields[key2].service_code != null) {
+                        var obj = {};
+                        obj.duty = miscValues[key].fields[key2].duty;
+                        obj.task_id = miscValues[key].fields[key2].task_id;
+                        obj.category = miscValues[key].fields[key2].category;
+                        obj.as_needed = miscValues[key].fields[key2].as_needed;
+                        obj.Instruction = miscValues[key].fields[key2].Instruction;
+                        obj.days_of_week = miscValues[key].fields[key2].days_of_week;
+                        obj.times_a_week_max = miscValues[key].fields[key2].times_a_week_max;
+                        obj.times_a_week_min = miscValues[key].fields[key2].times_a_week_min;
+                        arr4.push(obj);
+                    }
+                }
+            }
+
+            if (miscValues[key].tag == "duties") {
+                for (var key2 in miscValues[key].fields) {
+                    var obj = {};
+                    obj.task_name = miscValues[key].fields[key2].task_name;
+                    obj.code = miscValues[key].fields[key2].code;
+                    obj.hhax_category = miscValues[key].fields[key2].hhax_category;
+                    arr2.push(obj);
+                }
+            }
+
+            if (miscValues[key].tag == "visit-type") {
+                var obj = miscValues[key].fields.value;
+                arr3.push(obj);
+            }
+
+            if (miscValues[key].tag == "visit_misc") {
+                var obj = miscValues[key].fields;
+                setVisitActionTakenAll(obj[1].visit_action_taken)
+                setVisitEditReasonAll(obj[0].visit_edit_reason)
+                console.log(obj)
+            }
+        }
+        setServiceCodes(arr);
+        setDutiesList(arr2);
+        setVisitType(arr3);
+        setPocIds(arr4);
+
+    }, [])
 
 
     const [ViewSelected, setViewSelected] = useState(2);
@@ -101,11 +885,52 @@ function MemberDetails() {
     const [isOverlayOpen2, setIsOverlayOpen2] = useState(false);
     const [isOverlayOpen3, setIsOverlayOpen3] = useState(false);
 
+    const [selectedAuth3Row, setSelectedAuth3Row] = useState(null);
+    const [rowDiagnosisCodeV, setRowDiagnosisCodeV] = useState(null);
+
+    const columnsDiagnosisCode = [
+        { field: 'id', headerName: 'Code', width: 100 },
+        { field: 'description', headerName: 'Description', width: 300 },
+        { field: 'admit', headerName: 'Admit', width: 200 },
+        { field: 'primary', headerName: 'Primary', width: 200 },
+        {
+            field: 'actions',
+            headerName: 'ADD',
+            sortable: false,
+            width: 400,
+            renderCell: (params) => (
+                <Button variant="contained">
+                    Delete
+                </Button>
+            ),
+        },
+    ];
+
+
+    const rowsDiagnosisCode = [
+        { id: 1, description: 'John', admit: 'Doe' },
+        { id: 2, description: 'Jane', admit: 'Doe' },
+    ];
+
 
     //Last 3 Auth Auth-Type
     const [authTypeOpen, setAuthTypeOpen] = useState(false);
-    const handleClickAuthType = () => {
+    const handleClickAuthType = (row) => {
         setAuthTypeOpen(true);
+        for (var key in l3AllData) {
+            if (row.id == l3AllData[key].id) {
+                setSelectedAuth3Row(l3AllData[key]);
+                var obj2 = {
+                    id: l3AllData[key].billing_diag_code.code,
+                    description: l3AllData[key].billing_diag_code.description,
+                    admit: l3AllData[key].billing_diag_code.admit,
+                    primary: l3AllData[key].billing_diag_code.primary,
+                }
+                var arr = [];
+                arr.push(obj2);
+                setRowDiagnosisCodeV(arr);
+            }
+        }
     }
 
     const handleClickAuthTypeClose = () => {
@@ -193,9 +1018,8 @@ function MemberDetails() {
         return (
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={open}
+                open={open}>
 
-            >
                 <div className="overlay">
                     <CloseIcon className="crossIcon" onClick={handleClose} />
                     <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
@@ -550,28 +1374,6 @@ function MemberDetails() {
         // Do something with the selected file
     };
 
-    const columnsDiagnosisCode = [
-        { field: 'id', headerName: 'Code', width: 100 },
-        { field: 'firstName', headerName: 'Description', width: 300 },
-        { field: 'lastName', headerName: 'Admit', width: 200 },
-        { field: 'lastName', headerName: 'Primary', width: 200 },
-        {
-            field: 'actions',
-            headerName: 'ADD',
-            sortable: false,
-            width: 400,
-            renderCell: (params) => (
-                <Button variant="contained">
-                    Delete
-                </Button>
-            ),
-        },
-    ];
-
-    const rowsDiagnosisCode = [
-        { id: 1, firstName: 'John', lastName: 'Doe' },
-        { id: 2, firstName: 'Jane', lastName: 'Doe' },
-    ];
 
 
     function Overlay4() {
@@ -589,30 +1391,13 @@ function MemberDetails() {
 
                     <div className="searchFieldsDiv">
 
-                        <Grid className="griditem2">
-                            <Box>
-                                <FormControl fullWidth>
-                                    <InputLabel>Status</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={age}
-                                        label="Status"
-                                        onChange={handleChange}
-                                    >
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Box>
-                        </Grid>
 
                         <Grid className="griditem">
                             <TextField
                                 id="outlined-basic"
                                 label="Service Category"
                                 variant="outlined"
+                                value={selectedAuth3Row.service_category}
                             />
                         </Grid>
                         <Grid className="griditem">
@@ -620,6 +1405,7 @@ function MemberDetails() {
                                 id="outlined-basic"
                                 label="Service Type"
                                 variant="outlined"
+                                value={selectedAuth3Row.service_type}
                             />
                         </Grid>
                         <Grid className="griditem">
@@ -627,6 +1413,7 @@ function MemberDetails() {
                                 id="outlined-basic"
                                 label="Authorization Number"
                                 variant="outlined"
+                                value={""}
                             />
                         </Grid>
                         <Grid className="griditem">
@@ -634,6 +1421,7 @@ function MemberDetails() {
                                 id="outlined-basic"
                                 label="Service Code"
                                 variant="outlined"
+                                value={selectedAuth3Row.service_code}
                             />
                         </Grid>
                         <Grid className="griditem">
@@ -641,6 +1429,7 @@ function MemberDetails() {
                                 id="outlined-basic"
                                 label="From Date DD/MM/YYYY"
                                 variant="outlined"
+                                value={selectedAuth3Row.from_date}
                             />
                         </Grid>
 
@@ -649,6 +1438,7 @@ function MemberDetails() {
                                 id="outlined-basic"
                                 label="To Date DD/MM/YYYY"
                                 variant="outlined"
+                                value={selectedAuth3Row.to_date}
                             />
                         </Grid>
 
@@ -657,6 +1447,7 @@ function MemberDetails() {
                                 id="outlined-basic"
                                 label="Service Code Type"
                                 variant="outlined"
+                                value={selectedAuth3Row.service_code_type}
                             />
                         </Grid>
 
@@ -665,6 +1456,7 @@ function MemberDetails() {
                                 id="outlined-basic"
                                 label="Authorization Type"
                                 variant="outlined"
+                                value={selectedAuth3Row.auth_type}
                             />
                         </Grid>
 
@@ -697,7 +1489,7 @@ function MemberDetails() {
                     <h1 style={{ textAlign: "center", color: "black" }}>Checkout Dates</h1>
 
                     <div className="searchFieldsDiv">
-
+                        <h3 style={{ textAlign: "center", color: "black" }}>Document</h3>
                         <TextField
                             type="file"
                             label="Upload Document"
@@ -715,12 +1507,11 @@ function MemberDetails() {
 
 
                     </div>
-
-
                     <div className="searchFieldsDivTable">
+                        <h3 style={{ textAlign: "center", color: "black" }}>Billing Diagnosis Code</h3>
                         <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
                             <DataGrid
-                                rows={rowsDiagnosisCode}
+                                rows={rowDiagnosisCodeV}
                                 columns={columnsDiagnosisCode}
                                 pageSize={5} />
                         </div>
@@ -737,6 +1528,7 @@ function MemberDetails() {
                             fullWidth
                             variant="outlined"
                             placeholder="Enter notes here"
+                            value={selectedAuth3Row.notes}
                         />
                     </div>
 
@@ -1181,6 +1973,130 @@ function MemberDetails() {
 
     //
     const localizer = momentLocalizer(moment);
+    const visitsDataString = localStorage.getItem("Visits");
+    var visitData = JSON.parse(visitsDataString);
+    const cgDataString = localStorage.getItem("CareGivers");
+    var cgData = JSON.parse(cgDataString);
+
+    // const l3ADataString = localStorage.getItem("Last3Authorizations");
+    // var l3AData = JSON.parse(l3ADataString);
+    const [l3DataRow, setL3DataRow] = useState([]);
+    const [l3AllData, setL3AllData] = useState([]);
+
+
+    const [visitsDataRow, setVisitsDataRow] = useState([]);
+
+
+    const [visitsViewRow, setVisitsViewRow] = useState([]);
+
+    const [currMember, setCurrMember] = useState(null);
+    const [currCaregiver, setCurrCaregiver] = useState(null);
+    const [currVisit, setCurrVisit] = useState(null);
+    const [allVisit, setAllVisit] = useState(null);
+    const [currSelectedRow, setCurrSelectedRow] = useState([]);
+
+    function getVisitById(id) {
+        for (var key in visitData) {
+            if (visitData[key].id == id) {
+                var myArray = visitData[key];
+                setCurrVisit(myArray)
+
+
+                // Setting States for Visit
+                setMemberFirstNameG(myArray.MemberFirstName);
+                setMemberLastNameG(myArray.MemberLastName);
+                setCareGiverFirstNameG(myArray.CaregiverFirstName);
+                setCareGiverLastNameG(myArray.CaregiverLastName);
+                setCareGiverGenderG(myArray.CaregiverGender);
+                setCareGiverDOBG(myArray.CaregiverDateofBirth);
+                setCareGiverSSNG(myArray.CaregiverSSN);
+                setCareGiverCodeG(myArray.CaregiverCode);
+
+                setMemberId(myArray.MemberID);
+                setVisitEndTime(myArray.VisitEndTime)
+                setVisitStartTime(myArray.VisitStartTime)
+                setScheduleStartTime(myArray.ScheduleStartTime)
+                setSelectedDutyEditVisit(myArray.Duties)
+                setScheduleID(myArray.ScheduleID)
+                setVisitID(myArray.VisitID);
+                setScheduleEndTime(myArray.ScheduleEndTime);
+                setEvvStartTime(myArray.EVVStartTime);
+                setEvvEndTime(myArray.EVVEndTime);
+                setClockInLocationAddressLine1(myArray['Clock-InServiceLocationAddressLine1'])
+                setClockInLocationAddressLine2(myArray['Clock-InServiceLocationAddressLine2'])
+                setClockInLocationCity(myArray['Clock-InServiceLocationCity'])
+                setClockInLocationState(myArray['Clock-InServiceLocationState'])
+                setClockInZipCode(myArray['Clock-InServiceLocationZipCode'])
+                setClockInLocationType(myArray['Clock-InServiceLocationType'])
+                setClockOutLocationCity(myArray['Clock-OutServiceLocationCity'])
+                setDiagnososCode(myArray.DiagnosisCode)
+                setProcedureCode(myArray.ProcedureCode)
+                setClockOutAddressLine1(myArray['Clock-OutServiceLocationAddressLine1'])
+                setClockOutAddressLine2(myArray['Clock-OutServiceLocationAddressLine2'])
+                setClockOutLocationState(myArray['Clock-OutServiceLocationState'])
+                setClockOutLocationZipCode(myArray['Clock-OutServiceLocationZipCode'])
+                setClockOutLocationType(myArray['Clock-OutServiceLocationType'])
+                setClockInPhone(myArray['Clock-InPhoneNumber'])
+                setClockInLatitude(myArray['Clock-InLatitude'])
+                setClockInLongitude(myArray['Clock-InLongitude'])
+                setClockOutLatitude(myArray['Clock-OutLatitude'])
+                setClockOutLongitude(myArray['Clock-OutLongitude'])
+                setClockInEvvOtherInfo(myArray['Clock-InEVVOtherInfo'])
+                setClockOutPhone(myArray['Clock-OutPhoneNumber'])
+                setClockOutEvvOtherInfo(myArray['Clock-OutEVVOtherInfo'])
+                setInvoiceNumber(myArray.InvoiceNumber)
+                setVisitEditReasonCode(myArray.VisitEditReasonCode)
+                setVisitEditActionTaken(myArray.VisitEditActionTaken)
+                setVisitEditMadeBy(myArray.VisitEditMadeBy)
+                setNotes(myArray.Notes)
+                setInDeletion(myArray.IsDeletion)
+                setInvoiceLineItemId(myArray['InvoiceLine-ItemID'])
+                setTotalBilledAmount(myArray.TotalBilledAmount)
+                setUnitsBilled(myArray.UnitsBilled)
+                setBilledRate(myArray.BilledRate)
+                setSubmissionType(myArray.SubmissionType)
+                setTrnNumber(myArray.TRNNumber)
+                setEnableSecondaryBilling(myArray.EnableSecondaryBilling)
+                setOtherSubscriberId(myArray.OtherSubscriberID)
+                setPrimaryPayerId(myArray.PrimaryPayerID)
+                setPrimaryPayerName(myArray.PrimaryPayerName)
+                setRelationshipToInsured(myArray.RelationshiptoInsured)
+                setPrimaryPayerPolicy(myArray.PrimaryPayerPolicyorGroupnumber)
+                setPrimaryPayerProgram(myArray.PrimaryPayerProgramName)
+                setPlanType(myArray.PlanType)
+                setTotalPaidAmount(myArray.TotalPaidAmount)
+                setTotalPaidUnits(myArray.TotalPaidUnits)
+                setPaidDate(myArray.PaidDate)
+                setDeductible(myArray.Deductible)
+                setCoinsurance(myArray.Coinsurance)
+                setCopay(myArray.Copay)
+                setContractedAdjustments(myArray.ContractedAdjustments)
+                setNotMedicallyNecessary(myArray.NotMedicallyNecessary)
+                setNonCoveredCharges(myArray['myArray.Non-CoveredCharges'])
+                setMaxBenefitExhausted(myArray.MaxBenefitExhausted)
+                setMissedVisit(myArray.MissedVisit)
+                setMissedVisitActionTakenCode(myArray.MissedVisitActionTakenCode)
+                setMissedVisitReasonCode(myArray.MissedVisitReasonCode)
+                setMissedVisitNotes(myArray.MissedVisitNotes)
+                setTravelTimeRequestHours(myArray.TravelTimeRequestHours)
+                setTravelTimeComments(myArray.TravelTimeComments)
+                setCancelTravelTimeRequest(myArray.CancelTravelTimeRequest)
+                setTimesheetRequired(myArray.TimesheetRequired)
+                setTimesheetApproved(myArray.TimesheetApproved)
+                setUnitField1(myArray.UserField1)
+                setUnitField2(myArray.UserField2)
+                setUnitField3(myArray.UserField3)
+                setUnitField4(myArray.UserField4)
+                setUnitField5(myArray.UserField5)
+                setUnitField6(myArray.UserField6)
+                setUnitField7Value(myArray.UserField7)
+                setUnitField8Value(myArray.UserField8)
+                setUnitField9Value(myArray.UserField9)
+                setUnitField10Value(myArray.UserField10)
+            }
+        }
+    }
+
     const myEventsList = [
         {
             start: new Date('2023-04-11T10:00:00'),
@@ -1199,9 +2115,159 @@ function MemberDetails() {
         }
     ];
 
+    function getCareGiverVisitSearch(careGiverName) {
+        var obj = {};
+        var CG = null;
+
+        for (var key in cgData) {
+            if (cgData[key].FirstName + " " + cgData[key].LastName == careGiverName) {
+                var myArray = cgData[key];
+                CG = (myArray);
+            }
+        }
+        obj.CareGiver = CG;
+        setCurrCaregiver(obj);
+    }
+
+    function getDateTimeDayJS(timeStr) {
+        const dateTimeString = timeStr;
+        const myDate = dayjs(dateTimeString);
+        const date = myDate.format('YYYY-MM-DD'); // Get date in 'YYYY-MM-DD' format
+        const time = myDate.format('HH:mm:ss'); // Get time in 'HH:mm:ss' format
+
+        var obj = { date: date, time: time };
+        return obj;
+    }
+
+    useEffect(() => {
+        var arr = [];
+        var arr2 = [];
+        var arr3 = [];
+        if (member != null) {
+            for (var key in visitData) {
+
+                if (visitData[key].MemberFirstName + " " + visitData[key].MemberLastName == member.FirstName + ' ' + member.LastName) {
+                    var myArray = visitData[key];
+                    getCareGiverVisitSearch(myArray.CaregiverFirstName + " " + myArray.CaregiverLastName);
+
+                    var obj = {
+                        start: myArray.ScheduleStartTime,
+                        end: myArray.ScheduleEndTime,
+                        title: myArray.CaregiverFirstName + " " + myArray.CaregiverLastName,
+                        description: 'This is event 1',
+                        id: myArray.id
+                    }
+
+                    arr.push(obj);
+
+                    var obj2 = {
+                        id: key,
+                        visitDetails: myArray
+                    }
+                    arr2.push(obj2);
 
 
+                    var obj3 = {
+                        id: myArray.VisitStartTime.split(" ")[0],
+                        schedule: myArray.ScheduleID,
+                        provider: "",
+                        serviceCode: "",
+                        careGiver: myArray.CaregiverFirstName + " " + myArray.CaregiverLastName,
+                        confirmedTime: '',
+                        billed: '',
+                        billedUnits: myArray.UnitsBilled,
+                        billedTime: '',
+                        holdVisit: '',
+                        claimStatus: ''
+                    }
+                    arr3.push(obj3);
+
+                }
+            }
+        }
+        setAllVisit(arr2);
+        setVisitsDataRow(arr);
+        setVisitsViewRow(arr3);
+    }, [member]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (member != null) {
+                try {
+                    const res = await getLast3Authorizations(member.MemberID);
+                    const l3AData = res.data;
+                    const arr = l3AData.map(myArray => ({
+                        id: myArray.id,
+                        fromDate: myArray.from_date,
+                        toDate: myArray.to_date,
+                        serviceType: myArray.service_type,
+                        serviceCode: myArray.service_code,
+                        serviceCat: myArray.service_category,
+                        notes: myArray.notes,
+                        visit: ''
+                    }));
+                    setL3AllData(l3AData);
+                    setL3DataRow(arr);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        };
+        fetchData();
+    }, [member]);
+
+    const [providerInfoList, setProviderInfoList] = useState([]);
+    const [statusHistoryList, setStatusHistoryList] = useState([]);
+    const [notesList, setNotesList] = useState([]);
+
+    useEffect(() => {
+        if (member != null) {
+            console.log("here")
+            var obj = {
+                id: member.MemberID,
+                providerName: member.ProviderName,
+                coordinatorName: member.CoordinatorName,
+                startOfCareDate: member.StartDate,
+                firstVisitDate: "",
+                dischargedDate: "",
+                print: ''
+            }
+            var arr = [];
+            arr.push(obj)
+            setProviderInfoList(arr);
+        }
+    }, [member]);
+
+
+    //Schedule States
+
+    const [scheduleStartCV, setScheduleStartCV] = useState(null);
+    const [scheduleEndCV, setScheduleEndCV] = useState(null);
+
+    const [visitStartCV, setVisitStartCV] = useState(null);
+    const [visitEndCV, setVisitEndCV] = useState(null);
+
+    const [caregiverCodeEditVisit, setCaregiverCodeEditVisit] = useState(null);
+    const [pocEditVisit, setPocEditVisit] = useState(null);
+    const [admissionIDEditVisit, setAdmissionIDEditVisit] = useState(null);
+    const [serviceCodeEditVisit, setServiceCodeEditVisit] = useState(null);
+    const [billtypeEditVisit, setBillTypeEditVisit] = useState(null);
+    const [hourEditVisit, setHourEditVisit] = useState(null);
+    const [minuteEditVisit, setMinuteEditVisit] = useState(null);
+    const [missedVisitNote, setMissedVisitNote] = useState(null);
+    const [pocDutiesRowVS, setPocDutiesRowVS] = useState([]);
+    const [memberDataCV, setMemberDataCV] = useState(null);
+    const [careGiverNotes, setCareGiverNotes] = useState(null);
+    const [visitEditReasonVS, setVisitReasonVS] = useState('');
+    const [actionTakenReasonVS, setActionTakenVS] = useState('');
+    const [actionTakenSelectedList, setActionTakenSelectedList] = useState([]);
     const [TimeOverlay, setIsTimeOverlay] = useState(false);
+
+    const [enteredEIM, setEnteredEim] = useState('Select');
+    const [healthSafetyRiskName, setHealthSafetyRiskName] = useState(null);
+    const [healthSafetyRiskState, setHealthSafetyRiskState] = useState('Select');
+    const [maid, setMaid] = useState(null);
     function handleEventClick(event) {
         setIsTimeOverlay(true);
         setOpenTime(true);
@@ -1209,6 +2275,89 @@ function MemberDetails() {
     }
 
 
+    function populateActionTaken(name) {
+        var code;
+        var arr = [];
+        console.log(name)
+        for (var key in visitEditReasonAll) {
+            if (visitEditReasonAll[key].description == name) {
+                console.log(visitEditReasonAll[key].description)
+                code = visitEditReasonAll[key].code;
+            }
+        }
+
+        for (var key in visitActionTakenAll) {
+            if (visitActionTakenAll[key].code == code) {
+                console.log("Action")
+                var obj = visitActionTakenAll[key].description;
+                arr.push(obj);
+            }
+        }
+        console.log(arr)
+        setActionTakenSelectedList(arr);
+    }
+
+    function convertTimeFormat(time) {
+        const formatString = "HH:mm";
+        var v2 = dayjs(time, formatString);
+        return v2;
+    }
+
+    function handleVisitCellClick(event) {
+
+        getVisitById(event.id);
+
+
+        if (currVisit != null) {
+            var schStartTime = dayjs(currVisit.ScheduleStartTime)
+            setScheduleStartCV(schStartTime);
+
+            var schEndTime = dayjs(currVisit.ScheduleEndTime)
+            setScheduleEndCV(schEndTime)
+
+            var vStart = dayjs(currVisit.VisitStartTime);
+            setVisitStartCV(vStart);
+
+            var vEnd = dayjs(currVisit.VisitEndTime);
+            setVisitEndCV(vEnd);
+
+
+            setMissedVisitNote(currVisit.MissedVisitNotes);
+            var memberData = currVisit.member_data
+            memberData = JSON.parse(memberData);
+            setMemberDataCV(memberData);
+            var memPOC = memberData.POC;
+            var arrPOC = [];
+            for (var key in memPOC) {
+                var obj = {
+                    id: memPOC[key].task_id,
+                    category: memPOC[key].category,
+                    duty: memPOC[key].duty
+                }
+                arrPOC.push(obj);
+            }
+            setPocDutiesRowVS(arrPOC);
+
+
+            // setCaregiverCodeEditVisit(currVisit.CaregiverCode)
+            // setServiceCodeEditVisit(currVisit.service_code)
+            // var visitTimeComplete = currVisit.ScheduleStartTime.split(" ");
+            // var visitTime2 = visitTimeComplete[1].split(":");
+            // setHourEditVisit(visitTime2[0]);
+            // setMinuteEditVisit(visitTime2[1]);
+
+            // setVisitStartTimeHourVS(currVisit.VisitStartTime);
+            // setVisitStartTimeMinVS(currVisit.VisitStartTime);
+
+            // setVisitEndTimeHourVS(currVisit.VisitEndTime);
+            // setVisitEndTimeMinVS(currVisit.VisitEndTime);
+
+
+
+            setIsTimeOverlay(true);
+            setOpenTime(true);
+        }
+    }
     //
     const [opentime, setOpenTime] = React.useState(false);
     const handleCloseTime = () => {
@@ -1231,7 +2380,6 @@ function MemberDetails() {
     function renderOverlayViews() {
         switch (NavigationState) {
             case 1:
-
                 return ScheduleView();
             case 2:
                 return VisitInfoView();
@@ -1245,8 +2393,8 @@ function MemberDetails() {
 
     const columns15 = [
         { field: 'id', headerName: 'Duty Number', width: 250 },
-        { field: 'fromDate', headerName: 'Category', width: 200 },
-        { field: 'toDate', headerName: 'Duty', width: 400 },
+        { field: 'category', headerName: 'Category', width: 200 },
+        { field: 'duty', headerName: 'Duty', width: 400 },
 
 
 
@@ -1262,144 +2410,601 @@ function MemberDetails() {
     ];
 
 
+
+
+
+    //Select Care Giver for The Schedule
+    const handleClose10 = () => {
+        setOpen10(false);
+        setCareGiverSearch(false);
+    };
+
+    const [open10, setOpen10] = React.useState(false);
+    const [CareGiverSearch, setCareGiverSearch] = useState(false);
+    const [careGiverForVisit, setCareGiverForVisit] = useState(null);
+    const [careGiverForVisitName, setCareGiverForVisitName] = useState(null);
+    const [careGiverForVisitCode, setCareGiverForVisitCode] = useState(null);
+    const [selectedCareGiverAllData, setSelectedCareGiverAllData] = useState(null);
+    const [careGiverList, setCareGiverList] = useState([]);
+
+    const [openMissedVisit, setOpenMissedVisit] = useState(false);
+
+
+    function CareGiverIconClick() {
+        setCareGiverSearch(true);
+        setOpen10(true);
+        renderCareGivers();
+    }
+
+    function getAllCareGiverData(val) {
+        for (var key in caregiverArray) {
+            if (caregiverArray[key].SSN == val.SSN) {
+                setSelectedCareGiverAllData(caregiverArray[key]);
+            }
+        }
+    }
+    const columnsCareGiverList = [
+        { field: 'id', headerName: 'ID', width: 50 },
+        { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'city', headerName: 'City', width: 100 },
+        { field: 'phone', headerName: 'Phone', width: 150 },
+        { field: 'CoCode', headerName: 'Care Giver Code', width: 120 },
+        { field: 'Ethnicity', headerName: 'Ethnicity', width: 140 },
+        { field: 'SSN', headerName: 'SSN', width: 150 },
+        { field: 'status', headerName: 'Status', width: 100 },
+        { field: 'EmployeeID', headerName: 'Employee ID', width: 200 },
+        { field: 'Discipline', headerName: 'Discipline', width: 100 },
+
+    ];
+
+    const handleRowClickCareGiverForVisit = (params) => {
+        setCareGiverForVisit(params.row);
+
+        if (careGiverForVisit != null) {
+            setCareGiverForVisitName(careGiverForVisit.name);
+            setCaregiverCodeEditVisit(careGiverForVisit.CoCode);
+            getAllCareGiverData(careGiverForVisit);
+        }
+    };
+
+    const caregiverStoage = localStorage.getItem("CareGivers");
+    var caregiverArray = JSON.parse(caregiverStoage);
+
+    function renderCareGivers() {
+        var arr = [];
+        for (var key in caregiverArray) {
+            var obj = {
+                id: caregiverArray[key].id,
+                name: caregiverArray[key].FirstName + ' ' + caregiverArray[key].LastName,
+                city: caregiverArray[key].City,
+                phone: caregiverArray[key].Phone,
+                CoCode: caregiverArray[key].AideCode,
+                Ethnicity: caregiverArray[key].Ethnicity,
+                SSN: caregiverArray[key].SSN,
+                Status: caregiverArray[key].Status,
+                EmployeeID: caregiverArray[key].EmployeeID,
+                Discipline: caregiverArray[key].Discipline,
+            }
+            arr.push(obj);
+        }
+        setCareGiverList(arr);
+    }
+
+    //==============================================
+    const columnsReasonVS = [
+        { field: 'id', headerName: 'Code', width: 100 },
+        { field: 'description', headerName: 'Description', width: 300 },
+        { field: 'admit', headerName: 'Admit', width: 200 },
+        { field: 'primary', headerName: 'Primary', width: 200 },
+        {
+            field: 'actions',
+            headerName: 'ADD',
+            sortable: false,
+            width: 400,
+            renderCell: (params) => (
+                <Button variant="contained">
+                    Delete
+                </Button>
+            ),
+        },
+    ];
+
+
     const ScheduleView = () => {
         return (
-            <div>
+            <div style={{ width: "100%", borderRadius: "10px", padding: '20px' }}>
                 <h2 style={{ textAlign: "center", color: "#564873" }}>Schedule</h2>
-                <div style={{ display: "flex", flexDirection: "row" }}>
-                    <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                        <h1 style={{ color: "grey", textAlign: "center" }}>Schedule Time</h1>
-                        <TextField
-                            style={{ margin: "5%" }}
-                            id="outlined-basic"
-                            label="0600"
-                            variant="outlined"
-                        />
-                        <h5 style={{ color: "black", marginTop: "10%" }}>-</h5>
-                        <TextField
-                            style={{ margin: "5%" }}
-                            id="outlined-basic"
-                            label="1400"
-                            variant="outlined"
-                        />
-                    </div>
-                    <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                        <h1 style={{ color: "grey", textAlign: "center" }}>Care Giver Code</h1>
-                        <TextField
-                            style={{ margin: "5%" }}
-                            id="outlined-basic"
-                            label="0600"
-                            variant="outlined"
-                        />
 
-                    </div>
+                <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+                    <h2 style={{ color: "grey", fontSize: '15px' }}>Schedule Time:</h2>
+                    {currVisit != null &&
+                        <div>
+                            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                        <TimePicker
+                                            label="Visit End Time"
+                                            value={scheduleStartCV}
+                                            onChange={(newValue) => {
+                                                const time = dayjs(newValue).format('HH:mm:ss');
+                                                const date = dayjs(scheduleStartCV).format('YYYY-MM-DD');
+                                                const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                                                setScheduleStartCV(datetime);
+                                            }}
+                                        />
+                                    </DemoContainer>
+                                </LocalizationProvider>
+                            </div>
 
+                            <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                        <TimePicker
+                                            label="Visit End Time"
+                                            value={scheduleEndCV}
+                                            onChange={(newValue) => {
+                                                const time = dayjs(newValue).format('HH:mm:ss');
+                                                const date = dayjs(scheduleEndCV).format('YYYY-MM-DD');
+                                                const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                                                setScheduleEndCV(datetime);
+                                            }}
+                                        />
+                                    </DemoContainer>
+                                </LocalizationProvider>
+                            </div>
+                        </div>
+                    }
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "row" }}>
-                    <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                        <h1 style={{ color: "grey", textAlign: "center" }}>POC</h1>
-                        <TextField
-                            style={{ margin: "2%" }}
-                            id="outlined-basic"
-                            label="3758456-11/09/21"
-                            variant="outlined"
-                        />
+                <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+                    <h2 style={{ color: "grey", fontSize: '15px' }}>Care Giver Code:</h2>
+                    {currVisit != null &&
+                        <div>
+                            <TextField
+                                className="field"
+                                id="outlined-basic"
+                                label="Select Care Giver"
+                                value={caregiverCodeEditVisit}
+                                InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
+                            >
+                            </TextField>
 
-                    </div>
-                    <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                        <h1 style={{ color: "grey", textAlign: "center" }}>Admission ID: <span>115524</span></h1>
+                        </div>
 
-                    </div>
-                    <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                        <h1 style={{ color: "grey", textAlign: "center" }}>Service Code</h1>
-                        <TextField
-                            style={{ margin: "2%" }}
-                            id="outlined-basic"
-                            label="3758456-11/09/21"
-                            variant="outlined"
-                        />
+                    }
+                    <span style={{ color: "grey" }}>{careGiverForVisitName}</span>
+                </div>
 
-                    </div>
+                <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+                    <h2 style={{ color: "grey", fontSize: '15px' }}>POC:</h2>
+                    {currVisit != null &&
+                        <div>
+                            <TextField
 
+                                id="outlined-basic"
+                                label="POC"
+                                variant="outlined"
+                            // value={pocEditVisit}
+                            />
+                        </div>
+                    }
                 </div>
 
 
-                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                    <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                        <h1 style={{ color: "grey", textAlign: "center" }}>H</h1>
-                        <TextField
-                            style={{ margin: "2%" }}
-                            id="outlined-basic"
-                            label="0600"
-                            variant="outlined"
-                        />
-                        <h1 style={{ color: "grey", textAlign: "center" }}>M:</h1>
-                        <TextField
-                            style={{ margin: "2%" }}
-                            id="outlined-basic"
-                            label="1400"
-                            variant="outlined"
-                        />
-                    </div>
+                <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+                    <h2 style={{ color: "grey", fontSize: '15px' }}>Assignment ID:</h2>
+                    {currVisit != null &&
+                        <div>
+                            <TextField
 
+                                id="outlined-basic"
+                                label="Assignment ID"
+                                variant="outlined"
+                                value={admissionIDEditVisit}
+                            />
+                        </div>
+                    }
                 </div>
-                <h1 style={{ color: "grey", textAlign: "center" }}>Bill Type: <span>Hourly</span></h1>
+
+
+                <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+                    <h2 style={{ color: "grey", fontSize: '15px' }}>Service Code:</h2>
+                    {currVisit != null &&
+                        <div>
+                            <Select
+                                style={{ width: '50%' }}
+                                id="demo-simple-select"
+                                value={serviceCodeEditVisit}
+                                label="Status"
+                                onChange={(evt) => { setServiceCodeEditVisit(evt.target.value) }}
+                            >
+                                {serviceCodes.map((l, i) => (
+                                    <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                ))}
+                            </Select>
+                        </div>
+                    }
+                </div>
+
+
+                <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+                    <h2 style={{ color: "grey", fontSize: '15px' }}>Time of Visit:</h2>
+                    {currVisit != null &&
+                        <div>
+                            <TextField
+
+                                id="outlined-basic"
+                                label="H"
+                                variant="outlined"
+                                value={scheduleStartCV.hour()}
+                            />
+                            <TextField
+
+                                id="outlined-basic"
+                                label="M"
+                                variant="outlined"
+                                value={scheduleStartCV.minute()}
+                            />
+                        </div>
+                    }
+                </div>
+
+
+                <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
+                    <h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type:</h2>
+                    {currVisit != null &&
+                        <div>
+                            <span style={{ color: "grey" }}>Hourly</span>
+                        </div>
+                    }
+                </div>
+
                 <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
-                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Close</Button>
+                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={() => {
+
+                        editVisit(
+                            currVisit.id,
+
+                            member.FirstName,
+                            member.LastName,
+                            memberId,
+                            selectedCareGiverAllData.AideCode,
+                            selectedCareGiverAllData.FirstName,
+                            selectedCareGiverAllData.LastName,
+                            selectedCareGiverAllData.Gender,
+                            selectedCareGiverAllData.DateofBirth,
+                            selectedCareGiverAllData.SSN,
+
+                            scheduleID,
+                            visitID,
+                            procedureCode,
+                            diagnosisCode,
+                            scheduleStartCV,
+                            scheduleEndCV,
+                            visitStartTime,
+                            visitEndTime,
+                            evvStartTime,
+                            evvEndTime,
+
+                            clockInLocationAddressLine1,
+                            clockInLocationAddressLine2,
+                            clockInLocationCity,
+                            clockInLocationState,
+                            clockInZipCode,
+                            clockInLocationType,
+
+                            clockOutAddressLine1,
+                            clockOutAddressLine2,
+                            clockOutLocationCity,
+                            clockOutLocationState,
+                            clockOutLocationZipCode,
+                            clockOutLocationType,
+
+                            duties,
+                            clockInPhone,
+                            clockInLatitude,
+                            clockInLongitude,
+                            clockInEvvOtherInfo,
+                            clockOutPhone,
+                            clockOutLatitude,
+                            clockOutLongitude,
+                            clockOutEvvOtherInfo,
+
+                            invoiceNumber,
+                            visitEditReasonCode,
+                            visitEditActionTaken,
+                            visitEditMadeBy,
+                            notes,
+                            inDeletion,
+
+                            invoiceLineItemId,
+                            totalBilledAmount,
+                            unitsBilled,
+                            billedRate,
+                            submissionType,
+                            trnNumber,
+                            enableSecondaryBilling,
+                            otherSubscriberId,
+                            primaryPayerId,
+                            primaryPayerName,
+                            relationshipToInsured,
+
+                            primaryPayerPolicy,
+                            primaryPayerProgram,
+                            planType,
+                            totalPaidAmount,
+                            totalPaidUnits,
+                            paidDate,
+                            deductible,
+                            coinsurance,
+                            copay,
+                            contractedAdjustments,
+                            notMedicallyNecessary,
+                            nonCoveredCharges,
+                            maxBenefitExhausted,
+                            missedVisit,
+                            missedVisitReasonCode,
+                            missedVisitActionTakenCode,
+                            missedVisitNotes,
+                            travelTimeRequestHours,
+
+                            travelTimeComments,
+                            cancelTravelTimeRequest,
+                            timesheetRequired,
+                            timesheetApproved,
+
+                            unitField1,
+                            unitField2,
+                            unitField3,
+                            unitField4,
+                            unitField5,
+                            unitField6,
+                            unitField7Value,
+                            unitField8Value,
+                            unitField9Value,
+                            unitField10Value,
+
+                            careGiverNotes,
+                            enteredEIM,
+                            healthSafetyRiskName,
+                            healthSafetyRiskState,
+                            maid
+                        ).then(res => {
+                            console.log(res)
+                            if (res.data.result == "success") {
+                                showToastMessage();
+                            }
+                        });
+                    }}>Save</Button>
+                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={handleCloseTime}>Close</Button>
                 </div>
 
             </div>
+
+
+
         )
     }
     const VisitInfoView = () => {
         return (
             <div style={{ width: "100%" }}>
-                <h2 style={{ textAlign: "center", color: "#564873" }}>Visit Schedule</h2>
-                <h1 style={{ color: "grey", textAlign: "center" }}>Scheduled Time : <span style={{ color: "black" }}> 0600 : 1400</span></h1>
-                <div style={{ display: "flex", flexDirection: "row" }}>
-                    <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                        <h1 style={{ color: "grey", textAlign: "center" }}>Visit Start Time</h1>
-                        <TextField
-                            style={{ margin: "5%" }}
-                            id="outlined-basic"
-                            label="0600"
-                            variant="outlined"
-                        />
-                        <h5 style={{ color: "black", marginTop: "10%" }}>-</h5>
-                        <TextField
-                            style={{ margin: "5%" }}
-                            id="outlined-basic"
-                            label="1400"
-                            variant="outlined"
-                        />
-                    </div>
-                    <div style={{ width: "50%", display: "flex", flexDirection: "row", alignContent: "center", justifyContent: "center" }}>
-                        <h1 style={{ color: "grey", textAlign: "center" }}>Visit End Time</h1>
-                        <TextField
-                            style={{ margin: "5%" }}
-                            id="outlined-basic"
-                            label="0600"
-                            variant="outlined"
-                        />
-                        <h5 style={{ color: "black", marginTop: "10%" }}>-</h5>
-                        <TextField
-                            style={{ margin: "5%" }}
-                            id="outlined-basic"
-                            label="1400"
-                            variant="outlined"
-                        />
-                    </div>
+                <h2 style={{ textAlign: "center", color: "#564873" }}>Visit Information</h2>
+                <h3 style={{ color: "grey", textAlign: "center" }}>Scheduled Time : <span style={{ color: "black" }}>{scheduleStartCV.format('HH:mm') + " " + "TO" + " " + scheduleEndCV.format('HH:mm')}</span></h3>
+                <div style={{ width: '100%' }}>
+                    <div style={{ width: "100%", alignContent: "center", justifyContent: "center", textAlign: 'center' }}>
+                        <h4 style={{ color: "grey", textAlign: "center" }}>Visit Start Time</h4>
+                        <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
 
+                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="Date"
+                                        value={scheduleStartCV}
+                                        onChange={(newValue) => {
+                                            {
+                                                const timeDay = dayjs(visitStartCV).format('HH:mm:ss');
+                                                const date = dayjs(newValue).format('YYYY-MM-DD');
+                                                const datetime = dayjs(`${date} ${timeDay}`, 'YYYY-MM-DD HH:mm:ss');
+                                                setScheduleStartCV(datetime);
+                                            }
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+
+                        <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                    <TimePicker
+                                        label="Time"
+                                        value={scheduleStartCV}
+                                        onChange={(newValue) => {
+                                            {
+                                                const time = dayjs(newValue).format('HH:mm:ss');
+                                                const date = dayjs(visitStartCV).format('YYYY-MM-DD');
+                                                const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                                                setScheduleStartCV(datetime);
+                                            }
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+                    </div>
+                    <div style={{ width: "100%", alignContent: "center", justifyContent: "center", textAlign: 'center' }}>
+                        <h4 style={{ color: "grey", textAlign: "center" }}>Visit End Time</h4>
+                        <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+
+                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="Date"
+                                        value={scheduleEndCV}
+                                        onChange={(newValue) => {
+                                            {
+                                                const timeDay = dayjs(visitEndCV).format('HH:mm:ss');
+                                                const date = dayjs(newValue).format('YYYY-MM-DD');
+                                                const datetime = dayjs(`${date} ${timeDay}`, 'YYYY-MM-DD HH:mm:ss');
+                                                setScheduleEndCV(datetime);
+                                            }
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+
+                        <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                    <TimePicker
+                                        label="Time"
+                                        value={scheduleEndCV}
+                                        onChange={(newValue) => {
+                                            {
+                                                const time = dayjs(newValue).format('HH:mm:ss');
+                                                const date = dayjs(visitEndCV).format('YYYY-MM-DD');
+                                                const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                                                setScheduleEndCV(datetime);
+                                            }
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
-                    <FormGroup>
-                        <FormControlLabel style={{ color: "grey", fontSize: "50px" }} control={<Checkbox defaultChecked />} label="Missed Visit" />
-                    </FormGroup>
+
+                    <div className="GoBackButtonHolder">
+                        <h1 style={{ textAlign: "center", cursor: 'pointer' }} >
+
+                            <Button variant="outlined" onClick={() => setOpenMissedVisit(!openMissedVisit)}>Missed Visit
+                            </Button>
+                        </h1>
+                    </div>
+
+
+                    {openMissedVisit &&
+
+                        <div>
+                            <div style={{ padding: '20px' }}>
+
+                                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                    <h1 style={{ color: "#564873", textAlign: "center" }}>Enter Missed Visit Details Here if Check Is Selected</h1>
+                                    <Grid container spacing={2}>
+
+
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Missed Visit </h2></div>
+                                        </Grid>
+
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}>
+                                                <FormGroup style={{ textAlign: 'center', placeContent: 'center', justifyContent: 'center' }}>
+                                                    <FormControlLabel style={{ color: "grey", fontSize: "50px" }} control={<Checkbox defaultChecked />} />
+                                                </FormGroup>
+                                            </div>
+                                        </Grid>
+
+
+
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Entered In EIM </h2></div>
+                                        </Grid>
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}>
+                                                <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    value={enteredEIM}
+                                                    label="Status"
+                                                    onChange={(evt) => {
+                                                        setEnteredEim(evt.target.value)
+                                                    }}
+                                                >
+                                                    <MenuItem value={'Select'}>Select</MenuItem>
+                                                    <MenuItem value={'Yes'}>Yes</MenuItem>
+                                                    <MenuItem value={'No'}>No</MenuItem>
+                                                </Select>
+                                            </div>
+                                        </Grid>
+
+
+
+
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>EIM# (If above Yes, enter 7-digit EIM#; If above No, enter N/A):	* Health and/or Safety Risk?: </h2></div>
+                                        </Grid>
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}>
+                                                <TextField
+                                                    id="outlined-basic"
+                                                    label=""
+                                                    variant="outlined"
+                                                    value={healthSafetyRiskName}
+                                                    onChange={(evt) => { setHealthSafetyRiskName(evt.target.value) }}
+                                                />
+                                            </div>
+                                        </Grid>
+
+
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Health and/or Safety Risk? </h2></div>
+                                        </Grid>
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}>
+                                                <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    value={healthSafetyRiskState}
+                                                    label="Status"
+                                                    onChange={(evt) => {
+                                                        setHealthSafetyRiskState(evt.target.value)
+                                                    }}
+                                                >
+                                                    <MenuItem value={'Select'}>Select</MenuItem>
+                                                    <MenuItem value={'Yes'}>Yes</MenuItem>
+                                                    <MenuItem value={'No'}>No</MenuItem>
+                                                </Select>
+                                            </div>
+                                        </Grid>
+
+
+
+
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Numerical 13 Digit MAID (MPI including Service location - Format #############):	 </h2></div>
+                                        </Grid>
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}>
+                                                <TextField
+                                                    id="outlined-basic"
+                                                    label=""
+                                                    variant="outlined"
+                                                    value={maid}
+                                                    onChange={(evt) => { setMaid(evt.target.value) }}
+                                                />
+                                            </div>
+                                        </Grid>
+
+
+
+
+
+                                    </Grid>
+
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    }
                 </div>
-                <table style={{ color: "black", width: "100%" }}>
+                {/* <table style={{ color: "black", width: "100%" }}>
                     <tr style={{ backgroundColor: "#564873", color: "white" }}>
                         <th>Reason</th>
                         <th>Action Taken</th>
@@ -1414,48 +3019,65 @@ function MemberDetails() {
                         <td style={{ textAlign: "center" }}>Hector</td>
                         <td style={{ textAlign: "center" }}>2023-04-06</td>
                     </tr>
-                </table>
-                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
-                    <Box style={{ width: "25%", margin: "2%" }}>
+                </table> */}
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Box style={{ width: "75%", margin: "2%" }}>
                         <FormControl fullWidth>
-                            <InputLabel>Action Status</InputLabel>
+                            <InputLabel>New Reason</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
                                 label="Status"
-                                onChange={handleChange}
+                                defaultValue={visitEditReasonVS}
+                                onChange={(evt) => {
+                                    setVisitReasonVS(evt.target.value)
+                                }}
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                {visitEditReasonAll.map((l) => (
+                                    <MenuItem key={l.id} value={l.description}>
+                                        {l.description}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box style={{ width: "25%", margin: "2%" }}>
+
+
+                </div>
+
+
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Box style={{ width: "75%", margin: "2%" }}>
                         <FormControl fullWidth>
                             <InputLabel>Action Taken</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
                                 label="Status"
-                                onChange={handleChange}
+                                value={actionTakenReasonVS}
+                                onChange={(evt) => setActionTakenVS(evt.target.value)}
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                {visitActionTakenAll.map((l) => (
+                                    <MenuItem key={l.id} value={l.description}>
+                                        {l.description}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </Box>
-
                 </div>
+
+
+
+
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <TextField
                         style={{ margin: "1%", width: "75%" }}
                         id="outlined-basic"
                         label="New Note"
                         variant="outlined"
+                        value={missedVisitNote}
+                        onChange={(evt) => setMissedVisitNote(evt.target.value)}
                     />
                 </div>
                 <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
@@ -1466,7 +3088,7 @@ function MemberDetails() {
                 <hr></hr>
 
                 <h2 style={{ textAlign: "center", color: "#564873" }}>Audit</h2>
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "grid" }}>
 
                     <h1 style={{ color: "grey" }}>Vertified By :</h1>
                     <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Member" />
@@ -1475,22 +3097,24 @@ function MemberDetails() {
                     <FormControlLabel style={{ color: "grey", fontSize: "50px", marginLeft: "3%" }} control={<Checkbox defaultChecked />} label="Other" />
 
                 </div>
-                <div>
+
+
+                <div style={{ display: "grid", width: '100%', placeContent: 'center', textAlign: 'center' }}>
 
                     <TextField
-                        style={{ margin: "1%", width: "30%" }}
+                        style={{ margin: "1%", width: "100%" }}
                         id="outlined-basic"
                         label="Date Verified"
                         variant="outlined"
                     />
                     <TextField
-                        style={{ margin: "1%", width: "30%" }}
+                        style={{ margin: "1%", width: "100%" }}
                         id="outlined-basic"
                         label="Time Verfied"
                         variant="outlined"
                     />
                     <TextField
-                        style={{ margin: "1%", width: "30%" }}
+                        style={{ margin: "1%", width: "100%" }}
                         id="outlined-basic"
                         label="Supervisor"
                         variant="outlined"
@@ -1505,11 +3129,11 @@ function MemberDetails() {
                 <h4 style={{ color: "#564873" }}>POC Duties</h4>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rows15}
+                        rows={pocDutiesRowVS}
                         columns={columns15}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
@@ -1518,123 +3142,251 @@ function MemberDetails() {
                         id="outlined-basic"
                         label="Care Giver New Note"
                         variant="outlined"
+                        value={careGiverNotes}
+                        onChange={(evt) => setCareGiverNotes(evt.target.value)}
                     />
                 </div>
                 <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
-                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Close</Button>
+                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={() => {
+
+                        editVisit(
+                            currVisit.id,
+
+                            memberFirstNameG,
+                            memberLastNameG,
+                            memberId,
+                            careGiverCodeG,
+                            careGiverFirstNameG,
+                            careGiverLastNameG,
+                            careGiverGenderG,
+                            careGiverDOBG,
+                            careGiverSSNG,
+
+                            scheduleID,
+                            visitID,
+                            procedureCode,
+                            diagnosisCode,
+                            scheduleStartCV,
+                            scheduleEndCV,
+                            visitStartCV,
+                            visitEndCV,
+                            evvStartTime,
+                            evvEndTime,
+
+                            clockInLocationAddressLine1,
+                            clockInLocationAddressLine2,
+                            clockInLocationCity,
+                            clockInLocationState,
+                            clockInZipCode,
+                            clockInLocationType,
+
+                            clockOutAddressLine1,
+                            clockOutAddressLine2,
+                            clockOutLocationCity,
+                            clockOutLocationState,
+                            clockOutLocationZipCode,
+                            clockOutLocationType,
+
+                            duties,
+                            clockInPhone,
+                            clockInLatitude,
+                            clockInLongitude,
+                            clockInEvvOtherInfo,
+                            clockOutPhone,
+                            clockOutLatitude,
+                            clockOutLongitude,
+                            clockOutEvvOtherInfo,
+
+                            invoiceNumber,
+                            visitEditReasonCode,
+                            visitEditActionTaken,
+                            visitEditMadeBy,
+                            notes,
+                            inDeletion,
+
+                            invoiceLineItemId,
+                            totalBilledAmount,
+                            unitsBilled,
+                            billedRate,
+                            submissionType,
+                            trnNumber,
+                            enableSecondaryBilling,
+                            otherSubscriberId,
+                            primaryPayerId,
+                            primaryPayerName,
+                            relationshipToInsured,
+
+                            primaryPayerPolicy,
+                            primaryPayerProgram,
+                            planType,
+                            totalPaidAmount,
+                            totalPaidUnits,
+                            paidDate,
+                            deductible,
+                            coinsurance,
+                            copay,
+                            contractedAdjustments,
+                            notMedicallyNecessary,
+                            nonCoveredCharges,
+                            maxBenefitExhausted,
+                            missedVisit,
+                            missedVisitReasonCode,
+                            missedVisitActionTakenCode,
+                            missedVisitNotes,
+                            travelTimeRequestHours,
+
+                            travelTimeComments,
+                            cancelTravelTimeRequest,
+                            timesheetRequired,
+                            timesheetApproved,
+
+                            unitField1,
+                            unitField2,
+                            unitField3,
+                            unitField4,
+                            unitField5,
+                            unitField6,
+                            unitField7Value,
+                            unitField8Value,
+                            unitField9Value,
+                            unitField10Value,
+
+                            careGiverNotes,
+                            enteredEIM,
+                            healthSafetyRiskName,
+                            healthSafetyRiskState,
+                            maid
+                        ).then(res => {
+                            console.log(res)
+                            if (res.data.result == "success") {
+                                showToastMessage();
+
+                            }
+                        });
+                    }}>Save</Button>
+                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={handleCloseTime}>Close</Button>
                     <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Print</Button>
                 </div>
             </div>
         )
     }
-
     const BillingView = () => {
         return (
-            <div style={{ width: "100%" }}>/
-                <h2 style={{ textAlign: "center", color: "#564873" }}>Primary Bill To</h2>
+            <div style={{ width: "100%" }}>
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Primary Bill To</h1>
+                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                    <Grid container spacing={2}>
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Primary Bill To: <span style={{ color: "#F2A007" }}>{currVisit.PrimaryPayerName}</span></h2></div>
+                            }
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Code: <span style={{ color: "#F2A007" }}>
+                                    {""}
+                                </span></h2></div>
+                            }
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type: <span style={{ color: "#F2A007" }}>
+                                    {""}
+                                </span></h2></div>
+                            }
+                        </Grid>
+                        <Grid className="DataHolderGrid">
+                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>TT Hours: <span style={{ color: "#F2A007" }}>
+                                {""}
+                            </span></h2></div>
+                        </Grid>
 
-                <table style={{ color: "black", width: "100%" }}>
-                    <tr style={{ backgroundColor: "#564873", color: "white" }}>
-                        <th>Primary Bill To</th>
-                        <th>Service Code</th>
-                        <th>Bill Type</th>
-                        <th>Service Hours</th>
-                        <th>TT Hours</th>
-                    </tr>
-                    <tr>
-                        <td style={{ textAlign: "center" }}>KEYSTONE FIRST CHC</td>
-                        <td style={{ textAlign: "center" }}>W7125</td>
-                        <td style={{ textAlign: "center" }}>Hourly</td>
-                        <td style={{ textAlign: "center" }}>08:00</td>
-                        <td style={{ textAlign: "center" }}>32.00</td>
-                    </tr>
-                </table>
-//
-                <table style={{ color: "black", width: "100%" }}>
-                    <tr style={{ backgroundColor: "#564873", color: "white" }}>
-                        <th>OT Hours</th>
-                        <th>Billable Hours</th>
-                        <th>Billable rate</th>
-                        <th>Total</th>
-                        <th>Billed</th>
-                    </tr>
-                    <tr>
-                        <td style={{ textAlign: "center" }}>0800</td>
-                        <td style={{ textAlign: "center" }}>32.00</td>
-                        <td style={{ textAlign: "center" }}>$ 21.52</td>
-                        <td style={{ textAlign: "center" }}>$ 171.52</td>
-                        <td style={{ textAlign: "center" }}>Y</td>
-                    </tr>
-                </table>
-                <table style={{ color: "black", width: "100%" }}>
-                    <tr style={{ backgroundColor: "#564873", color: "white" }}>
-                        <th>Invoice Number</th>
-                        <th>Invoice Creation Date</th>
-                        <th>Billing Hold</th>
-                        <th>TRN Number</th>
-                        <th>E-Billing Batch #</th>
-                        <th>Secondary Billing</th>
-                    </tr>
-                    <tr>
-                        <td style={{ textAlign: "center" }}>54SD45</td>
-                        <td style={{ textAlign: "center" }}>21-4-2023</td>
-                        <td style={{ textAlign: "center" }}>4564555</td>
-                        <td style={{ textAlign: "center" }}>5488SSS</td>
-                        <td style={{ textAlign: "center" }}>656SS</td>
-                        <td style={{ textAlign: "center" }}>656SS</td>
-                    </tr>
-                </table>
-                <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
-                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Close</Button>
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>OT. Required: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Billable Hours: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Billable Units: <span style={{ color: "#F2A007" }}>{currVisit.UnitsBilled}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Rate: <span style={{ color: "#F2A007" }}>{currVisit.BilledRate}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Total: <span style={{ color: "#F2A007" }}>{currVisit.TotalBilledAmount}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Billed: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Invoice Number: <span style={{ color: "#F2A007" }}>{currVisit.InvoiceNumber}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Invoice Creation Date: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
+                        </Grid>
+
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Billing Hold: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
+                        </Grid>
+
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>TRN Number: <span style={{ color: "#F2A007" }}>{currVisit.TRNNumber}</span></h2></div>
+                            }
+                        </Grid>
+
+                        <Grid className="DataHolderGrid">
+                            {currVisit != null &&
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>E Billing Batch Number: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            }
+                        </Grid>
+                    </Grid>
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Button className="EditButton" variant="outlined" onClick={handleCloseTime}>
+                            Close
+                        </Button>
+                    </div>
+
+
+                    <div style={{ marginTop: '10px', display: "flex", justifyContent: "center" }}>
+                        <Button className="EditButton" variant="outlined">
+                            Save
+                        </Button>
+                    </div>
                 </div>
 
             </div>
 
         )
-    }
-    function OverlayTime() {
-        return (
-            <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={opentime}
-
-            >
-                <div className="overlayTime">
-                    <CloseIcon className="crossIcon" onClick={handleCloseTime} />
-                    <h1 style={{ textAlign: "center", color: "black" }}>Non Skilled Visit</h1>
-                    <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", marginLeft: "5%", }}>
-
-                            <h2 style={{ color: "white" }}>Member Name : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                            <h2 style={{ color: "white" }}>Visit Date : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                            <h2 style={{ color: "white", textAlign: "center" }}>Member Phone # : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        </div>
-
-                        <div style={{ display: "flex", justifyContent: "space-between", marginLeft: "1%" }}>
-                            <h2 style={{ color: "white" }}>Admission ID : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                            <h2 style={{ color: "white", textAlign: "center" }}>Assigment ID : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                            <h2 style={{ color: "white", textAlign: "center" }}>Cordinator : <span style={{ color: "#F2A007" }}>{"ROSADO MARTIZA"}</span></h2>
-                        </div>
-                    </div>
-                    <hr />
-
-                    <div style={{ display: "flex", alignContent: "center", marginLeft: "7%", justifyContent: "space-between", width: "85%", textAlign: "center" }}>
-                        <Button onClick={SchedulePressed}>Schedule</Button>
-                        <Button onClick={VisitInfoPressed}>Visit Info</Button>
-                        <Button onClick={BillInfoPreseed}>Bill Info</Button>
-                    </div>
-                    <hr />
-                    <div style={{ width: "100%", height: "100%", display: "flex" }}>
-
-
-                        {renderOverlayViews()}
-
-                    </div>
-                </div>
-            </ Backdrop>
-        );
     }
     //
 
@@ -1653,102 +3405,269 @@ function MemberDetails() {
 
     const MemberInfoView = () => {
         return (
-            <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+            <>
+                {open10 &&
+                    <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+                        <CloseIcon className="crossIcon" onClick={handleClose10} />
+                        <h1 style={{ textAlign: "center", color: "black" }}>Search Care Giver</h1>
+                        <div className="searchFieldsDiv">
 
 
-                <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
-                    <Grid container spacing={2}>
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
-                                {member != null &&
-                                    <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
-                                }
-                            </h2></div>
-                        </Grid>
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
-                                {member != null &&
-                                    <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
-                                }
-                            </h2></div>
-                        </Grid>
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
-                                {member != null &&
-                                    <span style={{ color: "#F2A007" }}>{""}</span>
-                                }
-                            </h2></div>
-                        </Grid>
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
-                                {member != null &&
-                                    <span style={{ color: "#F2A007" }}>{""}</span>
-                                }
-                            </h2></div>
-                        </Grid>
 
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
-                                {member != null &&
-                                    <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
-                            </h2></div>
-                        </Grid>
+                            <Grid className="griditem">
 
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
-                                {member != null &&
-                                    <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
-                                }
-                            </h2></div>
-                        </Grid>
+                                <TextField
 
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
-                                {member != null &&
-                                    <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
-                                }
-                            </h2></div>
-                        </Grid>
+                                    id="outlined-basic"
+                                    label="Name"
+                                    variant="outlined"
+                                />
 
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
-                                {member != null &&
-                                    <span style={{ color: "#F2A007" }}>{member.DateofBirth}
-                                    </span>
-                                }
-                            </h2></div>
-                        </Grid>
-                    </Grid>
-                </div>
+                            </Grid>
+                            <Grid className="griditem">
+
+                                <TextField
+
+                                    id="outlined-basic"
+                                    label="City"
+                                    variant="outlined"
+                                />
+
+                            </Grid>
+                            <Grid className="griditem">
+
+                                <TextField
+
+                                    id="outlined-basic"
+                                    label="Code"
+                                    variant="outlined"
+                                />
+
+                            </Grid>
+                            <Grid className="griditem">
+
+                                <TextField
+
+                                    id="outlined-basic"
+                                    label="Ethnicity"
+                                    variant="outlined"
+                                />
+
+                            </Grid>
+                            <Grid className="griditem">
+
+                                <TextField
+
+                                    id="outlined-basic"
+                                    label="SSN"
+                                    variant="outlined"
+                                />
+
+                            </Grid>
+                            <Grid className="griditem">
+
+                                <TextField
+
+                                    id="outlined-basic"
+                                    label="Discipline"
+                                    variant="outlined"
+                                />
+
+                            </Grid>
+
+                        </div>
+                        <Button className="searchButton" onClick={handleClose10} >
+                            Search
+                        </Button>
 
 
-                <h1 style={{ color: "#564873", textAlign: "center" }}>Last 3 Authorization</h1>
-                <div className='tableData' style={{ height: "50%", width: '100%', marginTop: "2%" }}>
-                    <DataGrid
-                        rows={rows10}
-                        columns={columns10}
-                        pageSize={5}
-                        rowsPerPageOptions={[15]}
-                        checkboxSelection={false}
-                    />
-                </div>
+                        {setCareGiverForVisitName == null &&
+                            <h1 style={{ textAlign: "center" }}>Care Giver Not Selected</h1>
+                        }
+                        {setCareGiverForVisitName != null &&
+                            <h1 style={{ textAlign: "center" }}>Selected Care Giver is {careGiverForVisitName}</h1>
+                        }
 
-                <h1 style={{ color: "#564873", textAlign: "center" }}>Calender</h1>
-                <div style={{ height: "100%", width: '100%' }}>
-                    <Calendar
-                        events={myEventsList}
-                        startAccessor="start"
-                        endAccessor="end"
-                        localizer={localizer}
-                        formats={{ dayFormat: myCustomFormat }}
-                        showMultiDayTimes={false}
-                        views={['month']}
-                        style={{ height: "100%" }}
-                        onSelectEvent={handleEventClick} // pass the function as a prop
-                    />
-                </div>
 
-            </div>
+                        <div style={{ cursor: 'pointer', height: 400, width: '100%', overflowX: 'auto', overflowY: 'auto' }}>
+                            <DataGrid
+                                rows={careGiverList}
+                                columns={columnsCareGiverList}
+                                pageSize={5}
+                                rowsPerPageOptions={[15]}
+                                checkboxSelection={false}
+                                onRowClick={handleRowClickCareGiverForVisit}
+                            />
+                        </div>
+                        <Button className="searchButton" onClick={() => {
+                            handleClose10();
+                        }}>
+                            Close
+                        </Button>
+
+
+                    </div>
+                }
+                {opentime && !open10 &&
+                    <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+                        <CloseIcon className="crossIcon" onClick={handleCloseTime} />
+                        {/*  */}
+                        <h1 style={{ textAlign: "center", color: "black" }}>Non Skilled Visit</h1>
+                        <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                            <Grid container spacing={2}>
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Name:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{" " + member.FirstName + ' ' + member.LastName}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Visit Date:
+                                        {currVisit != null &&
+                                            <span style={{ color: "#F2A007" }}>{" " + scheduleStartCV.format('YYYY-MM-DD')}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Phone:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{" " + member.HomePhone}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Assignment ID:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{""}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Coordinator:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                                    </h2></div>
+                                </Grid>
+
+                            </Grid>
+                        </div>
+                        {/*  */}
+                        <hr />
+
+                        <div style={{ display: "flex", alignContent: "center", marginLeft: "7%", justifyContent: "space-between", width: "85%", textAlign: "center" }}>
+                            <Button onClick={SchedulePressed}>Schedule</Button>
+                            <Button onClick={VisitInfoPressed}>Visit Info</Button>
+                            <Button onClick={BillInfoPreseed}>Bill Info</Button>
+                        </div>
+                        <hr />
+                        <div style={{ width: "100%", height: "100%", display: "flex" }}>
+
+
+                            {renderOverlayViews()}
+
+                        </div>
+                    </div>
+                }
+                {!opentime &&
+                    <div className="DateFieldHolder" style={{ overflow: "auto", height: "100%", width: '100%' }}>
+
+
+                        <div style={{ border: '3px solid #564873', backgroundColor: "#564873", borderRadius: "10px", padding: '20px' }}>
+                            <Grid container spacing={2}>
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Name:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{member.FirstName + ' ' + member.LastName}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{member.Nurse}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{""}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Coordinator:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{""}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>MCO Name:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{member.MCOName}</span>}
+                                    </h2></div>
+                                </Grid>
+
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Admission ID:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{member.AdmissionID}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member ID:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{member.MemberID}</span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>DOB:
+                                        {member != null &&
+                                            <span style={{ color: "#F2A007" }}>{member.DateofBirth}
+                                            </span>
+                                        }
+                                    </h2></div>
+                                </Grid>
+                            </Grid>
+                        </div>
+
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Last 3 Authorization</h1>
+                        <div className='tableData' style={{ height: "50%", width: '100%', marginTop: "2%" }}>
+                            <DataGrid
+                                rows={l3DataRow}
+                                columns={columns10}
+                                pageSize={5}
+                                rowsPerPageOptions={[15]}
+                                checkboxSelection={false}
+                            />
+                        </div>
+
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Calender</h1>
+                        <div style={{ height: "100%", width: '100%' }}>
+                            <Calendar
+                                events={visitsDataRow}
+                                startAccessor="start"
+                                endAccessor="end"
+                                localizer={localizer}
+                                formats={{ dayFormat: myCustomFormat }}
+                                showMultiDayTimes={false}
+                                views={["month"]}
+                                style={{ height: "100%" }}
+                                onSelectEvent={handleVisitCellClick} // pass the function as a prop
+                            />
+                        </div>
+
+                    </div>
+                }
+            </>
         );
     };
 
@@ -1762,6 +3681,18 @@ function MemberDetails() {
 
     const handleDropdownChangeMemberTeam = (event) => {
         setSelectedOptionMemberTeam(event.target.value);
+    };
+
+    const [providerCoordinatorMemberTeam, setProviderCoordinatorMemberTeam] = useState('Default');
+
+    const handleDropdownProviderCoordinatorMemberTeam = (event) => {
+        setProviderCoordinatorMemberTeam(event.target.value);
+    };
+
+    const [officeMemberTeam, setOfficeMemberTeam] = useState('Select');
+
+    const handleOfficeMemberTeam = (event) => {
+        setOfficeMemberTeam(event.target.value);
     };
 
 
@@ -1784,7 +3715,6 @@ function MemberDetails() {
         { field: 'coordinatorName', headerName: 'Coordinator Name', width: 200 },
         { field: 'startOfCareDate', headerName: 'Stat of Care Date', width: 200 },
         { field: 'firstVisitDate', headerName: 'First Visit Date', width: 200 },
-        { field: 'coordinatorName', headerName: 'Coordinator Name', width: 200 },
         { field: 'dischargedDate', headerName: 'Discharged Date', width: 200 },
         {
             field: 'print',
@@ -1859,6 +3789,8 @@ function MemberDetails() {
         { id: 5, from: "Justin", to: "Assist with Home", note: '', reason: '', status: '', action: '', print: '' },
         { id: 6, from: "Justin", to: "Assist with Home", note: '', reason: '', status: '', action: '', print: '' },
     ];
+
+
 
     const GeneralInfoView = () => {
         return (
@@ -1941,12 +3873,27 @@ function MemberDetails() {
                         </Grid>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Provider Coordinator: <span style={{ color: "#F2A007" }}>{member.ProviderName}</span></h2></div>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Provider Coordinator: <span style={{ color: "#F2A007" }}>
+                                    <Select
+                                        value={providerCoordinatorMemberTeam}
+                                        onChange={handleDropdownProviderCoordinatorMemberTeam}
+                                    >
+                                        <MenuItem value="Select">Select</MenuItem>
+                                        <MenuItem value="Default">Default</MenuItem>
+                                    </Select>
+                                </span></h2></div>
                             }
                         </Grid>
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Office: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Office: <span style={{ color: "#F2A007" }}>
+                                    <Select
+                                        value={officeMemberTeam}
+                                        onChange={handleOfficeMemberTeam}
+                                    >
+                                        <MenuItem value="Select">Select</MenuItem>
+                                    </Select>
+                                </span></h2></div>
                             }
                         </Grid>
                         <Grid className="DataHolderGrid">
@@ -1988,7 +3935,14 @@ function MemberDetails() {
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Location: <span style={{ color: "#F2A007" }}>{member.Location}</span></h2></div>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Location: <span style={{ color: "#F2A007" }}>
+                                    <Select
+                                        value={officeMemberTeam}
+                                        onChange={handleOfficeMemberTeam}
+                                    >
+                                        <MenuItem value="Select">Select</MenuItem>
+                                    </Select>
+                                </span></h2></div>
                             }
                         </Grid>
 
@@ -2001,7 +3955,14 @@ function MemberDetails() {
 
                         <Grid className="DataHolderGrid">
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Branch: <span style={{ color: "#F2A007" }}>{member.Branch}</span></h2></div>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Branch: <span style={{ color: "#F2A007" }}>
+                                    <Select
+                                        value={officeMemberTeam}
+                                        onChange={handleOfficeMemberTeam}
+                                    >
+                                        <MenuItem value="Select">Select</MenuItem>
+                                    </Select>
+                                </span></h2></div>
                             }
                         </Grid>
 
@@ -2050,11 +4011,11 @@ function MemberDetails() {
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Provider Information</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rowsProviderInformation}
+                        rows={providerInfoList}
                         columns={columnsProviderInformation}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
 
@@ -2066,7 +4027,7 @@ function MemberDetails() {
                         columns={columnsStatusHistory}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
 
@@ -2078,7 +4039,7 @@ function MemberDetails() {
                         columns={columnsNotes}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
             </div>
@@ -2210,11 +4171,6 @@ function MemberDetails() {
                         </Grid>
                     </Grid>
 
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                        <Button className="EditButton" variant="outlined">
-                            Edit
-                        </Button>
-                    </div>
                 </div>
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Address</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
@@ -2225,10 +4181,16 @@ function MemberDetails() {
                         rowsPerPageOptions={[15]}
                         checkboxSelection={false}
                     />
+
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Button className="EditButton" variant="outlined">
+                            Edit
+                        </Button>
+                    </div>
                 </div>
 
 
-                <h1 style={{ color: "#564873", textAlign: "center" }}>Phone Number Information</h1>
+                <h1 style={{ color: "#564873", textAlign: "center", marginTop: "2%" }}>Phone Number Information</h1>
                 <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
@@ -2425,15 +4387,14 @@ function MemberDetails() {
                     </Grid>
                 </div>
 
-
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Authorization</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rows10}
+                        rows={l3DataRow}
                         columns={columns10}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
             </div>
@@ -2628,11 +4589,11 @@ function MemberDetails() {
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Last 3 Authorization</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rows10}
+                        rows={l3DataRow}
                         columns={columns10}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
 
@@ -2656,9 +4617,51 @@ function MemberDetails() {
 
 
                         {openAddMasterWeek &&
-
                             <div>
                                 <div>
+
+                                    <Grid container spacing={2}>
+
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>From Date </h2></div>
+                                        </Grid>
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}>
+                                                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                                    <DemoContainer components={['DatePicker']}>
+                                                        <DatePicker
+                                                            label="From Date"
+                                                            value={fromDate}
+                                                            onChange={(newValue) => {
+                                                                setFromDate(newValue);
+                                                            }}
+                                                        />
+                                                    </DemoContainer>
+                                                </LocalizationProvider>
+                                            </div>
+                                        </Grid>
+
+                                        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>To Date</h2></div>
+                                        </Grid>
+                                        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                            <div style={{ margin: "5px" }}>
+                                                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                                    <DemoContainer components={['DatePicker']}>
+                                                        <DatePicker
+                                                            label="To Date"
+                                                            value={toDate}
+                                                            onChange={(newValue) => {
+                                                                setToDate(newValue);
+                                                            }}
+                                                        />
+                                                    </DemoContainer>
+                                                </LocalizationProvider>
+                                            </div>
+                                        </Grid>
+
+
+                                    </Grid>
 
                                     <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
@@ -2666,21 +4669,48 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeM}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeM(newValue);
+
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeM}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeM(newValue);
+                                                                        if (startTimeM != null) {
+                                                                            var val = dayjs(endTimeM);
+                                                                            var st = dayjs(startTimeM);
+                                                                            const diffInMinutes = val.diff(st, 'minute');
+                                                                            const hours = Math.floor(diffInMinutes / 60);
+                                                                            const minutes = diffInMinutes % 60;
+                                                                            setHoursM(hours);
+                                                                            setMinutesM(minutes)
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -2694,6 +4724,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
                                                         variant="outlined"
+                                                        value={careGiverCodeM}
+                                                        onChange={(evt) => { setCareGiverCodeM(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -2702,6 +4734,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
                                                         variant="outlined"
+                                                        value={careGiverNameM}
+                                                        onChange={(evt) => { setCareGiverNameM(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -2715,6 +4749,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Ass. ID"
                                                         variant="outlined"
+                                                        value={assIdM}
+                                                        onChange={(evt) => { setAssIdM(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -2726,13 +4762,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocM}
+                                                        onChange={(evt) => { setPocM(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -2747,6 +4782,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Hours"
                                                         variant="outlined"
+                                                        value={hoursM}
+                                                        onChange={(evt) => { setHoursM(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -2755,6 +4792,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Minutes"
                                                         variant="outlined"
+                                                        value={minutesM}
+                                                        onChange={(evt) => { setMinutesM(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -2766,13 +4805,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeM}
+                                                        onChange={(evt) => { setServiceCodeM(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -2799,21 +4837,46 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeT}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeT(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeT}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeT(newValue);
+                                                                        if (startTimeT != null) {
+                                                                            // const diffInMinutes = endTimeT.diff(startTimeT, 'minute');
+                                                                            // const diffInHours = endTimeT.diff(startTimeT, 'hour');
+                                                                            // setHoursT(diffInHours);
+                                                                            // setMinutesT(diffInMinutes)
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -2826,7 +4889,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeT}
+                                                        onChange={(evt) => { setCareGiverCodeT(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -2834,7 +4898,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameT}
+                                                        onChange={(evt) => { setCareGiverNameT(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -2847,7 +4912,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdT}
+                                                        onChange={(evt) => { setAssIdT(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -2859,13 +4925,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocT}
+                                                        onChange={(evt) => { setPocT(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -2879,7 +4944,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursT}
+                                                        onChange={(evt) => { setHoursT(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -2887,7 +4953,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesT}
+                                                        onChange={(evt) => { setMinutesT(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -2899,13 +4966,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeT}
+                                                        onChange={(evt) => { setServiceCodeT(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -2933,21 +4999,45 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeW}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeW(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeW}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeW(newValue);
+                                                                        if (startTimeW != null) {
+                                                                            // const diffInMinutes = endTimeW.diff(startTimeW, 'minute');
+                                                                            // const diffInHours = endTimeW.diff(startTimeW, 'hour');
+                                                                            // setHoursW(diffInHours);
+                                                                            // setMinutesW(diffInMinutes)
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -2960,7 +5050,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeW}
+                                                        onChange={(evt) => { setCareGiverCodeW(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -2968,7 +5059,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameW}
+                                                        onChange={(evt) => { setCareGiverNameW(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -2981,7 +5073,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdW}
+                                                        onChange={(evt) => { setAssIdW(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -2993,13 +5086,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocW}
+                                                        onChange={(evt) => { setPocW(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3013,7 +5105,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursW}
+                                                        onChange={(evt) => { setHoursW(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3021,7 +5114,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesW}
+                                                        onChange={(evt) => { setMinutesW(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3033,13 +5127,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeW}
+                                                        onChange={(evt) => { setServiceCodeW(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3067,21 +5160,45 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeTH}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeTH(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeTH}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeTH(newValue);
+                                                                        if (startTimeTH != null) {
+                                                                            // const diffInMinutes = endTimeTH.diff(startTimeTH, 'minute');
+                                                                            // const diffInHours = endTimeTH.diff(startTimeTH, 'hour');
+                                                                            // setHoursTH(diffInHours);
+                                                                            // setMinutesTH(diffInMinutes)
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -3094,7 +5211,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeTH}
+                                                        onChange={(evt) => { setCareGiverCodeTH(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3102,7 +5220,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameTH}
+                                                        onChange={(evt) => { setCareGiverNameTH(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3115,7 +5234,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdTH}
+                                                        onChange={(evt) => { setAssIdTH(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3127,13 +5247,11 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
-                                                    >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        value={pocTH}
+                                                        onChange={(evt) => { setPocTH(evt.target.value) }}
+                                                    >{pocIds.map((l, i) => (
+                                                        <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                    ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3147,7 +5265,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursTH}
+                                                        onChange={(evt) => { setHoursTH(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3155,7 +5274,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesTH}
+                                                        onChange={(evt) => { setMinutesTH(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3167,13 +5287,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeTH}
+                                                        onChange={(evt) => { setServiceCodeTH(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3200,21 +5319,45 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeF}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeF(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeF}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeF(newValue);
+                                                                        if (startTimeF != null) {
+                                                                            // const diffInMinutes = endTimeF.diff(startTimeF, 'minute');
+                                                                            // const diffInHours = endTimeF.diff(startTimeF, 'hour');
+                                                                            // setHoursF(diffInHours);
+                                                                            // setMinutesF(diffInMinutes)
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -3225,17 +5368,21 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
+                                                        className="field"
                                                         id="outlined-basic"
-                                                        label="Care Giver Code"
-                                                        variant="outlined"
-                                                    />
+                                                        label="Select Care Giver"
+                                                        value={careGiverCodeME}
+                                                        InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
+                                                    >
+                                                    </TextField>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameF}
+                                                        onChange={(evt) => { setCareGiverNameF(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3248,7 +5395,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdF}
+                                                        onChange={(evt) => { setAssIdF(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3260,13 +5408,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocF}
+                                                        onChange={(evt) => { setPocF(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3280,7 +5427,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursF}
+                                                        onChange={(evt) => { setHoursF(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3288,7 +5436,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesF}
+                                                        onChange={(evt) => { setMinutesF(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3300,13 +5449,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeF}
+                                                        onChange={(evt) => { setServiceCodeF(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3333,24 +5481,47 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeST}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeST(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeST}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeST(newValue);
+                                                                        if (startTimeST != null) {
+                                                                            // const diffInMinutes = endTimeST.diff(startTimeST, 'minute');
+                                                                            // const diffInHours = endTimeST.diff(startTimeST, 'hour');
+                                                                            // setHoursST(diffInHours);
+                                                                            // setMinutesST(diffInMinutes)
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
-
 
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
@@ -3360,7 +5531,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeST}
+                                                        onChange={(evt) => { setCareGiverCodeST(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3368,7 +5540,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameST}
+                                                        onChange={(evt) => { setCareGiverNameST(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3381,7 +5554,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdST}
+                                                        onChange={(evt) => { setAssIdST(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3393,13 +5567,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocST}
+                                                        onChange={(evt) => { setPocST(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3413,7 +5586,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursST}
+                                                        onChange={(evt) => { setHoursST(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3421,7 +5595,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesST}
+                                                        onChange={(evt) => { setMinutesST(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3433,13 +5608,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeST}
+                                                        onChange={(evt) => { setServiceCodeST(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3467,24 +5641,47 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeSU}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeSU(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeSU}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeSU(newValue);
+                                                                        if (startTimeSU != null) {
+                                                                            // const diffInMinutes = endTimeSU.diff(startTimeSU, 'minute');
+                                                                            // const diffInHours = endTimeSU.diff(startTimeSU, 'hour');
+                                                                            // setHoursSU(diffInHours);
+                                                                            // setMinutesSU(diffInMinutes)
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
-
 
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
@@ -3494,7 +5691,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeSU}
+                                                        onChange={(evt) => { setCareGiverCodeSU(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3502,7 +5700,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameSU}
+                                                        onChange={(evt) => { setCareGiverNameSU(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3515,7 +5714,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdSU}
+                                                        onChange={(evt) => { setAssIdSU(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3527,13 +5727,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocSU}
+                                                        onChange={(evt) => { setPocSU(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3547,7 +5746,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursSU}
+                                                        onChange={(evt) => { setHoursSU(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3555,7 +5755,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesSU}
+                                                        onChange={(evt) => { setMinutesSU(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3567,13 +5768,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeSU}
+                                                        onChange={(evt) => { setServiceCodeSU(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3594,16 +5794,104 @@ function MemberDetails() {
 
 
                                 <div style={{ display: "flex", justifyContent: "center", marginTop: '20px', padding: '10px' }}>
-                                    <Button className="EditButton" variant="outlined">
+                                    <Button className="EditButton" variant="outlined"
+                                        onClick={() => {
+                                            addMasterWeek(
+                                                memberId,
+                                                fromDate,
+                                                toDate,
+
+                                                startTimeM,
+                                                endTimeM,
+                                                careGiverCodeM,
+                                                assIdM,
+                                                pocM,
+                                                hoursM,
+                                                minutesM,
+                                                secondsM,
+                                                serviceCodeM,
+                                                modeM,
+
+                                                startTimeT,
+                                                endTimeT,
+                                                careGiverCodeT,
+                                                assIdT,
+                                                pocT,
+                                                hoursT,
+                                                minutesT,
+                                                secondsT,
+                                                serviceCodeT,
+                                                modeT,
+
+                                                startTimeW,
+                                                endTimeW,
+                                                careGiverCodeW,
+                                                assIdW,
+                                                pocW,
+                                                hoursW,
+                                                minutesW,
+                                                secondsW,
+                                                serviceCodeW,
+                                                modeW,
+
+                                                startTimeTH,
+                                                endTimeTH,
+                                                careGiverCodeTH,
+                                                assIdTH,
+                                                pocTH,
+                                                hoursTH,
+                                                minutesTH,
+                                                secondsTH,
+                                                serviceCodeTH,
+                                                modeTH,
+
+                                                startTimeF,
+                                                endTimeF,
+                                                careGiverCodeF,
+                                                assIdF,
+                                                pocF,
+                                                hoursF,
+                                                minutesF,
+                                                secondsF,
+                                                serviceCodeF,
+                                                modeF,
+
+                                                startTimeST,
+                                                endTimeST,
+                                                careGiverCodeST,
+                                                assIdST,
+                                                pocST,
+                                                hoursST,
+                                                minutesST,
+                                                secondsST,
+                                                serviceCodeST,
+                                                modeST,
+
+                                                startTimeSU,
+                                                endTimeSU,
+                                                careGiverCodeSU,
+                                                assIdSU,
+                                                pocSU,
+                                                hoursSU,
+                                                minutesSU,
+                                                secondsSU,
+                                                serviceCodeSU,
+                                                modeSU,
+
+                                            ).then(res => {
+                                                console.log(res)
+                                                if (res.data.result == "success") {
+                                                    showToastMessage();
+                                                }
+                                            });
+                                        }}
+                                    >
                                         Create New Master Week
                                     </Button>
                                 </div>
 
 
                             </div>
-
-
-
                         }
                     </div>
                 </div>
@@ -3615,14 +5903,14 @@ function MemberDetails() {
                         style={{
                             width: '100%',
                             height: openEditMasterWeek ? '1000px' : '50px',
-                            position: 'relative',
+                            pocition: 'relative',
                             bottom: '0',
                             left: '0',
                             backgroundColor: '#ccc',
                             transition: 'height 0.3s ease-in-out',
                             marginTop: '5%'
                         }}
-                        
+
                     >
                         <h1 style={{ color: "#564873", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenEditMasterWeek(!openEditMasterWeek)}>Edit Master Week</h1>
 
@@ -3632,27 +5920,86 @@ function MemberDetails() {
                             <div>
                                 <div>
 
+                                    <Grid container spacing={2}>
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>From Date </h2></div>
+                                        </Grid>
+                                        <Grid className="DataHolderGrid">
+                                            <div style={{ margin: "5px" }}>
+                                                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                                    <DemoContainer components={['DatePicker']}>
+                                                        <DatePicker
+                                                            label="From Date"
+                                                            value={fromDateE}
+                                                            onChange={(newValue) => {
+                                                                setFromDateE(newValue);
+                                                            }}
+                                                        />
+                                                    </DemoContainer>
+                                                </LocalizationProvider>
+                                            </div>
+                                        </Grid>
+
+                                        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>To Date</h2></div>
+                                        </Grid>
+                                        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                            <div style={{ margin: "5px" }}>
+                                                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                                    <DemoContainer components={['DatePicker']}>
+                                                        <DatePicker
+                                                            label="To Date"
+                                                            value={toDateE}
+                                                            onChange={(newValue) => {
+                                                                setToDateE(newValue);
+                                                            }}
+                                                        />
+                                                    </DemoContainer>
+                                                </LocalizationProvider>
+                                            </div>
+                                        </Grid>
+
+
+                                    </Grid>
+
                                     <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
                                         <Grid container spacing={2}>
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeME}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeME(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeME}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeME(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -3663,10 +6010,13 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
+                                                        className="field"
                                                         id="outlined-basic"
-                                                        label="Care Giver Code"
-                                                        variant="outlined"
-                                                    />
+                                                        label="Select Care Giver"
+                                                        value={careGiverCodeME}
+                                                        InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
+                                                    >
+                                                    </TextField>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
@@ -3674,6 +6024,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
                                                         variant="outlined"
+                                                        value={careGiverNameME}
+                                                        onChange={(evt) => { setCareGiverNameME(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3687,6 +6039,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Ass. ID"
                                                         variant="outlined"
+                                                        value={assIdME}
+                                                        onChange={(evt) => { setAssIdME(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3698,13 +6052,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocME}
+                                                        onChange={(evt) => { setPocME(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3719,6 +6072,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Hours"
                                                         variant="outlined"
+                                                        value={hoursME}
+                                                        onChange={(evt) => { setHoursME(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3727,6 +6082,8 @@ function MemberDetails() {
                                                         id="outlined-basic"
                                                         label="Minutes"
                                                         variant="outlined"
+                                                        value={minutesME}
+                                                        onChange={(evt) => { setMinutesME(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3738,13 +6095,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeME}
+                                                        onChange={(evt) => { setServiceCodeME(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3771,21 +6127,40 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeTE}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeTE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeTE}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeTE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -3798,7 +6173,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeTE}
+                                                        onChange={(evt) => { setCareGiverCodeTE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3806,7 +6182,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameTE}
+                                                        onChange={(evt) => { setCareGiverNameTE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3819,7 +6196,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdTE}
+                                                        onChange={(evt) => { setAssIdTE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3831,13 +6209,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocTE}
+                                                        onChange={(evt) => { setPocTE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3851,7 +6228,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursTE}
+                                                        onChange={(evt) => { setHoursTE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3859,7 +6237,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesTE}
+                                                        onChange={(evt) => { setMinutesTE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3871,13 +6250,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeTE}
+                                                        onChange={(evt) => { setServiceCodeTE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3905,21 +6283,38 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeWE}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeWE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeWE}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeWE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -3932,7 +6327,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeWE}
+                                                        onChange={(evt) => { setCareGiverCodeWE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3940,7 +6336,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameWE}
+                                                        onChange={(evt) => { setCareGiverNameWE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3953,7 +6350,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdWE}
+                                                        onChange={(evt) => { setAssIdWE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -3965,13 +6363,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocWE}
+                                                        onChange={(evt) => { setPocWE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -3980,12 +6377,14 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
                                             </Grid>
+
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursWE}
+                                                        onChange={(evt) => { setHoursWE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -3993,7 +6392,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesWE}
+                                                        onChange={(evt) => { setMinutesWE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4005,13 +6405,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeWE}
+                                                        onChange={(evt) => { setServiceCodeWE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4039,21 +6438,39 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeTHE}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeTHE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeTHE}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeTHE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -4066,7 +6483,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeTHE}
+                                                        onChange={(evt) => { setCareGiverCodeTH(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -4074,7 +6492,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameTHE}
+                                                        onChange={(evt) => { setCareGiverNameTHE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4087,7 +6506,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdTHE}
+                                                        onChange={(evt) => { setAssIdTHE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4099,13 +6519,11 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
-                                                    >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        value={pocTHE}
+                                                        onChange={(evt) => { setPocTHE(evt.target.value) }}
+                                                    >{pocIds.map((l, i) => (
+                                                        <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                    ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4119,7 +6537,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursTHE}
+                                                        onChange={(evt) => { setHoursTHE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -4127,7 +6546,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesTHE}
+                                                        onChange={(evt) => { setMinutesTHE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4139,13 +6559,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeTHE}
+                                                        onChange={(evt) => { setServiceCodeTHE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4172,21 +6591,39 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeFE}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeFE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeFE}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeFE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -4199,7 +6636,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeFE}
+                                                        onChange={(evt) => { setCareGiverCodeFE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -4207,7 +6645,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameFE}
+                                                        onChange={(evt) => { setCareGiverNameFE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4220,7 +6659,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdFE}
+                                                        onChange={(evt) => { setAssIdFE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4232,13 +6672,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocFE}
+                                                        onChange={(evt) => { setPocFE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4252,7 +6691,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursFE}
+                                                        onChange={(evt) => { setHoursFE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -4260,7 +6700,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesFE}
+                                                        onChange={(evt) => { setMinutesFE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4272,13 +6713,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeFE}
+                                                        onChange={(evt) => { setServiceCodeFE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4305,21 +6745,39 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeSTE}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeSTE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeSTE}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeSTE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -4332,7 +6790,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeSTE}
+                                                        onChange={(evt) => { setCareGiverCodeSTE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -4340,7 +6799,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameSTE}
+                                                        onChange={(evt) => { setCareGiverNameSTE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4353,7 +6813,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdSTE}
+                                                        onChange={(evt) => { setAssIdSTE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4365,13 +6826,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocSTE}
+                                                        onChange={(evt) => { setPocSTE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4385,7 +6845,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursSTE}
+                                                        onChange={(evt) => { setHoursSTE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -4393,7 +6854,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesSTE}
+                                                        onChange={(evt) => { setMinutesSTE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4405,13 +6867,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeSTE}
+                                                        onChange={(evt) => { setServiceCodeSTE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4439,21 +6900,39 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
                                             </Grid>
+
+
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Start Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={startTimeSUE}
+                                                                    onChange={(newValue) => {
+                                                                        setStartTimeSUE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
 
                                                 <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="End Time"
-                                                        variant="outlined"
-                                                    />
+                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                                <TimePicker
+                                                                    label="Start Time"
+                                                                    value={endTimeSUE}
+                                                                    onChange={(newValue) => {
+                                                                        setEndTimeSUE(newValue);
+                                                                    }}
+                                                                />
+                                                            </DemoContainer>
+                                                        </LocalizationProvider>
+                                                    </div>
                                                 </div>
                                             </Grid>
 
@@ -4466,7 +6945,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Code"
-                                                        variant="outlined"
+                                                        value={careGiverCodeSUE}
+                                                        onChange={(evt) => { setCareGiverCodeSUE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -4474,7 +6954,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Care Giver Name"
-                                                        variant="outlined"
+                                                        value={careGiverNameSUE}
+                                                        onChange={(evt) => { setCareGiverNameSUE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4487,7 +6968,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Ass. ID"
-                                                        variant="outlined"
+                                                        value={assIdSUE}
+                                                        onChange={(evt) => { setAssIdSUE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4499,13 +6981,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={pocSUE}
+                                                        onChange={(evt) => { setPocSUE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {pocIds.map((l, i) => (
+                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4519,7 +7000,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Hours"
-                                                        variant="outlined"
+                                                        value={hoursSUE}
+                                                        onChange={(evt) => { setHoursSUE(evt.target.value) }}
                                                     />
                                                 </div>
 
@@ -4527,7 +7009,8 @@ function MemberDetails() {
                                                     <TextField
                                                         id="outlined-basic"
                                                         label="Minutes"
-                                                        variant="outlined"
+                                                        value={minutesSUE}
+                                                        onChange={(evt) => { setMinutesSUE(evt.target.value) }}
                                                     />
                                                 </div>
                                             </Grid>
@@ -4539,13 +7022,12 @@ function MemberDetails() {
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
-                                                        value={selectedOptionSourceOfAdmission}
-                                                        onChange={handleDropdownSourceOfAdmission}
+                                                        value={serviceCodeSUE}
+                                                        onChange={(evt) => { setServiceCodeSUE(evt.target.value) }}
                                                     >
-                                                        <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
-                                                        <MenuItem value="CHHA">CHHA</MenuItem>
-                                                        <MenuItem value="Hospice">Hospice</MenuItem>
-                                                        <MenuItem value="Hospital">Hospital</MenuItem>
+                                                        {serviceCodes.map((l, i) => (
+                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </Grid>
@@ -4566,8 +7048,100 @@ function MemberDetails() {
 
 
                                 <div style={{ display: "flex", justifyContent: "center", marginTop: '20px', padding: '10px' }}>
-                                    <Button className="EditButton" variant="outlined">
-                                        Edit Master Week
+                                    <Button className="EditButton" variant="outlined"
+                                        onClick={() => {
+                                            editMasterWeek(
+                                                //masterWeekID
+                                                memberId,
+                                                fromDate,
+                                                toDate,
+
+                                                startTimeM,
+                                                endTimeM,
+                                                careGiverCodeM,
+                                                assIdM,
+                                                pocM,
+                                                hoursM,
+                                                minutesM,
+                                                secondsM,
+                                                serviceCodeM,
+                                                modeM,
+
+                                                startTimeT,
+                                                endTimeT,
+                                                careGiverCodeT,
+                                                assIdT,
+                                                pocT,
+                                                hoursT,
+                                                minutesT,
+                                                secondsT,
+                                                serviceCodeT,
+                                                modeT,
+
+                                                startTimeW,
+                                                endTimeW,
+                                                careGiverCodeW,
+                                                assIdW,
+                                                pocW,
+                                                hoursW,
+                                                minutesW,
+                                                secondsW,
+                                                serviceCodeW,
+                                                modeW,
+
+                                                startTimeTH,
+                                                endTimeTH,
+                                                careGiverCodeTH,
+                                                assIdTH,
+                                                pocTH,
+                                                hoursTH,
+                                                minutesTH,
+                                                secondsTH,
+                                                serviceCodeTH,
+                                                modeTH,
+
+                                                startTimeF,
+                                                endTimeF,
+                                                careGiverCodeF,
+                                                assIdF,
+                                                pocF,
+                                                hoursF,
+                                                minutesF,
+                                                secondsF,
+                                                serviceCodeF,
+                                                modeF,
+
+                                                startTimeST,
+                                                endTimeST,
+                                                careGiverCodeST,
+                                                assIdST,
+                                                pocST,
+                                                hoursST,
+                                                minutesST,
+                                                secondsST,
+                                                serviceCodeST,
+                                                modeST,
+
+                                                startTimeSU,
+                                                endTimeSU,
+                                                careGiverCodeSU,
+                                                assIdSU,
+                                                pocSU,
+                                                hoursSU,
+                                                minutesSU,
+                                                secondsSU,
+                                                serviceCodeSU,
+                                                modeSU,
+
+                                            ).then(res => {
+                                                console.log(res)
+                                                if (res.data.result == "success") {
+                                                    showToastMessage();
+                                                }
+                                            });
+                                        }}
+                                    >
+                                        Save Changes in Master Week
                                     </Button>
                                 </div>
 
@@ -4721,10 +7295,10 @@ function MemberDetails() {
     ];
     //demo data to display
     const rowsVisitsMain = [
-        { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
-        { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
-        { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
-        { id: 1, schedule: "Justin", privider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
+        { id: 1, schedule: "Justin", provider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
+        { id: 1, schedule: "Justin", provider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
+        { id: 1, schedule: "Justin", provider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
+        { id: 1, schedule: "Justin", provider: "Assist", serviceCode: "Assist", careGiver: "Assist", confirmedTime: "Assist", billed: "Assist", billedUnits: "Assist", billedTime: "Assist", holdVisit: "Assist", claimStatus: "" },
 
     ];
 
@@ -4854,7 +7428,7 @@ function MemberDetails() {
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Visits</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
-                        rows={rowsVisitsMain}
+                        rows={visitsViewRow}
                         columns={columnsVisitsMain}
                         pageSize={5}
                         rowsPerPageOptions={[15]}
@@ -4917,6 +7491,8 @@ function MemberDetails() {
     ];
 
 
+
+
     const columns10 = [
         { field: 'id', headerName: 'Auth. #', width: 100 },
         { field: 'fromDate', headerName: 'From Date', width: 100 },
@@ -4936,7 +7512,9 @@ function MemberDetails() {
             sortable: false,
             width: 150,
             renderCell: (params) => (
-                <Button variant="contained" onClick={() => handleClickAuthType()}>
+                <Button variant="contained" onClick={() => {
+                    handleClickAuthType(params.row);
+                }}>
                     Entire Period
                 </Button>
             ),
@@ -5037,6 +7615,7 @@ function MemberDetails() {
     return (
         <Wrapper>
 
+            <ToastContainer />
 
             <div className="Header">
                 <MenuIcon
@@ -5070,23 +7649,7 @@ function MemberDetails() {
 
             <div className="CardHolder">
                 <Card className="TaskBar">
-                    <div className="UserInfo">
-                        <Avatar
-                            className="avatar"
-                            alt={"Hector"}
-                            src="/static/images/avatar/1.jpg"
-                        />
-                        <p
-                            style={{
-                                fontSize: "22px",
-                                marginTop: "8%",
-                                color: "white",
-                                fontWeight: "bold",
-                            }}
-                        >
-                            Hector Martinez
-                        </p>
-                    </div>
+                    <UserName />
                     <hr />
                     <p
                         style={{
@@ -5255,7 +7818,6 @@ function MemberDetails() {
                     {authTypeOpen && <Overlay4 />}
                     {pocTypeOpen && <Overlay5 />}
                     {visitClaimStatusOpen && <Overlay6 />}
-                    {TimeOverlay && <OverlayTime />}
                     {RenderViews()}
                 </Card>
             </div>
