@@ -5191,8 +5191,8 @@ function MemberDetails() {
                             position: 'relative',
                             bottom: '0',
                             left: '0',
-                            backgroundColor: '#ccc',
-                            transition: 'height 0.3s ease-in-out'
+                            transition: 'height 0.3s ease-in-out',
+                            
                         }}
 
                     >
@@ -5203,12 +5203,9 @@ function MemberDetails() {
                             <div>
                                 <div>
 
-                                    <Grid container spacing={2}>
+                                   
 
-                                        <Grid className="DataHolderGrid">
-                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>From Date </h2></div>
-                                        </Grid>
-                                        <Grid className="DataHolderGrid">
+                                       <div className="FieldsHolderMaster">
                                             <div style={{ margin: "5px" }}>
                                                 <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
                                                     <DemoContainer components={['DatePicker']}>
@@ -5222,12 +5219,10 @@ function MemberDetails() {
                                                     </DemoContainer>
                                                 </LocalizationProvider>
                                             </div>
-                                        </Grid>
+                                       
 
-                                        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>To Date</h2></div>
-                                        </Grid>
-                                        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                    
+                                       
                                             <div style={{ margin: "5px" }}>
                                                 <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
                                                     <DemoContainer components={['DatePicker']}>
@@ -5241,17 +5236,16 @@ function MemberDetails() {
                                                     </DemoContainer>
                                                 </LocalizationProvider>
                                             </div>
-                                        </Grid>
+
+                                            </div>
+                                     
 
 
-                                    </Grid>
-
-                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+<div style={{display:"flex",flexDirection:"row"}}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"45%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
                                         <Grid container spacing={2}>
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
-                                            </Grid>
+                                         
 
                                             <Grid className="DataHolderGrid">
                                                 <div style={{ margin: "5px" }}>
@@ -5298,9 +5292,7 @@ function MemberDetails() {
                                             </Grid>
 
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
-                                            </Grid>
+                                           
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
@@ -5323,9 +5315,7 @@ function MemberDetails() {
                                                 </div>
                                             </Grid>
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
-                                            </Grid>
+                                           
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
@@ -5339,11 +5329,10 @@ function MemberDetails() {
                                             </Grid>
 
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
+                                         
+                                            <Grid className="DataHolderGrid" style={{marginTop: '0px'  }}>
+                                                <h4 style={{color:"grey"}}>POC</h4>
+                                                <div style={{ margin: "1px" }}>
                                                     <Select
                                                         value={pocM}
                                                         onChange={(evt) => { setPocM(evt.target.value) }}
@@ -5356,9 +5345,7 @@ function MemberDetails() {
                                             </Grid>
 
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
-                                            </Grid>
+                                            
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
@@ -5382,11 +5369,10 @@ function MemberDetails() {
                                             </Grid>
 
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
+                                           
+                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                            <h4 style={{color:"grey"}}>Services Code</h4>
+                                                <div style={{ margin: "0px" }}>
                                                     <Select
                                                         value={serviceCodeM}
                                                         onChange={(evt) => { setServiceCodeM(evt.target.value) }}
@@ -5400,7 +5386,7 @@ function MemberDetails() {
 
 
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Bill Type </h2></div>
+                                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
                                             </Grid>
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
@@ -5410,16 +5396,17 @@ function MemberDetails() {
                                         </Grid>
 
                                     </div>
+
+
+
                                 </div>
 
                                 <div>
 
-                                    <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"45%"  }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
                                         <Grid container spacing={2}>
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Hour </h2></div>
-                                            </Grid>
+                                        
 
 
 
@@ -5464,9 +5451,7 @@ function MemberDetails() {
                                             </Grid>
 
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Care Giver </h2></div>
-                                            </Grid>
+                                            
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
@@ -5487,9 +5472,7 @@ function MemberDetails() {
                                                 </div>
                                             </Grid>
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>ASS ID. </h2></div>
-                                            </Grid>
+                                           
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
@@ -5502,9 +5485,7 @@ function MemberDetails() {
                                             </Grid>
 
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>POC </h2></div>
-                                            </Grid>
+                                            
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
@@ -5519,9 +5500,7 @@ function MemberDetails() {
                                             </Grid>
 
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Time </h2></div>
-                                            </Grid>
+                                           
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <TextField
@@ -5543,9 +5522,7 @@ function MemberDetails() {
                                             </Grid>
 
 
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px", marginTop: '20px' }}><h2 style={{ color: "white", fontSize: '15px' }}>Service Codes </h2></div>
-                                            </Grid>
+                                           
                                             <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
                                                 <div style={{ margin: "5px" }}>
                                                     <Select
@@ -5571,6 +5548,11 @@ function MemberDetails() {
                                         </Grid>
 
                                     </div>
+                                    </div>
+                                   
+
+
+
                                 </div>
 
 
@@ -8427,6 +8409,11 @@ const Wrapper = styled.section`
     body::-webkit-scrollbar-thumb {
     background-color: #888;
     }
+.FieldsHolderMaster{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+}
     
 
   .EditButton{
