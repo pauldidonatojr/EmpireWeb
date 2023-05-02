@@ -978,25 +978,7 @@ function MemberDetails() {
         setIsOverlayOpen3(false);
     };
 
-    const handleClickIcon = () => {
-        switch (ViewSelected) {
-            case 2:
-                setIsOverlayOpen(true);
-                setOpen(!open);
-                break;
-            case 3:
-                setIsOverlayOpen2(true);
-                setOpen2(!open2);
-                break;
-            case 4:
-                setIsOverlayOpen3(true);
-                setOpen3(!open3);
-                break;
-            default:
-                break;
-        }
-    };
-    //
+    
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -3497,6 +3479,7 @@ function MemberDetails() {
                                 rowsPerPageOptions={[15]}
                                 checkboxSelection={false}
                                 onRowClick={handleRowClickCareGiverForVisit}
+                                
                             />
                         </div>
                         <Button className="searchButton" onClick={() => {
@@ -4440,8 +4423,9 @@ function MemberDetails() {
                 </div>
 
 
-                <h1 style={{ color: "#564873", textAlign: "center", marginTop: "2%" }}>Phone Number Information</h1>
-                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+              
+                <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '50px' }}>
+                <h1 style={{ color: "#564873", textAlign: "center",marginBottom:"5%" }}>Phone Number Information</h1>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
                             {member != null &&
@@ -4661,8 +4645,9 @@ function MemberDetails() {
                 </div>
 
 
-                <h1 style={{ color: "#564873", textAlign: "center" }}>Emergency Contact Information</h1>
-                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
+               
+                <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '30px',marginBottom:"2%",marginTop:"1.5%" }}>
+                <h1 style={{ color: "#564873", textAlign: "center",marginBottom:"5%" }}>Emergency Contact Information</h1>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
                             {member != null &&
@@ -7972,10 +7957,10 @@ function MemberDetails() {
 
 
 
-                <div style={{ padding: '20px', marginTop: '5%' }}>
-                    <Grid container spacing={2}>
-                        <Grid className="DataHolderVisitSearch">
-                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                <div className="holder" >
+                   
+                      <div style={{ width: "300px" }}>
+                            <LocalizationProvider  dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
                                     <DatePicker
                                         label="From Date"
@@ -7986,9 +7971,10 @@ function MemberDetails() {
                                     />
                                 </DemoContainer>
                             </LocalizationProvider>
-                        </Grid>
-                        <Grid className="DataHolderVisitSearch">
-                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                      </div>
+
+                      <div style={{ width: "300px" }}>
+                            <LocalizationProvider  dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
                                     <DatePicker
                                         label="To Date"
@@ -7999,9 +7985,10 @@ function MemberDetails() {
                                     />
                                 </DemoContainer>
                             </LocalizationProvider>
-                        </Grid>
-                        <Grid className="DataHolderVisitSearch">
-                            <FormControl style={{ width: "300px" }} >
+                            </div>
+                       
+                            <div style={{ width: "300px" }}>
+                            <FormControl style={{ width: "100%",marginTop:"0.5%" }} >
                                 <InputLabel>Action Taken</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
@@ -8015,8 +8002,7 @@ function MemberDetails() {
                                     <MenuItem value={30}>NON-Billed</MenuItem>
                                 </Select>
                             </FormControl>
-                        </Grid>
-                    </Grid>
+                            </div>
                 </div>
 
 
@@ -8407,7 +8393,6 @@ function MemberDetails() {
                 </Card>
 
                 <Card className="dataDisplay">
-                    <SearchIcon className="searchIcon" onClick={handleClickIcon} />
                     {isOverlayOpen && <Overlay />}
                     {isOverlayOpen2 && <Overlay2 />}
                     {isOverlayOpen3 && <Overlay3 />}
@@ -8442,6 +8427,7 @@ const Wrapper = styled.section`
     body::-webkit-scrollbar-thumb {
     background-color: #888;
     }
+    
 
   .EditButton{
     background-color: #564873;
@@ -8878,7 +8864,21 @@ const Wrapper = styled.section`
     width:68%;
   }
   //Header CSS FILES ENDING
+  .holder{
+    padding: 20px;
+     margin-top: 5%;
+     display:flex;
+     flex-direction:row;
+     justify-content:space-evenly;
+     
+  }
+  
   @media only screen and (max-width: 600px) {
+
+    .holder{
+        flex-direction:column;
+        margin-left:5%;
+    }
     .GoBackButtonHolder{
       margin-top:2%;
     }

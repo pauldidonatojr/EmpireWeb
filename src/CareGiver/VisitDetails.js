@@ -13,6 +13,7 @@ import { List, ListItem, ListItemText } from "@material-ui/core";
 import { display } from "@mui/system";
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import DirectionsIcon from '@mui/icons-material/Directions';
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import Drawer from "@mui/material/Drawer";
@@ -105,8 +106,8 @@ const VisitDetails = () => {
 
 
   const containerStyle = {
-    width: '400px',
-    height: '400px'
+    width: '100%',
+    height: '100%'
   };
 
   const center = {
@@ -697,6 +698,10 @@ const VisitDetails = () => {
 
 
         <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px', marginTop: '30px' }}>
+          <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
+          <DirectionsIcon style={{color:"white",fontSize:"35px"}} ></DirectionsIcon>
+        
+          </div>
           <h1 style={{ color: "#564873", textAlign: "center" }}>Address</h1>
           <div style={{ textAlign: 'center' }}>{currMember != null &&
             <>

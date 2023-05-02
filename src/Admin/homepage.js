@@ -521,16 +521,7 @@ function Homepage() {
   }, []);
 
 
-  // useEffect(() => {
-    
-  // }, []);
 
-  const handleRowClick = (params) => {
-    const rowId = params.row.id;
-    setOpen5(true);
-
-
-  };
   const [open5, setOpen5] = React.useState(false);
   const handleClose5 = () => {
     setOpen5(false);
@@ -538,13 +529,15 @@ function Homepage() {
   const MembersView = () => {
 
     return (
-      <div style={{ height: "100%", width: '100%' }}>
+      <div  className="mydatagrid" style={{ height: "100%", width: '100%' }}>
+       
         <DataGrid
+       
           rows={row}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          onRowClick={handleRowClick}
+          
           checkboxSelection={false}
         />
 
@@ -761,6 +754,23 @@ const Wrapper = styled.section`
     margin-top:0;
     justify-content:center;
   }
+
+
+
+  .mydatagrid::-webkit-scrollbar {
+    width: 10px !important;
+  }
+  
+  .mydatagrid::-webkit-scrollbar-track {
+    background-color: #564873 !important;
+  }
+  
+  .mydatagrid::-webkit-scrollbar-thumb {
+    background-color: #8e9fb1 !important;
+    border-radius: 5px !important;
+  }
+
+
   .GoBackButton:hover {
     color: black;
   }

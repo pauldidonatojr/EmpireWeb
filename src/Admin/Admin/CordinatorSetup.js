@@ -303,14 +303,7 @@ const handleClose = () => {
       </div>
     );
   };
-  const handleRowClick= (params) => {
-    const rowId = params.row.id;
-    console.log("Member Clicked"+rowId+"Open 5 is"+open5);
-    
-    setOpen5(true);
-    
-    
-  };
+  
   const [open5, setOpen5] = React.useState(false);
   const handleClose5 = () => {
     setOpen5(false);
@@ -325,7 +318,7 @@ const handleClose = () => {
           pageSize={5}
           rowsPerPageOptions={[15]}
           checkboxSelection
-          onRowClick={handleRowClick}
+         
         />
       </div>
 

@@ -537,6 +537,10 @@ function CareGiverDetail() {
         break;
     }
   };
+
+  
+
+
   //
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -813,6 +817,11 @@ function CareGiverDetail() {
   const CareGiverInfoPressed = () => {
     setViewSelected(2);
   };
+  function checkToRenderSearch (){
+   if(ViewSelected == 3){
+    return true;
+   }
+  }
 
   function RenderViews() {
     switch (ViewSelected) {
@@ -3228,7 +3237,9 @@ function CareGiverDetail() {
         </Card>
 
         <Card className="dataDisplay">
-          <SearchIcon className="searchIcon" onClick={handleClickIcon} />
+
+                {checkToRenderSearch() &&  <SearchIcon className="searchIcon" onClick={handleClickIcon} />}
+         
           {isOverlayOpen && <Overlay />}
           {isOverlayOpen2 && <Overlay2 />}
           {isOverlayOpen3 && <Overlay3 />}
