@@ -101,15 +101,17 @@ function Visit() {
   const [memberId, setMemberId] = useState('');
   const [duration, setDuration] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [visitEndTime, setVisitEndTime] = useState(dayjs('2023-04-17T15:30'));
   const [visitStartTime, setVisitStartTime] = useState(dayjs('2023-04-17T15:30'));
   const [scheduleStartTime, setScheduleStartTime] = useState(dayjs('2023-04-17T15:30'));
+  const [scheduleEndTime, setScheduleEndTime] = useState(dayjs('2023-04-17T15:30'));
   const [dutiesList, setDutiesList] = useState([]);
   const [selectedDutyEditVisit, setSelectedDutyEditVisit] = useState('');
   const [selectedDuty, setSelectedDuty] = useState('');
   const [scheduleID, setScheduleID] = useState('13252546');
   const [visitID, setVisitID] = useState('');
-  const [scheduleEndTime, setScheduleEndTime] = useState(dayjs('2023-04-17T15:30'));
+  
   const [evvStartTime, setEvvStartTime] = useState(dayjs('2023-04-17T15:30'));
   const [evvEndTime, setEvvEndTime] = useState(dayjs('2023-04-17T15:30'));
 
@@ -657,7 +659,7 @@ function Visit() {
   }
 
 
-
+  
 
 
 
@@ -3301,7 +3303,7 @@ function Visit() {
                 <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DatePicker']}>
                     <DatePicker
-                      label="From Date"
+                      label="Start Date"
                       value={selectedDate}
                       onChange={(newValue) => {
                         setSelectedDate(newValue);
@@ -3315,27 +3317,58 @@ function Visit() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
-                      label="Visit Start Time"
-                      value={visitStartTime}
-                      onChange={handleVisitStartTime}
+                      label="Schedule Start Time"
+                      value={scheduleStartTime}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(selectedDate).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleStartTime(datetime);
+                        setSelectedDate(newValue);
+                      }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
 
+              </div>
+
+
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+
+
+                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                     label="End Date"
+                     value={selectedEndDate}
+                     onChange={(newValue) => {
+                       setSelectedEndDate(newValue);
+                     }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
 
 
 
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
-                      label="Visit End Time"
-                      value={visitEndTime}
-                      onChange={handleVisitEndTime}
+                      label="Schedule End Time"
+                      value={scheduleEndTime}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(selectedDate).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss')
+                        setScheduleEndTime(datetime);
+                        setSelectedDate(newValue);
+                      }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
 
               </div>
+
               <div className="VisitAddDel">
 
 
@@ -3400,6 +3433,7 @@ function Visit() {
                     ))}
                   </Select>
                 </FormControl>
+                {/*  */}
 
                 {/*======================================================== */}
 
@@ -3410,9 +3444,11 @@ function Visit() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
-                      label="Schedule Start Time"
-                      value={scheduleStartTime}
-                      onChange={handleScheduleStartTimeChange}
+                      label="Visit Start Time"
+                      value={visitStartTime}
+                      onChange={(newValue)=>{
+                        setVisitStartTime(newValue);
+                      }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
@@ -3420,9 +3456,11 @@ function Visit() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
-                      label="Schedule End Time"
-                      value={scheduleEndTime}
-                      onChange={handleScheduleEndTimeChange}
+                      label="Visit End Time"
+                      value={visitEndTime}
+                      onChange={(newValue)=>{
+                        setVisitEndTime(newValue);
+                      }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
@@ -4423,8 +4461,6 @@ function Visit() {
               <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
                 <Button className="createVisitButton"
                   onClick={() => {
-                    console.log(selectedMemberAllData)
-                    console.log(selectedCareGiverAllData)
                     if (selectedMemberAllData != null && selectedCareGiverAllData != null) {
                       addVisit(
                         selectedMemberAllData.FirstName,
