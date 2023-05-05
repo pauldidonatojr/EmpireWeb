@@ -46,12 +46,10 @@ const handleChange = (event) => {
     switch (ViewSelected) {
       
       case 3:
-        setIsOverlayOpen3(true);
-        setOpen3(!open3);
+        setViewSelected(33);
         break;
       case 4:
-        setIsOverlayOpen4(true);
-        setOpen4(!open4);
+        setViewSelected(44);
         break;
       
       default:
@@ -68,36 +66,20 @@ const RemitancePressed = () => {
 };
 
 
-  const handleCloseOverlay3 = () => {
-    setIsOverlayOpen3(false);
-  };
-  const handleCloseOverlay4 = () => {
-    setIsOverlayOpen4(false);
-  };
-
-  
-//
-const [open3, setOpen3] = React.useState(false);
   const handleClose3 = () => {
-    setOpen3(false);
+    setViewSelected(3);
   };
 
-  //////
-const [open4, setOpen4] = React.useState(false);
 const handleClose4 = () => {
-  setOpen4(false);
+  setViewSelected(4);
 };
 
 ////
 
 function Overlay3() {
   return (
-    <Backdrop
-    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    open={open3}
    
-  >
-    <div className="overlay">
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose3} />
     <h1 style={{ textAlign:"center" ,color:"black"}}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Claim Files</p>
@@ -116,9 +98,8 @@ function Overlay3() {
       label="Status"
       onChange={handleChange}
     >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
+      <MenuItem value={10}>All</MenuItem>
+      <MenuItem value={20}>837 Claim File</MenuItem>
     </Select>
   </FormControl>
 </Box>  
@@ -135,9 +116,11 @@ function Overlay3() {
       label="Status"
       onChange={handleChange}
     >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
+       <MenuItem value={10}>All</MenuItem>
+                  <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                  <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                  <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                  <MenuItem value={30}>UPMC Health Plan</MenuItem>
     </Select>
   </FormControl>
 </Box>  
@@ -187,9 +170,11 @@ function Overlay3() {
       label="Status"
       onChange={handleChange}
     >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
+      <MenuItem value={10}>All</MenuItem>
+      <MenuItem value={20}>Accepted (A)</MenuItem>
+      <MenuItem value={30}>Rejected (R)</MenuItem>
+      <MenuItem value={30}>Partially Accepted (PA)</MenuItem>
+      <MenuItem value={30}>Accepted with Errors (E)</MenuItem>
     </Select>
   </FormControl>
 </Box>  
@@ -197,21 +182,16 @@ function Overlay3() {
    
 
     </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay3}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose3}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 function Overlay4() {
   return (
-    <Backdrop
-    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    open={open4}
    
-  >
-    <div className="overlay">
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose4} />
     <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Remitances</p>
@@ -222,25 +202,6 @@ function Overlay4() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >File Type</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      label="Status"
-      onChange={handleChange}
-    >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
-  </FormControl>
-</Box>  
-    </Grid>
-    <Grid className="griditem2">
-    
-    <Box >
-  <FormControl fullWidth>
     <InputLabel >MCO</InputLabel>
     <Select
       labelId="demo-simple-select-label"
@@ -249,9 +210,10 @@ function Overlay4() {
       label="Status"
       onChange={handleChange}
     >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
+     <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                  <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                  <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                  <MenuItem value={30}>UPMC Health Plan</MenuItem>
     </Select>
   </FormControl>
 </Box>  
@@ -310,11 +272,10 @@ function Overlay4() {
     </Grid>
 
     </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay4}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose4}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 
@@ -325,9 +286,12 @@ function Overlay4() {
       
       case 3:
         return ClaimView();
+        case 33:
+        return Overlay3();
       case 4:
         return RemitanceView();
-
+        case 44:
+          return Overlay4();
       default:
         break;
     }
@@ -692,7 +656,7 @@ const Wrapper = styled.section`
   }
  
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     color:black;
     margin-top: 2%;
   }

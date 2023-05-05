@@ -2570,53 +2570,43 @@ function Visit() {
                 <TextField
 
                   id="outlined-basic"
-                  label="Care Giver First Name"
+                  label="Caregiver IN"
                   variant="outlined"
                 />
               </Grid>
               <Grid className="griditem">
                 <TextField
-                  id="outlined-basic"
-                  label="Care Giver Last Name"
-                  variant="outlined"
-                />
-              </Grid>
-
-              <Grid className="griditem">
-
-                <TextField
-
-                  id="outlined-basic"
-                  label="Care Giver Code"
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid className="griditem">
-
-                <TextField
-                  id="outlined-basic"
-                  label="Assigment ID"
-                  variant="outlined"
-                />
-
-              </Grid>
-
-              <Grid className="griditem">
-
-                <TextField
-
                   id="outlined-basic"
                   label="Admission ID"
                   variant="outlined"
                 />
-
               </Grid>
+
               <Grid className="griditem">
 
                 <TextField
 
                   id="outlined-basic"
-                  label="Member First Name"
+                  label="Member Name"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+                  id="outlined-basic"
+                  label="Caregiver Name"
+                  variant="outlined"
+                />
+
+              </Grid>
+
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="From Date"
                   variant="outlined"
                 />
 
@@ -2626,7 +2616,17 @@ function Visit() {
                 <TextField
 
                   id="outlined-basic"
-                  label="Member Last Name"
+                  label="To Date"
+                  variant="outlined"
+                />
+
+              </Grid>
+              <Grid className="griditem">
+
+                <TextField
+
+                  id="outlined-basic"
+                  label="Assigment ID"
                   variant="outlined"
                 />
 
@@ -2645,33 +2645,13 @@ function Visit() {
                       label="Status"
                       onChange={handleChange}
                     >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value={10}>All</MenuItem>
+                      <MenuItem value={20}>Default</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
               </Grid>
-              <Grid className="griditem2">
-
-                <Box>
-                  <FormControl fullWidth>
-                    <InputLabel >Status</InputLabel>
-                    <Select
-
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={age}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-              </Grid>
+            
               <Grid className="griditem2">
 
                 <Box >
@@ -2685,19 +2665,20 @@ function Visit() {
                       label="Status"
                       onChange={handleChange}
                     >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value={10}>All</MenuItem>
+                      <MenuItem value={20}>Unassigned</MenuItem>
+                      <MenuItem value={30}>Default</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
               </Grid>
 
+    
               <Grid className="griditem2">
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel >Member Location</InputLabel>
+                    <InputLabel >MCO</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -2706,54 +2687,17 @@ function Visit() {
                       label="Status"
                       onChange={handleChange}
                     >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-              </Grid>
-              <Grid className="griditem2">
-
-                <Box >
-                  <FormControl fullWidth>
-                    <InputLabel >Member Branch</InputLabel>
-                    <Select
-
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={age}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value={10}>All</MenuItem>
+                      <MenuItem value={20}>AmeriHealth Cartias of PA</MenuItem>
+                      <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                      <MenuItem value={30}>KEYSTONE FIRST CHC</MenuItem>
+                      <MenuItem value={30}>UPMC Health Plan</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
               </Grid>
 
-              <Grid className="griditem">
-
-                <TextField
-
-                  id="outlined-basic"
-                  label="From Date dd/mm/yyyy"
-                  variant="outlined"
-                />
-
-              </Grid>
-              <Grid className="griditem">
-
-                <TextField
-
-                  id="outlined-basic"
-                  label="Till Date dd/mm/yyyy"
-                  variant="outlined"
-                />
-
-              </Grid>
+           
 
             </div>
 

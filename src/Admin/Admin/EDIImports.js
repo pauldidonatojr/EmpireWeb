@@ -50,24 +50,19 @@ function GoBackButtonPressed(){
     
     switch (ViewSelected) {
       case 1:
-        setIsOverlayOpen(true);
-        setOpen(!open);
+       setViewSelected(11);
         break;
       case 2:
-        setIsOverlayOpen2(true);
-        setOpen2(!open2);
+        setViewSelected(22);
         break;
       case 3:
-        setIsOverlayOpen3(true);
-        setOpen3(!open3);
+        setViewSelected(33);
         break;
       case 4:
-        setIsOverlayOpen4(true);
-        setOpen4(!open4);
+        setViewSelected(44);
         break;
       case 5:
-        setIsOverlayOpen5(true);
-        setOpen5(!open5);
+        setViewSelected(55);
         break;
      
       default:
@@ -94,49 +89,25 @@ const ReprocessingPressed = () => {
   setViewSelected(5);
 };
 
-  const handleCloseOverlay = () => {
-    setIsOverlayOpen(false);
-  };
-  const handleCloseOverlay2 = () => {
-    setIsOverlayOpen2(false);
-  };
-  const handleCloseOverlay3 = () => {
-    setIsOverlayOpen3(false);
-  };
-  const handleCloseOverlay4 = () => {
-    setIsOverlayOpen4(false);
-  };
-  const handleCloseOverlay5 = () => {
-    setIsOverlayOpen5(false);
-  };
- ////
-const [open, setOpen] = React.useState(false);
+
 const handleClose = () => {
-  setOpen(false);
+  setViewSelected(1);
 };
 
-//////
-const [open2, setOpen2] = React.useState(false);
 const handleClose2 = () => {
-  setOpen2(false);
+  setViewSelected(2);
 };
 
-//////
-const [open3, setOpen3] = React.useState(false);
 const handleClose3 = () => {
-  setOpen3(false);
+  setViewSelected(3);
 };
 
-//////
-const [open4, setOpen4] = React.useState(false);
 const handleClose4 = () => {
-  setOpen4(false);
+  setViewSelected(4);
 };
 
-//////
-const [open5, setOpen5] = React.useState(false);
 const handleClose5 = () => {
-  setOpen5(false);
+  setViewSelected(5);
 };
 
 //
@@ -144,12 +115,8 @@ const handleClose5 = () => {
   //CallMaintance Search Overlay
   function Overlay() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
-     
-    >
-      <div className="overlay">
+      
+      <div className="">
       <CloseIcon className="crossIcon" onClick={handleClose} />
       <h1 style={{ textAlign:"center" ,color:"black" }}>Set Filter from here !</h1>
       <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Imported Files</p>
@@ -192,23 +159,18 @@ const handleClose5 = () => {
          
  
       </div>
-      <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay}>
+      <Button className="searchButton" variant="outlined" onClick={handleClose}>
         Search
       </Button>
     </div>
-    </Backdrop>
     );
   }
   
 //MissedIn
 function Overlay2() {
   return (
-    <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open2}
-     
-    >
-    <div className="overlay">
+ 
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose2} />
     <h1 style={{ textAlign:"center" ,color:"black" }}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Pending Files</p>
@@ -251,23 +213,18 @@ function Overlay2() {
          
 
       </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay2}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose2}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 
 //Missed Out
 function Overlay3() {
   return (
-    <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open3}
-     
-    >
-    <div className="overlay">
+    
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose3} />
     <h1 style={{ textAlign:"center",color:"black"  }}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Failed To Import</p>
@@ -310,22 +267,17 @@ function Overlay3() {
          
  
       </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay3}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose3}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 //Missed Call Overlay
 function Overlay4() {
   return (
-    <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open4}
-     
-    >
-    <div className="overlay">
+  
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose4} />
     <h1 style={{ textAlign:"center",color:"black"  }}>Import Files from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Import Files</p>
@@ -373,21 +325,17 @@ function Overlay4() {
          
 
       </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay4}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose4}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 //Visit Log
 function Overlay5() {
   return (
-    <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open5}
-    >
-    <div className="overlay">
+    
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose5} />
     <h1 style={{ textAlign:"center" }}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Re Processing</p>
@@ -430,11 +378,10 @@ function Overlay5() {
          
  
       </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay5}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose5}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 
@@ -443,16 +390,26 @@ function Overlay5() {
     switch (ViewSelected) {
       case 1:
         return ImportedView();
+        case 11:
+        return Overlay();
 
       case 2:
         return PendingView();
+        case 22:
+        return Overlay2();
       case 3:
         return FailedImportView();
+        case 33:
+          return Overlay3();
       case 4:
         return ImportFileView();
-      case 5:
-        return ReProcessingView();
+        case 44:
+          return Overlay4();
+        case 5:
 
+        return ReProcessingView();
+case 55:
+        return Overlay5();
       default:
         break;
     }
@@ -906,7 +863,7 @@ const Wrapper = styled.section`
   }
  
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     color:black;
     margin-top: 2%;
   }

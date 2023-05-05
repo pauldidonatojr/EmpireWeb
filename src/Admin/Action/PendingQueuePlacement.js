@@ -48,20 +48,16 @@ const handleChange = (event) => {
     switch (ViewSelected) {
       
       case 3:
-        setIsOverlayOpen3(true);
-        setOpen3(!open3);
+        setViewSelected(33)
         break;
       case 4:
-        setIsOverlayOpen4(true);
-        setOpen4(!open4);
+        setViewSelected(44)
         break;
       case 5:
-        setIsOverlayOpen5(true);
-        setOpen5(!open5);
+        setViewSelected(55)
         break;
       case 6:
-        setIsOverlayOpen6(true);
-        setOpen6(!open6);
+        setViewSelected(66)
         break;
       default:
         break;
@@ -82,57 +78,28 @@ const MasterworkPressed = () => {
   setViewSelected(6);
 };
 
-  const handleCloseOverlay3 = () => {
-    setIsOverlayOpen3(false);
+  const handleClose3 = () => {
+    setViewSelected(3);
   };
-  const handleCloseOverlay4 = () => {
-    setIsOverlayOpen4(false);
-  };
-  const handleCloseOverlay5 = () => {
-    setIsOverlayOpen5(false);
-  };
-  const handleCloseOverlay6 = () => {
-    setIsOverlayOpen6(false);
+const handleClose4 = () => {
+  setViewSelected(4);
+};
+
+  const handleClose5 = () => {
+    setViewSelected(5);
   };
 
   
-//
-const [open3, setOpen3] = React.useState(false);
-  const handleClose3 = () => {
-    setOpen3(false);
-  };
-
-  //
-  //
-const [open4, setOpen4] = React.useState(false);
-const handleClose4 = () => {
-  setOpen4(false);
-};
-
-//
-//
-const [open5, setOpen5] = React.useState(false);
-  const handleClose5 = () => {
-    setOpen5(false);
-  };
-
-  //
-  //
-const [open6, setOpen6] = React.useState(false);
 const handleClose6 = () => {
-  setOpen6(false);
+  setViewSelected(6);
 };
 
 //
 
 function Overlay3() {
   return (
-    <Backdrop
-    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    open={open3}
    
-  >
-    <div className="overlay">
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose3} />
     <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Pending</p>
@@ -151,30 +118,25 @@ function Overlay3() {
       label="Status"
       onChange={handleChange}
     >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
+      <MenuItem value={10}>All</MenuItem>
+      <MenuItem value={20}>Unassigned</MenuItem>
+      <MenuItem value={30}>Default</MenuItem>
     </Select>
   </FormControl>
 </Box>  
     </Grid>
 </Grid>
     </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay3}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose3}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 function Overlay4() {
   return (
-    <Backdrop
-    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    open={open4}
    
-  >
-    <div className="overlay">
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose4} />
     <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Total Accepted</p>
@@ -193,31 +155,26 @@ function Overlay4() {
       label="Status"
       onChange={handleChange}
     >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
+      <MenuItem value={10}>All</MenuItem>
+      <MenuItem value={20}>Unassigned</MenuItem>
+      <MenuItem value={30}>Default</MenuItem>
     </Select>
   </FormControl>
 </Box>  
     </Grid> 
 </Grid>
     </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay4}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose4}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 //Visit Log
 function Overlay5() {
   return (
-    <Backdrop
-    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    open={open5}
    
-  >
-    <div className="overlay">
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose5} />
     <h1 style={{textAlign:"center",color:"black"}}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Staffed</p>
@@ -236,9 +193,9 @@ function Overlay5() {
       label="Status"
       onChange={handleChange}
     >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
+      <MenuItem value={10}>All</MenuItem>
+      <MenuItem value={20}>Unassigned</MenuItem>
+      <MenuItem value={30}>Default</MenuItem>
     </Select>
   </FormControl>
 </Box>  
@@ -246,22 +203,17 @@ function Overlay5() {
      
 </Grid>
     </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay5}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose5}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 
 function Overlay6() {
   return (
-    <Backdrop
-    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    open={open6}
    
-  >
-    <div className="overlay">
+    <div className="">
     <CloseIcon className="crossIcon" onClick={handleClose6} />
     <h1 style={{ textAlign:"center" ,color:"black"}}>Set Filter from here !</h1>
     <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Accepted Non Masterwork</p>
@@ -280,9 +232,9 @@ function Overlay6() {
       label="Status"
       onChange={handleChange}
     >
-      <MenuItem value={10}>Ten</MenuItem>
-      <MenuItem value={20}>Twenty</MenuItem>
-      <MenuItem value={30}>Thirty</MenuItem>
+       <MenuItem value={10}>All</MenuItem>
+      <MenuItem value={20}>Unassigned</MenuItem>
+      <MenuItem value={30}>Default</MenuItem>
     </Select>
   </FormControl>
 </Box>  
@@ -290,11 +242,10 @@ function Overlay6() {
      
 </Grid>
     </div>
-    <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay6}>
+    <Button className="searchButton" variant="outlined" onClick={handleClose6}>
       Search
     </Button>
   </div>
-  </Backdrop>
   );
 }
 
@@ -304,12 +255,21 @@ function Overlay6() {
       
       case 3:
         return PendingView();
+      case 33:
+        return Overlay3();  
+        
       case 4:
         return AcceptedView();
-      case 5:
+        case 44:
+          return Overlay4();
+        case 5:
         return StaffedView();
+        case 55:
+        return Overlay5();
       case 6:
         return MasterworkView();
+        case 66:
+        return Overlay6();
 
       default:
         break;
@@ -696,7 +656,7 @@ const Wrapper = styled.section`
   }
  
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     margin-top: 2%;
     color:black;
   }

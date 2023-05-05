@@ -52,40 +52,30 @@ function Visit() {
   const handleClickIcon = () => {
     switch (ViewSelected) {
       case 2:
-        setIsOverlayOpen(true);
-        setOpen(!open);
+       setViewSelected(22);
         break;
     
       case 4:
-        setIsOverlayOpen2(true);
-        setOpen2(!open2);
+        setViewSelected(44);
         break;
       default:
         break;
     }
   };
 //
-const [open, setOpen] = React.useState(false);
 const handleClose = () => {
-  setOpen(false);
+  setViewSelected(2);
 };
 
-//
-//
-const [open2, setOpen2] = React.useState(false);
 const handleClose2 = () => {
-  setOpen2(false);
+  setViewSelected(4);
 };
 
 //
   function Overlay() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
-     
-    >
-      <div className="overlay">
+   
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose} />
         <h1 style={{ textAlign: "center",color:"black"}}>Set Filter from here !</h1>
         <p
@@ -118,9 +108,11 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -136,9 +128,10 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Original Claims</MenuItem>
+                    <MenuItem value={30}>Adjustment Claims</MenuItem>
+                    <MenuItem value={30}>Original/ Adjustment Claims</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -162,21 +155,17 @@ const handleClose2 = () => {
           
          
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay}>
+        <Button className="searchButton" onClick={handleClose}>
           Search
         </Button>
       </div>
-      </Backdrop>
+   
     );
   }
   function Overlay2() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open2}
      
-    >
-      <div className="overlay2">
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose2} />
         <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
         <p
@@ -191,18 +180,12 @@ const handleClose2 = () => {
         </p>
         <div className="searchFieldsDiv2">
         
-            <Grid className="griditem">
-              <TextField
-                id="outlined-basic"
-                label="Batch Number"
-                variant="outlined"
-              />
-            </Grid>
+          
 
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel>Daily Reason Code</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -210,9 +193,20 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Proof of Eligibility Unknown or Unavailable</MenuItem>
+                    <MenuItem value={20}>Litigiation</MenuItem>
+                    <MenuItem value={30}>Authorization Delay</MenuItem>
+                    <MenuItem value={10}>Delay in Certifying Provider</MenuItem>
+                    <MenuItem value={20}>Delay in Supplying Billing Forms</MenuItem>
+                    <MenuItem value={30}>Delay in Supplying Billing Forms</MenuItem>
+                    <MenuItem value={10}>Delay in Delivery of Custom-made Application </MenuItem>
+                    <MenuItem value={20}>Third Party Processing Delay</MenuItem>
+                    <MenuItem value={30}>Delay in Eligibility Determination</MenuItem>
+                    <MenuItem value={10}>Original Claim Rejected or Denied Due to a Reason Unrelated to the Billing Limitation Rules</MenuItem>
+                    <MenuItem value={20}>Admission Delay in the prior Approval Process</MenuItem>
+                    <MenuItem value={30}>Other</MenuItem>
+                    <MenuItem value={10}>Natural Disaster</MenuItem>
+                   
                   </Select>
                 </FormControl>
               </Box>
@@ -221,17 +215,16 @@ const handleClose2 = () => {
             <Grid className="griditem">
               <TextField
                 id="outlined-basic"
-                label="Batch Date DD/MM/YYYY"
+                label="Visits Older than"
                 variant="outlined"
               />
             </Grid>
           
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay2}>
+        <Button className="searchButton" onClick={handleClose2}>
           Search
         </Button>
       </div>
-      </Backdrop>
     );
   }
 
@@ -248,8 +241,12 @@ const handleClose2 = () => {
     switch (ViewSelected) {
       case 2:
         return BatchSearchView();
+        case 22:
+        return Overlay();
       case 4:
         return SubmitView();
+        case 44:
+        return Overlay2();
 
       default:
         break;

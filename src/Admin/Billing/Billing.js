@@ -47,17 +47,14 @@ function Billing() {
   const handleClickIcon = () => {
     switch (ViewSelected) {
       case 1:
-        setIsOverlayOpen(true);
-        setOpen(!open);
+        setViewSelected(11)
         break;
       case 2:
-        setIsOverlayOpen2(true);
-        setOpen2(!open2);
+        setViewSelected(22)
         break;
 
       case 4:
-        setIsOverlayOpen4(true);
-        setOpen4(!open4);
+        setViewSelected(44)
         break;
       default:
         break;
@@ -85,46 +82,29 @@ function Billing() {
     navigate("/ElectronicBilling");
   };
 
-  //
-  const handleCloseOverlay = () => {
-    setIsOverlayOpen(false);
-  };
-  const handleCloseOverlay2 = () => {
-    setIsOverlayOpen2(false);
-  };
-  const handleCloseOverlay4 = () => {
-    setIsOverlayOpen4(false);
-  };
- //
- const [open, setOpen] = React.useState(false);
+  
  const handleClose = () => {
-   setOpen(false);
+setViewSelected(1);
  };
  
  //
   //
-const [open2, setOpen2] = React.useState(false);
 const handleClose2 = () => {
-  setOpen2(false);
+  setViewSelected(2);
 };
 
 //
  //
- const [open4, setOpen4] = React.useState(false);
  const handleClose4 = () => {
-   setOpen4(false);
+  setViewSelected(4);
  };
  
  //
   //CallMaintance Search Overlay
   function Overlay() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
      
-    >
-      <div className="overlay">
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose} />
         <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
         <p
@@ -179,9 +159,9 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -197,9 +177,10 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -215,9 +196,8 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -248,9 +228,17 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Unbalanced Visit</MenuItem>
+                    <MenuItem value={20}>Missed Viist</MenuItem>
+                    <MenuItem value={30}>With Temp Caregiver</MenuItem>
+                    <MenuItem value={20}>CareGiver Compliance</MenuItem>
+                    <MenuItem value={30}>POC Compliance</MenuItem>
+                    <MenuItem value={20}>Overlapping Shifts</MenuItem>
+                    <MenuItem value={30}>OT/TT Not Approval</MenuItem>
+                    <MenuItem value={20}>Restricted Caregiver</MenuItem>
+                    <MenuItem value={30}>Timesheet Not Approved</MenuItem>
+                    <MenuItem value={20}>Authorization</MenuItem>
+                    <MenuItem value={30}>Office Missing</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -260,24 +248,19 @@ const handleClose2 = () => {
         <Button
           className="searchButton"
           variant="outlined"
-          onClick={handleCloseOverlay}
+          onClick={handleClose}
         >
           Search
         </Button>
       </div>
-      </Backdrop>
     );
   }
 
   //MissedIn
   function Overlay2() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open2}
      
-    >
-      <div className="overlay2">
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose2} />
         <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
         <p
@@ -295,7 +278,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>By Group (MCO)</InputLabel>
+                  <InputLabel>By Group</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -303,9 +286,10 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>MCO</MenuItem>
+                    <MenuItem value={20}>Hold Reason</MenuItem>
+                    <MenuItem value={30}>Cordinator</MenuItem>
+                    <MenuItem value={30}>Member</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -321,9 +305,11 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -339,9 +325,9 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -357,9 +343,8 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                    <MenuItem value={20}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -375,9 +360,33 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                    <MenuItem value={20}>Missing Patient Name</MenuItem>
+                    <MenuItem value={30}>
+Missing Patient Address</MenuItem>
+                    <MenuItem value={10}>
+Missing Patient City</MenuItem>
+                    <MenuItem value={20}>Missing Patient State</MenuItem>
+                    <MenuItem value={30}>
+Missing Patient Zip Code</MenuItem>
+                    <MenuItem value={10}>
+Missing Patient Date of Birth</MenuItem>
+                    <MenuItem value={20}>
+Missing Patient Gender</MenuItem>
+                    <MenuItem value={30}>Missing Patient MR Number</MenuItem>
+                    <MenuItem value={10}>
+Missing Primary Diagnosis</MenuItem>
+                    <MenuItem value={20}>
+Missing Authorization Number</MenuItem>
+                    <MenuItem value={30}>
+Pending billing of additional shifts on same day</MenuItem>
+                    <MenuItem value={10}>Visits on same day/service code must be billed on same invoice</MenuItem>
+                    <MenuItem value={20}>
+Visit should not be placed on Manual Hold</MenuItem>
+                    <MenuItem value={30}>
+Billing by Export Code Greater than 24 hours</MenuItem>
+                    <MenuItem value={10}>Missing Admission Id</MenuItem>
+                  
                   </Select>
                 </FormControl>
               </Box>
@@ -423,9 +432,8 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Yes</MenuItem>
+                    <MenuItem value={20}>No</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -471,24 +479,19 @@ const handleClose2 = () => {
         <Button
           className="searchButton"
           variant="outlined"
-          onClick={handleCloseOverlay2}
+          onClick={handleClose2}
         >
           Search
         </Button>
       </div>
-      </Backdrop>
     );
   }
 
   //Missed Call Overlay
   function Overlay4() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open4}
-     
-    >
-      <div className="overlay4">
+      
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose4} />
         <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
         <p
@@ -514,9 +517,11 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                     <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -532,9 +537,8 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                   
                   </Select>
                 </FormControl>
               </Box>
@@ -551,9 +555,8 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    
                   </Select>
                 </FormControl>
               </Box>
@@ -583,9 +586,9 @@ const handleClose2 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -602,12 +605,11 @@ const handleClose2 = () => {
         <Button
           className="searchButton"
           variant="outlined"
-          onClick={handleCloseOverlay4}
+          onClick={handleClose4}
         >
           Search
         </Button>
       </div>
-      </Backdrop>
     );
   }
 
@@ -615,10 +617,16 @@ const handleClose2 = () => {
     switch (ViewSelected) {
       case 1:
         return PreBillingReviewView();
+        case 11:
+        return Overlay();
       case 2:
         return BillingReviewView();
+        case 22:
+        return Overlay2();
       case 4:
         return NewInvoiceBatchView();
+        case 44:
+        return Overlay4();
       
 
       default:

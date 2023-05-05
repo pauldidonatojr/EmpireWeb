@@ -521,18 +521,10 @@ function CareGiverDetail() {
 
   const handleClickIcon = () => {
     switch (ViewSelected) {
-      case 2:
-        setIsOverlayOpen(true);
-        setOpen(!open);
-        break;
       case 3:
-        setIsOverlayOpen2(true);
-        setOpen2(!open2);
+       setViewSelected(33);
         break;
-      case 4:
-        setIsOverlayOpen3(true);
-        setOpen3(!open3);
-        break;
+    
       default:
         break;
     }
@@ -549,16 +541,15 @@ function CareGiverDetail() {
 
   //
   //
-  const [open2, setOpen2] = React.useState(false);
   const handleClose2 = () => {
-    setOpen2(false);
+    setViewSelected(3);
   };
 
   //
   //
   const [open3, setOpen3] = React.useState(false);
   const handleClose3 = () => {
-    setOpen3(false);
+   
   };
 
   //
@@ -568,11 +559,8 @@ function CareGiverDetail() {
   }
   function Overlay2() {
     return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open2}
-      >
-        <div className="overlay2">
+     
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose2} />
           <h1 style={{ textAlign: "center", color: "black" }}>
             Set Filter from here !
@@ -585,7 +573,7 @@ function CareGiverDetail() {
               textAlign: "center",
             }}
           >
-            By Visit
+             Visit
           </p>
           <div className="searchFieldsDiv">
             <Grid className="griditem">
@@ -680,11 +668,10 @@ function CareGiverDetail() {
               </Box>
             </Grid>
           </div>
-          <Button className="searchButton" onClick={handleCloseOverlay2}>
+          <Button className="searchButton" onClick={handleClose2}>
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
   //
@@ -829,9 +816,10 @@ function CareGiverDetail() {
         return CareGiverInfoView();
       case 3:
         return VisitsHistory();
-
-      case 4:
-        return CalenderView();
+        case 33:
+          return Overlay2();
+        case 4:
+          return CalenderView();
 
       default:
         break;

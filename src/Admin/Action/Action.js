@@ -45,27 +45,19 @@ function Action() {
 
   //
   const handleClickIcon = () => {
-    setIsOverlayOpen(true);
-    setOpen(!open);
+    
+    setViewSelected(11)
   };
-  const handleCloseOverlay = () => {
-    setIsOverlayOpen(false);
-  };
-//
-const [open, setOpen] = React.useState(false);
+ 
   const handleClose = () => {
-    setOpen(false);
+    setViewSelected(1)
   };
 
-  //
+  
   function Overlay() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
      
-    >
-      <div className="overlay">
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose} />
         <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
         <p
@@ -90,9 +82,11 @@ const [open, setOpen] = React.useState(false);
                   label="Status"
                   onChange={handleChange}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>All</MenuItem>
+                  <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                  <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                  <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                  <MenuItem value={30}>UPMC Health Plan</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -108,9 +102,9 @@ const [open, setOpen] = React.useState(false);
                   label="Status"
                   onChange={handleChange}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>All</MenuItem>
+                  <MenuItem value={20}>Sent</MenuItem>
+                  <MenuItem value={30}>Recieved</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -126,9 +120,9 @@ const [open, setOpen] = React.useState(false);
                   label="Status"
                   onChange={handleChange}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>All</MenuItem>
+                  <MenuItem value={20}>Open</MenuItem>
+                  <MenuItem value={30}>Closed</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -144,9 +138,83 @@ const [open, setOpen] = React.useState(false);
                   label="Status"
                   onChange={handleChange}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>All</MenuItem>
+                  <MenuItem value={20}>Authorization Edit (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={30}>Authorization Edit (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={10}>Authorization Edit (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={20}>Authorization Edit (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={30}>Calendar Note (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={10}>Calendar Note (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={20}>
+Calendar Note (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={30}>Ceased to breathe (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={10}>Change in Condition (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={20}>
+Change in Condition (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={30}>Change in Condition (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={10}>
+Change in Condition (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={20}>
+Change in Service (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={30}>
+Change in Service (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={10}>Change in Service (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={20}>Change in Service (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={30}>
+Change of Schedule (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={20}>
+Change of Schedule (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={30}>Change of Schedule (UPMC Health Plan)</MenuItem>
+
+                  <MenuItem value={20}>
+Communication (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={30}>Communication (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={20}>Communication (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={30}>
+COVID-19 (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={20}>COVID-19 (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={30}>COVID-19 (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={20}>COVID-19 (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={30}>
+Delete Authorization (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={20}>Delete Authorization (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={30}>Delete Authorization (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={20}>Delete Authorization (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={30}>
+Discharge Request (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={20}>
+Eligibility Issue (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={30}>EVV - Network (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={20}>
+EVV Questions (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={30}>Guardrails (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={20}>Hospital and Other Admissions (Centene PA Health Wellness)</MenuItem>
+                  <MenuItem value={30}>Hospitalization (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={30}>
+Hospitalization (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={30}>Hospitalization (UPMC Health Plan)</MenuItem>
+                  <MenuItem value={30}>MCO Transfer (Centene PA Health Wellness)</MenuItem>
+
+                  <MenuItem value={30}>Member Condition Update (KEYSTONE FIRST CHC)</MenuItem>
+                  <MenuItem value={30}>Member Condition Update (AmeriHealth Caritas of PA)</MenuItem>
+                  <MenuItem value={30}>Member Condition Update (UPMC Health Plan)</MenuItem>
+                   <MenuItem value={30}>Member not Found (Centene PA Health Wellness)</MenuItem> 
+                   <MenuItem value={30}>Participant Address/Phone/EVV Updates (Centene PA Health Wellness)
+</MenuItem>
+                   <MenuItem value={30}>Start of Care Date Requested (Centene PA Health Wellness)</MenuItem>
+                   <MenuItem value={30}>
+Vacation / Out of Area (KEYSTONE FIRST CHC)</MenuItem>
+                   <MenuItem value={30}>
+Vacation / Out of Area (AmeriHealth Caritas of PA)</MenuItem>
+                   <MenuItem value={30}>Vacation/ Out of Area (UPMC Health Plan)</MenuItem>
+                   <MenuItem value={30}>Other (AmeriHealth Caritas of PA)</MenuItem>
+                   <MenuItem value={30}>
+Other (KEYSTONE FIRST CHC)</MenuItem>
+                   
+                   
+
+                  
+
                 </Select>
               </FormControl>
             </Box>
@@ -170,12 +238,11 @@ const [open, setOpen] = React.useState(false);
         <Button
           className="searchButton"
           variant="outlined"
-          onClick={handleCloseOverlay}
+          onClick={handleClose}
         >
           Search
         </Button>
       </div>
-      </Backdrop>
     );
   }
   function CommunicationMessageCenterPressed() {
@@ -185,6 +252,8 @@ const [open, setOpen] = React.useState(false);
     switch (ViewSelected) {
       case 1:
         return CommunicationMessageCenterView();
+        case 11:
+        return Overlay();
       default:
         break;
     }
@@ -553,7 +622,7 @@ padding: 1%;
   padding: 1%;
 }
 .crossIcon{
-    margin-left:95%;
+    margin-left:2%;
     margin-top:2%;
     color:black;
 }

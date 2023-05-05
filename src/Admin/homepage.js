@@ -49,7 +49,8 @@ function Homepage() {
   //
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
-    setOpen(false);
+    
+    setViewSelected(1)
   };
   const handleToggle = () => {
     setOpen(!open);
@@ -169,8 +170,7 @@ function Homepage() {
   }
 
   const handleClickIcon = () => {
-    setIsOverlayOpen(true);
-    setOpen(!open);
+    setViewSelected(11);
     setRow(initRow);
   };
   const handleCloseOverlay = () => {
@@ -250,12 +250,8 @@ function Homepage() {
   function Overlay() {
 
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-
-      >
-        <div className="overlay">
+     
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Members</p>
@@ -283,7 +279,16 @@ function Homepage() {
               <TextField
 
                 id="name"
-                label="Name"
+                label="First Name"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid className="griditem">
+
+              <TextField
+
+                id="name"
+                label="Last Name"
                 variant="outlined"
               />
             </Grid>
@@ -313,11 +318,12 @@ function Homepage() {
                     onChange={handleFilterStatus}
                   >
                     <MenuItem value={10}>Active</MenuItem>
-                    <MenuItem value={20}>Inactive</MenuItem>
+                    <MenuItem value={20}>Discharged</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
             </Grid>
+            
             {/* <Grid className="griditem2" >
 
             <Box>
@@ -403,7 +409,7 @@ function Homepage() {
             Search
           </Button>
         </div>
-      </Backdrop>
+   
 
     );
   }
@@ -414,6 +420,8 @@ function Homepage() {
     switch (ViewSelected) {
       case 1:
         return MembersView();
+        case 11:
+        return Overlay();
 
       default:
         break;
@@ -532,7 +540,7 @@ function Homepage() {
       <div  className="mydatagrid" style={{ height: "100%", width: '100%' }}>
        
         <DataGrid
-       
+        className="mydatagrid"
           rows={row}
           columns={columns}
           pageSize={5}
@@ -589,7 +597,7 @@ function Homepage() {
     <Wrapper>
       <ToastContainer />
 
-      {open5 && <OverlayCustom handleClose5={handleClose5} />}
+      
 
 
 
@@ -885,7 +893,7 @@ const Wrapper = styled.section`
   padding: 1%;
   }
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 1%;
     margin-top: 2%;
     color:black;
   }

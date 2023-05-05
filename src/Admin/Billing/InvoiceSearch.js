@@ -38,68 +38,40 @@ function Visit() {
 
   const [ViewSelected, setViewSelected] = useState(2);
 
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-  const [isOverlayOpen2, setIsOverlayOpen2] = useState(false);
-  const [isOverlayOpen3, setIsOverlayOpen3] = useState(false);
-
-  const handleCloseOverlay = () => {
-    setIsOverlayOpen(false);
-  };
-  const handleCloseOverlay2 = () => {
-    setIsOverlayOpen2(false);
-  };
-  const handleCloseOverlay3 = () => {
-    setIsOverlayOpen3(false);
-  };
-
   const handleClickIcon = () => {
     switch (ViewSelected) {
       case 2:
-        setIsOverlayOpen(true);
-        setOpen(!open);
+        setViewSelected(22);
         break;
       case 3:
-        setIsOverlayOpen2(true);
-        setOpen2(!open2);
+        setViewSelected(33);
         break;
       case 4:
-        setIsOverlayOpen3(true);
-        setOpen3(!open3);
+        setViewSelected(44);
         break;
       default:
         break;
     }
   };
    //
-const [open, setOpen] = React.useState(false);
 const handleClose = () => {
-  setOpen(false);
+  setViewSelected(2);
 };
 
-//
- //
- const [open2, setOpen2] = React.useState(false);
  const handleClose2 = () => {
-   setOpen2(false);
+  setViewSelected(3);
  };
- 
- //
-  //
-const [open3, setOpen3] = React.useState(false);
-const handleClose3 = () => {
-  setOpen3(false);
+
+ const handleClose3 = () => {
+  setViewSelected(4);
 };
 
-//
+
 
   function Overlay() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
      
-    >
-      <div className="overlay">
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose} />
         <h1 style={{  textAlign: "center",color:"black" }}>Set Filter from here !</h1>
         <p
@@ -125,9 +97,11 @@ const handleClose3 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                     <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -188,30 +162,24 @@ const handleClose3 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                   
                   </Select>
                 </FormControl>
               </Box>
             </Grid>
          
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay}>
+        <Button className="searchButton" onClick={handleClose}>
           Search
         </Button>
       </div>
-      </ Backdrop>
     );
   }
   function Overlay2() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open2}
      
-    >
-      <div className="overlay2">
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose2} />
         <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
         <p
@@ -267,9 +235,11 @@ const handleClose3 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                   <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -292,9 +262,9 @@ const handleClose3 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Yes</MenuItem>
+                    <MenuItem value={30}>No</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -310,31 +280,27 @@ const handleClose3 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Yes</MenuItem>
+                    <MenuItem value={30}>No</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
             </Grid>
         
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay2}>
+        <Button className="searchButton" onClick={handleClose2}>
           Search
         </Button>
       </div>
-      </Backdrop>
+  
     );
   }
   //
   function Overlay3() {
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open3}
-     
-    >
-      <div className="overlay2">
+    
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose3} />
         <h1 style={{ textAlign: "center",color:"black" }}>Set Filter from here !</h1>
         <p
@@ -367,9 +333,12 @@ const handleClose3 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Pending</MenuItem>
+                    <MenuItem value={30}>In Review</MenuItem>
+                    <MenuItem value={20}>Approved</MenuItem>
+                    <MenuItem value={30}>Bailed</MenuItem>
+                    <MenuItem value={30}>Partial Refund</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -429,20 +398,21 @@ const handleClose3 = () => {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
             </Grid>
          
         </div>
-        <Button className="searchButton" onClick={handleCloseOverlay3}>
+        <Button className="searchButton" onClick={handleClose3}>
           Search
         </Button>
       </div>
-      </Backdrop>
     );
   }
   //
@@ -462,11 +432,17 @@ const handleClose3 = () => {
     switch (ViewSelected) {
       case 2:
         return ByInvoiceView();
+        case 22:
+        return Overlay();
 
       case 3:
         return ByVisitView();
+        case 33:
+        return Overlay2();
       case 4:
         return ByBatchView();
+        case 44:
+        return Overlay3();
 
       default:
         break;
@@ -923,9 +899,7 @@ function GoBackButtonPressed(){
 
         <Card className="dataDisplay">
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
-          {isOverlayOpen && <Overlay />}
-          {isOverlayOpen2 && <Overlay2 />}
-          {isOverlayOpen3 && <Overlay3 />}
+       
           {RenderViews()}
         </Card>
       </div>

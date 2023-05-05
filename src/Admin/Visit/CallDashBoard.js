@@ -56,28 +56,23 @@ function CallDashBoard() {
 
     switch (ViewSelected) {
       case 1:
-        setIsOverlayOpen(true);
-        setOpen(!open);
+       
+        setViewSelected(11);
         break;
       case 2:
-        setIsOverlayOpen2(true);
-        setOpen2(!open2);
+        setViewSelected(22);
         break;
       case 3:
-        setIsOverlayOpen3(true);
-        setOpen3(!open3);
+        setViewSelected(33);
         break;
       case 4:
-        setIsOverlayOpen4(true);
-        setOpen4(!open4);
+        setViewSelected(44);
         break;
       case 5:
-        setIsOverlayOpen5(true);
-        setOpen5(!open5);
+        setViewSelected(55);
         break;
       case 6:
-        setIsOverlayOpen6(true);
-        setOpen6(!open6);
+        setViewSelected(66);
         break;
       default:
         break;
@@ -106,76 +101,50 @@ function CallDashBoard() {
     setViewSelected(6);
   };
   //
-  const handleCloseOverlay = () => {
-    setIsOverlayOpen(false);
-  };
-  const handleCloseOverlay2 = () => {
-    setIsOverlayOpen2(false);
-  };
-  const handleCloseOverlay3 = () => {
-    setIsOverlayOpen3(false);
-  };
-  const handleCloseOverlay4 = () => {
-    setIsOverlayOpen4(false);
-  };
-  const handleCloseOverlay5 = () => {
-    setIsOverlayOpen5(false);
-  };
-  const handleCloseOverlay6 = () => {
-    setIsOverlayOpen6(false);
-  };
+  
 
-  //
-  const [open, setOpen] = React.useState(false);
+  
   const handleClose = () => {
-    setOpen(false);
+    
+    setViewSelected(1);
   };
 
   //
   //
-  const [open2, setOpen2] = React.useState(false);
   const handleClose2 = () => {
-    setOpen2(false);
+    setViewSelected(2)
   };
 
   //
   //
-  const [open3, setOpen3] = React.useState(false);
   const handleClose3 = () => {
-    setOpen3(false);
+    setViewSelected(3)
   };
 
   //
   //
-  const [open4, setOpen4] = React.useState(false);
   const handleClose4 = () => {
-    setOpen4(false);
+    setViewSelected(4)
   };
 
   //
   //
-  const [open5, setOpen5] = React.useState(false);
   const handleClose5 = () => {
-    setOpen5(false);
+    setViewSelected(5)
   };
 
   //
   //
-  const [open6, setOpen6] = React.useState(false);
   const handleClose6 = () => {
-    setOpen6(false);
+    setViewSelected(6)
   };
 
   //
   //CallMaintance Search Overlay
   function Overlay() {
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-
-      >
-        <div className="overlay">
+    
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Call Maintaince</p>
@@ -261,9 +230,8 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                    <MenuItem value={20}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -281,9 +249,21 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                    <MenuItem value={20}>Phone Number Issues</MenuItem>
+                    <MenuItem value={30}>Phone Number Not Found</MenuItem>
+                    
+                    <MenuItem value={10}>Call from Caregiver Number</MenuItem>
+                    <MenuItem value={20}>Caller ID Not Available</MenuItem>
+                    <MenuItem value={30}>Scheduling / Confirmation Issues</MenuItem>
+                    
+                    <MenuItem value={10}>Duplicate Call</MenuItem>
+                    <MenuItem value={20}>Out of Window</MenuItem>
+                    <MenuItem value={30}>TEMP Caregiver Schedule</MenuItem>
+
+                    <MenuItem value={10}>Different Caregiver Schedule</MenuItem>
+                    <MenuItem value={20}>Viist Verfied by Differeny caregiver</MenuItem>
+                    <MenuItem value={30}>No Schedule on Calender</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -301,9 +281,9 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -322,9 +302,8 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                 
                   </Select>
                 </FormControl>
               </Box>
@@ -342,9 +321,8 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Select All</MenuItem>
+                   
                   </Select>
                 </FormControl>
               </Box>
@@ -372,11 +350,10 @@ function CallDashBoard() {
             </Grid>
 
           </div>
-          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay}>
+          <Button className="searchButton" variant="outlined" onClick={handleClose}>
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
 
@@ -384,12 +361,8 @@ function CallDashBoard() {
   function Overlay2() {
     return (
 
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open2}
-
-      >
-        <div className="overlay2">
+      
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose2} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Missed In</p>
@@ -435,9 +408,11 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={20}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -455,9 +430,8 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Default</MenuItem>
+                    
                   </Select>
                 </FormControl>
               </Box>
@@ -466,7 +440,7 @@ function CallDashBoard() {
 
               <Box >
                 <FormControl fullWidth>
-                  <InputLabel >Team Member</InputLabel>
+                  <InputLabel >Member Team</InputLabel>
                   <Select
 
                     labelId="demo-simple-select-label"
@@ -475,9 +449,9 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -493,11 +467,10 @@ function CallDashBoard() {
             </Grid>
 
           </div>
-          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay2}>
+          <Button className="searchButton" variant="outlined" onClick={handleClose2}>
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
 
@@ -505,12 +478,8 @@ function CallDashBoard() {
   function Overlay3() {
 
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open3}
-
-      >
-        <div className="overlay3">
+      
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose3} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Missed Out</p>
@@ -556,9 +525,11 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={30}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={30}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -576,9 +547,8 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Default</MenuItem>
+                    
                   </Select>
                 </FormControl>
               </Box>
@@ -596,9 +566,9 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -617,23 +587,18 @@ function CallDashBoard() {
 
 
           </div>
-          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay3}>
+          <Button className="searchButton" variant="outlined" onClick={handleClose3}>
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
   //Missed Call Overlay
   function Overlay4() {
 
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open4}
-
-      >
-        <div className="overlay4">
+      
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose4} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Missed Call</p>
@@ -678,9 +643,10 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>AmeriHealth Caritas of PA</MenuItem>
+                    <MenuItem value={20}>Centene PA Health Wellness</MenuItem>
+                    <MenuItem value={30}>KEYSTONE FIRST CHC</MenuItem>
+                    <MenuItem value={30}>UPMC Health Plan</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -698,9 +664,8 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Default</MenuItem>
+                    
                   </Select>
                 </FormControl>
               </Box>
@@ -709,7 +674,7 @@ function CallDashBoard() {
 
               <Box >
                 <FormControl fullWidth>
-                  <InputLabel >Team Member</InputLabel>
+                  <InputLabel >Member Team</InputLabel>
                   <Select
 
                     labelId="demo-simple-select-label"
@@ -718,9 +683,9 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -737,22 +702,17 @@ function CallDashBoard() {
 
 
           </div>
-          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay4}>
+          <Button className="searchButton" variant="outlined" onClick={handleClose4}>
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
   //Visit Log
   function Overlay5() {
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open5}
-
-      >
-        <div className="overlay5">
+     
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose5} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Visit Log</p>
@@ -805,9 +765,9 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -847,9 +807,9 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Default</MenuItem>
+                  
                   </Select>
                 </FormControl>
               </Box>
@@ -877,23 +837,18 @@ function CallDashBoard() {
             </Grid>
 
           </div>
-          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay5}>
+          <Button className="searchButton" variant="outlined" onClick={handleClose5}>
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
   //Rejected Calls
   function Overlay6() {
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open6}
+     
 
-      >
-
-        <div className="overlay6">
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose6} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Rejected Calls</p>
@@ -939,7 +894,7 @@ function CallDashBoard() {
 
               <Box >
                 <FormControl fullWidth>
-                  <InputLabel >Team Member</InputLabel>
+                  <InputLabel >Member Team</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -947,9 +902,9 @@ function CallDashBoard() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
+                    <MenuItem value={20}>Unassigned</MenuItem>
+                    <MenuItem value={30}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -974,11 +929,10 @@ function CallDashBoard() {
             </Grid>
 
           </div>
-          <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay6}>
+          <Button className="searchButton" variant="outlined" onClick={handleClose6}>
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
 
@@ -987,17 +941,29 @@ function CallDashBoard() {
     switch (ViewSelected) {
       case 1:
         return CallMaintanceView();
+        case 11:
+        return Overlay();
 
       case 2:
         return MissedInView();
-      case 3:
+        case 22:
+          return Overlay2();
+        case 3:
         return MissedOutView();
-      case 4:
+        case 33:
+          return Overlay3();
+        case 4:
         return MissedCallView();
+        case 44:
+          return Overlay4();
       case 5:
         return VisitLogView();
+        case 55:
+          return Overlay5();
       case 6:
         return RejectedCallsView();
+        case 66:
+          return Overlay6();
 
       default:
         break;
@@ -1650,7 +1616,7 @@ const Wrapper = styled.section`
           padding: 1%;
           }
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     margin-top: 2%;
     color:black;
   }

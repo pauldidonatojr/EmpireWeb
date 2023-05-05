@@ -48,13 +48,9 @@ function CareGiver() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   const handleClickIcon = () => {
-    setIsOverlayOpen(true);
-    setOpen(!open);
+   setViewSelected(22);
   };
-  const handleCloseOverlay = () => {
-    setIsOverlayOpen(false);
-  };
-
+  
 
   function RenderSearchIcon(){
     switch (ViewSelected) {
@@ -68,21 +64,16 @@ function CareGiver() {
     }
   }
  ////
- const [open, setOpen] = React.useState(false);
  const handleClose = () => {
-   setOpen(false);
+  setViewSelected(2);
  };
  
  //
   function Overlay() {
     
     return (
-      <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
      
-    >
-      <div className="overlay">
+      <div className="">
         <CloseIcon className="crossIcon" onClick={handleClose} />
         <h1 style={{ textAlign:"center",color:"black" }}>Set Filter from here !</h1>
         <p style={{fontSize:15,fontWeight:"bold",color:"#042940",textAlign:"center"}}>Search New User</p>
@@ -128,9 +119,10 @@ function CareGiver() {
           label="Status"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={10}>All</MenuItem>
+          <MenuItem value={20}>No Team</MenuItem>
+          <MenuItem value={30}>Unassigned</MenuItem>
+          <MenuItem value={30}>Defalut</MenuItem>
         </Select>
       </FormControl>
     </Box>  
@@ -139,11 +131,10 @@ function CareGiver() {
          
    
         </div>
-        <Button className="searchButton" variant="outlined" onClick={handleCloseOverlay}>
+        <Button className="searchButton" variant="outlined" onClick={handleClose}>
           Search
         </Button>
       </div>
-      </Backdrop>
       
     );
   }
@@ -162,6 +153,8 @@ function CareGiver() {
 
       case 2:
         return SearchCareGiverView();
+        case 22:
+        return Overlay();
 
       default:
         break;
@@ -202,7 +195,27 @@ function CareGiver() {
       date:"03/12/2023",
     },
   ];
+  function validateEmail(email) {
+    const emailRegex = /^[a-z][a-zA-Z0-9_.-]*@[a-zA-Z0-9-]+\.[a-z]{2,}$/;
+    // Check if the email matches the regex pattern
+    if (!emailRegex.test(email)) {
+      setInvalidEmail(true);
+      return false;
+    }
+    // Check if the email ends with ".com"
+    if (!email.endsWith(".com")) {
+      setInvalidEmail(true);
+      return false;
+    }
+    // Check if the first letter of the email is lowercase
+    if (email.charAt(0) !== email.charAt(0).toLowerCase()) {
+      return false;
+    }
+    setInvalidEmail(false);
+    return true;
+  }
 
+  const [Invalidmail, setInvalidEmail] = React.useState(false);
   const NewCareGiverView = () => {
     return (
       <div className="Holder"  >
@@ -211,7 +224,8 @@ function CareGiver() {
           <TextField className="input" label="First Name" variant="outlined" />
           <TextField className="input" label="Last Name" variant="outlined" />
           <TextField className="input" label="Login Name" variant="outlined" />
-          <TextField className="input" label="Email" variant="outlined" />
+          <TextField className="input" label="Email" variant="outlined" onChange={(evt) => { validateEmail(evt.target.value)}}/>
+          {Invalidmail && <h5 style={{color:"red",textAlign:"center"}}>Email Not Valid, Please Check</h5>}
           
       <FormControl className="dropdown">
         <InputLabel >Role</InputLabel>
@@ -222,9 +236,9 @@ function CareGiver() {
           label="Status"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={10}>Admin (EVV)</MenuItem>
+          <MenuItem value={20}>Cordinator (EVV)</MenuItem>
+          <MenuItem value={30}>Billing (EVV)</MenuItem>
         </Select>
       </FormControl>
       <FormControl className="dropdown" >
@@ -236,9 +250,9 @@ function CareGiver() {
           label="Status"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={10}>Link Communication</MenuItem>
+          <MenuItem value={20}>System Notification</MenuItem>
+          
         </Select>
       </FormControl>
       <FormControl className="dropdown" >
@@ -250,9 +264,8 @@ function CareGiver() {
           label="Status"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={10}>Active</MenuItem>
+          <MenuItem value={20}>Inactive</MenuItem>
         </Select>
       </FormControl>
     

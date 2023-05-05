@@ -125,8 +125,8 @@ function CareGiver() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   const handleClickIcon = () => {
-    setIsOverlayOpen(true);
-    setOpen(!open);
+    
+    setViewSelected(22);
     setRow(initRow);
   };
   const handleCloseOverlay = () => {
@@ -252,9 +252,8 @@ function CareGiver() {
     console.log(filterDiscipline)
   };
   //
-  const [open, setOpen] = React.useState(false);
   const handleClose = () => {
-    setOpen(false);
+    setViewSelected(2);
   };
 
   //
@@ -262,12 +261,8 @@ function CareGiver() {
 
     return (
 
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-
-      >
-        <div className="overlay">
+     
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p style={{ fontSize: 15, fontWeight: "bold", color: "#042940", textAlign: "center" }}>Search Care Giver</p>
@@ -327,8 +322,12 @@ function CareGiver() {
                     label="Status"
                     onChange={handleFilterStatus}
                   >
-                    <MenuItem value={10}>Active</MenuItem>
+                    <MenuItem value={10}>All</MenuItem>
                     <MenuItem value={20}>Inactive</MenuItem>
+                    <MenuItem value={10}>Active</MenuItem>
+                    <MenuItem value={20}>Hold</MenuItem>
+                    <MenuItem value={10}>On Leave</MenuItem>
+                    <MenuItem value={20}>Terminated</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -389,7 +388,6 @@ function CareGiver() {
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
 
@@ -407,6 +405,8 @@ function CareGiver() {
 
       case 2:
         return SearchCareGiverView();
+      case 22:
+        return Overlay();
 
       default:
         break;
@@ -448,6 +448,30 @@ function CareGiver() {
     },
   ];
 
+  
+  function validateEmail(email) {
+    const emailRegex = /^[a-z][a-zA-Z0-9_.-]*@[a-zA-Z0-9-]+\.[a-z]{2,}$/;
+    // Check if the email matches the regex pattern
+    if (!emailRegex.test(email)) {
+      setInvalidEmail(true);
+      return false;
+    }
+    // Check if the email ends with ".com"
+    if (!email.endsWith(".com")) {
+      setInvalidEmail(true);
+      return false;
+    }
+    // Check if the first letter of the email is lowercase
+    if (email.charAt(0) !== email.charAt(0).toLowerCase()) {
+      return false;
+    }
+    setUserEmail(email)
+    setInvalidEmail(false);
+    return true;
+  }
+
+  const [Invalidmail, setInvalidEmail] = React.useState(false);
+
   const NewCareGiverView = () => {
     return (
       <div className="Holder"  >
@@ -455,8 +479,9 @@ function CareGiver() {
         <div className="rowFieldsHolder">
           <h1 className="Heading" >Account Credentials</h1>
           <TextField className="input" label="Username" variant="outlined" onChange={(evt) => { setUsername(evt.target.value) }} />
-          <TextField className="input" label="Password" variant="outlined" onChange={(evt) => { setPassword(evt.target.value) }} />
-          <TextField className="input" label="Email" variant="outlined" onChange={(evt) => { setUserEmail(evt.target.value) }} />
+          <TextField className="input" label="Password" variant="outlined" type="password" onChange={(evt) => { setPassword(evt.target.value) }} />
+          <TextField className="input" label="Email" variant="outlined" onChange={(evt) => { validateEmail(evt.target.value)}} />
+          {Invalidmail && <h5 style={{color:"red"}}>Email Not Valid, Please Check</h5>}
         </div>
 
         <div className="rowFieldsHolder">
@@ -925,7 +950,7 @@ width: 100%;
   padding: 1%;
   }
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 0%;
     margin-top: 2%;
     color:black;
   }

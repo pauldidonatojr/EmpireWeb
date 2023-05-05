@@ -193,9 +193,20 @@ function Report() {
                     label="Status"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Member Team</MenuItem>
+                    <MenuItem value={20}>Member Location</MenuItem>
+                    <MenuItem value={30}>Member Branch</MenuItem>
+                    <MenuItem value={10}>Manual Hold Reason</MenuItem>
+                    <MenuItem value={20}>Advanced Directive</MenuItem>
+                    <MenuItem value={30}>Physician Type</MenuItem>
+                    <MenuItem value={10}>Office</MenuItem>
+                    <MenuItem value={20}>Priority Code</MenuItem>
+                    <MenuItem value={30}>Evacuation Zone</MenuItem>
+                    <MenuItem value={10}>Mobility Status</MenuItem>
+                    <MenuItem value={20}>Electric Equiptment Dependency</MenuItem>
+                    <MenuItem value={30}>Evacuation Location</MenuItem>
+                    <MenuItem value={10}>Service Code</MenuItem>
+                    <MenuItem value={20}>Refused Duty Reason</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -367,16 +378,40 @@ function Report() {
       address: "Downtown Lipsy London, SDWEI15",
     },
   ];
+  
+  function validateEmail(email) {
+    const emailRegex = /^[a-z][a-zA-Z0-9_.-]*@[a-zA-Z0-9-]+\.[a-z]{2,}$/;
+    // Check if the email matches the regex pattern
+    if (!emailRegex.test(email)) {
+      setInvalidEmail(true);
+      return false;
+    }
+    // Check if the email ends with ".com"
+    if (!email.endsWith(".com")) {
+      setInvalidEmail(true);
+      return false;
+    }
+    // Check if the first letter of the email is lowercase
+    if (email.charAt(0) !== email.charAt(0).toLowerCase()) {
+      return false;
+    }
+    setEmail(email)
+    setInvalidEmail(false);
+    return true;
+  }
+
+  const [Invalidmail, setInvalidEmail] = React.useState(false);
   const ChangePasswordView = () => {
     return (
       <div className="Holder"  >
         <div className="InputHolder">
           <h1 className="Heading" >Change Password</h1>
-          <TextField className="input" label="Email" variant="outlined" onChange={(username) => { setEmail(username.target.value) }} />
-          <TextField className="input" label="Current Password" variant="outlined" onChange={(username) => { setCurrPassword(username.target.value) }} />
-          <TextField className="input" label="New Password" variant="outlined" />
-          <TextField className="input" label="Repeat New Password" variant="outlined" onChange={(username) => { setNewPassword(username.target.value) }} />
-
+          <TextField className="input" label="Email" variant="outlined" onChange={(username) => { validateEmail(username.target.value) }} />
+          {Invalidmail && <h5 style={{color:"red",marginTop:0,marginBottom:0}}>Email Not Valid, Please Check</h5>}
+          <TextField className="input" label="Current Password" type="password" variant="outlined" onChange={(username) => { setCurrPassword(username.target.value) }} />
+          <TextField className="input" label="New Password"  type="password" variant="outlined" />
+          <TextField className="input" label="Repeat New Password" type="password" variant="outlined" onChange={(username) => { setNewPassword(username.target.value) }} />
+         
         </div>
 
 
@@ -397,6 +432,27 @@ function Report() {
     );
   };
 
+  const [Invalidmail2, setInvalidEmail2] = React.useState(true);
+  function validateEmail2(email) {
+    const emailRegex = /^[a-z][a-zA-Z0-9_.-]*@[a-zA-Z0-9-]+\.[a-z]{2,}$/;
+    // Check if the email matches the regex pattern
+    if (!emailRegex.test(email)) {
+      setInvalidEmail(true);
+      return false;
+    }
+    // Check if the email ends with ".com"
+    if (!email.endsWith(".com")) {
+      setInvalidEmail(true);
+      return false;
+    }
+    // Check if the first letter of the email is lowercase
+    if (email.charAt(0) !== email.charAt(0).toLowerCase()) {
+      return false;
+    }
+    setPatientEmail(email)
+    setInvalidEmail2(false);
+    return true;
+  }
 
   const AddPatientView = () => {
     return (
@@ -406,7 +462,9 @@ function Report() {
           <TextField className="input" label="First Name" variant="outlined" onChange={(evt) => { setPatientFirstName(evt.target.value) }} />
           <TextField className="input" label="Last Name" variant="outlined" onChange={(evt) => { setPatientLastName(evt.target.value) }} />
 
-          <TextField className="input" label="Email" variant="outlined" onChange={(evt) => { setPatientEmail(evt.target.value) }} />
+          <TextField className="input" label="Email" variant="outlined" onChange={(evt) => { validateEmail2(evt.target.value)}} />
+          {Invalidmail2 && <h5 style={{color:"red"}}>Email Not Valid, Please Check</h5>}
+
           <TextField className="input" label="Username" variant="outlined" onChange={(evt) => { setPatientUsername(evt.target.value) }} />
 
             <div style={{marginBottom: '20px'}}>
