@@ -691,7 +691,8 @@ Billing by Export Code Greater than 24 hours</MenuItem>
         columns={columns3}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        
+        checkboxSelection={false}
       />
     </div>
     </div>
@@ -777,7 +778,7 @@ Billing by Export Code Greater than 24 hours</MenuItem>
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -862,7 +863,7 @@ Billing by Export Code Greater than 24 hours</MenuItem>
         columns={columns2}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );

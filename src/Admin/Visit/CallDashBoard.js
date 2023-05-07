@@ -1014,7 +1014,7 @@ function CallDashBoard() {
           columns={columns6}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
     );
@@ -1051,7 +1051,7 @@ function CallDashBoard() {
           columns={columns5}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
     );
@@ -1102,7 +1102,7 @@ function CallDashBoard() {
           columns={columns4}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
 
@@ -1141,7 +1141,7 @@ function CallDashBoard() {
           columns={columns3}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
 
@@ -1180,7 +1180,7 @@ function CallDashBoard() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
 
@@ -1249,7 +1249,7 @@ function CallDashBoard() {
           columns={columns2}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
       ///

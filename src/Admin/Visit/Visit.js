@@ -2893,7 +2893,8 @@ function Visit() {
 
 
 
-
+  
+  const [selectedPaidDate, setSelectedPaidDate] = useState(null);
   const VisitQuickSearchView = () => {
     return (
       <>
@@ -4028,16 +4029,17 @@ function Visit() {
                   value={totalPaidUnits}
                   onChange={handleTotalPaidUnitsChange}
                 />
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={["TimePicker", "TimePicker"]}>
-                    <TimePicker
-                      label="Paid Date"
-                      value={paidDate}
-                      onChange={handlePaidDateChange}
-                      defaultValue={dayjs("2022-04-17T15:30")}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
+      <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="Paid Date"
+                                        value={selectedPaidDate}
+                                        onChange={(newValue) => {
+                                            setSelectedPaidDate(newValue);
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
               </div>
               {/* ======================================================== */}
               <div style={{ display: "flex", justifyContent: "space-evenly" }}>

@@ -343,7 +343,7 @@ function Overlay4() {
         columns={columns2}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -385,7 +385,7 @@ function Overlay4() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );

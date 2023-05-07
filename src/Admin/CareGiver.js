@@ -11,6 +11,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
 import FormControl from '@mui/material/FormControl';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import dayjs from 'dayjs';
 
 import Backdrop from '@mui/material/Backdrop';
 import Select from '@mui/material/Select';
@@ -471,7 +476,7 @@ function CareGiver() {
   }
 
   const [Invalidmail, setInvalidEmail] = React.useState(false);
-
+  const [selectedRehireDate, setSelectedRehireDate] = useState(null);
   const NewCareGiverView = () => {
     return (
       <div className="Holder"  >
@@ -489,19 +494,107 @@ function CareGiver() {
           <TextField className="input" label="First Name" variant="outlined" onChange={(evt) => { setFirstName(evt.target.value) }} />
           <TextField className="input" label="Middle Name" variant="outlined" onChange={(evt) => { setMiddleName(evt.target.value) }} />
           <TextField className="input" label="Last Name" variant="outlined" onChange={(evt) => { setLastName(evt.target.value) }} />
-          <TextField className="input" label="Aide Intials" variant="outlined" onChange={(evt) => { setInitials(evt.target.value) }} />
+          <TextField className="input" label="Middle Intials" variant="outlined" onChange={(evt) => { setInitials(evt.target.value) }} />
           <TextField className="input" label="Gender" variant="outlined" onChange={(evt) => { setGender(evt.target.value) }} />
-          <TextField className="input" label="DOB" variant="outlined" onChange={(evt) => { setDob(evt.target.value) }} />
-          <TextField className="input" label="Status" variant="outlined" onChange={(evt) => { setStatus(evt.target.value) }} />
-          <TextField className="input" label="Alt Caregiver Code" variant="outlined" onChange={(evt) => { setCareGiverCode(evt.target.value) }} />
+        <TextField className="input" label="Alt Caregiver Code" variant="outlined" onChange={(evt) => { setCareGiverCode(evt.target.value) }} />
           <TextField className="input" label="SSN" variant="outlined" onChange={(evt) => { setSSN(evt.target.value) }} />
           <TextField className="input" label="Mobile ID" variant="outlined" onChange={(evt) => { setMobileID(evt.target.value) }} />
           <TextField className="input" label="Primary Member Team" variant="outlined" onChange={(evt) => { setPrimaryMemberTeam(evt.target.value) }} />
           <TextField className="input" label="NPI Number" variant="outlined" onChange={(evt) => { setNPINumber(evt.target.value) }} />
-          <TextField className="input" label="Rehire ?" variant="outlined" onChange={(evt) => { setRehire(evt.target.value) }} />
-          <TextField className="input" label="Rehire Date" variant="outlined" onChange={(evt) => { setRehireDate(evt.target.value) }} />
-          <TextField className="input" label="Employment Type" variant="outlined" onChange={(evt) => { setEmploymentType(evt.target.value) }} />
-
+         
+         <div style={{display:"flex",flexDirection:"row"}}>
+          <div style={{width:220,margin:"0.5%",marginTop:15}}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Rehire ?</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={age}
+                                        label="Status"
+                                        
+                                    >
+                                        <MenuItem value={10}>No</MenuItem>
+                                        <MenuItem value={20}>Yes</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
+        <div style={{width:220,margin:"0.5%",marginTop:5.5}}>
+          <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="Rehire Date"
+                                        value={selectedRehireDate}
+                                        onChange={(newValue) => {
+                                            setSelectedRehireDate(newValue);
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                            </div>
+          
+        
+                            <div style={{width:220,margin:"0.5%",marginTop:15}}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Employmemt Type</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={age}
+                                        label="Status"
+                                        
+                                    >
+                                        <MenuItem value={10}>Demo</MenuItem>
+                                        <MenuItem value={20}>Demo</MenuItem>
+                                        <MenuItem value={30}>Demo</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
+                            <div style={{width:220,margin:"0.5%",marginTop:5.5}}>
+          <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="DOB"
+                                        value={selectedRehireDate}
+                                        onChange={(newValue) => {
+                                            setSelectedRehireDate(newValue);
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                            </div>
+                            <div style={{width:220,margin:"0.5%",marginTop:15}}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Status</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={age}
+                                        label="Status"
+                                        
+                                    >
+                                        <MenuItem value={10}>No</MenuItem>
+                                        <MenuItem value={20}>Yes</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
+                        
+          </div>
+          <div style={{width:220,margin:"0.5%",marginTop:15}}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Gender</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={age}
+                                        label="Gender"
+                                        
+                                    >
+                                        <MenuItem value={10}>Male</MenuItem>
+                                        <MenuItem value={20}>Female</MenuItem>
+                                        <MenuItem value={20}>Other</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
         </div>
 
 
@@ -644,7 +737,7 @@ function CareGiver() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
           
         />
       </div>

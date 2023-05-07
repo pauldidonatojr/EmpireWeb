@@ -462,7 +462,7 @@ case 55:
         columns={columns5}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -489,7 +489,7 @@ case 55:
         columns={columns4}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -517,7 +517,7 @@ case 55:
         columns={columns3}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -545,7 +545,7 @@ case 55:
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -571,7 +571,7 @@ case 55:
         columns={columns2}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );

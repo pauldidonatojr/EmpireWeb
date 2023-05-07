@@ -302,7 +302,8 @@ Other (KEYSTONE FIRST CHC)</MenuItem>
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          
+          checkboxSelection={false}
         />
       </div>
     );

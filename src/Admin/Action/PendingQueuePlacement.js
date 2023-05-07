@@ -320,7 +320,7 @@ function Overlay6() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -335,7 +335,7 @@ function Overlay6() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -349,7 +349,7 @@ function Overlay6() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
@@ -363,7 +363,7 @@ function Overlay6() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );

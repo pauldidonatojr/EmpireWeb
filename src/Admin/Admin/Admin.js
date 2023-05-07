@@ -31,7 +31,15 @@ import { resetPassword } from "../../API/resetPasswordApi";
 import UserName from "../../UserName";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+//
 
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+//
+import dayjs from 'dayjs';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 function Report() {
 
@@ -516,7 +524,7 @@ function Report() {
           columns={columns5}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
     );
@@ -534,6 +542,9 @@ function Report() {
 
 
   ];
+
+  const [scheduleStartCV, setScheduleStartCV] = useState(null);
+  const [scheduleEndCV, setScheduleEndCV] = useState(null);
   const ProviderProfileView = () => {
     return (
       <div className="Holder"  >
@@ -588,8 +599,40 @@ function Report() {
               <FormControlLabel control={<Checkbox defaultChecked />} label="Weekday" />
             </FormGroup>
             <div className="checkboxContent" >
-              <TextField className="input1" label="From" variant="outlined" />
-              <TextField className="input1" label="To" variant="outlined" />
+             <div style={{margin:"1%"}}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} >
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="From"
+                      value={scheduleStartCV}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(scheduleStartCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleStartCV(datetime);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+                </div>
+
+                <div style={{margin:"1%"}}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="To"
+                      value={scheduleStartCV}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(scheduleStartCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleStartCV(datetime);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+                </div>
+           
               <TextField className="input1" label="Frequency(min)" variant="outlined" />
             </div>
           </div>
@@ -597,19 +640,84 @@ function Report() {
             <FormGroup className="FormGroup" >
               <FormControlLabel control={<Checkbox defaultChecked />} label="Saturday" />
             </FormGroup>
-            <div className="checkboxContent">
-              <TextField className="input1" label="From" variant="outlined" />
-              <TextField className="input1" label="To" variant="outlined" />
+            <div className="checkboxContent" >
+             <div style={{margin:"1%"}}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} >
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="From"
+                      value={scheduleStartCV}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(scheduleStartCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleStartCV(datetime);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+                </div>
+
+                <div style={{margin:"1%"}}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="To"
+                      value={scheduleStartCV}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(scheduleStartCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleStartCV(datetime);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+                </div>
+           
               <TextField className="input1" label="Frequency(min)" variant="outlined" />
             </div>
+            
           </div>
           <div className="checkbox">
             <FormGroup className="FormGroup" >
               <FormControlLabel control={<Checkbox defaultChecked />} label="Sunday" />
             </FormGroup>
-            <div className="checkboxContent">
-              <TextField className="input1" label="From" variant="outlined" />
-              <TextField className="input1" label="To" variant="outlined" />
+            <div className="checkboxContent" >
+             <div style={{margin:"1%"}}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} >
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="From"
+                      value={scheduleStartCV}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(scheduleStartCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleStartCV(datetime);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+                </div>
+
+                <div style={{margin:"1%"}}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="To"
+                      value={scheduleStartCV}
+                      onChange={(newValue) => {
+                        const time = dayjs(newValue).format('HH:mm:ss');
+                        const date = dayjs(scheduleStartCV).format('YYYY-MM-DD');
+                        const datetime = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm:ss');
+                        setScheduleStartCV(datetime);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+                </div>
+           
               <TextField className="input1" label="Frequency(min)" variant="outlined" />
             </div>
           </div>
@@ -649,7 +757,7 @@ function Report() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
         />
       </div>
     );
@@ -945,6 +1053,8 @@ const Wrapper = styled.section`
 }
 .checkboxContent{
   margin-left:15%;
+  display:flex;
+  flex-direction:row;
 }
 .input{
   margin:2%;
@@ -1436,6 +1546,8 @@ elevation: 13,
     }
     .checkboxContent{
       margin-left:0%;
+      display:flex;
+      flex-direction:column;
     }
     .dropdown{
       width:62%;

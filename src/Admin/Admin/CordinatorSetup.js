@@ -315,7 +315,7 @@ const handleClose = () => {
           columns={columns2}
           pageSize={5}
           rowsPerPageOptions={[15]}
-          checkboxSelection
+          checkboxSelection={false}
          
         />
       </div>

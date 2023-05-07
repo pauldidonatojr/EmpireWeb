@@ -5180,8 +5180,20 @@ function MemberDetails() {
                     />
                 </div>
 
+          {/* //      <h1 style={{ color: "white",padding:10,backgroundColor:"grey", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)}>Add Master Week</h1>
+           ///     <h1 style={{ color: "white",padding:10,backgroundColor:"grey", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)}>Add Master Week</h1> */}
+
+<div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
 
 
+<div onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)} style={{backgroundColor:"#2E0F59",borderRadius:10,padding:5,margin:"1%"}}>
+    <h1 style={{color:"#F2B90F"}}>Add Master Week</h1>
+</div>
+
+<div onClick={() => setOpenEditMasterWeek(!openEditMasterWeek)} style={{backgroundColor:"#2E0F59",borderRadius:10,padding:5,margin:"1%"}}>
+    <h1 style={{color:"#F2B90F"}}>Edit Master Week</h1>
+</div>
+</div>
                 <div>
                     <div
                         className="bar"
@@ -5196,8 +5208,7 @@ function MemberDetails() {
                         }}
 
                     >
-                        <h1 style={{ color: "white",padding:10,backgroundColor:"grey", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)}>Add Master Week</h1>
-
+         
 
                         {openAddMasterWeek &&
                             <div>
@@ -6426,8 +6437,7 @@ function MemberDetails() {
                         }}
 
                     >
-                        <h1 style={{ color: "white",backgroundColor:"grey",padding:10, textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenEditMasterWeek(!openEditMasterWeek)}>Edit Master Week</h1>
-
+                  
                         {
                             openEditMasterWeek &&
 

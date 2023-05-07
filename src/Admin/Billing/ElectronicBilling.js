@@ -338,7 +338,7 @@ const handleClose2 = () => {
         columns={columns2}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     </div>
@@ -441,7 +441,7 @@ const handleClose2 = () => {
         columns={columns4}
         pageSize={5}
         rowsPerPageOptions={[15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </div>
     );
