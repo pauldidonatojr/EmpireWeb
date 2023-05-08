@@ -3009,7 +3009,7 @@ function Visit() {
 
 
 
-              <Grid style={{ width: '100%' }}>
+              <Grid className="griditem2">
 
                 <Box >
                   <FormControl fullWidth>
@@ -3031,7 +3031,7 @@ function Visit() {
               </Grid>
 
 
-              <Grid style={{ width: '100%' }}>
+              <Grid className="griditem">
 
                 <TextField
                   id="outlined-basic"
@@ -3241,11 +3241,11 @@ function Visit() {
               {memberForVisitName != null &&
                 <h1 style={{ textAlign: "center" }}>Create A New Visit for {memberForVisitName}</h1>
               }
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div   className="fieldsTable">
 
 
 
-                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DatePicker']}>
                     <DatePicker
                       label="Start Date"
@@ -3278,7 +3278,7 @@ function Visit() {
               </div>
 
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
 
 
@@ -3296,11 +3296,12 @@ function Visit() {
 
 
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}  style={{ width: '200px' }}>
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
                       label="Schedule End Time"
                       value={scheduleEndTime}
+                     
                       onChange={(newValue) => {
                         const time = dayjs(newValue).format('HH:mm:ss');
                         const date = dayjs(selectedDate).format('YYYY-MM-DD');
@@ -3314,13 +3315,14 @@ function Visit() {
 
               </div>
 
-              <div className="VisitAddDel">
+              <div className="fieldsTable" >
 
 
 
-                <FormControl style={{ width: '30%' }}>
+                <FormControl>
                   <InputLabel>Service Codes</InputLabel>
                   <Select
+                  style={{ width: '350px' ,marginTop:"10px",marginBottom:"5px" }}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={selectedServiceCode}
@@ -3340,15 +3342,25 @@ function Visit() {
                   label="Duration"
                   variant="outlined"
                   readOnly
+                  style={{ width:"350px",marginTop:"1%"}}
                   value={duration}
                   onClick={() => { getTimeDuration(visitStartTime, visitEndTime) }}
                 />
 
-                <TextField
+               
+
+
+
+
+              </div>
+<div className="fieldsTable" >
+<TextField
                   className="field"
                   id="outlined-basic"
                   label="Select Care Giver"
+                  
                   value={careGiverForVisitName}
+                  style={{ width: '350px' ,marginLeft:"1px" }}
                   InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
                 >
                   {/* <div  style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}> */}
@@ -3356,15 +3368,7 @@ function Visit() {
                   {/* </div> */}
                 </TextField>
 
-
-
-
-              </div>
-              {/* =========================To Check======================= */}
-              <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: '20px' }}>
-
-
-                <FormControl style={{ width: '30%' }}>
+                <FormControl style={{ width: '350px' ,marginTop:"1%",marginRight:"4px" }}>
                   <InputLabel>Visit Type</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -3378,6 +3382,13 @@ function Visit() {
                     ))}
                   </Select>
                 </FormControl>
+</div>
+
+              {/* =========================To Check======================= */}
+              <div className="fieldsTable">
+
+
+             
                 {/*  */}
 
                 {/*======================================================== */}
@@ -3385,19 +3396,21 @@ function Visit() {
 
 
 
-
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                           
+                <LocalizationProvider dateAdapter={AdapterDayjs} >
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
                       label="Visit Start Time"
                       value={visitStartTime}
+                      style={{marginLeft:"10px" ,width:"350px"}}
                       onChange={(newValue)=>{
                         setVisitStartTime(newValue);
                       }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
-
+              
+               
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
@@ -3409,32 +3422,26 @@ function Visit() {
                     />
                   </DemoContainer>
                 </LocalizationProvider>
+            
 
               </div>
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: '20px' }}>
+              <div className="fieldsTable">
 
 
-                <TextField
-                  className="field"
-                  id="Authorization Number"
-                  label="Member ID"
-                  variant="outlined"
-                  value={memberId}
-                  onChange={(event) => setMemberId(event.target.value)}
-                />
+              
 
 
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} style={{width: "350px"}}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']} style={{width: "350px"}}> 
                     <TimePicker
                       label="EVV Start Time"
                       value={evvStartTime}
                       onChange={handleEvvStartTimeChange}
-
+                      style={{width: "350px"}}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
@@ -3453,13 +3460,13 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-in-location-address-line-1"
                   label="Clock In Service Location Address Line 1"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleClockInLocationAddressLine1Change}
                   value={clockInLocationAddressLine1}
                 />
@@ -3468,18 +3475,18 @@ function Visit() {
                   id="clock-in-location-address-line-2"
                   label="Clock In Service Location Address Line 2"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleClockInLocationAddressLine2Change}
                   value={clockInLocationAddressLine2}
                 />
               </div>
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-in-location-city"
                   label="Clock In Location City"
                   variant="outlined"
-                  style={{ width: '200px' }}
+                  style={{ width: '350px' }}
                   onChange={handleClockInLocationCityChange}
                   value={clockInLocationCity}
                 />
@@ -3488,25 +3495,37 @@ function Visit() {
                   id="clock-in-location-state"
                   label="Clock In Location State"
                   variant="outlined"
-                  style={{ width: '200px' }}
+                  style={{ width: '350px' }}
                   onChange={handleClockInLocationStateChange}
                   value={clockInLocationState}
                 />
-                <TextField
+               
+              </div>
+              {/* ======================================================== */}
+
+              <div className="fieldsTable">
+              <TextField
                   className="field"
                   id="clock-in-zip-code"
                   label="Clock In Zip Code"
                   variant="outlined"
-                  style={{ width: '200px' }}
+                  style={{ width: '350px' }}
                   onChange={handleClockInZipCodeChange}
                   value={clockInZipCode}
                 />
-              </div>
-              {/* ======================================================== */}
+                  <TextField
+                  className="field"
+                  id="Authorization Number"
+                  label="Member ID"
+                  variant="outlined"
+                  style={{width: "350px"}}
+                  value={memberId}
+                  onChange={(event) => setMemberId(event.target.value)}
+                />
+                </div>
 
-
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
 
 
@@ -3515,7 +3534,7 @@ function Visit() {
                   id="Authorization Number"
                   label="Clock In Location Type"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleClockInLocationTypeChange}
                   value={clockInLocationType}
                 />
@@ -3525,7 +3544,7 @@ function Visit() {
                   id="Authorization Number"
                   label="Clock Out Location City"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleClockOutLocationCityChange}
                   value={clockOutLocationCity}
                 />
@@ -3533,13 +3552,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-out-location-address-line-1"
                   label="Clock Out Location Address Line 1"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={clockOutAddressLine1}
                   onChange={handleClockOutAddressLine1Change}
                 />
@@ -3548,19 +3567,19 @@ function Visit() {
                   id="clock-out-location-address-line-2"
                   label="Clock Out Location Address Line 2"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={clockOutAddressLine2}
                   onChange={handleClockOutAddressLine2Change}
                 />
               </div>
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-out-location-state"
                   label="Clock Out Location State"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={clockOutLocationState}
                   onChange={handleClockOutLocationStateChange}
                 />
@@ -3569,19 +3588,19 @@ function Visit() {
                   id="clock-out-location-zip-code"
                   label="Clock Out Location Zip Code"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={clockOutLocationZipCode}
                   onChange={handleClockOutLocationZipCodeChange}
                 />
               </div>
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-out-location-type"
                   label="Clock Out Location Type"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={clockOutLocationType}
                   onChange={handleClockOutLocationTypeChange}
                 />
@@ -3590,7 +3609,7 @@ function Visit() {
                   id="clock-out-location-type"
                   label="Clock Out Location Type"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={clockOutLocationType}
                   onChange={handleClockOutLocationTypeChange}
                 />
@@ -3599,18 +3618,18 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 {/* <TextField
               className="field"
               id="Duties"
               label="Duties"
               variant="outlined"
-              style={{ width: "400px" }}
+              style={{ width: "350px" }}
               onChange={handleDutiesChange}
               value={duties}
             /> */}
 
-                <FormControl style={{ width: '30%' }}>
+                <FormControl style={{ width: "350px" }}>
                   <InputLabel>Duties</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -3630,19 +3649,19 @@ function Visit() {
                   id="Authorization Number"
                   label="Clock In Phone Number"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   onChange={handleClockInPhoneChange}
                   value={clockInPhone}
                 />
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-in-latitude"
                   label="Clock In Latitude"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   onChange={handleClockInLatitudeChange}
                   value={clockInLatitude}
                 />
@@ -3652,19 +3671,19 @@ function Visit() {
                   id="clock-in-longitude"
                   label="Clock In Longitude"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   onChange={handleClockInLongitudeChange}
                   value={clockInLongitude}
                 />
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-out-latitude"
                   label="Clock Out Latitude"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   onChange={handleClockOutLatitudeChange}
                   value={clockOutLatitude}
                 />
@@ -3674,7 +3693,7 @@ function Visit() {
                   id="clock-out-longitude"
                   label="Clock Out Longitude"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   onChange={handleClockOutLongitudeChange}
                   value={clockOutLongitude}
                 />
@@ -3684,13 +3703,13 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-in-evv-other-info"
                   label="Clock In EVV Other Info"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: "350px" }}
                   value={clockInEvvOtherInfo}
                   onChange={handleClockInEvvOtherInfoChange}
                 />
@@ -3700,19 +3719,19 @@ function Visit() {
                   id="clock-out-phone"
                   label="Clock Out Phone Number"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: "350px" }}
                   value={clockOutPhone}
                   onChange={handleClockOutPhoneChange}
                 />
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="clock-out-evv-other-info"
                   label="Clock Out EVV Other Info"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: "350px" }}
                   value={clockOutEvvOtherInfo}
                   onChange={handleClockOutEvvOtherInfoChange}
                 />
@@ -3722,19 +3741,19 @@ function Visit() {
                   id="invoice-number"
                   label="Invoice Number"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={invoiceNumber}
                   onChange={handleInvoiceNumberChange}
                 />
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="visit-edit-reason-code"
                   label="Visit Edit Reason Code"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={visitEditReasonCode}
                   onChange={handleVisitEditReasonCodeChange}
                 />
@@ -3744,7 +3763,7 @@ function Visit() {
                   id="visit-edit-action-takem"
                   label="Visit Edit Action Taken"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={visitEditActionTaken}
                   onChange={handleVisitEditActionTakenChange}
                 />
@@ -3752,13 +3771,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="diagnosis_code"
                   label="Diagnosis Code"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={diagnosisCode}
                   onChange={(event) => setDiagnososCode(event.target.value)}
                 />
@@ -3768,7 +3787,7 @@ function Visit() {
                   id="visit-edit-made-by"
                   label="Visit Edit Made By"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={visitEditMadeBy}
                   onChange={handleVisitEditMadeByChange}
                 />
@@ -3776,13 +3795,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="notes"
                   label="Notes"
                   variant="outlined"
-                  style={{ width: "500px" }}
+                  style={{ width: "350px" }}
                   value={notes}
                   onChange={handleNotesChange}
                 />
@@ -3790,13 +3809,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="in-delition"
                   label="In Deletion"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={inDeletion}
                   onChange={handleInDeletionChange}
                 />
@@ -3806,7 +3825,7 @@ function Visit() {
                   id="invoice-line-item-id"
                   label="Visit Line Item ID"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={invoiceLineItemId}
                   onChange={handleInvoiceLineItemIdChange}
                 />
@@ -3814,13 +3833,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="total-billed-amount"
                   label="Total Billed Amount"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={totalBilledAmount}
                   onChange={handleTotalBilledAmountChange}
                 />
@@ -3830,7 +3849,7 @@ function Visit() {
                   id="units-billed"
                   label="Units Billed"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={unitsBilled}
                   onChange={handleUnitsBilledChange}
                 />
@@ -3839,13 +3858,13 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="billed-rate"
                   label="Billed Rate"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleBilledRateChange}
                   value={billedRate}
                 />
@@ -3854,18 +3873,18 @@ function Visit() {
                   id="submission-type"
                   label="Submission Type"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleSubmissionTypeChange}
                   value={submissionType}
                 />
               </div>
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="trn-number"
                   label="TRN Number"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleTrnNumberChange}
                   value={trnNumber}
                 />
@@ -3874,18 +3893,18 @@ function Visit() {
                   id="enable-secondary-billing"
                   label="Enable Secondary Billing"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleEnableSecondaryBillingChange}
                   value={enableSecondaryBilling}
                 />
               </div>
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="other-subscriber-id"
                   label="Other Subscriber ID"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleOtherSubscriberIdChange}
                   value={otherSubscriberId}
                 />
@@ -3894,7 +3913,7 @@ function Visit() {
                   id="primary-payer-id"
                   label="Primary Payer ID"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handlePrimaryPayerIdChange}
                   value={primaryPayerId}
                 />
@@ -3902,13 +3921,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="primary-payer-name"
                   label="Primary Payer Name"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={primaryPayerName}
                   onChange={handlePrimaryPayerNameChange}
                 />
@@ -3918,7 +3937,7 @@ function Visit() {
                   id="relationship-to-insured"
                   label="Relationship To Insured"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={relationshipToInsured}
                   onChange={handleRelationshipToInsuredChange}
                 />
@@ -3927,13 +3946,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="primary-payer-policy-or-group-number"
                   label="Primary Payer Policy or Group Number"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={primaryPayerPolicy}
                   onChange={handlePrimaryPayerPolicyChange}
                 />
@@ -3943,13 +3962,13 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="primary-payer-policy-or-group-number"
                   label="Visit ID"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={visitID}
                   onChange={(event) => setVisitID(event.target.value)}
                 />
@@ -3959,7 +3978,7 @@ function Visit() {
                   id="primary-payer-policy-or-group-number"
                   label="Schedule ID"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={scheduleID}
                   onChange={(event) => setScheduleID(event.target.value)}
                 />
@@ -3968,13 +3987,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="primary-payer-program-name"
                   label="Primary Payer Program Name"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={primaryPayerProgram}
                   onChange={handlePrimaryPayerProgramChange}
                 />
@@ -3984,7 +4003,7 @@ function Visit() {
                   id="notes"
                   label="Procedure Code"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={procedureCode}
                   onChange={(event) => setProcedureCode(event.target.value)}
                 />
@@ -3993,13 +4012,13 @@ function Visit() {
               {/* ======================================================== */}
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="plan-type"
                   label="Plan Type"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={planType}
                   onChange={handlePlanTypeChange}
                 />
@@ -4009,7 +4028,7 @@ function Visit() {
                   id="total-paid-amount"
                   label="Total Paid Amount"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={totalPaidAmount}
                   onChange={handleTotalPaidAmountChange}
                 />
@@ -4019,16 +4038,17 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="total-paid-units"
                   label="Total Paid Units"
                   variant="outlined"
-                  style={{ width: "250px" }}
+                  style={{ width: "350px" }}
                   value={totalPaidUnits}
                   onChange={handleTotalPaidUnitsChange}
                 />
+                
       <LocalizationProvider  dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
                                     <DatePicker
@@ -4042,13 +4062,13 @@ function Visit() {
                             </LocalizationProvider>
               </div>
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="deductible"
                   label="Deductible"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={deductible}
                   onChange={handleDeductibleChange}
                 />
@@ -4057,19 +4077,19 @@ function Visit() {
                   id="coinsurance"
                   label="Coinsurance"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={coinsurance}
                   onChange={handleCoinsuranceChange}
                 />
               </div>
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="copay"
                   label="Copay"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={copay}
                   onChange={handleCopayChange}
                 />
@@ -4078,7 +4098,7 @@ function Visit() {
                   id="contracted-adjustments"
                   label="Contracted-adjustments"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={contractedAdjustments}
                   onChange={handleContractedAdjustmentsChange}
                 />
@@ -4087,7 +4107,7 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
 
                 <TextField
@@ -4095,7 +4115,7 @@ function Visit() {
                   id="not-medically-necessary"
                   label="Not Medically Necassary"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleNotMedicallyNecessaryChange}
                   value={notMedicallyNecessary}
                 />
@@ -4105,7 +4125,7 @@ function Visit() {
                   id="non-covered-charges"
                   label="Non Covered Charges"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleNonCoveredChargesChange}
                   value={nonCoveredCharges}
                 />
@@ -4117,7 +4137,7 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
 
                 <TextField
@@ -4125,7 +4145,7 @@ function Visit() {
                   id="max-benefit-exhausted"
                   label="Max Benefit Exhausted"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleMaxBenefitExhaustedChange}
                   value={maxBenefitExhausted}
                 />
@@ -4135,7 +4155,7 @@ function Visit() {
                   id="missed-visit"
                   label="Missed Visit"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleMissedVisitChange}
                   value={missedVisit}
                 />
@@ -4146,7 +4166,7 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
 
 
@@ -4155,7 +4175,7 @@ function Visit() {
                   id="missed-visit-action-taken-code"
                   label="Missed Visit Action Taken Code"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleMissedVisitActionTakenCodeChange}
                   value={missedVisitActionTakenCode}
                 />
@@ -4165,7 +4185,7 @@ function Visit() {
                   id="missed-visit-reason-code"
                   label="Missed Visit Reason Code"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   onChange={handleMissedVisitReasonCodeChange}
                   value={missedVisitReasonCode}
                 />
@@ -4177,14 +4197,14 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
                 <TextField
                   className="field"
                   id="missed-visit-notes"
                   label="Missed Visit Notes"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={missedVisitNotes}
                   onChange={handleMissedVisitNotesChange}
                 />
@@ -4193,14 +4213,14 @@ function Visit() {
 
               {/* ======================================================== */}
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
                 <TextField
                   className="field"
                   id="travel-time-request-hours"
                   label="Travel Time Request Hours"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={travelTimeRequestHours}
                   onChange={handleTravelTimeRequestHoursChange}
                 />
@@ -4210,7 +4230,7 @@ function Visit() {
                   id="travel-time-comments"
                   label="Travel Time Comments"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={travelTimeComments}
                   onChange={handleTravelTimeCommentsChange}
                 />
@@ -4219,14 +4239,14 @@ function Visit() {
 
               {/* ======================================================== */}
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
                 <TextField
                   className="field"
                   id="cancel-travel-time-request"
                   label="Cancel Travel Time Request"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={cancelTravelTimeRequest}
                   onChange={handleCancelTravelTimeRequestChange}
                 />
@@ -4236,7 +4256,7 @@ function Visit() {
                   id="timesheet-required"
                   label="Timesheet Required"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={timesheetRequired}
                   onChange={handleTimesheetRequiredChange}
                 />
@@ -4248,14 +4268,14 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
 
                 <TextField
                   className="field"
                   id="timesheet-approved"
                   label="Timesheet Approved"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={timesheetApproved}
                   onChange={handleTimesheetApprovedChange}
                 />
@@ -4267,13 +4287,13 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="unit-field-1"
                   label="Unit Field 1"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={unitField1}
                   onChange={handleUnitField1Change}
                 />
@@ -4283,19 +4303,19 @@ function Visit() {
                   id="unit-field-2"
                   label="Unit Field 2"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={unitField2}
                   onChange={handleUnitField2Change}
                 />
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="unit-field-3"
                   label="Unit Field 3"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={unitField3}
                   onChange={handleUnitField3Change}
                 />
@@ -4305,19 +4325,19 @@ function Visit() {
                   id="unit-field-4"
                   label="Unit Field 4"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={unitField4}
                   onChange={handleUnitField4Change}
                 />
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="unit-field-5"
                   label="Unit Field 5"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={unitField5}
                   onChange={handleUnitField5Change}
                 />
@@ -4327,7 +4347,7 @@ function Visit() {
                   id="unit-field-6"
                   label="Unit Field 6"
                   variant="outlined"
-                  style={{ width: "400px" }}
+                  style={{ width: "350px" }}
                   value={unitField6}
                   onChange={handleUnitField6Change}
                 />
@@ -4336,13 +4356,13 @@ function Visit() {
 
 
               {/* ======================================================== */}
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="unit-field-7"
                   label="Unit Field 7"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={unitField7Value}
                   onChange={handleUnitField7Change}
                 />
@@ -4352,19 +4372,19 @@ function Visit() {
                   id="unit-field-8"
                   label="Unit Field 8"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={unitField8Value}
                   onChange={handleUnitField8Change}
                 />
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="unit-field-8"
                   label="Unit Field 8"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={unitField8Value}
                   onChange={handleUnitField8Change}
                 />
@@ -4374,19 +4394,19 @@ function Visit() {
                   id="unit-field-9"
                   label="Unit Field 9"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={unitField9Value}
                   onChange={handleUnitField9Change}
                 />
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div className="fieldsTable">
                 <TextField
                   className="field"
                   id="unit-field-10"
                   label="Unit Field 10"
                   variant="outlined"
-                  style={{ width: '400px' }}
+                  style={{ width: '350px' }}
                   value={unitField10Value}
                   onChange={handleUnitField10Change}
                 />
@@ -4670,6 +4690,17 @@ width: 100%;
     text-align: center;
   }
 
+  .firstDiv{
+    display:flex;
+    justify-content:space-evenly;
+  }
+
+  .fieldsTable{
+  display: flex;
+  justify-content: space-evenly;
+  
+  }
+
 
   .DateFieldHolder {
     }
@@ -4855,18 +4886,19 @@ width: 100%;
   padding: 50px;
 }
 .crossIcon{
-    margin-right:95%;
+    margin-right:2%;
     margin-top:2%;
     color:black;
     cursor: pointer;
 }
 .searchFieldsDiv {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr); /* create 3 equal columns */
+  grid-gap: 10px; /* add some space between the columns */
   margin-top: 2.5%;
   width: 85%;
   margin-left: 10%;
+  overflow: 'auto'
 }
 .Field{
     width:50%;
@@ -5197,14 +5229,19 @@ color:black;
   }
   
   .crossIcon{
-    margin-left:90%;
+    margin-left:2%;
   }
   .griditem{
     width:100%;
+    margin-left:15%;
+    
+    
   }
   .griditem2{
-    width:92%;
+    width:65%;
+    margin-left:15%;
   }
+ 
  
   .searchFieldsDiv {
     grid-template-columns: repeat(1, 1fr); /* create 3 equal columns */
@@ -5234,5 +5271,10 @@ color:black;
     margin-left:25%;
     
   }
+  .fieldsTable{
+  flex-direction:column;  
+  align-content:center;
+  align-items:center;
+    }
 }
 `;

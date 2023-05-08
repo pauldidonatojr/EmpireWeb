@@ -676,6 +676,8 @@ Billing by Export Code Greater than 24 hours</MenuItem>
       <div>
       <div style={{display:"flex",justifyContent:"space-evenly"}}>
       <h1 style={{color:"grey"}}>Date :<span style={{color:"blue"}}>11 Jul2023 </span></h1>
+    </div>
+    <div style={{display:"flex",justifyContent:"space-evenly"}}>
       <h1 style={{color:"grey"}}>Batch Number :<span style={{color:"blue"}}> 02031953204 </span></h1>
     </div>
     <div style={{display:"flex",justifyContent:"space-evenly"}}>
@@ -1072,7 +1074,7 @@ Billing by Export Code Greater than 24 hours</MenuItem>
           </div>
         </Card>
 
-        <Card className="dataDisplay">
+        <Card className="dataDisplay" style={{overflow:"auto"}}>
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
           {isOverlayOpen && <Overlay />}
           {isOverlayOpen2 && <Overlay2 />}
@@ -1215,7 +1217,7 @@ const Wrapper = styled.section`
     padding: 1%;
   }
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     margin-top: 2%;
     color:black;
   }
@@ -1525,13 +1527,17 @@ const Wrapper = styled.section`
     }
     
     .crossIcon{
-      margin-left:90%;
+      margin-left:2%;
     }
     .griditem{
       width:100%;
+      margin-left:15%;
+      
+      
     }
     .griditem2{
-      width:92%;
+      width:65%;
+      margin-left:15%;
     }
    
     .searchFieldsDiv {

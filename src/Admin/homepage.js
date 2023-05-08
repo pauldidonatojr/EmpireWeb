@@ -1179,16 +1179,23 @@ const Wrapper = styled.section`
     }
     
     .crossIcon{
-      margin-left:90%;
+      margin-left:2%;
     }
     .griditem{
       width:100%;
+      margin-left:15%;
+      
+      
     }
     .griditem2{
       width:92%;
+      margin-left:5%;
     }
     .searchFieldsDiv {
       grid-template-columns: repeat(1, 1fr); /* create 3 equal columns */
+      align-items:center;
+      align-content:center;
+      margin-left:7.5%;
     }
     .overlay {
     width: 75%;

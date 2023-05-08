@@ -91,13 +91,11 @@ function Report() {
         setIsOverlayOpen(true);
         break;
       case 2:
-        setIsOverlayOpen2(true);
-        setOpen2(!open2);
+     setViewSelected(22);
         break;
 
       case 4:
-        setIsOverlayOpen4(true);
-        setOpen4(!open4);
+        setViewSelected(44);
         break;
 
       default:
@@ -170,12 +168,8 @@ function Report() {
   //
   function Overlay2() {
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open2}
-
-      >
-        <div className="overlay2">
+     
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose2} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p
@@ -226,17 +220,12 @@ function Report() {
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
   function Overlay4() {
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open4}
-
-      >
-        <div className="overlay2">
+    
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose4} />
           <h1 style={{ textAlign: "center", color: "black" }}>Set Filter from here !</h1>
           <p
@@ -276,7 +265,6 @@ function Report() {
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
 
@@ -322,12 +310,16 @@ function Report() {
 
       case 2:
         return ReferenceTableView();
+      case 22:
+        return Overlay2();  
 
       case 3:
         return ProviderProfileView();
 
       case 4:
         return RateManagementView();
+        case 44:
+          return Overlay4();
       case 5:
         return AddPatientView();
       default:
@@ -1159,6 +1151,9 @@ elevation: 13,
     margin-top: 2.5%;
     width: 85%;
     margin-left: 10%;
+    align-content:center;
+    align-items:center;
+    justify-content:center;
   }
   .searchFieldsDiv1 {
     display: grid;
@@ -1167,6 +1162,9 @@ elevation: 13,
     margin-top: 2.5%;
     width: 85%;
     margin-left: 10%;
+    align-content:center;
+    align-items:center;
+    justify-content:center;
   }
   .searchButton {
     margin-left: 35%;
@@ -1503,13 +1501,17 @@ elevation: 13,
     }
     
     .crossIcon{
-      margin-left:90%;
+      margin-left:2%;
     }
     .griditem{
       width:100%;
+      margin-left:15%;
+      
+      
     }
     .griditem2{
-      width:92%;
+      width:65%;
+      margin-left:15%;
     }
    
     .searchFieldsDiv1 {

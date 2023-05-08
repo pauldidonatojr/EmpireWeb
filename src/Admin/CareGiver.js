@@ -502,7 +502,7 @@ function CareGiver() {
           <TextField className="input" label="Primary Member Team" variant="outlined" onChange={(evt) => { setPrimaryMemberTeam(evt.target.value) }} />
           <TextField className="input" label="NPI Number" variant="outlined" onChange={(evt) => { setNPINumber(evt.target.value) }} />
          
-         <div style={{display:"flex",flexDirection:"row"}}>
+         <div className="SelectListHolder" >
           <div style={{width:220,margin:"0.5%",marginTop:15}}>
                                 <FormControl fullWidth>
                                     <InputLabel>Rehire ?</InputLabel>
@@ -579,7 +579,8 @@ function CareGiver() {
                             </div>
                         
           </div>
-          <div style={{width:220,margin:"0.5%",marginTop:15}}>
+         
+          <div className="GenderDiv" >
                                 <FormControl fullWidth>
                                     <InputLabel>Gender</InputLabel>
                                     <Select
@@ -919,6 +920,19 @@ width: 100%;
     display:flex;
     flex-direction:row;
 }
+.SelectListHolder{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  align-content:center;
+}
+.GenderDiv {
+
+  width:220px;
+  margin:0.5%;
+  margin-top:15px;
+
+}
 
 .GoBackButtonHolder{
     display:flex;
@@ -1054,6 +1068,7 @@ width: 100%;
     margin-top: 2.5%;
     width: 85%;
     margin-left: 10%;
+   
   }
 
   .searchButton {
@@ -1251,6 +1266,9 @@ color:black;
     display:none;
    
   }
+  .SelectListHolder{
+    flex-direction: column;
+  }
   .UserInfo{
     display:none;
   }
@@ -1325,11 +1343,16 @@ color:black;
   .crossIcon{
     margin-left:90%;
   }
+  
   .griditem{
     width:100%;
+    margin-left:15%;
+    
+    
   }
   .griditem2{
-    width:92%;
+    width:65%;
+    margin-left:15%;
   }
  
   .searchFieldsDiv {
@@ -1352,6 +1375,11 @@ color:black;
     margin-left:25%;
     
   }
+  .GenderDiv{
+    margin-left:22.5%;
+  }
+
+  
 }
 
 `;

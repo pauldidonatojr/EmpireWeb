@@ -956,13 +956,15 @@ elevation: 14,
   }
   
   .crossIcon{
-    margin-left:90%;
+    margin-left:2%;
   }
   .griditem{
     width:100%;
+    margin-left:15%;
   }
   .griditem2{
-    width:92%;
+    width:65%;
+    margin-left:15%;
   }
  
   .searchFieldsDiv {

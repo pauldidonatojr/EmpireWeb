@@ -941,7 +941,7 @@ function MemberDetails() {
     }
 
     const handleClickAuthTypeClose = () => {
-        setAuthTypeOpen(false);
+       setViewSelected(2);
     }
 
 
@@ -952,7 +952,7 @@ function MemberDetails() {
     }
 
     const pocClickTypeClose = () => {
-        setPocAuthTypeOpen(false);
+        setViewSelected(9);
     }
 
 
@@ -1367,12 +1367,8 @@ function MemberDetails() {
 
     function Overlay4() {
         return (
-            <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={authTypeOpen}
-
-            >
-                <div className="overlay2">
+          
+                <div className="">
                     <CloseIcon className="crossIcon" onClick={handleClickAuthTypeClose} />
 
 
@@ -1524,8 +1520,6 @@ function MemberDetails() {
                 </div>
 
 
-
-            </Backdrop >
         );
     }
 
@@ -1686,12 +1680,8 @@ function MemberDetails() {
 
     function Overlay5() {
         return (
-            <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={pocTypeOpen}
-
-            >
-                <div className="overlay2">
+           
+                <div className="">
                     <CloseIcon className="crossIcon" onClick={pocClickTypeClose} />
 
 
@@ -1782,9 +1772,6 @@ function MemberDetails() {
 
                 </div>
 
-
-
-            </Backdrop >
         );
     }
 
@@ -1919,6 +1906,11 @@ function MemberDetails() {
 
             case 10:
                 return VisitsView();
+
+            case 11:
+                return Overlay4();
+            case 22:
+                return Overlay5();
 
             default:
                 break;
@@ -5186,12 +5178,12 @@ function MemberDetails() {
 <div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
 
 
-<div onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)} style={{backgroundColor:"#2E0F59",borderRadius:10,padding:5,margin:"1%"}}>
-    <h1 style={{color:"#F2B90F"}}>Add Master Week</h1>
+<div onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)} className="AddEditButton" >
+    <h3 style={{color:"#F2B90F",textAlign:"center"}}>Add Master Week</h3>
 </div>
 
-<div onClick={() => setOpenEditMasterWeek(!openEditMasterWeek)} style={{backgroundColor:"#2E0F59",borderRadius:10,padding:5,margin:"1%"}}>
-    <h1 style={{color:"#F2B90F"}}>Edit Master Week</h1>
+<div onClick={() => setOpenEditMasterWeek(!openEditMasterWeek)} className="AddEditButton">
+    <h3 style={{color:"#F2B90F",textAlign:"center"}}>Edit Master Week</h3>
 </div>
 </div>
                 <div>
@@ -5253,7 +5245,7 @@ function MemberDetails() {
 
 
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
                                         <Grid container spacing={2}>
                                          
@@ -5414,7 +5406,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%"  }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%"  }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
                                         <Grid container spacing={2}>
                                         
@@ -5571,7 +5563,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Wednesday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -5722,7 +5714,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%"}}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%"}}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Thursday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -5870,7 +5862,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Friday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -6022,7 +6014,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Saturday</h1>
                                         <Grid container spacing={2}>
                                             
@@ -6171,7 +6163,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Sunday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -6478,7 +6470,7 @@ function MemberDetails() {
 
                                             </div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -6627,7 +6619,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%"}}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%"}}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -6773,7 +6765,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%"}}>
+                                    <div style={{border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%"}}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Wednesday</h1>
                                         <Grid container spacing={2}>
                                             
@@ -6918,7 +6910,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Thursday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -7061,7 +7053,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Friday</h1>
                                         <Grid container spacing={2}>
                                           
@@ -7204,7 +7196,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Saturday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -7349,7 +7341,7 @@ function MemberDetails() {
 
                                 <div>
 
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '20px',margin:"2%",width:"90%" }}>
+                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
                                         <h1 style={{ color: "#564873", textAlign: "center" }}>Sunday</h1>
                                         <Grid container spacing={2}>
                                            
@@ -7893,7 +7885,7 @@ function MemberDetails() {
             sortable: false,
             width: 150,
             renderCell: (params) => (
-                <Button variant="contained" onClick={() => pocClickType()}>
+                <Button variant="contained" onClick={() => setViewSelected(22)}>
                     {params.value}
                 </Button>
             ),
@@ -7959,6 +7951,7 @@ function MemberDetails() {
             renderCell: (params) => (
                 <Button variant="contained" onClick={() => {
                     handleClickAuthType(params.row);
+                    setViewSelected(11);
                 }}>
                     Entire Period
                 </Button>
@@ -8255,12 +8248,12 @@ function MemberDetails() {
                     </div>
                 </Card>
 
-                <Card className="dataDisplay">
+                <Card className="dataDisplay" style={{overflow:"auto"}}>
                     {isOverlayOpen && <Overlay />}
                     {isOverlayOpen2 && <Overlay2 />}
                     {isOverlayOpen3 && <Overlay3 />}
-                    {authTypeOpen && <Overlay4 />}
-                    {pocTypeOpen && <Overlay5 />}
+                   
+                   
                     {visitClaimStatusOpen && <Overlay6 />}
                     {RenderViews()}
                 </Card>
@@ -8278,6 +8271,13 @@ export default MemberDetails;
 const Wrapper = styled.section`
   height: 100%;
   width: 100%;
+
+  .AddEditButton{
+    background-color:#2E0F59;
+    border-radius:10px;
+    padding:5px;
+    margin:1%;
+  }
 
   body::-webkit-scrollbar {
   width: 10px;
@@ -8870,6 +8870,16 @@ const Wrapper = styled.section`
       margin-left:25%;
       
     }
+    .AddEditButton{
+        margin-top:5%;
+        padding:10;
+     }
+  }
+  .FieldsHolderMaster{
+    flex-direction:column;
+  }
+  .EditButton{
+    width:50%;
   }
   
 `;

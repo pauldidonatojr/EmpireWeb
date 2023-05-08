@@ -897,7 +897,7 @@ function GoBackButtonPressed(){
           </div>
         </Card>
 
-        <Card className="dataDisplay">
+        <Card className="dataDisplay" style={{overflow:"auto"}}>
           <SearchIcon className="searchIcon" onClick={handleClickIcon} />
        
           {RenderViews()}
@@ -1347,13 +1347,17 @@ const Wrapper = styled.section`
     }
     
     .crossIcon{
-      margin-left:90%;
+      margin-left:2%;
     }
     .griditem{
       width:100%;
+      margin-left:15%;
+      
+      
     }
     .griditem2{
-      width:92%;
+      width:65%;
+      margin-left:15%;
     }
    
     .searchFieldsDiv {

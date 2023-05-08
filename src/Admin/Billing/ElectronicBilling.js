@@ -293,7 +293,7 @@ const handleClose2 = () => {
     return (
       <div>
         <h2 style={{textAlign:"center",color:"grey",fontWeight:"bold"}}>Resubmit claims E-submission Batch</h2>
-   <div style={{display:"flex",justifyContent:"space-evenly"}}>
+   <div className="HolderFields" >
     <h3 style={{color:"grey"}}>MCO : <span style={{color:"blue"}}>KEYSTONE FIRST CHC</span></h3>
     <h3 style={{color:"grey"}}>Batch Number : <span style={{color:"blue"}}>CLMKXJ456454654546</span></h3>
     <h3 style={{color:"grey"}}>Batch Date : <span style={{color:"blue"}}>21-Jul-2023</span></h3>
@@ -679,6 +679,12 @@ const Wrapper = styled.section`
     margin-top:0;
     margin-bottom:3%;
   }
+.HolderFields{
+  display:flex;
+  justify-content:space-evenly;
+
+  
+}
   .datadisplaydropdown{
     width:25%;
     margin:1%;
@@ -1127,13 +1133,17 @@ const Wrapper = styled.section`
     }
     
     .crossIcon{
-      margin-left:90%;
+      margin-left:2%;
     }
     .griditem{
       width:100%;
+      margin-left:15%;
+      
+      
     }
     .griditem2{
-      width:92%;
+      width:65%;
+      margin-left:15%;
     }
    
     .searchFieldsDiv {
@@ -1168,6 +1178,13 @@ const Wrapper = styled.section`
     
     .Signup{
       margin-left:25%;
+      
+    }
+    .HolderFields{
+      display:flex;
+      flex-direction:column;
+      align-contents:center;
+      align-items:center;
       
     }
   }

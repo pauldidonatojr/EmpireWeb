@@ -3115,9 +3115,11 @@ function CareGiverDetail() {
           />
 
           <h3 onClick={CareGiverInfoPressed} style={{ color: "#F2B90F" }}>
-            Member Info
+            Care Giver Info
           </h3>
-
+          <h3 onClick={VisitHistoryPressed} style={{ color: "#F2B90F" }}>
+            Visits
+          </h3>
           <h3 onClick={CalenderPressed} style={{ color: "#F2B90F" }}>
             Calender
           </h3>

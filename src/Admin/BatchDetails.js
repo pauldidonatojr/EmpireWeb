@@ -52,17 +52,11 @@ function BatchDetails() {
 
   const handleClickIcon = () => {
     switch (ViewSelected) {
-      case 2:
-        setIsOverlayOpen(true);
-        setOpen(!open);
-        break;
+      
       case 3:
-        setIsOverlayOpen2(true);
-        setOpen2(!open2);
+        setViewSelected(4);
         break;
-      case 4:
-        setIsOverlayOpen3(true);
-        setOpen3(!open3);
+     
         break;
       default:
         break;
@@ -78,7 +72,7 @@ function BatchDetails() {
   //
   const [open2, setOpen2] = React.useState(false);
   const handleClose2 = () => {
-    setOpen2(false);
+    setViewSelected(3);
   };
 
   //
@@ -92,11 +86,8 @@ function BatchDetails() {
 
   function Overlay() {
     return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-      >
-        <div className="overlay">
+      
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose} />
           <h1 style={{ textAlign: "center", color: "black" }}>
             Set Filter from here !
@@ -198,16 +189,12 @@ function BatchDetails() {
             Search
           </Button>
         </div>
-      </Backdrop>
     );
   }
   function Overlay2() {
     return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open2}
-      >
-        <div className="overlay2">
+      
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose2} />
           <h1 style={{ textAlign: "center", color: "black" }}>
             Set Filter from here !
@@ -319,17 +306,14 @@ function BatchDetails() {
             Search
           </Button>
         </div>
-      </Backdrop>
+    
     );
   }
   //
   function Overlay3() {
     return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open3}
-      >
-        <div className="overlay2">
+    
+        <div className="">
           <CloseIcon className="crossIcon" onClick={handleClose3} />
           <h1 style={{ textAlign: "center", color: "black" }}>
             Set Filter from here !
@@ -437,7 +421,7 @@ function BatchDetails() {
             Search
           </Button>
         </div>
-      </Backdrop>
+    
     );
   }
   //
@@ -457,11 +441,23 @@ function BatchDetails() {
         return BatchInfoView();
       case 3:
         return InvoicesView();
+   case 4:
+       return Overlay2();
+      default:
+        break;
+    }
+  }
+  function RenderSearchIcon() {
+    switch (ViewSelected) {
+      
+      case 3:
+        return <SearchIcon className="searchIcon" onClick={handleClickIcon} />
 
       default:
         break;
     }
   }
+  
   const InvoicesView = () => {
     return (
       <div style={{ height: "100%", width: "100%" }}>
@@ -835,9 +831,10 @@ function BatchDetails() {
         </Card>
 
         <Card className="dataDisplay">
-          <SearchIcon className="searchIcon" onClick={handleClickIcon} />
+          {RenderSearchIcon()}
+        
           {isOverlayOpen && <Overlay />}
-          {isOverlayOpen2 && <Overlay2 />}
+        
           {isOverlayOpen3 && <Overlay3 />}
           {RenderViews()}
         </Card>
