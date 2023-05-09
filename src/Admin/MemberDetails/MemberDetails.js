@@ -3839,123 +3839,196 @@ function MemberDetails() {
 
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>General</h1>
-                <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px' }}>
-                    <Grid container spacing={2}>
-                        <Grid className="DataHolderGrid">
+                <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '30px' }}>
+                   
+
+
+                        <div className="generalFields">
+                        
+                        <div style={{marginTop:15}}>
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Nurse: <span style={{ color: "#F2A007" }}>{member.Nurse}</span></h2></div>
+                                 <TextField
+                                 id="outlined-basic"
+                                 label="Nurse"
+                                 variant="outlined"
+                                 value={member.Nurse}
+                                 style={{width:350}}
+                               />
                             }
-                        </Grid>
-                        <Grid className="DataHolderGrid">
+                    </div>
+
+                    <div style={{marginTop:15}}>
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Provider Coordinator: <span style={{ color: "#F2A007" }}>
-                                    <Select
-                                        value={providerCoordinatorMemberTeam}
-                                        onChange={handleDropdownProviderCoordinatorMemberTeam}
-                                    >
-                                        <MenuItem value="Select">Select</MenuItem>
+                            <div>
+                     <Box style={{width:350}}>
+                <FormControl fullWidth>
+                  <InputLabel >Provider Coordinator</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={providerCoordinatorMemberTeam}
+                    label="Status"
+                    onChange={handleDropdownProviderCoordinatorMemberTeam}
+                  >
+                    <MenuItem value="Select">Select</MenuItem>
                                         <MenuItem value="Default">Default</MenuItem>
-                                    </Select>
-                                </span></h2></div>
+                  </Select>
+                </FormControl>
+              </Box>
+           
+                            </div>
+                                   
+                            
                             }
-                        </Grid>
-                        <Grid className="DataHolderGrid">
-                            {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Office: <span style={{ color: "#F2A007" }}>
-                                    <Select
-                                        value={officeMemberTeam}
-                                        onChange={handleOfficeMemberTeam}
-                                    >
-                                        <MenuItem value="Select">Select</MenuItem>
-                                    </Select>
-                                </span></h2></div>
-                            }
-                        </Grid>
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Disable Automatic Visit Creation Based on EVV Confirmations: <span style={{ color: "#F2A007" }}>
-                                <Checkbox
-                                    checked={isCheckedEVVConfirmation}
-                                    onChange={handleCheckboxChangeEVVConfirmation}
-                                />
-                            </span></h2></div>
-                        </Grid>
+                       </div>
+                        </div>
+                       
+                        
+ <div className="generalFields">
 
-                        <Grid className="DataHolderGrid">
-                            {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{member.EVVRequired}</span></h2></div>
-                            }
-                        </Grid>
 
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Member Team: <span style={{ color: "#F2A007" }}>
-                                <Select
-                                    value={team}
-                                    onChange={(evt) => { setTeam(evt.target.value) }}
-                                >
-                                    <MenuItem value="Unassigned">Unassigned</MenuItem>
+ <div style={{marginTop:15}}>
+                            {member != null &&
+                               
+
+<Box style={{width:350}}>
+<FormControl fullWidth>
+  <InputLabel >Office</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={officeMemberTeam}
+    label="Status"
+    onChange={handleOfficeMemberTeam}
+  >
+    <MenuItem value="Select">Select</MenuItem>
+  </Select>
+</FormControl>
+</Box>
+                            }
+                            </div>
+                      
+
+                             
+
+                                <Box style={{width:350,marginTop:15}}>
+<FormControl fullWidth>
+  <InputLabel >Member Team</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={team}
+    onChange={(evt) => { setTeam(evt.target.value) }}
+  >
+      <MenuItem value="Unassigned">Unassigned</MenuItem>
                                     <MenuItem value="Assigned">Assigned</MenuItem>
                                     <MenuItem value="Default">Default</MenuItem>
-                                </Select>
-                            </span></h2></div>
-                        </Grid>
+  </Select>
+</FormControl>
+</Box>
+                            
 
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}> Enable FOB Confirmation: <span style={{ color: "#F2A007" }}>
+                      
+    </div>
+
+    <div className="generalFields">
+    <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Disable Automatic Visit Creation Based on EVV Confirmations: <span style={{ color: "#F2A007" }}>
+                               <Checkbox
+                                   checked={isCheckedEVVConfirmation}
+                                   onChange={handleCheckboxChangeEVVConfirmation}
+                               />
+                           </span></h2></div>
+
+                           <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}> Enable FOB Confirmation: <span style={{ color: "#F2A007" }}>
                                 <Checkbox
                                     checked={isCheckedFOBConfirmation}
                                     onChange={handleCheckboxChangeFOBConfirmation}
                                 />
                             </span></h2></div>
-                        </Grid>
+    </div>
 
-                        <Grid className="DataHolderGrid">
-                            {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Location: <span style={{ color: "#F2A007" }}>
-                                    <Select
-                                        value={officeMemberTeam}
+
+    <div className="generalFields">
+
+    <div style={{marginTop:15}}>
+    {member != null &&
+                               
+
+<Box style={{width:350}}>
+<FormControl fullWidth>
+  <InputLabel >Location</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={officeMemberTeam}
                                         onChange={handleOfficeMemberTeam}
-                                    >
-                                        <MenuItem value="Select">Select</MenuItem>
-                                    </Select>
-                                </span></h2></div>
+  >
+       <MenuItem value="Select">Select</MenuItem>
+  </Select>
+</FormControl>
+</Box>
                             }
-                        </Grid>
+      </div>
 
-                        <Grid className="DataHolderGrid">
+
+
+
+      <div style={{marginTop:15}}>
+      {member != null &&
+                             
+
+<Box style={{width:350}}>
+<FormControl fullWidth>
+  <InputLabel >Branch</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={officeMemberTeam}
+    onChange={handleOfficeMemberTeam}
+  >
+      <MenuItem value="Select">Select</MenuItem>
+  </Select>
+</FormControl>
+</Box>
+                            }
+</div>
+
+    </div>
+
+    <div className="generalFields">
+<div>
+{member != null &&
+                                <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{member.EVVRequired}</span></h2></div>
+                            }
+</div>
+<div>
+
                             {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                                <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{member.Mutual}</span></h2></div>
                             }
-                        </Grid>
+</div>
 
+    </div>
 
-                        <Grid className="DataHolderGrid">
-                            {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Branch: <span style={{ color: "#F2A007" }}>
-                                    <Select
-                                        value={officeMemberTeam}
-                                        onChange={handleOfficeMemberTeam}
-                                    >
-                                        <MenuItem value="Select">Select</MenuItem>
-                                    </Select>
-                                </span></h2></div>
+    <div className="generalFields">
+
+<div>
+
+{member != null &&
+                                <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
                             }
-                        </Grid>
+</div>
 
-
-                        <Grid className="DataHolderGrid">
-                            {member != null &&
-                                <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{member.Mutual}</span></h2></div>
-                            }
-                        </Grid>
-
-
-                        <Grid className="DataHolderGrid">
-                            <div style={{ margin: "5px" }}><h2 style={{ color: "white", fontSize: '15px' }}>Source of Admission: <span style={{ color: "#F2A007" }}>
-                                <Select
-                                    value={sourceOfAdmission}
+                            <Box style={{width:350,marginTop:15}}>
+<FormControl fullWidth>
+  <InputLabel >Source of Admission</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={sourceOfAdmission}
                                     onChange={(evt) => { setSourceOfAdmission(evt.target.value) }}
-                                >
-                                    <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+  >
+      <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
                                     <MenuItem value="CHHA">CHHA</MenuItem>
                                     <MenuItem value="Hospice">Hospice</MenuItem>
                                     <MenuItem value="Hospital">Hospital</MenuItem>
@@ -3970,12 +4043,23 @@ function MemberDetails() {
                                     <MenuItem value="Other Instiitution">Other Instiitution</MenuItem>
                                     <MenuItem value="Other Community/Agency">Other Community/Agency</MenuItem>
                                     <MenuItem value="Other">Other</MenuItem>
-                                </Select>
-                            </span></h2></div>
-                        </Grid>
-                    </Grid>
+  </Select>
+</FormControl>
+</Box>
 
-                    <div style={{ display: "flex", justifyContent: "center" }}>
+
+    </div>
+
+   
+                  
+
+
+
+
+
+
+
+                    <div style={{ display: "flex", justifyContent: "center",marginTop:15 }}>
                         <Button className="EditButton" variant="outlined" onClick={() => {
                             updateMember(
                                 altMemberID,
@@ -7902,13 +7986,32 @@ function MemberDetails() {
             sortable: false,
             width: 150,
             renderCell: (params) => (
-                <Button variant="contained">
+                <Button variant="contained" onClick={() => PrintDocument({ content: document.getElementById("print-content").innerHTML })}>
                     Print
                 </Button>
             ),
         },
 
-    ];
+    ];   
+
+    function PrintDocument(props) {
+        const windowContent = '<!DOCTYPE html><html><head><title>Print</title></head><body>' + props.content + '</body></html>';
+        const printWindow = window.open('', '', 'height=400,width=600');
+        printWindow.document.write(windowContent);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+      }
+      
+      function PrintContent(props) {
+        return (
+          <div id="print-content">
+            <h1>{props.member.LastName}</h1>
+            <p>{props.member.Nurse}</p>
+          </div>
+        );
+      }
 
     const rowsPOC = [
         {
@@ -8259,7 +8362,7 @@ function MemberDetails() {
                 </Card>
             </div>
             <div className="GoBackButtonHolder">
-                <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
+                <Button className="GoBackButton" variant="outlined"  onClick={GoBackButtonPressed} >Go Back</Button>
             </div>
 
             <Footer />
@@ -8277,6 +8380,12 @@ const Wrapper = styled.section`
     border-radius:10px;
     padding:5px;
     margin:1%;
+  }
+  .generalFields{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    margin-top:10px;
   }
 
   body::-webkit-scrollbar {
@@ -8743,6 +8852,10 @@ const Wrapper = styled.section`
   
   @media only screen and (max-width: 600px) {
 
+    .generalFields{
+        flex-direction:column;
+    }
+
     .holder{
         flex-direction:column;
         margin-left:5%;
@@ -8881,5 +8994,6 @@ const Wrapper = styled.section`
   .EditButton{
     width:50%;
   }
+  
   
 `;

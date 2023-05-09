@@ -653,7 +653,7 @@ width: 100%;
   padding: 1%;
   }
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     margin-top: 2%;
     color:black;
   }
@@ -802,6 +802,9 @@ width: 100%;
   margin-top: 0.5%;
   width: 100%;
   background-color: white;
+}
+.Header:hover {
+  cursor: pointer;
 }
 .headerImage{
   width:7%;
@@ -954,7 +957,7 @@ color:black;
   }
   
   .crossIcon{
-    margin-left:90%;
+    margin-left:2%;
   }
   .griditem{
     width:100%;

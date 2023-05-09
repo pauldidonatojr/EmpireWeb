@@ -792,6 +792,9 @@ padding: 1%;
   width: 100%;
   background-color: white;
 }
+.Header:hover {
+  cursor: pointer;
+}
 .headerImage:hover{
 animation: wave 1s infinite;
 

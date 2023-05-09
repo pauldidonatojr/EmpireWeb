@@ -16,6 +16,7 @@ import Footer from "../Footer";
 import { DataGrid } from "@mui/x-data-grid";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+
 import Checkbox from "@mui/material/Checkbox";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -842,10 +843,18 @@ function CareGiverDetail() {
   const [visitsDataCalenderCell, setVisitsDataCalenderCell] = useState([]);
   const columns3 = [
     { field: "id", headerName: "ID", width: 50 },
-    { field: "Date", headerName: "Date", width: 250 },
+    { 
+      field: "Date", 
+      headerName: "Date", 
+      width: 250,
+      valueFormatter: (params) => {
+        return dayjs(params.value).format('YYYY-MM-DD HH:mm:ss');
+      },
+    },
     { field: "Provider", headerName: "Provider", width: 250 },
     { field: "memberName", headerName: "Member Name", width: 250 },
-    { field: "Schedule", headerName: "Schedule", width: 300 },
+    { field: "Schedule", headerName: "Schedule", width: 300,
+   },
     { field: "Visit", headerName: "Visit", width: 300 },
     { field: "Billed", headerName: "Billed", width: 250 },
   ];
@@ -3226,7 +3235,7 @@ function CareGiverDetail() {
           </div>
         </Card>
 
-        <Card className="dataDisplay">
+        <Card className="dataDisplay" style={{overflow:"auto"}}>
 
                 {checkToRenderSearch() &&  <SearchIcon className="searchIcon" onClick={handleClickIcon} />}
          
@@ -3745,9 +3754,13 @@ const Wrapper = styled.section`
     }
     .griditem{
       width:100%;
+      margin-left:15%;
+      
+      
     }
     .griditem2{
-      width:92%;
+      width:65%;
+      margin-left:15%;
     }
    
     .searchFieldsDiv {

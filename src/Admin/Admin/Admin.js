@@ -1142,7 +1142,7 @@ elevation: 13,
   }
   
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     color:black;
     margin-top: 2%;
   }
@@ -1332,6 +1332,9 @@ elevation: 13,
     margin-top: 0.5%;
     width: 100%;
     background-color: white;
+  }
+  .Header:hover {
+    cursor: pointer;
   }
   .headerImage {
     width: 7%;

@@ -1006,6 +1006,9 @@ const Wrapper = styled.section`
     width: 100%;
     background-color: white;
   }
+  .Header:hover {
+    cursor: pointer;
+  }
   .headerImage {
     width: 7%;
     height: 1%;
@@ -1174,7 +1177,7 @@ const Wrapper = styled.section`
     }
     
     .crossIcon{
-      margin-left:90%;
+      margin-left:2%;
     }
     .griditem{
       width:100%;

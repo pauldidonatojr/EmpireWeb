@@ -707,7 +707,7 @@ elevation: 13,
   padding: 1%;
   }
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     margin-top: 2%;
     color:black;
   }
@@ -857,6 +857,9 @@ elevation: 13,
   margin-top: 0.5%;
   width: 100%;
   background-color: white;
+}
+.Header:hover {
+  cursor: pointer;
 }
 .headerImage{
   width:7%;
@@ -1027,7 +1030,7 @@ elevation: 14,
   }
   
   .crossIcon{
-    margin-left:90%;
+    margin-left:2%;
   }
   .griditem{
     width:100%;

@@ -911,6 +911,9 @@ const Wrapper = styled.section`
     width: 100%;
     background-color: white;
   }
+  .Header:hover {
+    cursor: pointer;
+  }
   .headerImage {
     width: 7%;
     height: 1%;

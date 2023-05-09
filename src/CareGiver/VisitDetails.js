@@ -325,6 +325,16 @@ const VisitDetails = () => {
   const [ViewSelected, setViewSelected] = useState(1);
   const [pocDutiesList, setPocDutiesList] = useState([]);
   const [currMember, setCurrMember] = useState(null);
+  const [PlanListView, setPlanListView] = useState(false);
+  const [OtherTaskView, setOtherTaskView] = useState(false);
+  function PlanofCarePressed(){
+    setPlanListView(true);
+    setOtherTaskView(false);
+  }
+  function OtherTaskPressed(){
+    setPlanListView(false);
+    setOtherTaskView(true);
+  }
 
 
   useEffect(() => {
@@ -542,6 +552,8 @@ const VisitDetails = () => {
     );
   };
 
+
+  
   const ClockInOutView = () => {
     return (
       <div style={{ overflow: 'auto' }}>
@@ -593,40 +605,69 @@ const VisitDetails = () => {
           </Card>
 
         </div>
+
+<div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
+
+<div style={{backgroundColor:"#564873",borderRadius:15,padding:10}} onClick={PlanofCarePressed}>
+              <p style={{color:"white",textAlign:"center",fontWeight:"bold"}}>Plan Of Care</p>
+            </div>
+
+            <div style={{backgroundColor:"#564873",borderRadius:15,padding:10}} onClick={OtherTaskPressed}>
+              <p style={{color:"white",textAlign:"center",fontWeight:"bold"}}>Other Task</p>
+            </div>
+
+
+
+</div>
+  
+
         <div className="ListHolder">
 
+          
+         {PlanListView &&
           <div className="PlanofCareList">
-            <p style={{ color: "white", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan of Care</p>
-            <List style={{ maxHeight: "75%", overflow: "auto" }}>
-              {pocDutiesList.map((item) => (
-                <ListItem
-                  className="ListItem"
-                >
-                  <ListItemText
-                    primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}> {item.id}- {item.duty}</p>}
-                    className="ListText"
-                  />
+          <p style={{ color: "white", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan of Care</p>
+          <List style={{ maxHeight: "75%", overflow: "auto" }}>
+            {pocDutiesList.map((item) => (
+              <ListItem
+                className="ListItem"
+              >
+                <ListItemText
+                  primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}> {item.id}- {item.duty}</p>}
+                  className="ListText"
+                />
 
-                </ListItem>
-              ))}
-            </List>
-          </div>
+              </ListItem>
+            ))}
+          </List>
+        </div>
+         
+         }
+         
+
+
+        {
+          OtherTaskView && 
           <div className="OtherList">
-            <p style={{ color: "white", fontSize: "20px", fontWeight: "bold", textAlign: "center" }}>Other Task</p>
-            <List style={{ maxHeight: "75%", overflow: "auto" }}>
-              {OtherTaskList.map((item) => (
-                <ListItem
-                  className="ListItem"
-                >
-                  <ListItemText
-                    primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}> {item.id}- {item.name}</p>}
-                    className="ListText"
-                  />
+          <p style={{ color: "white", fontSize: "20px", fontWeight: "bold", textAlign: "center" }}>Other Task</p>
+          <List style={{ maxHeight: "75%", overflow: "auto" }}>
+            {OtherTaskList.map((item) => (
+              <ListItem
+                className="ListItem"
+              >
+                <ListItemText
+                  primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}> {item.id}- {item.name}</p>}
+                  className="ListText"
+                />
 
-                </ListItem>
-              ))}
-            </List>
-          </div>
+              </ListItem>
+            ))}
+          </List>
+        </div>
+        }
+         
+
+
 
         </div>
       </div>
@@ -1865,6 +1906,14 @@ width: 100%;
       margin-left:0%;
       width:98%;
       
+    }
+    .GoBackButton{
+      width:50%;
+      margin-top:15px;
+      height:50%;
+    }
+    .EditButton{
+      width:50%;
     }
   }
    `;

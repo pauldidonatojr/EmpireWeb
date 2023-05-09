@@ -773,7 +773,7 @@ const Wrapper = styled.section`
     padding: 50px;
   }
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     margin-top: 2%;
     color:black;
   }
@@ -965,6 +965,9 @@ const Wrapper = styled.section`
     margin-top: 0.5%;
     width: 100%;
     background-color: white;
+  }
+  .Header:hover {
+    cursor: pointer;
   }
   .headerImage {
     width: 7%;
