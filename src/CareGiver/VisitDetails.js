@@ -9,11 +9,13 @@ import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
-import { List, ListItem, ListItemText } from "@material-ui/core";
 import { display } from "@mui/system";
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import DirectionsIcon from '@mui/icons-material/Directions';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import Drawer from "@mui/material/Drawer";
@@ -626,14 +628,14 @@ const VisitDetails = () => {
           
          {PlanListView &&
           <div className="PlanofCareList">
-          <p style={{ color: "white", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan of Care</p>
-          <List style={{ maxHeight: "75%", overflow: "auto" }}>
+          <p style={{ color: "grey", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan of Care</p>
+          <List style={{ maxHeight: "75%", overflow: "auto",borderRadius:10,backgroundColor:"white",height:"100%" }} >
             {pocDutiesList.map((item) => (
               <ListItem
                 className="ListItem"
               >
                 <ListItemText
-                  primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}> {item.id}- {item.duty}</p>}
+                  primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "grey" }}> {item.id}- {item.duty}</p>}
                   className="ListText"
                 />
 
@@ -649,14 +651,14 @@ const VisitDetails = () => {
         {
           OtherTaskView && 
           <div className="OtherList">
-          <p style={{ color: "white", fontSize: "20px", fontWeight: "bold", textAlign: "center" }}>Other Task</p>
-          <List style={{ maxHeight: "75%", overflow: "auto" }}>
+          <p style={{ color: "grey", fontSize: "20px", fontWeight: "bold", textAlign: "center" }}>Other Task</p>
+          <List className="forScrollOnly" style={{ maxHeight: "75%", overflow: "auto",backgroundColor:"white",borderRadius:10 }}>
             {OtherTaskList.map((item) => (
               <ListItem
                 className="ListItem"
               >
                 <ListItemText
-                  primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}> {item.id}- {item.name}</p>}
+                  primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "grey" }}> {item.id}- {item.name}</p>}
                   className="ListText"
                 />
 
@@ -1265,6 +1267,7 @@ const VisitDetails = () => {
           >
             Files
           </p>
+          <UserName />
           <hr
             className="line"
             style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
@@ -1506,21 +1509,28 @@ width: 100%;
 .PlanofCareList{
   height:325px;
   width:400px;
-  margin-top:3.5%;
-  margin-left:5%;
   border-radius:15px;
   padding:1%;
-  background-color:#564873;
 }
 .OtherList{
   height:325px;
   width:400px;
-  margin-top:3.5%;
-  margin-left:12.5%;
   border-radius:15px;
   padding:1%;
-  background-color:#564873;
 }
+
+.forScrollOnly::-webkit-scrollbar {
+  width: 10px;
+  }
+
+  .forScrollOnly::-webkit-scrollbar-track {
+  background-color: #564873;
+  }
+
+  .forScrollOnly::-webkit-scrollbar-thumb {
+  background-color: #8e9fb1;
+  border-radius: 5px;
+  }
 .ListItem{
   margin-top:1%;
   color:black;
@@ -1530,6 +1540,9 @@ width: 100%;
 .ListHolder{
   display:flex;
   flex-direction:row;
+  justify-content:center;
+  align-content:center;
+  align-items:center;
 }
 .ListItem:hover .ListText{
   color:black;

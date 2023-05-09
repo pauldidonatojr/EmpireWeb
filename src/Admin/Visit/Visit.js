@@ -942,6 +942,7 @@ function Visit() {
           >
             Files
           </p>
+          <UserName />
           <hr className="line" style={{ width: "50%", fontSize: "10px", opacity: "0.2" }} />
 
           <h3 onClick={() => {

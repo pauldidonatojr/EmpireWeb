@@ -1394,6 +1394,7 @@ function Overlay6() {
         >
           Files
         </p>
+        <UserName />
         <hr
           className="line"
           style={{ width: "50%", fontSize: "10px", opacity: "0.2" }}
