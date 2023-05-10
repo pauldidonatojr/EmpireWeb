@@ -2142,7 +2142,7 @@ function CareGiverDetail() {
       </div>
         }
         {!opentime &&
-          <div style={{ overflow: 'auto',height: "100%", width: "100%" }}>
+          <div className="calender" >
             <Calendar
               events={visitsDataCalenderCell}
               startAccessor="start"
@@ -3274,6 +3274,12 @@ const Wrapper = styled.section`
     width:15%;
     color:white;
   }
+
+  .calender {
+    overflow: auto;
+    height: 100%; 
+    width: 100%;
+  }
   .EditButton:hover {
     color:black;
   }
@@ -3789,6 +3795,10 @@ const Wrapper = styled.section`
     .Signup{
       margin-left:25%;
       
+    }
+    .calender {
+      overflow-X: auto;
+      width:600px;
     }
   }
   
