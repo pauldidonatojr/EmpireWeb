@@ -165,7 +165,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Discipline</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Discipline</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -183,7 +183,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Type</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Type</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -201,7 +201,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Status</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -219,7 +219,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Sort By</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Sort By</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -237,7 +237,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Restrictions</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Restrictions</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -269,7 +269,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Team</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Team</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -287,7 +287,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Hired Month</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Hired Month</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -319,7 +319,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Location</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Location</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -337,7 +337,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Branch</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Branch</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -372,7 +372,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Care Giver Demographics</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Care Giver Demographics</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -390,7 +390,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Care Giver Employment</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Care Giver Employment</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -408,7 +408,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Care Giver Address </InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Care Giver Address </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -426,7 +426,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Care Giver Restrictions</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Care Giver Restrictions</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -444,7 +444,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Care Giver Compliance</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Care Giver Compliance</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -462,7 +462,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Care Giver Payroll</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Care Giver Payroll</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -480,7 +480,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Care Giver Notification</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Care Giver Notification</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -529,7 +529,7 @@ const handleClose5 = () => {
         <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Provider</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Provider</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -562,7 +562,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Teams(s)</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Teams(s)</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -625,7 +625,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -653,7 +653,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Linked Notes From</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Linked Notes From</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -671,7 +671,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Linked Notes To</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Linked Notes To</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -689,7 +689,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Reason</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Reason</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -707,7 +707,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Notes Type</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Notes Type</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -800,7 +800,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Status</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -818,7 +818,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Provider</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Provider</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -836,7 +836,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Discipline</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Discipline</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -902,7 +902,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Cordinator</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Cordinator</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -921,7 +921,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -939,7 +939,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Visit Type</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Visit Type</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -957,7 +957,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Discipline</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Discipline</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -975,7 +975,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Status</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -993,7 +993,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Team (s)</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Team (s)</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -1011,7 +1011,7 @@ const handleClose5 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Check Marks</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Check Marks</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

@@ -180,7 +180,7 @@ const handleClose6 = () => {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >MCO (s)</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >MCO (s)</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -221,7 +221,7 @@ const handleClose6 = () => {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Types Of Service</InputLabel>
+      <InputLabel  style={{backgroundColor:"#f2f2f2",color:"grey"}}>Types Of Service</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -240,7 +240,7 @@ const handleClose6 = () => {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Cordinator</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Cordinator</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -259,7 +259,7 @@ const handleClose6 = () => {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Discipline (s)</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Discipline (s)</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -278,7 +278,7 @@ const handleClose6 = () => {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Team (s)</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Team (s)</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -322,7 +322,7 @@ function Overlay2() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >MCO (s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO (s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -357,7 +357,7 @@ function Overlay2() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Type Of Service</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Type Of Service</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -376,7 +376,7 @@ function Overlay2() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Cordinator</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Cordinator</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -395,7 +395,7 @@ function Overlay2() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Reason</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Reason</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -414,7 +414,7 @@ function Overlay2() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Team(s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Team(s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -473,7 +473,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >MCO (s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO (s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -513,7 +513,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Include Type</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Include Type</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -532,7 +532,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Admission ID</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Admission ID</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -560,7 +560,8 @@ function Overlay3() {
     
     <Box>
   <FormControl fullWidth>
-    <InputLabel >Timesheet</InputLabel>
+  
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Timesheet</InputLabel>
     <Select
     
       labelId="demo-simple-select-label"
@@ -580,7 +581,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Type Of Service</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Type Of Service</InputLabel>
     <Select
     
       labelId="demo-simple-select-label"
@@ -611,7 +612,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Cordinator</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Cordinator</InputLabel>
     <Select
     
       labelId="demo-simple-select-label"
@@ -631,7 +632,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Exception Code</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Exception Code</InputLabel>
     <Select
     
       labelId="demo-simple-select-label"
@@ -691,7 +692,7 @@ function Overlay4() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Reason (s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Reason (s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -710,7 +711,7 @@ function Overlay4() {
     
     <Box>
   <FormControl fullWidth>
-    <InputLabel >Type Of Service</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Type Of Service</InputLabel>
     <Select
     
       labelId="demo-simple-select-label"
@@ -730,7 +731,7 @@ function Overlay4() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Cordinator</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Cordinator</InputLabel>
     <Select
     
       labelId="demo-simple-select-label"
@@ -750,7 +751,7 @@ function Overlay4() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >MCO(s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO(s)</InputLabel>
     <Select
     
       labelId="demo-simple-select-label"
@@ -770,7 +771,7 @@ function Overlay4() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Team</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Team</InputLabel>
     <Select
     
       labelId="demo-simple-select-label"
@@ -814,7 +815,7 @@ function Overlay5() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >MCO(s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO(s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -850,7 +851,7 @@ function Overlay5() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Type Of Service</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Type Of Service</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -869,7 +870,7 @@ function Overlay5() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Cordinator</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Cordinator</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -888,7 +889,7 @@ function Overlay5() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Team(s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Team(s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -931,7 +932,7 @@ function Overlay6() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Report Section</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Report Section</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -959,7 +960,7 @@ function Overlay6() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >MCO (s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO (s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -1021,7 +1022,7 @@ function Overlay6() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Producure Code (s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Producure Code (s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -1040,7 +1041,7 @@ function Overlay6() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Record Status (s)</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Record Status (s)</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"

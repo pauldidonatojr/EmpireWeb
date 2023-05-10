@@ -125,7 +125,7 @@ const handleClose = () => {
 
             <Box >
               <FormControl fullWidth>
-                <InputLabel >Status</InputLabel>
+                <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"

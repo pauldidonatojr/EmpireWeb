@@ -320,7 +320,7 @@ function CareGiver() {
 
               <Box >
                 <FormControl fullWidth>
-                  <InputLabel >Status</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >Status</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -506,7 +506,7 @@ function CareGiver() {
          <div className="SelectListHolder" >
           <div style={{width:220,margin:"0.5%",marginTop:15}}>
                                 <FormControl fullWidth>
-                                    <InputLabel>Rehire ?</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Rehire ?</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -536,7 +536,7 @@ function CareGiver() {
         
                             <div style={{width:220,margin:"0.5%",marginTop:15}}>
                                 <FormControl fullWidth>
-                                    <InputLabel>Employmemt Type</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Employmemt Type</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -565,7 +565,7 @@ function CareGiver() {
                             </div>
                             <div style={{width:220,margin:"0.5%",marginTop:15}}>
                                 <FormControl fullWidth>
-                                    <InputLabel>Status</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -583,7 +583,7 @@ function CareGiver() {
          
           <div className="GenderDiv" >
                                 <FormControl fullWidth>
-                                    <InputLabel>Gender</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Gender</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"

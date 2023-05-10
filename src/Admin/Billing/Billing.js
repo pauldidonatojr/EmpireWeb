@@ -151,7 +151,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Member Team</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Member Team</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -169,7 +169,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -188,7 +188,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Cordinator</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Cordinator</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -220,7 +220,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Problem</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Problem</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -278,7 +278,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>By Group</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>By Group</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -297,7 +297,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -317,7 +317,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Member Team</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Member Team</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -335,7 +335,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Cordinator</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Cordinator</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -352,7 +352,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Hold Reason</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Hold Reason</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -424,7 +424,7 @@ Billing by Export Code Greater than 24 hours</MenuItem>
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Display Zero Results</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Display Zero Results</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -509,7 +509,7 @@ Billing by Export Code Greater than 24 hours</MenuItem>
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -529,7 +529,7 @@ Billing by Export Code Greater than 24 hours</MenuItem>
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Service Giver</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Service Giver</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -547,7 +547,7 @@ Billing by Export Code Greater than 24 hours</MenuItem>
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Discipline</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Discipline</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -578,7 +578,7 @@ Billing by Export Code Greater than 24 hours</MenuItem>
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Member Team</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Member Team</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

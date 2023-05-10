@@ -187,7 +187,7 @@ function Report() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Reference Table</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Reference Table</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -243,7 +243,7 @@ function Report() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

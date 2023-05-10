@@ -100,7 +100,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -120,7 +120,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Claim Type</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Claim Type</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -185,7 +185,7 @@ const handleClose2 = () => {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Daily Reason Code</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Daily Reason Code</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -308,7 +308,7 @@ const handleClose2 = () => {
     <Grid className="datadisplaydropdown">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Daily Reason Code</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Daily Reason Code</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

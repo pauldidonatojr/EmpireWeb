@@ -1893,7 +1893,7 @@ function Visit() {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Box style={{ width: "75%", margin: "2%" }}>
             <FormControl fullWidth>
-              <InputLabel>New Reason</InputLabel>
+              <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>New Reason</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -1919,7 +1919,7 @@ function Visit() {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Box style={{ width: "75%", margin: "2%" }}>
             <FormControl fullWidth>
-              <InputLabel>Action Taken</InputLabel>
+              <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Action Taken</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -2640,7 +2640,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel >Cordinator</InputLabel>
+                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >Cordinator</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -2659,7 +2659,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel >Member Team</InputLabel>
+                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Member Team</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -2681,7 +2681,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel >MCO</InputLabel>
+                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -3014,7 +3014,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel >MCO</InputLabel>
+                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >MCO</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -3079,7 +3079,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel >Status</InputLabel>
+                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -3134,7 +3134,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel >Member Team</InputLabel>
+                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Member Team</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -3155,7 +3155,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel >Case Cordinator</InputLabel>
+                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Case Cordinator</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"

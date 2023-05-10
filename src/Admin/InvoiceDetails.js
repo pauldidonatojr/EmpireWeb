@@ -107,7 +107,7 @@ function InvoiceDetails() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -170,7 +170,7 @@ function InvoiceDetails() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Office</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Office</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -245,7 +245,7 @@ function InvoiceDetails() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -270,7 +270,7 @@ function InvoiceDetails() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Export Status</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Export Status</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -288,7 +288,7 @@ function InvoiceDetails() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Billing Hold</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Billing Hold</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -343,7 +343,7 @@ function InvoiceDetails() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>Status</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -405,7 +405,7 @@ function InvoiceDetails() {
             <Grid className="griditem2">
               <Box>
                 <FormControl fullWidth>
-                  <InputLabel>MCO</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

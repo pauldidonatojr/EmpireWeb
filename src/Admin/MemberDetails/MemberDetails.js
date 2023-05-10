@@ -1027,7 +1027,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel>MCO</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1090,7 +1090,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel>Office</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Office</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1169,7 +1169,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel>MCO</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1194,7 +1194,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel>Export Status</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Export Status</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1212,7 +1212,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel>Billing Hold</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Billing Hold</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1269,7 +1269,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel>Status</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1331,7 +1331,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel>MCO</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1715,7 +1715,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel>Status</InputLabel>
+                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -3003,7 +3003,7 @@ function MemberDetails() {
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <Box style={{ width: "75%", margin: "2%" }}>
                         <FormControl fullWidth>
-                            <InputLabel>New Reason</InputLabel>
+                            <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>New Reason</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -3029,7 +3029,7 @@ function MemberDetails() {
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <Box style={{ width: "75%", margin: "2%" }}>
                         <FormControl fullWidth>
-                            <InputLabel>Action Taken</InputLabel>
+                            <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Action Taken</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -3867,7 +3867,7 @@ function MemberDetails() {
                             <div>
                      <Box style={{width:350}}>
                 <FormControl fullWidth>
-                  <InputLabel >Provider Coordinator</InputLabel>
+                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Provider Coordinator</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -3898,7 +3898,7 @@ function MemberDetails() {
 
 <Box style={{width:350}}>
 <FormControl fullWidth>
-  <InputLabel >Office</InputLabel>
+  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >Office</InputLabel>
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
@@ -3918,7 +3918,7 @@ function MemberDetails() {
 
                                 <Box style={{width:350,marginTop:15}}>
 <FormControl fullWidth>
-  <InputLabel >Member Team</InputLabel>
+  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >Member Team</InputLabel>
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
@@ -3961,7 +3961,7 @@ function MemberDetails() {
 
 <Box style={{width:350}}>
 <FormControl fullWidth>
-  <InputLabel >Location</InputLabel>
+  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Location</InputLabel>
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
@@ -3984,7 +3984,7 @@ function MemberDetails() {
 
 <Box style={{width:350}}>
 <FormControl fullWidth>
-  <InputLabel >Branch</InputLabel>
+  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Branch</InputLabel>
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
@@ -4026,7 +4026,7 @@ function MemberDetails() {
 
                             <Box style={{width:350,marginTop:15}}>
 <FormControl fullWidth>
-  <InputLabel >Source of Admission</InputLabel>
+  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Source of Admission</InputLabel>
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"

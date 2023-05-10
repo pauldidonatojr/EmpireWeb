@@ -90,7 +90,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >File Type</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>File Type</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -108,7 +108,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >MCO</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -162,7 +162,7 @@ function Overlay3() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Status</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >Status</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -202,7 +202,7 @@ function Overlay4() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >MCO</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
@@ -255,7 +255,7 @@ function Overlay4() {
     
     <Box >
   <FormControl fullWidth>
-    <InputLabel >Status</InputLabel>
+    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"

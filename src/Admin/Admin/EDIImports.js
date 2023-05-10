@@ -126,7 +126,7 @@ const handleClose5 = () => {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Interface</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Interface</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -180,7 +180,7 @@ function Overlay2() {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Interface</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Interface</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -234,7 +234,7 @@ function Overlay3() {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Interface</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Interface</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -287,7 +287,7 @@ function Overlay4() {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Interface</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Interface</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -306,7 +306,7 @@ function Overlay4() {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Usage</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Usage</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -345,7 +345,7 @@ function Overlay5() {
       
       <Box >
     <FormControl fullWidth>
-      <InputLabel >Interface</InputLabel>
+      <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Interface</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"

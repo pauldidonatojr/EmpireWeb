@@ -111,7 +111,7 @@ function CareGiver() {
         
         <Box >
       <FormControl fullWidth>
-        <InputLabel >Member Team</InputLabel>
+        <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Member Team</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -228,7 +228,7 @@ function CareGiver() {
           {Invalidmail && <h5 style={{color:"red",textAlign:"center"}}>Email Not Valid, Please Check</h5>}
           
       <FormControl className="dropdown">
-        <InputLabel >Role</InputLabel>
+        <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Role</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -242,7 +242,7 @@ function CareGiver() {
         </Select>
       </FormControl>
       <FormControl className="dropdown" >
-        <InputLabel >Default Module Tab</InputLabel>
+        <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Default Module Tab</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -256,7 +256,7 @@ function CareGiver() {
         </Select>
       </FormControl>
       <FormControl className="dropdown" >
-        <InputLabel >Status</InputLabel>
+        <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
