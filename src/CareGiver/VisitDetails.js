@@ -610,11 +610,11 @@ const VisitDetails = () => {
 
 <div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
 
-<div style={{backgroundColor:"#564873",borderRadius:15,padding:10}} onClick={PlanofCarePressed}>
+<div  className="ListButton"  onClick={PlanofCarePressed}>
               <p style={{color:"white",textAlign:"center",fontWeight:"bold"}}>Plan Of Care</p>
             </div>
 
-            <div style={{backgroundColor:"#564873",borderRadius:15,padding:10}} onClick={OtherTaskPressed}>
+            <div className="ListButton" onClick={OtherTaskPressed}>
               <p style={{color:"white",textAlign:"center",fontWeight:"bold"}}>Other Task</p>
             </div>
 
@@ -1407,6 +1407,16 @@ width: 100%;
     justify-content:center;
     margin-top:0;
     margin-bottom:3%;
+  }
+
+  .ListButton{
+    background-color:#564873;
+    border-radius:15px;
+    padding:10px
+  }
+  
+  .ListButton:hover{
+    cursor:pointer;
   }
 
   .GoBackButton{
