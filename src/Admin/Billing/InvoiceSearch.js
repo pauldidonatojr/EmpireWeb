@@ -1007,9 +1007,12 @@ const Wrapper = styled.section`
     padding: 50px;
   }
   .crossIcon {
-    margin-left: 95%;
+    margin-left: 2%;
     margin-top: 2%;
     color:black;
+  }
+  .crossIcon:hover {
+    cursor:pointer;
   }
   .searchFieldsDiv {
     display: grid;

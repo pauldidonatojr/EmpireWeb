@@ -1147,6 +1147,9 @@ elevation: 13,
     color:black;
     margin-top: 2%;
   }
+  .crossIcon:hover {
+    cursor:pointer;
+  }
   .searchFieldsDiv {
     display: flex;
     margin-top: 2.5%;

@@ -661,6 +661,9 @@ const Wrapper = styled.section`
     color:black;
     margin-top: 2%;
   }
+  .crossIcon:hover {
+    cursor:pointer;
+  }
   .searchFieldsDiv {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* create 3 equal columns */

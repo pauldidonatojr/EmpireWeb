@@ -1222,6 +1222,9 @@ const Wrapper = styled.section`
     margin-top: 2%;
     color:black;
   }
+  .crossIcon:hover {
+    cursor:pointer;
+  }
   .searchFieldsDiv {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* create 3 equal columns */

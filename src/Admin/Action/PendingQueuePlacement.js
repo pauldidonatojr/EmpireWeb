@@ -661,6 +661,9 @@ const Wrapper = styled.section`
     margin-top: 2%;
     color:black;
   }
+  .crossIcon:hover {
+    cursor:pointer;
+  }
   .searchFieldsDiv {
     display: flex; 
   margin-top: 2.5%;
