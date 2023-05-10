@@ -1040,7 +1040,8 @@ function CareGiverDetail() {
           setVisitsDataRow(arr);
 
 
-          //For Calender
+          //For Calender Ok
+          
 
           var obj2 = {
             start: myArray.ScheduleStartTime,
