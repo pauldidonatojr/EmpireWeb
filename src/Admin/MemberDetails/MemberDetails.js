@@ -8418,6 +8418,12 @@ const Wrapper = styled.section`
     padding:5px;
     margin:1%;
   }
+  .AddEditButton:hover{
+    cursor: pointer;
+
+  }
+
+
   .generalFields{
     display:flex;
     flex-direction:row;
