@@ -3702,13 +3702,18 @@ function MemberDetails() {
             sortable: false,
             width: 200,
             renderCell: (params) => (
-                <Button variant="contained">
+                <Button variant="contained" onClick={() => {
+                    setSelectedRowPrint2(params.row.id);
+                    PrintDocument();
+                  }}>
                     Print
                 </Button>
             ),
         },
 
     ];
+    //const [selectedRowPrint2, setSelectedRowPrint2] = useState(null);
+    
     //demo data to display
     const rowsProviderInformation = [
         { id: 1, providerName: "Justin", coordinatorName: "Assist with Home", startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: '' },
@@ -3844,7 +3849,7 @@ function MemberDetails() {
 
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>General</h1>
-                <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '30px' }}>
+                <div className="forPrinting" style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '30px' }}>
                    
 
 
@@ -4177,6 +4182,7 @@ function MemberDetails() {
 
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Provider Information</h1>
+                <div className="forPrinting">
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
                         rows={providerInfoList}
@@ -4186,9 +4192,33 @@ function MemberDetails() {
                         checkboxSelection={false}
                     />
                 </div>
+                </div>
+                
+                {/* <div className="printDiv"> 
+                        <div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
+                         
+                            <div style={{display:"flex",flexDirection:"column",alignContent:"center",alignItems:"center",justifyContent:"center"}}>
+                            <h1 style={{fontSize:15,color:"blue",textAlign:"center",backgroundColor:"black"}}>Placement ID</h1>
+                        
+                            <h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}>  {(getSelectedRowData2(selectedRowPrint2)).id}</h1>
+                        
+                        
+                            </div>
+                       
+<h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Provider Name </h1>  {(getSelectedRowData2(selectedRowPrint2)).providerName}</h1>
+<h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Coordinator Name </h1>{(getSelectedRowData2(selectedRowPrint2)).coordinatorName}</h1>
+<h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Start Of Care Date</h1>{(getSelectedRowData2(selectedRowPrint2)).startOfCareDate}</h1>
+<h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>First Visit Date</h1>{(getSelectedRowData2(selectedRowPrint2)).firstVisitDate}</h1>
 
+ <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Discharged Date</h1>{(getSelectedRowData2(selectedRowPrint2)).dischargedDate}</h1>
+                       
+                        </div>
 
-                <h1 style={{ color: "#564873", textAlign: "center" }}>Status History</h1>
+                       
+ </div> */}
+
+                <div className="forPrinting">
+                <h1 style={{ color: "#564873", textAlign: "center",marginTop:"1%" }}>Status History</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
                         rows={rowsStatusHistory}
@@ -4198,8 +4228,10 @@ function MemberDetails() {
                         checkboxSelection={false}
                     />
                 </div>
+                </div>
+                
 
-
+                <div className="forPrinting">
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Notes</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
@@ -4210,9 +4242,18 @@ function MemberDetails() {
                         checkboxSelection={false}
                     />
                 </div>
+                </div>
+
             </div>
         );
     };
+    const [selectedRowPrint2, setSelectedRowPrint2] = useState({ id: 0, providerName: "Placeholder",coordinatorName:"Hello",
+    startOfCareDate:"hello",firstVisitDate:"hello",dischargedDate:"hello"});
+    function getSelectedRowData2(idToFind) {
+        console.log(idToFind);
+        const foundData = providerInfoList.find(item => item.id === idToFind);
+        return foundData;
+      }
 
     const items = [
         { id: 'GPS', name: 'GPS' },
@@ -7859,14 +7900,60 @@ return (
             </div>
         );
     };
-    // id: 1, fromDate: "Justin", toDate: "Alo", serviceType: "02457894561", serviceCode: "XOXO",
-    // authType: "XZXZ", mco: "1123456", serviceCat: "1123456", notes: "Active", visit: "Homecare"
+    
 
 
     function getSelectedRowData(idToFind) {
-        const foundData = rowsPOC.find(item => item.id === idToFind);
-        return foundData;
+        if (idToFind) {
+          const foundData = rowsPOC.find(item => item.id === idToFind);
+          return foundData;
+        } else {
+          // Return a demo row data when no id is passed
+          const demoRowData = {
+            id: 0,
+            fromDate: "Demo Row",
+            toDate:"Demo",
+            serviceType:"demo",
+            serviceCode:"Demo",
+            authType:"demo"
+
+
+            // Add other properties as needed
+          };
+          return demoRowData;
+        }
       }
+    //   {
+    //     field: 'id',
+    //     headerName: 'POC #',
+    //     sortable: false,
+    //     width: 150,
+    //     renderCell: (params) => (
+    //         <Button variant="contained" onClick={() => setViewSelected(22)}>
+    //             {params.value}
+    //         </Button>
+    //     ),
+    // },
+    // { field: 'fromDate', headerName: 'POC Start Date', width: 150 },
+    // { field: 'toDate', headerName: 'POC End Date', width: 150 },
+    // { field: 'serviceType', headerName: 'Created By', width: 150 },
+    // { field: 'serviceCode', headerName: 'Created Date', width: 150 },
+
+
+    // {
+    //     field: 'authType',
+    //     headerName: 'Authorization Type',
+    //     sortable: false,
+    //     width: 150,
+    //     renderCell: (params) => (
+    //         <Button variant="contained" onClick={() => {
+    //             setSelectedRowPrint(params.row.id);
+    //             PrintDocument();
+    //           }}>
+    //             Print
+    //           </Button>
+    //     ),
+    // },
     
 
 
@@ -8071,7 +8158,8 @@ return (
             width: 150,
             renderCell: (params) => (
                 <Button variant="contained" onClick={() => {
-                    setSelectedRowPrint(params.row.id);
+                   
+                    setRowPrint(params.row.id);
                     PrintDocument();
                   }}>
                     Print
@@ -8080,6 +8168,10 @@ return (
         },
 
     ];   
+
+    function setRowPrint(value){
+        setSelectedRowPrint(value);
+    }
 
     function PrintDocument() {
         
@@ -8474,8 +8566,14 @@ const Wrapper = styled.section`
   .datagrid{
     height:250px;
   }
-
+  .forPrinting{
+    height:550px;
+}
   @media print {
+
+    .forPrinting{
+        display:none;
+    }
  
     .printDiv{
         width:100%;
