@@ -7807,10 +7807,11 @@ return (
 
 
 
-
+                <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignContent:"center",alignItems:"center"}}>
                 <h1 style={{ color: "#564873", textAlign: "center" }}>POC</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
-                    <DataGrid
+                <DataGrid
+                        className="datagrid"
                         rows={rowsPOC}
                         columns={columnsPOC}
                         pageSize={5}
@@ -7820,9 +7821,53 @@ return (
                 </div>
 
 
+                <div className="printDiv">
+                        <div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
+                         
+                            <div style={{display:"flex",flexDirection:"column",alignContent:"center",alignItems:"center",justifyContent:"center"}}>
+                            <h1 style={{fontSize:15,color:"blue",textAlign:"center",backgroundColor:"black"}}>ID</h1>
+                            <h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}>  {(getSelectedRowData(selectedRowPrint)).id}</h1>
+                            </div>
+                       
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>From Date </h1>  {(getSelectedRowData(selectedRowPrint)).fromDate}</h1>
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>To Date </h1>{(getSelectedRowData(selectedRowPrint)).toDate}</h1>
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Service Type :</h1>{(getSelectedRowData(selectedRowPrint)).serviceType}</h1>
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Service Code :</h1>{(getSelectedRowData(selectedRowPrint)).serviceCode}</h1>
+                       
+                        </div>
+
+                        <div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
+                         
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Auth Type :</h1>{(getSelectedRowData(selectedRowPrint)).authType}</h1>
+                        
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}> <h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>MCO :</h1>{(getSelectedRowData(selectedRowPrint)).mco}</h1>
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Service Category :</h1>{(getSelectedRowData(selectedRowPrint)).serviceCat}</h1>
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Notes :</h1>{(getSelectedRowData(selectedRowPrint)).notes}</h1>
+                        
+                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}> <h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Visit :</h1>{(getSelectedRowData(selectedRowPrint)).visit}</h1>
+
+                     </div>
+
+
+
+                      
+                        
+                    </div>
+                    </div>
+
+
             </div>
         );
     };
+    // id: 1, fromDate: "Justin", toDate: "Alo", serviceType: "02457894561", serviceCode: "XOXO",
+    // authType: "XZXZ", mco: "1123456", serviceCat: "1123456", notes: "Active", visit: "Homecare"
+
+
+    function getSelectedRowData(idToFind) {
+        const foundData = rowsPOC.find(item => item.id === idToFind);
+        return foundData;
+      }
+    
 
 
     const columnsVisitsMain = [
@@ -7999,6 +8044,8 @@ return (
         );
     };
 
+    const [selectedRowPrint, setSelectedRowPrint] = useState(null);
+
     const columnsPOC = [
         {
             field: 'id',
@@ -8023,32 +8070,28 @@ return (
             sortable: false,
             width: 150,
             renderCell: (params) => (
-                <Button variant="contained" onClick={() => PrintDocument({ content: document.getElementById("print-content").innerHTML })}>
+                <Button variant="contained" onClick={() => {
+                    setSelectedRowPrint(params.row.id);
+                    PrintDocument();
+                  }}>
                     Print
-                </Button>
+                  </Button>
             ),
         },
 
     ];   
 
-    function PrintDocument(props) {
-        const windowContent = '<!DOCTYPE html><html><head><title>Print</title></head><body>' + props.content + '</body></html>';
-        const printWindow = window.open('', '', 'height=400,width=600');
-        printWindow.document.write(windowContent);
-        printWindow.document.close();
-        printWindow.focus();
-        printWindow.print();
-        printWindow.close();
-      }
+    function PrintDocument() {
+        
+        window.print();
+    }
+
+    // window.onafterprint = function() {
+    //     togglePrintArea();
+    // };
+    
       
-      function PrintContent(props) {
-        return (
-          <div id="print-content">
-            <h1>{props.member.LastName}</h1>
-            <p>{props.member.Nurse}</p>
-          </div>
-        );
-      }
+      
 
     const rowsPOC = [
         {
@@ -8224,8 +8267,9 @@ return (
                     </React.Fragment>
                 ))}
             </div>
-
+            
             <div className="CardHolder">
+                
                 <Card className="TaskBar">
                     <UserName />
                     <hr />
@@ -8422,6 +8466,47 @@ const Wrapper = styled.section`
     cursor: pointer;
 
   }
+  .printDiv{
+    display:none;
+    
+
+  }
+  .datagrid{
+    height:250px;
+  }
+
+  @media print {
+ 
+    .printDiv{
+        width:100%;
+        display:flex;
+        margin-top:0%;
+    flex-direction:column;
+    }
+
+    .TaskBar {
+      display:none;
+    }
+    .dataDisplay{
+    
+    }
+    .CardHolder{
+        justify-content:center;
+        align-items:center;
+        align-content:center;
+    }
+    .datagrid{
+        display:none;
+    }
+    .GoBackButton{
+        display:none;
+    }
+    .LogOutbutton{
+        display:none;
+    }
+    
+  }
+ 
 
 
   .generalFields{

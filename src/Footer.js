@@ -56,6 +56,24 @@ const Wrapper = styled.section`
   background-color: #2E0F59;
   margin-top: 0%;
 }
+
+@media print {
+  .company {
+    display:none;
+  }
+  .socials {
+    display:none;
+  }
+  .footer{
+    justify-content:center;
+    
+  }
+  .LogoHolder{
+    margin-left:0%;
+    margin-right:15%;
+  }
+}
+
 .company {
   margin-left: 50%;
   margin-top: 2%;
@@ -71,6 +89,7 @@ const Wrapper = styled.section`
 //Footer CSS Files end
 @media only screen and (max-width: 600px) {
   .LogoHolder {
+
     display:none;
   }
   .footer{
