@@ -28,6 +28,7 @@ import MemberDetails from "./Admin/MemberDetails/MemberDetails";
 import CareGiverDetail from "./Admin/CareGiverDetail";
 import BatchDetails from "./Admin/BatchDetails";
 import InvoiceDetails from "./Admin/InvoiceDetails";
+import SFTPHome from './SFTP/Homepage'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -89,7 +90,7 @@ function App() {
         <Route path="/" element={<Login />} />
 
         <Route element={<ProtectedRoute routeType={1} loggedIn={loggedIn} loginType={loginState.userType} />}>
-          <Route path="/AdminHome" element={<AdminHomePage />}></Route>
+          {/* <Route path="/AdminHome" element={<AdminHomePage />}></Route>
           <Route path="/CareGiver" element={<CareGiver />}></Route>
           <Route path="/Visit" element={<Visits />}></Route>
           <Route path="/Action" element={<Action />}></Route>
@@ -106,14 +107,10 @@ function App() {
           <Route path="/CordinatorSetup" element={<CordinatorSetup />}></Route>
           <Route path="/FileProcessing" element={<FileProcessing />}></Route>
           <Route path="/EDIImports" element={<EDIImports />}></Route>
-          <Route path="/MemberDetails" element={<MemberDetails />}/>
-          <Route path="/CareGiverDetail" element={<CareGiverDetail />}/>
-          <Route path="/BatchDetails" element={<BatchDetails />}/>
-          <Route path="/InvoiceDetails" element={<InvoiceDetails />}/>
-
-          
-          
-          
+          <Route path="/MemberDetails" element={<MemberDetails />} />
+          <Route path="/CareGiverDetail" element={<CareGiverDetail />} />
+          <Route path="/BatchDetails" element={<BatchDetails />} />
+          <Route path="/InvoiceDetails" element={<InvoiceDetails />} /> */}
         </Route>
 
 
@@ -127,6 +124,12 @@ function App() {
           <Route path="/PatientHome" element={<PatientHomePage />}></Route>
           <Route path="/visitdetails/:id" element={<VisitDetails />}></Route>
         </Route>
+
+
+        <Route element={<ProtectedRoute routeType={4} loggedIn={loggedIn} loginType={loginState.userType} />}>
+          <Route path="/SFTPHome" element={<SFTPHome />}></Route>
+        </Route>
+
 
       </Routes>
 

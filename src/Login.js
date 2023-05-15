@@ -25,7 +25,7 @@ function Login() {
   const showToastMessage = () => {
     toast.error('Wrong Username or Password!', {
       position: toast.POSITION.TOP_CENTER
-  });
+    });
   };
 
   const [showCard, setShowCard] = useState(false);
@@ -73,6 +73,23 @@ function Login() {
             showToastMessage();
           }
         });
+        break;
+      case "SFTP":
+        if (username != null && password != null) {
+          loginUser(username, password).then(res => {
+            console.log(res.data);
+            if (res.data.result == "success") {
+              loginHandle(username, password, 'sftp');
+              localStorage.setItem('LoggedInUser', JSON.stringify(res.data.data));
+              navigate("/AdminHome");
+              setLoginStatus('sucess');
+            }
+            if (res.data.result == "error") {
+              showToastMessage();
+            }
+          }
+          );
+        }
         break;
       case "Patient":
         //NAVIGATE TO PATIENT HOMEPAGE
@@ -134,6 +151,7 @@ function Login() {
           <div>
             <h1 style={{ fontSize: "35px" }}>SIGN IN</h1>
           </div>
+
           <div className="radioHolder">
             <div className="radioTextHolder" >
               <input
@@ -165,6 +183,16 @@ function Login() {
                 onChange={(e) => setSelectedRadio(e.target.value)}
               />{" "}
               <h5 style={{ color: "#16232E", fontSize: "15px", marginLeft: "10%" }}>Patient</h5>
+            </div>
+            <div className="radioTextHolder">
+              <input
+                className="radio"
+                type="radio"
+                value="SFTP"
+                name="LoginType"
+                onChange={(e) => setSelectedRadio(e.target.value)}
+              />{" "}
+              <h5 style={{ color: "#16232E", fontSize: "15px", marginLeft: "10%" }}>SFTP</h5>
             </div>
           </div>
 
@@ -246,6 +274,7 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: row;
     border-width: thin;
+    width: 100%;
   }
   .radio{
     margin-top:5%;

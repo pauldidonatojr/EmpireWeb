@@ -329,11 +329,11 @@ const VisitDetails = () => {
   const [currMember, setCurrMember] = useState(null);
   const [PlanListView, setPlanListView] = useState(false);
   const [OtherTaskView, setOtherTaskView] = useState(false);
-  function PlanofCarePressed(){
+  function PlanofCarePressed() {
     setPlanListView(true);
     setOtherTaskView(false);
   }
-  function OtherTaskPressed(){
+  function OtherTaskPressed() {
     setPlanListView(false);
     setOtherTaskView(true);
   }
@@ -555,7 +555,7 @@ const VisitDetails = () => {
   };
 
 
-  
+
   const ClockInOutView = () => {
     return (
       <div style={{ overflow: 'auto' }}>
@@ -608,66 +608,66 @@ const VisitDetails = () => {
 
         </div>
 
-<div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
 
-<div  className="ListButton"  onClick={PlanofCarePressed}>
-              <p style={{color:"white",textAlign:"center",fontWeight:"bold"}}>Plan Of Care</p>
-            </div>
+          <div className="ListButton" onClick={PlanofCarePressed}>
+            <p style={{ color: "white", textAlign: "center", fontWeight: "bold" }}>Plan Of Care</p>
+          </div>
 
-            <div className="ListButton" onClick={OtherTaskPressed}>
-              <p style={{color:"white",textAlign:"center",fontWeight:"bold"}}>Other Task</p>
-            </div>
+          <div className="ListButton" onClick={OtherTaskPressed}>
+            <p style={{ color: "white", textAlign: "center", fontWeight: "bold" }}>Other Task</p>
+          </div>
 
 
 
-</div>
-  
+        </div>
+
 
         <div className="ListHolder">
 
-          
-         {PlanListView &&
-          <div className="PlanofCareList">
-          <p style={{ color: "grey", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan of Care</p>
-          <List style={{ maxHeight: "75%", overflow: "auto",borderRadius:10,backgroundColor:"white",height:"100%" }} >
-            {pocDutiesList.map((item) => (
-              <ListItem
-                className="ListItem"
-              >
-                <ListItemText
-                  primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "grey" }}> {item.id}- {item.duty}</p>}
-                  className="ListText"
-                />
 
-              </ListItem>
-            ))}
-          </List>
-        </div>
-         
-         }
-         
+          {PlanListView &&
+            <div className="PlanofCareList">
+              <p style={{ color: "grey", fontWeight: "bold", fontSize: "20px", textAlign: "center" }}>Plan of Care</p>
+              <List style={{ maxHeight: "75%", overflow: "auto", borderRadius: 10, backgroundColor: "white", height: "100%" }} >
+                {pocDutiesList.map((item) => (
+                  <ListItem
+                    className="ListItem"
+                  >
+                    <ListItemText
+                      primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "grey" }}> {item.id}- {item.duty}</p>}
+                      className="ListText"
+                    />
+
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+
+          }
 
 
-        {
-          OtherTaskView && 
-          <div className="OtherList">
-          <p style={{ color: "grey", fontSize: "20px", fontWeight: "bold", textAlign: "center" }}>Other Task</p>
-          <List className="forScrollOnly" style={{ maxHeight: "75%", overflow: "auto",backgroundColor:"white",borderRadius:10 }}>
-            {OtherTaskList.map((item) => (
-              <ListItem
-                className="ListItem"
-              >
-                <ListItemText
-                  primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "grey" }}> {item.id}- {item.name}</p>}
-                  className="ListText"
-                />
 
-              </ListItem>
-            ))}
-          </List>
-        </div>
-        }
-         
+          {
+            OtherTaskView &&
+            <div className="OtherList">
+              <p style={{ color: "grey", fontSize: "20px", fontWeight: "bold", textAlign: "center" }}>Other Task</p>
+              <List className="forScrollOnly" style={{ maxHeight: "75%", overflow: "auto", backgroundColor: "white", borderRadius: 10 }}>
+                {OtherTaskList.map((item) => (
+                  <ListItem
+                    className="ListItem"
+                  >
+                    <ListItemText
+                      primary={<p style={{ fontSize: "20px", fontWeight: "bold", color: "grey" }}> {item.id}- {item.name}</p>}
+                      className="ListText"
+                    />
+
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+          }
+
 
 
 
@@ -741,9 +741,9 @@ const VisitDetails = () => {
 
 
         <div style={{ border: '3px solid grey', backgroundColor: "grey", borderRadius: "10px", padding: '20px', marginTop: '30px' }}>
-          <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
-          <DirectionsIcon style={{color:"white",fontSize:"35px"}} ></DirectionsIcon>
-        
+          <div style={{ textAlign: "center", display: "flex", justifyContent: "center" }}>
+            <DirectionsIcon style={{ color: "white", fontSize: "35px" }} ></DirectionsIcon>
+
           </div>
           <h1 style={{ color: "#564873", textAlign: "center" }}>Address</h1>
           <div style={{ textAlign: 'center' }}>{currMember != null &&

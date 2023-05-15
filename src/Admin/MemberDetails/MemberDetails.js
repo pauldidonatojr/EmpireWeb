@@ -941,7 +941,7 @@ function MemberDetails() {
     }
 
     const handleClickAuthTypeClose = () => {
-       setViewSelected(2);
+        setViewSelected(2);
     }
 
 
@@ -978,7 +978,7 @@ function MemberDetails() {
         setIsOverlayOpen3(false);
     };
 
-    
+
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -1027,7 +1027,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
+                                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>MCO</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1090,7 +1090,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Office</InputLabel>
+                                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Office</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1169,7 +1169,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
+                                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>MCO</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1194,7 +1194,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Export Status</InputLabel>
+                                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Export Status</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1212,7 +1212,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Billing Hold</InputLabel>
+                                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Billing Hold</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1269,7 +1269,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
+                                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Status</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1331,7 +1331,7 @@ function MemberDetails() {
                         <Grid className="griditem2">
                             <Box>
                                 <FormControl fullWidth>
-                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
+                                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>MCO</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -1367,157 +1367,157 @@ function MemberDetails() {
 
     function Overlay4() {
         return (
-          
-                <div className="">
-                    <CloseIcon className="crossIcon" onClick={handleClickAuthTypeClose} />
+
+            <div className="">
+                <CloseIcon className="crossIcon" onClick={handleClickAuthTypeClose} />
 
 
-                    <h1 style={{ textAlign: "center", color: "black" }}>Authorization</h1>
+                <h1 style={{ textAlign: "center", color: "black" }}>Authorization</h1>
 
-                    <div className="searchFieldsDiv">
-
-
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Service Category"
-                                variant="outlined"
-                                value={selectedAuth3Row.service_category}
-                            />
-                        </Grid>
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Service Type"
-                                variant="outlined"
-                                value={selectedAuth3Row.service_type}
-                            />
-                        </Grid>
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Authorization Number"
-                                variant="outlined"
-                                value={""}
-                            />
-                        </Grid>
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Service Code"
-                                variant="outlined"
-                                value={selectedAuth3Row.service_code}
-                            />
-                        </Grid>
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="From Date DD/MM/YYYY"
-                                variant="outlined"
-                                value={selectedAuth3Row.from_date}
-                            />
-                        </Grid>
-
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="To Date DD/MM/YYYY"
-                                variant="outlined"
-                                value={selectedAuth3Row.to_date}
-                            />
-                        </Grid>
-
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Service Code Type"
-                                variant="outlined"
-                                value={selectedAuth3Row.service_code_type}
-                            />
-                        </Grid>
-
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Authorization Type"
-                                variant="outlined"
-                                value={selectedAuth3Row.auth_type}
-                            />
-                        </Grid>
+                <div className="searchFieldsDiv">
 
 
-                    </div>
-
-
-                    <h1 style={{ textAlign: "center", color: "black" }}>Hours</h1>
-
-                    <div className="searchFieldsDiv">
-
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Hours Per Auth Period"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Additional Rules"
-                                variant="outlined"
-                            />
-                        </Grid>
-                    </div>
-
-
-
-                    <h1 style={{ textAlign: "center", color: "black" }}>Checkout Dates</h1>
-
-                    <div className="searchFieldsDiv">
-                        <h3 style={{ textAlign: "center", color: "black" }}>Document</h3>
+                    <Grid className="griditem">
                         <TextField
-                            type="file"
-                            label="Upload Document"
-                            onChange={handleFileUpload}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            fullWidth
-                        />
-                        <Typography variant="caption" color="textSecondary">
-                            Note: File must be 1000 KB in size or smaller.
-                        </Typography>
-
-
-
-
-                    </div>
-                    <div className="searchFieldsDivTable">
-                        <h3 style={{ textAlign: "center", color: "black" }}>Billing Diagnosis Code</h3>
-                        <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
-                            <DataGrid
-                                rows={rowDiagnosisCodeV}
-                                columns={columnsDiagnosisCode}
-                                pageSize={5} />
-                        </div>
-
-                    </div>
-
-
-                    <div className="searchFieldsDivNotes">
-                        <TextField
-                            id="notes"
-                            label="Notes"
-                            multiline
-                            rows={10}
-                            fullWidth
+                            id="outlined-basic"
+                            label="Service Category"
                             variant="outlined"
-                            placeholder="Enter notes here"
-                            value={selectedAuth3Row.notes}
+                            value={selectedAuth3Row.service_category}
                         />
+                    </Grid>
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Service Type"
+                            variant="outlined"
+                            value={selectedAuth3Row.service_type}
+                        />
+                    </Grid>
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Authorization Number"
+                            variant="outlined"
+                            value={""}
+                        />
+                    </Grid>
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Service Code"
+                            variant="outlined"
+                            value={selectedAuth3Row.service_code}
+                        />
+                    </Grid>
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="From Date DD/MM/YYYY"
+                            variant="outlined"
+                            value={selectedAuth3Row.from_date}
+                        />
+                    </Grid>
+
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="To Date DD/MM/YYYY"
+                            variant="outlined"
+                            value={selectedAuth3Row.to_date}
+                        />
+                    </Grid>
+
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Service Code Type"
+                            variant="outlined"
+                            value={selectedAuth3Row.service_code_type}
+                        />
+                    </Grid>
+
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Authorization Type"
+                            variant="outlined"
+                            value={selectedAuth3Row.auth_type}
+                        />
+                    </Grid>
+
+
+                </div>
+
+
+                <h1 style={{ textAlign: "center", color: "black" }}>Hours</h1>
+
+                <div className="searchFieldsDiv">
+
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Hours Per Auth Period"
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Additional Rules"
+                            variant="outlined"
+                        />
+                    </Grid>
+                </div>
+
+
+
+                <h1 style={{ textAlign: "center", color: "black" }}>Checkout Dates</h1>
+
+                <div className="searchFieldsDiv">
+                    <h3 style={{ textAlign: "center", color: "black" }}>Document</h3>
+                    <TextField
+                        type="file"
+                        label="Upload Document"
+                        onChange={handleFileUpload}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        fullWidth
+                    />
+                    <Typography variant="caption" color="textSecondary">
+                        Note: File must be 1000 KB in size or smaller.
+                    </Typography>
+
+
+
+
+                </div>
+                <div className="searchFieldsDivTable">
+                    <h3 style={{ textAlign: "center", color: "black" }}>Billing Diagnosis Code</h3>
+                    <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
+                        <DataGrid
+                            rows={rowDiagnosisCodeV}
+                            columns={columnsDiagnosisCode}
+                            pageSize={5} />
                     </div>
 
                 </div>
+
+
+                <div className="searchFieldsDivNotes">
+                    <TextField
+                        id="notes"
+                        label="Notes"
+                        multiline
+                        rows={10}
+                        fullWidth
+                        variant="outlined"
+                        placeholder="Enter notes here"
+                        value={selectedAuth3Row.notes}
+                    />
+                </div>
+
+            </div>
 
 
         );
@@ -1680,88 +1680,56 @@ function MemberDetails() {
 
     function Overlay5() {
         return (
-           
-                <div className="">
-                    <CloseIcon className="crossIcon" onClick={pocClickTypeClose} />
+
+            <div className="">
+                <CloseIcon className="crossIcon" onClick={pocClickTypeClose} />
 
 
-                    <h1 style={{ textAlign: "center", color: "black" }}>POC</h1>
+                <h1 style={{ textAlign: "center", color: "black" }}>POC</h1>
 
-                    <div className="searchFieldsDiv">
-
-
-
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Admission ID"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Start Date"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid className="griditem">
-                            <TextField
-                                id="outlined-basic"
-                                label="Stop Date"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid className="griditem2">
-                            <Box>
-                                <FormControl fullWidth>
-                                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={age}
-                                        label="Shift"
-                                        onChange={handleChange}
-                                    >
-                                        <MenuItem value={10}>Shift 1</MenuItem>
-                                        <MenuItem value={20}>Shift 2</MenuItem>
-                                        <MenuItem value={30}>Shift 3</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Box>
-                        </Grid>
-
-                        <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
-                            <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
-                            <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={pocClickTypeClose}>Close</Button>
-                        </div>
-
-
-                    </div>
-
-                    <div className="searchFieldsDivTable">
-                        <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
-                            <DataGrid
-                                rows={rowsPOCEntry}
-                                columns={columnsPOCEntry}
-                                pageSize={5} />
-                        </div>
-
-                    </div>
+                <div className="searchFieldsDiv">
 
 
 
-                    <div className="searchFieldsDivNotes">
+                    <Grid className="griditem">
                         <TextField
-                            id="notes"
-                            label="Notes"
-                            multiline
-                            rows={10}
-                            fullWidth
+                            id="outlined-basic"
+                            label="Admission ID"
                             variant="outlined"
-                            placeholder="Enter notes here"
                         />
-                    </div>
+                    </Grid>
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Start Date"
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid className="griditem">
+                        <TextField
+                            id="outlined-basic"
+                            label="Stop Date"
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid className="griditem2">
+                        <Box>
+                            <FormControl fullWidth>
+                                <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Status</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={age}
+                                    label="Shift"
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={10}>Shift 1</MenuItem>
+                                    <MenuItem value={20}>Shift 2</MenuItem>
+                                    <MenuItem value={30}>Shift 3</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
 
                     <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
                         <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
@@ -1769,8 +1737,40 @@ function MemberDetails() {
                     </div>
 
 
+                </div>
+
+                <div className="searchFieldsDivTable">
+                    <div style={{ height: 400, width: '100%', overflowX: 'auto' }}>
+                        <DataGrid
+                            rows={rowsPOCEntry}
+                            columns={columnsPOCEntry}
+                            pageSize={5} />
+                    </div>
 
                 </div>
+
+
+
+                <div className="searchFieldsDivNotes">
+                    <TextField
+                        id="notes"
+                        label="Notes"
+                        multiline
+                        rows={10}
+                        fullWidth
+                        variant="outlined"
+                        placeholder="Enter notes here"
+                    />
+                </div>
+
+                <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }}>Save</Button>
+                    <Button style={{ fontWeight: "font", margin: "1%", width: "15%", backgroundColor: "#564873", color: "white" }} onClick={pocClickTypeClose}>Close</Button>
+                </div>
+
+
+
+            </div>
 
         );
     }
@@ -1915,7 +1915,7 @@ function MemberDetails() {
             case 33:
                 return EditMasterWeekView();
             case 44:
-                return AddMasterWeekView();    
+                return AddMasterWeekView();
 
             default:
                 break;
@@ -3003,7 +3003,7 @@ function MemberDetails() {
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <Box style={{ width: "75%", margin: "2%" }}>
                         <FormControl fullWidth>
-                            <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>New Reason</InputLabel>
+                            <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>New Reason</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -3029,7 +3029,7 @@ function MemberDetails() {
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <Box style={{ width: "75%", margin: "2%" }}>
                         <FormControl fullWidth>
-                            <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Action Taken</InputLabel>
+                            <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Action Taken</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -3476,7 +3476,7 @@ function MemberDetails() {
                                 rowsPerPageOptions={[15]}
                                 checkboxSelection={false}
                                 onRowClick={handleRowClickCareGiverForVisit}
-                                
+
                             />
                         </div>
                         <Button className="searchButton" onClick={() => {
@@ -3702,18 +3702,13 @@ function MemberDetails() {
             sortable: false,
             width: 200,
             renderCell: (params) => (
-                <Button variant="contained" onClick={() => {
-                    setSelectedRowPrint2(params.row.id);
-                    PrintDocument();
-                  }}>
+                <Button variant="contained">
                     Print
                 </Button>
             ),
         },
 
     ];
-    //const [selectedRowPrint2, setSelectedRowPrint2] = useState(null);
-    
     //demo data to display
     const rowsProviderInformation = [
         { id: 1, providerName: "Justin", coordinatorName: "Assist with Home", startOfCareDate: '', firstVisitDate: '', coordinatorName: '', dischargedDate: '', print: '' },
@@ -3849,196 +3844,196 @@ function MemberDetails() {
 
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>General</h1>
-                <div className="forPrinting" style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '30px' }}>
-                   
+                <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '30px' }}>
 
 
-                        <div className="generalFields">
-                        
-                        <div style={{marginTop:15}}>
+
+                    <div className="generalFields">
+
+                        <div style={{ marginTop: 15 }}>
                             {member != null &&
-                                 <TextField
-                                 id="outlined-basic"
-                                 label="Nurse"
-                                 variant="outlined"
-                                 value={member.Nurse}
-                                 style={{width:350}}
-                               />
+                                <TextField
+                                    id="outlined-basic"
+                                    label="Nurse"
+                                    variant="outlined"
+                                    value={member.Nurse}
+                                    style={{ width: 350 }}
+                                />
                             }
+                        </div>
+
+                        <div style={{ marginTop: 15 }}>
+                            {member != null &&
+                                <div>
+                                    <Box style={{ width: 350 }}>
+                                        <FormControl fullWidth>
+                                            <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Provider Coordinator</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={providerCoordinatorMemberTeam}
+                                                label="Status"
+                                                onChange={handleDropdownProviderCoordinatorMemberTeam}
+                                            >
+                                                <MenuItem value="Select">Select</MenuItem>
+                                                <MenuItem value="Default">Default</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+
+                                </div>
+
+
+                            }
+                        </div>
                     </div>
 
-                    <div style={{marginTop:15}}>
+
+                    <div className="generalFields">
+
+
+                        <div style={{ marginTop: 15 }}>
                             {member != null &&
-                            <div>
-                     <Box style={{width:350}}>
-                <FormControl fullWidth>
-                  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Provider Coordinator</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={providerCoordinatorMemberTeam}
-                    label="Status"
-                    onChange={handleDropdownProviderCoordinatorMemberTeam}
-                  >
-                    <MenuItem value="Select">Select</MenuItem>
-                                        <MenuItem value="Default">Default</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-           
-                            </div>
-                                   
-                            
+
+
+                                <Box style={{ width: 350 }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }} >Office</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={officeMemberTeam}
+                                            label="Status"
+                                            onChange={handleOfficeMemberTeam}
+                                        >
+                                            <MenuItem value="Select">Select</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
                             }
-                       </div>
                         </div>
-                       
-                        
- <div className="generalFields">
 
 
- <div style={{marginTop:15}}>
-                            {member != null &&
-                               
 
-<Box style={{width:350}}>
-<FormControl fullWidth>
-  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >Office</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={officeMemberTeam}
-    label="Status"
-    onChange={handleOfficeMemberTeam}
-  >
-    <MenuItem value="Select">Select</MenuItem>
-  </Select>
-</FormControl>
-</Box>
-                            }
-                            </div>
-                      
 
-                             
-
-                                <Box style={{width:350,marginTop:15}}>
-<FormControl fullWidth>
-  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >Member Team</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={team}
-    onChange={(evt) => { setTeam(evt.target.value) }}
-  >
-      <MenuItem value="Unassigned">Unassigned</MenuItem>
+                        <Box style={{ width: 350, marginTop: 15 }}>
+                            <FormControl fullWidth>
+                                <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }} >Member Team</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={team}
+                                    onChange={(evt) => { setTeam(evt.target.value) }}
+                                >
+                                    <MenuItem value="Unassigned">Unassigned</MenuItem>
                                     <MenuItem value="Assigned">Assigned</MenuItem>
                                     <MenuItem value="Default">Default</MenuItem>
-  </Select>
-</FormControl>
-</Box>
-                            
-
-                      
-    </div>
-
-    <div className="generalFields">
-    <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Disable Automatic Visit Creation Based on EVV Confirmations: <span style={{ color: "#F2A007" }}>
-                               <Checkbox
-                                   checked={isCheckedEVVConfirmation}
-                                   onChange={handleCheckboxChangeEVVConfirmation}
-                               />
-                           </span></h2></div>
-
-                           <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}> Enable FOB Confirmation: <span style={{ color: "#F2A007" }}>
-                                <Checkbox
-                                    checked={isCheckedFOBConfirmation}
-                                    onChange={handleCheckboxChangeFOBConfirmation}
-                                />
-                            </span></h2></div>
-    </div>
+                                </Select>
+                            </FormControl>
+                        </Box>
 
 
-    <div className="generalFields">
 
-    <div style={{marginTop:15}}>
-    {member != null &&
-                               
+                    </div>
 
-<Box style={{width:350}}>
-<FormControl fullWidth>
-  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Location</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={officeMemberTeam}
-                                        onChange={handleOfficeMemberTeam}
-  >
-       <MenuItem value="Select">Select</MenuItem>
-  </Select>
-</FormControl>
-</Box>
+                    <div className="generalFields">
+                        <div style={{ margin: "5px", marginTop: 15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Disable Automatic Visit Creation Based on EVV Confirmations: <span style={{ color: "#F2A007" }}>
+                            <Checkbox
+                                checked={isCheckedEVVConfirmation}
+                                onChange={handleCheckboxChangeEVVConfirmation}
+                            />
+                        </span></h2></div>
+
+                        <div style={{ margin: "5px", marginTop: 15 }}><h2 style={{ color: "grey", fontSize: '15px' }}> Enable FOB Confirmation: <span style={{ color: "#F2A007" }}>
+                            <Checkbox
+                                checked={isCheckedFOBConfirmation}
+                                onChange={handleCheckboxChangeFOBConfirmation}
+                            />
+                        </span></h2></div>
+                    </div>
+
+
+                    <div className="generalFields">
+
+                        <div style={{ marginTop: 15 }}>
+                            {member != null &&
+
+
+                                <Box style={{ width: 350 }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Location</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={officeMemberTeam}
+                                            onChange={handleOfficeMemberTeam}
+                                        >
+                                            <MenuItem value="Select">Select</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
                             }
-      </div>
+                        </div>
 
 
 
 
-      <div style={{marginTop:15}}>
-      {member != null &&
-                             
+                        <div style={{ marginTop: 15 }}>
+                            {member != null &&
 
-<Box style={{width:350}}>
-<FormControl fullWidth>
-  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Branch</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={officeMemberTeam}
-    onChange={handleOfficeMemberTeam}
-  >
-      <MenuItem value="Select">Select</MenuItem>
-  </Select>
-</FormControl>
-</Box>
+
+                                <Box style={{ width: 350 }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Branch</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={officeMemberTeam}
+                                            onChange={handleOfficeMemberTeam}
+                                        >
+                                            <MenuItem value="Select">Select</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
                             }
-</div>
+                        </div>
 
-    </div>
+                    </div>
 
-    <div className="generalFields">
-<div>
-{member != null &&
-                                <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{member.EVVRequired}</span></h2></div>
+                    <div className="generalFields">
+                        <div>
+                            {member != null &&
+                                <div style={{ margin: "5px", marginTop: 15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>EVV Required: <span style={{ color: "#F2A007" }}>{member.EVVRequired}</span></h2></div>
                             }
-</div>
-<div>
+                        </div>
+                        <div>
 
                             {member != null &&
-                                <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{member.Mutual}</span></h2></div>
+                                <div style={{ margin: "5px", marginTop: 15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Mutual Case With: <span style={{ color: "#F2A007" }}>{member.Mutual}</span></h2></div>
                             }
-</div>
+                        </div>
 
-    </div>
+                    </div>
 
-    <div className="generalFields">
+                    <div className="generalFields">
 
-<div>
+                        <div>
 
-{member != null &&
-                                <div style={{ margin: "5px",marginTop:15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
+                            {member != null &&
+                                <div style={{ margin: "5px", marginTop: 15 }}><h2 style={{ color: "grey", fontSize: '15px' }}>Frequency: <span style={{ color: "#F2A007" }}>{""}</span></h2></div>
                             }
-</div>
+                        </div>
 
-                            <Box style={{width:350,marginTop:15}}>
-<FormControl fullWidth>
-  <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Source of Admission</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={sourceOfAdmission}
+                        <Box style={{ width: 350, marginTop: 15 }}>
+                            <FormControl fullWidth>
+                                <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Source of Admission</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={sourceOfAdmission}
                                     onChange={(evt) => { setSourceOfAdmission(evt.target.value) }}
-  >
-      <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
+                                >
+                                    <MenuItem value="Assistant Live-In Facilities">Assistant Live-In Facilities</MenuItem>
                                     <MenuItem value="CHHA">CHHA</MenuItem>
                                     <MenuItem value="Hospice">Hospice</MenuItem>
                                     <MenuItem value="Hospital">Hospital</MenuItem>
@@ -4053,23 +4048,14 @@ function MemberDetails() {
                                     <MenuItem value="Other Instiitution">Other Instiitution</MenuItem>
                                     <MenuItem value="Other Community/Agency">Other Community/Agency</MenuItem>
                                     <MenuItem value="Other">Other</MenuItem>
-  </Select>
-</FormControl>
-</Box>
+                                </Select>
+                            </FormControl>
+                        </Box>
 
 
-    </div>
+                    </div>
 
-   
-                  
-
-
-
-
-
-
-
-                    <div style={{ display: "flex", justifyContent: "center",marginTop:15 }}>
+                    <div style={{ display: "flex", justifyContent: "center", marginTop: 15 }}>
                         <Button className="EditButton" variant="outlined" onClick={() => {
                             updateMember(
                                 altMemberID,
@@ -4182,7 +4168,6 @@ function MemberDetails() {
 
 
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Provider Information</h1>
-                <div className="forPrinting">
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
                         rows={providerInfoList}
@@ -4192,33 +4177,9 @@ function MemberDetails() {
                         checkboxSelection={false}
                     />
                 </div>
-                </div>
-                
-                {/* <div className="printDiv"> 
-                        <div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
-                         
-                            <div style={{display:"flex",flexDirection:"column",alignContent:"center",alignItems:"center",justifyContent:"center"}}>
-                            <h1 style={{fontSize:15,color:"blue",textAlign:"center",backgroundColor:"black"}}>Placement ID</h1>
-                        
-                            <h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}>  {(getSelectedRowData2(selectedRowPrint2)).id}</h1>
-                        
-                        
-                            </div>
-                       
-<h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Provider Name </h1>  {(getSelectedRowData2(selectedRowPrint2)).providerName}</h1>
-<h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Coordinator Name </h1>{(getSelectedRowData2(selectedRowPrint2)).coordinatorName}</h1>
-<h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Start Of Care Date</h1>{(getSelectedRowData2(selectedRowPrint2)).startOfCareDate}</h1>
-<h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>First Visit Date</h1>{(getSelectedRowData2(selectedRowPrint2)).firstVisitDate}</h1>
 
- <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Discharged Date</h1>{(getSelectedRowData2(selectedRowPrint2)).dischargedDate}</h1>
-                       
-                        </div>
 
-                       
- </div> */}
-
-                <div className="forPrinting">
-                <h1 style={{ color: "#564873", textAlign: "center",marginTop:"1%" }}>Status History</h1>
+                <h1 style={{ color: "#564873", textAlign: "center" }}>Status History</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
                         rows={rowsStatusHistory}
@@ -4228,10 +4189,8 @@ function MemberDetails() {
                         checkboxSelection={false}
                     />
                 </div>
-                </div>
-                
 
-                <div className="forPrinting">
+
                 <h1 style={{ color: "#564873", textAlign: "center" }}>Notes</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
                     <DataGrid
@@ -4242,18 +4201,9 @@ function MemberDetails() {
                         checkboxSelection={false}
                     />
                 </div>
-                </div>
-
             </div>
         );
     };
-    const [selectedRowPrint2, setSelectedRowPrint2] = useState({ id: 0, providerName: "Placeholder",coordinatorName:"Hello",
-    startOfCareDate:"hello",firstVisitDate:"hello",dischargedDate:"hello"});
-    function getSelectedRowData2(idToFind) {
-        console.log(idToFind);
-        const foundData = providerInfoList.find(item => item.id === idToFind);
-        return foundData;
-      }
 
     const items = [
         { id: 'GPS', name: 'GPS' },
@@ -4545,9 +4495,9 @@ function MemberDetails() {
                 </div>
 
 
-              
+
                 <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '50px' }}>
-                <h1 style={{ color: "#564873", textAlign: "center",marginBottom:"5%" }}>Phone Number Information</h1>
+                    <h1 style={{ color: "#564873", textAlign: "center", marginBottom: "5%" }}>Phone Number Information</h1>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
                             {member != null &&
@@ -4767,9 +4717,9 @@ function MemberDetails() {
                 </div>
 
 
-               
-                <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '30px',marginBottom:"2%",marginTop:"1.5%" }}>
-                <h1 style={{ color: "#564873", textAlign: "center",marginBottom:"5%" }}>Emergency Contact Information</h1>
+
+                <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '30px', marginBottom: "2%", marginTop: "1.5%" }}>
+                    <h1 style={{ color: "#564873", textAlign: "center", marginBottom: "5%" }}>Emergency Contact Information</h1>
                     <Grid container spacing={2}>
                         <Grid className="DataHolderGrid">
                             {member != null &&
@@ -4910,7 +4860,7 @@ function MemberDetails() {
                     </Grid>
 
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                    <Button className="EditButton" variant="outlined" onClick={() => {
+                        <Button className="EditButton" variant="outlined" onClick={() => {
                             updateMember(
                                 altMemberID,
                                 branch,
@@ -5218,2388 +5168,2388 @@ function MemberDetails() {
         setSelectedToDateEMW(date);
     };
 
-    function handleCloseAddMasterWeek(){
-                setViewSelected(8);
-    }
-
-    const AddMasterWeekView = () => {
-return (
-
-<div>
-<div>
-<CloseIcon className="crossIcon" onClick={handleCloseAddMasterWeek} />
-<h1 style={{color:"grey",textAlign:"center"}}>ADD MASTER WEEK</h1>
-
-       <div className="FieldsHolderMaster">
-            <div style={{ margin: "5px" }}>
-                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker']}>
-                        <DatePicker
-                            label="From Date"
-                            value={fromDate}
-                            onChange={(newValue) => {
-                                setFromDate(newValue);
-                            }}
-                        />
-                    </DemoContainer>
-                </LocalizationProvider>
-            </div>
-       
-
-    
-       
-            <div style={{ margin: "5px" }}>
-                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker']}>
-                        <DatePicker
-                            label="To Date"
-                            value={toDate}
-                            onChange={(newValue) => {
-                                setToDate(newValue);
-                            }}
-                        />
-                    </DemoContainer>
-                </LocalizationProvider>
-            </div>
-
-            </div>
-     
-
-            <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-   
-    <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
-    <Grid container spacing={2}>
-     
-
-        <Grid className="DataHolderGrid">
-            <div style={{ margin: "5px" }}>
-                <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['TimePicker', 'TimePicker']}>
-                            <TimePicker
-                                label="Start Time"
-                                value={startTimeM}
-                                onChange={(newValue) => {
-                                    setStartTimeM(newValue);
-
-                                }}
-                            />
-                        </DemoContainer>
-                    </LocalizationProvider>
-                </div>
-            </div>
-
-            <div style={{ margin: "5px" }}>
-                <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['TimePicker', 'TimePicker']}>
-                            <TimePicker
-                                label="Start Time"
-                                value={endTimeM}
-                                onChange={(newValue) => {
-                                    setEndTimeM(newValue);
-                                    if (startTimeM != null) {
-                                        var val = dayjs(endTimeM);
-                                        var st = dayjs(startTimeM);
-                                        const diffInMinutes = val.diff(st, 'minute');
-                                        const hours = Math.floor(diffInMinutes / 60);
-                                        const minutes = diffInMinutes % 60;
-                                        setHoursM(hours);
-                                        setMinutesM(minutes)
-                                    }
-                                }}
-                            />
-                        </DemoContainer>
-                    </LocalizationProvider>
-                </div>
-            </div>
-        </Grid>
-
-
-       
-        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-            <div style={{ margin: "5px" }}>
-                <TextField
-                    id="outlined-basic"
-                    label="Care Giver Code"
-                    variant="outlined"
-                    value={careGiverCodeM}
-                    onChange={(evt) => { setCareGiverCodeM(evt.target.value) }}
-                />
-            </div>
-
-            <div style={{ margin: "5px" }}>
-                <TextField
-                    id="outlined-basic"
-                    label="Care Giver Name"
-                    variant="outlined"
-                    value={careGiverNameM}
-                    onChange={(evt) => { setCareGiverNameM(evt.target.value) }}
-                />
-            </div>
-        </Grid>
-
-       
-        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-            <div style={{ margin: "5px" }}>
-                <TextField
-                    id="outlined-basic"
-                    label="Ass. ID"
-                    variant="outlined"
-                    value={assIdM}
-                    onChange={(evt) => { setAssIdM(evt.target.value) }}
-                />
-            </div>
-        </Grid>
-
-
-     
-        <Grid className="DataHolderGrid" style={{marginTop: '0px'  }}>
-            <h4 style={{color:"grey"}}>POC</h4>
-            <div style={{ margin: "1px" }}>
-                <Select
-                    value={pocM}
-                    onChange={(evt) => { setPocM(evt.target.value) }}
-                >
-                    {pocIds.map((l, i) => (
-                        <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                    ))}
-                </Select>
-            </div>
-        </Grid>
-
-
-        
-        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-            <div style={{ margin: "5px" }}>
-                <TextField
-                    id="outlined-basic"
-                    label="Hours"
-                    variant="outlined"
-                    value={hoursM}
-                    onChange={(evt) => { setHoursM(evt.target.value) }}
-                />
-            </div>
-
-            <div style={{ margin: "5px" }}>
-                <TextField
-                    id="outlined-basic"
-                    label="Minutes"
-                    variant="outlined"
-                    value={minutesM}
-                    onChange={(evt) => { setMinutesM(evt.target.value) }}
-                />
-            </div>
-        </Grid>
-
-
-       
-        <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-        <h4 style={{color:"grey"}}>Services Code</h4>
-            <div style={{ margin: "0px" }}>
-                <Select
-                    value={serviceCodeM}
-                    onChange={(evt) => { setServiceCodeM(evt.target.value) }}
-                >
-                    {serviceCodes.map((l, i) => (
-                        <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                    ))}
-                </Select>
-            </div>
-        </Grid>
-
-
-        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-            <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-        </Grid>
-        <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-            <div style={{ margin: "5px" }}>
-                Hourly
-            </div>
-        </Grid>
-    </Grid>
-
-</div>
-
-
-
-
-
-
-
-<div>
-
-    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%"  }}>
-        <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
-        <Grid container spacing={2}>
-        
-
-
-
-            <Grid className="DataHolderGrid">
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={startTimeT}
-                                    onChange={(newValue) => {
-                                        setStartTimeT(newValue);
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={endTimeT}
-                                    onChange={(newValue) => {
-                                        setEndTimeT(newValue);
-                                        if (startTimeT != null) {
-                                            // const diffInMinutes = endTimeT.diff(startTimeT, 'minute');
-                                            // const diffInHours = endTimeT.diff(startTimeT, 'hour');
-                                            // setHoursT(diffInHours);
-                                            // setMinutesT(diffInMinutes)
-                                        }
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-            </Grid>
-
-
-            
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Code"
-                        value={careGiverCodeT}
-                        onChange={(evt) => { setCareGiverCodeT(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Name"
-                        value={careGiverNameT}
-                        onChange={(evt) => { setCareGiverNameT(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Ass. ID"
-                        value={assIdT}
-                        onChange={(evt) => { setAssIdT(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-            
-            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                <div style={{ margin: "0px" }}>
-                <h4 style={{color:"grey"}}>POC</h4>
-                    <Select
-                        value={pocT}
-                        onChange={(evt) => { setPocT(evt.target.value) }}
-                    >
-                        {pocIds.map((l, i) => (
-                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Hours"
-                        value={hoursT}
-                        onChange={(evt) => { setHoursT(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Minutes"
-                        value={minutesT}
-                        onChange={(evt) => { setMinutesT(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                <div style={{ margin: "0px" }}>
-                <h4 style={{color:"grey"}}>Services Code</h4>
-                    <Select
-                        value={serviceCodeT}
-                        onChange={(evt) => { setServiceCodeT(evt.target.value) }}
-                    >
-                        {serviceCodes.map((l, i) => (
-                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    Hourly
-                </div>
-            </Grid>
-        </Grid>
-
-    </div>
-    </div>
-   
-
-
-
-</div>
-
-
-<div>
-
-    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-        <h1 style={{ color: "#564873", textAlign: "center" }}>Wednesday</h1>
-        <Grid container spacing={2}>
-           
-
-
-            <Grid className="DataHolderGrid">
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={startTimeW}
-                                    onChange={(newValue) => {
-                                        setStartTimeW(newValue);
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={endTimeW}
-                                    onChange={(newValue) => {
-                                        setEndTimeW(newValue);
-                                        if (startTimeW != null) {
-                                            // const diffInMinutes = endTimeW.diff(startTimeW, 'minute');
-                                            // const diffInHours = endTimeW.diff(startTimeW, 'hour');
-                                            // setHoursW(diffInHours);
-                                            // setMinutesW(diffInMinutes)
-                                        }
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-            </Grid>
-
-
-          
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Code"
-                        value={careGiverCodeW}
-                        onChange={(evt) => { setCareGiverCodeW(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Name"
-                        value={careGiverNameW}
-                        onChange={(evt) => { setCareGiverNameW(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-            
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Ass. ID"
-                        value={assIdW}
-                        onChange={(evt) => { setAssIdW(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-            
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                <h4 style={{color:"grey"}}>POC</h4>
-                    <Select
-                        value={pocW}
-                        onChange={(evt) => { setPocW(evt.target.value) }}
-                    >
-                        {pocIds.map((l, i) => (
-                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Hours"
-                        value={hoursW}
-                        onChange={(evt) => { setHoursW(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Minutes"
-                        value={minutesW}
-                        onChange={(evt) => { setMinutesW(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                <h4 style={{color:"grey"}}>Services Code</h4>
-                    <Select
-                        value={serviceCodeW}
-                        onChange={(evt) => { setServiceCodeW(evt.target.value) }}
-                    >
-                        {serviceCodes.map((l, i) => (
-                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    Hourly
-                </div>
-            </Grid>
-        </Grid>
-
-    </div>
-</div>
-
-
-<div>
-
-    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%"}}>
-        <h1 style={{ color: "#564873", textAlign: "center" }}>Thursday</h1>
-        <Grid container spacing={2}>
-           
-
-            <Grid className="DataHolderGrid">
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={startTimeTH}
-                                    onChange={(newValue) => {
-                                        setStartTimeTH(newValue);
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={endTimeTH}
-                                    onChange={(newValue) => {
-                                        setEndTimeTH(newValue);
-                                        if (startTimeTH != null) {
-                                            // const diffInMinutes = endTimeTH.diff(startTimeTH, 'minute');
-                                            // const diffInHours = endTimeTH.diff(startTimeTH, 'hour');
-                                            // setHoursTH(diffInHours);
-                                            // setMinutesTH(diffInMinutes)
-                                        }
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Code"
-                        value={careGiverCodeTH}
-                        onChange={(evt) => { setCareGiverCodeTH(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Name"
-                        value={careGiverNameTH}
-                        onChange={(evt) => { setCareGiverNameTH(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Ass. ID"
-                        value={assIdTH}
-                        onChange={(evt) => { setAssIdTH(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                <div style={{ margin: "0px" }}>
-                <h4 style={{color:"grey"}}>POC</h4>
-                    <Select
-                        value={pocTH}
-                        onChange={(evt) => { setPocTH(evt.target.value) }}
-                    >{pocIds.map((l, i) => (
-                        <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                    ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-            
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Hours"
-                        value={hoursTH}
-                        onChange={(evt) => { setHoursTH(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Minutes"
-                        value={minutesTH}
-                        onChange={(evt) => { setMinutesTH(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-            
-            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                <div style={{ margin: "0px" }}>
-                <h4 style={{color:"grey"}}>Services Code</h4>
-                    <Select
-                        value={serviceCodeTH}
-                        onChange={(evt) => { setServiceCodeTH(evt.target.value) }}
-                    >
-                        {serviceCodes.map((l, i) => (
-                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    Hourly
-                </div>
-            </Grid>
-        </Grid>
-
-    </div>
-</div>
-
-<div>
-
-    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-        <h1 style={{ color: "#564873", textAlign: "center" }}>Friday</h1>
-        <Grid container spacing={2}>
-           
-
-
-            <Grid className="DataHolderGrid">
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={startTimeF}
-                                    onChange={(newValue) => {
-                                        setStartTimeF(newValue);
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={endTimeF}
-                                    onChange={(newValue) => {
-                                        setEndTimeF(newValue);
-                                        if (startTimeF != null) {
-                                            // const diffInMinutes = endTimeF.diff(startTimeF, 'minute');
-                                            // const diffInHours = endTimeF.diff(startTimeF, 'hour');
-                                            // setHoursF(diffInHours);
-                                            // setMinutesF(diffInMinutes)
-                                        }
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-            </Grid>
-
-
-            
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        className="field"
-                        id="outlined-basic"
-                        label="Select Care Giver"
-                        value={careGiverCodeME}
-                        InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
-                    >
-                    </TextField>
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Name"
-                        value={careGiverNameF}
-                        onChange={(evt) => { setCareGiverNameF(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Ass. ID"
-                        value={assIdF}
-                        onChange={(evt) => { setAssIdF(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                <div style={{ margin: "0px" }}>
-                <h4 style={{color:"grey"}}>POC</h4>
-                    <Select
-                        value={pocF}
-                        onChange={(evt) => { setPocF(evt.target.value) }}
-                    >
-                        {pocIds.map((l, i) => (
-                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-            
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Hours"
-                        value={hoursF}
-                        onChange={(evt) => { setHoursF(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Minutes"
-                        value={minutesF}
-                        onChange={(evt) => { setMinutesF(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                <h4 style={{color:"grey"}}>Services Code</h4>
-                    <Select
-                        value={serviceCodeF}
-                        onChange={(evt) => { setServiceCodeF(evt.target.value) }}
-                    >
-                        {serviceCodes.map((l, i) => (
-                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    Hourly
-                </div>
-            </Grid>
-        </Grid>
-
-    </div>
-</div>
-
-<div>
-
-    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-        <h1 style={{ color: "#564873", textAlign: "center" }}>Saturday</h1>
-        <Grid container spacing={2}>
-            
-
-
-            <Grid className="DataHolderGrid">
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={startTimeST}
-                                    onChange={(newValue) => {
-                                        setStartTimeST(newValue);
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={endTimeST}
-                                    onChange={(newValue) => {
-                                        setEndTimeST(newValue);
-                                        if (startTimeST != null) {
-                                            // const diffInMinutes = endTimeST.diff(startTimeST, 'minute');
-                                            // const diffInHours = endTimeST.diff(startTimeST, 'hour');
-                                            // setHoursST(diffInHours);
-                                            // setMinutesST(diffInMinutes)
-                                        }
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-            </Grid>
-
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Code"
-                        value={careGiverCodeST}
-                        onChange={(evt) => { setCareGiverCodeST(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Name"
-                        value={careGiverNameST}
-                        onChange={(evt) => { setCareGiverNameST(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Ass. ID"
-                        value={assIdST}
-                        onChange={(evt) => { setAssIdST(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                <div style={{ margin: "0px" }}>
-                <h4 style={{color:"grey"}}>POC</h4>
-                    <Select
-                        value={pocST}
-                        onChange={(evt) => { setPocST(evt.target.value) }}
-                    >
-                        {pocIds.map((l, i) => (
-                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Hours"
-                        value={hoursST}
-                        onChange={(evt) => { setHoursST(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Minutes"
-                        value={minutesST}
-                        onChange={(evt) => { setMinutesST(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-         
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                <h4 style={{color:"grey"}}>Services Code</h4>
-                    <Select
-                        value={serviceCodeST}
-                        onChange={(evt) => { setServiceCodeST(evt.target.value) }}
-                    >
-                        {serviceCodes.map((l, i) => (
-                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    Hourly
-                </div>
-            </Grid>
-        </Grid>
-
-    </div>
-</div>
-
-
-<div>
-
-    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-        <h1 style={{ color: "#564873", textAlign: "center" }}>Sunday</h1>
-        <Grid container spacing={2}>
-           
-
-
-            <Grid className="DataHolderGrid">
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={startTimeSU}
-                                    onChange={(newValue) => {
-                                        setStartTimeSU(newValue);
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                <TimePicker
-                                    label="Start Time"
-                                    value={endTimeSU}
-                                    onChange={(newValue) => {
-                                        setEndTimeSU(newValue);
-                                        if (startTimeSU != null) {
-                                            // const diffInMinutes = endTimeSU.diff(startTimeSU, 'minute');
-                                            // const diffInHours = endTimeSU.diff(startTimeSU, 'hour');
-                                            // setHoursSU(diffInHours);
-                                            // setMinutesSU(diffInMinutes)
-                                        }
-                                    }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-            </Grid>
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Code"
-                        value={careGiverCodeSU}
-                        onChange={(evt) => { setCareGiverCodeSU(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Care Giver Name"
-                        value={careGiverNameSU}
-                        onChange={(evt) => { setCareGiverNameSU(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Ass. ID"
-                        value={assIdSU}
-                        onChange={(evt) => { setAssIdSU(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                <div style={{ margin: "0px" }}>
-                <h4 style={{color:"grey"}}>POC</h4>
-                    <Select
-                        value={pocSU}
-                        onChange={(evt) => { setPocSU(evt.target.value) }}
-                    >
-                        {pocIds.map((l, i) => (
-                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-         
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Hours"
-                        value={hoursSU}
-                        onChange={(evt) => { setHoursSU(evt.target.value) }}
-                    />
-                </div>
-
-                <div style={{ margin: "5px" }}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Minutes"
-                        value={minutesSU}
-                        onChange={(evt) => { setMinutesSU(evt.target.value) }}
-                    />
-                </div>
-            </Grid>
-
-
-           
-            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                <div style={{ margin: "0px" }}>
-                <h4 style={{color:"grey"}}>Services Code</h4>
-                    <Select
-                        value={serviceCodeSU}
-                        onChange={(evt) => { setServiceCodeSU(evt.target.value) }}
-                    >
-                        {serviceCodes.map((l, i) => (
-                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
-            </Grid>
-
-
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-            </Grid>
-            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                <div style={{ margin: "5px" }}>
-                    Hourly
-                </div>
-            </Grid>
-        </Grid>
-
-    </div>
-</div>
-
-
-<div style={{ display: "flex", justifyContent: "center", marginTop: '20px', padding: '10px' }}>
-    <Button className="EditButton" variant="outlined"
-        onClick={() => {
-            addMasterWeek(
-                memberId,
-                fromDate,
-                toDate,
-
-                startTimeM,
-                endTimeM,
-                careGiverCodeM,
-                assIdM,
-                pocM,
-                hoursM,
-                minutesM,
-                secondsM,
-                serviceCodeM,
-                modeM,
-
-                startTimeT,
-                endTimeT,
-                careGiverCodeT,
-                assIdT,
-                pocT,
-                hoursT,
-                minutesT,
-                secondsT,
-                serviceCodeT,
-                modeT,
-
-                startTimeW,
-                endTimeW,
-                careGiverCodeW,
-                assIdW,
-                pocW,
-                hoursW,
-                minutesW,
-                secondsW,
-                serviceCodeW,
-                modeW,
-
-                startTimeTH,
-                endTimeTH,
-                careGiverCodeTH,
-                assIdTH,
-                pocTH,
-                hoursTH,
-                minutesTH,
-                secondsTH,
-                serviceCodeTH,
-                modeTH,
-
-                startTimeF,
-                endTimeF,
-                careGiverCodeF,
-                assIdF,
-                pocF,
-                hoursF,
-                minutesF,
-                secondsF,
-                serviceCodeF,
-                modeF,
-
-                startTimeST,
-                endTimeST,
-                careGiverCodeST,
-                assIdST,
-                pocST,
-                hoursST,
-                minutesST,
-                secondsST,
-                serviceCodeST,
-                modeST,
-
-                startTimeSU,
-                endTimeSU,
-                careGiverCodeSU,
-                assIdSU,
-                pocSU,
-                hoursSU,
-                minutesSU,
-                secondsSU,
-                serviceCodeSU,
-                modeSU,
-
-            ).then(res => {
-                if (res.data.result == "success") {
-                    showToastMessage();
-                }
-            });
-        }}
-    >
-        Create New Master Week
-    </Button>
-</div>
-
-
-</div>
-)
-    }
-
-    function handleCloseEditMasterWeek (){
+    function handleCloseAddMasterWeek() {
         setViewSelected(8);
     }
 
-    const EditMasterWeekView = () =>{
+    const AddMasterWeekView = () => {
         return (
-            
 
-                                    //
-
-
-                                    <div>
-                                           <CloseIcon className="crossIcon" onClick={handleCloseEditMasterWeek} />
-                                         <h1 style={{color:"grey",textAlign:"center"}}>Edit Master Week</h1>
-                                <div>
-
-                                <div className="FieldsHolderMaster">
-                                            <div style={{ margin: "5px" }}>
-                                                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
-                                                    <DemoContainer components={['DatePicker']}>
-                                                        <DatePicker
-                                                            label="From Date"
-                                                            value={fromDate}
-                                                            onChange={(newValue) => {
-                                                                setFromDate(newValue);
-                                                            }}
-                                                        />
-                                                    </DemoContainer>
-                                                </LocalizationProvider>
-                                            </div>
-                                       
-
-                                    
-                                       
-                                            <div style={{ margin: "5px" }}>
-                                                <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
-                                                    <DemoContainer components={['DatePicker']}>
-                                                        <DatePicker
-                                                            label="To Date"
-                                                            value={toDate}
-                                                            onChange={(newValue) => {
-                                                                setToDate(newValue);
-                                                            }}
-                                                        />
-                                                    </DemoContainer>
-                                                </LocalizationProvider>
-                                            </div>
-
-                                            </div>
-
-                                    </div>
-
-                                <div>
-                                <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-                                       
-                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
-                                        <Grid container spacing={2}>
-                                           
-
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={startTimeME}
-                                                                    onChange={(newValue) => {
-                                                                        setStartTimeME(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={endTimeME}
-                                                                    onChange={(newValue) => {
-                                                                        setEndTimeME(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        className="field"
-                                                        id="outlined-basic"
-                                                        label="Select Care Giver"
-                                                        value={careGiverCodeME}
-                                                        InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
-                                                    >
-                                                    </TextField>
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Name"
-                                                        variant="outlined"
-                                                        value={careGiverNameME}
-                                                        onChange={(evt) => { setCareGiverNameME(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-                                            
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Ass. ID"
-                                                        variant="outlined"
-                                                        value={assIdME}
-                                                        onChange={(evt) => { setAssIdME(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>POC</h4>
-                                                    <Select
-                                                        value={pocME}
-                                                        onChange={(evt) => { setPocME(evt.target.value) }}
-                                                    >
-                                                        {pocIds.map((l, i) => (
-                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Hours"
-                                                        variant="outlined"
-                                                        value={hoursME}
-                                                        onChange={(evt) => { setHoursME(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Minutes"
-                                                        variant="outlined"
-                                                        value={minutesME}
-                                                        onChange={(evt) => { setMinutesME(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>Services Code</h4>
-                                                    <Select
-                                                        value={serviceCodeME}
-                                                        onChange={(evt) => { setServiceCodeME(evt.target.value) }}
-                                                    >
-                                                        {serviceCodes.map((l, i) => (
-                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    Hourly
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-
-                                    </div>
-
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%"}}>
-                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
-                                        <Grid container spacing={2}>
-                                           
-
-
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={startTimeTE}
-                                                                    onChange={(newValue) => {
-                                                                        setStartTimeTE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={endTimeTE}
-                                                                    onChange={(newValue) => {
-                                                                        setEndTimeTE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-                                            </Grid>
-
-
-                                          
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Code"
-                                                        value={careGiverCodeTE}
-                                                        onChange={(evt) => { setCareGiverCodeTE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Name"
-                                                        value={careGiverNameTE}
-                                                        onChange={(evt) => { setCareGiverNameTE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Ass. ID"
-                                                        value={assIdTE}
-                                                        onChange={(evt) => { setAssIdTE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>POC</h4>
-                                                    <Select
-                                                        value={pocTE}
-                                                        onChange={(evt) => { setPocTE(evt.target.value) }}
-                                                    >
-                                                        {pocIds.map((l, i) => (
-                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Hours"
-                                                        value={hoursTE}
-                                                        onChange={(evt) => { setHoursTE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Minutes"
-                                                        value={minutesTE}
-                                                        onChange={(evt) => { setMinutesTE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>Services Code</h4>
-                                                    <Select
-                                                        value={serviceCodeTE}
-                                                        onChange={(evt) => { setServiceCodeTE(evt.target.value) }}
-                                                    >
-                                                        {serviceCodes.map((l, i) => (
-                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    Hourly
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-
-                                    </div>
-                                </div>
-
-
-                                <div>
-
-                                    <div style={{border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%"}}>
-                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Wednesday</h1>
-                                        <Grid container spacing={2}>
-                                            
-
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={startTimeWE}
-                                                                    onChange={(newValue) => {
-                                                                        setStartTimeWE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={endTimeWE}
-                                                                    onChange={(newValue) => {
-                                                                        setEndTimeWE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Code"
-                                                        value={careGiverCodeWE}
-                                                        onChange={(evt) => { setCareGiverCodeWE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Name"
-                                                        value={careGiverNameWE}
-                                                        onChange={(evt) => { setCareGiverNameWE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-                                         
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Ass. ID"
-                                                        value={assIdWE}
-                                                        onChange={(evt) => { setAssIdWE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                            
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>POC</h4>
-                                                    <Select
-                                                        value={pocWE}
-                                                        onChange={(evt) => { setPocWE(evt.target.value) }}
-                                                    >
-                                                        {pocIds.map((l, i) => (
-                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Hours"
-                                                        value={hoursWE}
-                                                        onChange={(evt) => { setHoursWE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Minutes"
-                                                        value={minutesWE}
-                                                        onChange={(evt) => { setMinutesWE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                            
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>Services Code</h4>
-                                                    <Select
-                                                        value={serviceCodeWE}
-                                                        onChange={(evt) => { setServiceCodeWE(evt.target.value) }}
-                                                    >
-                                                        {serviceCodes.map((l, i) => (
-                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    Hourly
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-
-                                    </div>
-                                </div>
-
-
-                                <div>
-
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Thursday</h1>
-                                        <Grid container spacing={2}>
-                                           
-
-
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={startTimeTHE}
-                                                                    onChange={(newValue) => {
-                                                                        setStartTimeTHE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={endTimeTHE}
-                                                                    onChange={(newValue) => {
-                                                                        setEndTimeTHE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Code"
-                                                        value={careGiverCodeTHE}
-                                                        onChange={(evt) => { setCareGiverCodeTH(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Name"
-                                                        value={careGiverNameTHE}
-                                                        onChange={(evt) => { setCareGiverNameTHE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-                                          
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Ass. ID"
-                                                        value={assIdTHE}
-                                                        onChange={(evt) => { setAssIdTHE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                            
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>POC</h4>
-                                                    <Select
-                                                        value={pocTHE}
-                                                        onChange={(evt) => { setPocTHE(evt.target.value) }}
-                                                    >{pocIds.map((l, i) => (
-                                                        <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                                                    ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Hours"
-                                                        value={hoursTHE}
-                                                        onChange={(evt) => { setHoursTHE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Minutes"
-                                                        value={minutesTHE}
-                                                        onChange={(evt) => { setMinutesTHE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                         
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>Services Code</h4>
-                                                    <Select
-                                                        value={serviceCodeTHE}
-                                                        onChange={(evt) => { setServiceCodeTHE(evt.target.value) }}
-                                                    >
-                                                        {serviceCodes.map((l, i) => (
-                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    Hourly
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-
-                                    </div>
-                                </div>
-
-                                <div>
-
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Friday</h1>
-                                        <Grid container spacing={2}>
-                                          
-
-
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={startTimeFE}
-                                                                    onChange={(newValue) => {
-                                                                        setStartTimeFE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={endTimeFE}
-                                                                    onChange={(newValue) => {
-                                                                        setEndTimeFE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Code"
-                                                        value={careGiverCodeFE}
-                                                        onChange={(evt) => { setCareGiverCodeFE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Name"
-                                                        value={careGiverNameFE}
-                                                        onChange={(evt) => { setCareGiverNameFE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-                                        
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Ass. ID"
-                                                        value={assIdFE}
-                                                        onChange={(evt) => { setAssIdFE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                            
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>POC</h4>
-                                                    <Select
-                                                        value={pocFE}
-                                                        onChange={(evt) => { setPocFE(evt.target.value) }}
-                                                    >
-                                                        {pocIds.map((l, i) => (
-                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                          
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Hours"
-                                                        value={hoursFE}
-                                                        onChange={(evt) => { setHoursFE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Minutes"
-                                                        value={minutesFE}
-                                                        onChange={(evt) => { setMinutesFE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>Services Code</h4>
-                                                    <Select
-                                                        value={serviceCodeFE}
-                                                        onChange={(evt) => { setServiceCodeFE(evt.target.value) }}
-                                                    >
-                                                        {serviceCodes.map((l, i) => (
-                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    Hourly
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-
-                                    </div>
-                                </div>
-
-                                <div>
-
-                                    <div style={{border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Saturday</h1>
-                                        <Grid container spacing={2}>
-                                           
-
-
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={startTimeSTE}
-                                                                    onChange={(newValue) => {
-                                                                        setStartTimeSTE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={endTimeSTE}
-                                                                    onChange={(newValue) => {
-                                                                        setEndTimeSTE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-                                            </Grid>
-
-
-                                            
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Code"
-                                                        value={careGiverCodeSTE}
-                                                        onChange={(evt) => { setCareGiverCodeSTE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Name"
-                                                        value={careGiverNameSTE}
-                                                        onChange={(evt) => { setCareGiverNameSTE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Ass. ID"
-                                                        value={assIdSTE}
-                                                        onChange={(evt) => { setAssIdSTE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>POC</h4>
-                                                    <Select
-                                                        value={pocSTE}
-                                                        onChange={(evt) => { setPocSTE(evt.target.value) }}
-                                                    >
-                                                        {pocIds.map((l, i) => (
-                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Hours"
-                                                        value={hoursSTE}
-                                                        onChange={(evt) => { setHoursSTE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Minutes"
-                                                        value={minutesSTE}
-                                                        onChange={(evt) => { setMinutesSTE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                          
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>Services Code</h4>
-                                                    <Select
-                                                        value={serviceCodeSTE}
-                                                        onChange={(evt) => { setServiceCodeSTE(evt.target.value) }}
-                                                    >
-                                                        {serviceCodes.map((l, i) => (
-                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    Hourly
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-
-                                    </div>
-                                </div>
-
-
-                                <div>
-
-                                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px',margin:"2%",width:"90%" }}>
-                                        <h1 style={{ color: "#564873", textAlign: "center" }}>Sunday</h1>
-                                        <Grid container spacing={2}>
-                                           
-
-
-                                            <Grid className="DataHolderGrid">
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={startTimeSUE}
-                                                                    onChange={(newValue) => {
-                                                                        setStartTimeSUE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
-                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
-                                                                <TimePicker
-                                                                    label="Start Time"
-                                                                    value={endTimeSUE}
-                                                                    onChange={(newValue) => {
-                                                                        setEndTimeSUE(newValue);
-                                                                    }}
-                                                                />
-                                                            </DemoContainer>
-                                                        </LocalizationProvider>
-                                                    </div>
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Code"
-                                                        value={careGiverCodeSUE}
-                                                        onChange={(evt) => { setCareGiverCodeSUE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Care Giver Name"
-                                                        value={careGiverNameSUE}
-                                                        onChange={(evt) => { setCareGiverNameSUE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Ass. ID"
-                                                        value={assIdSUE}
-                                                        onChange={(evt) => { setAssIdSUE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                          
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>POC</h4>
-                                                    <Select
-                                                        value={pocSUE}
-                                                        onChange={(evt) => { setPocSUE(evt.target.value) }}
-                                                    >
-                                                        {pocIds.map((l, i) => (
-                                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                        
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Hours"
-                                                        value={hoursSUE}
-                                                        onChange={(evt) => { setHoursSUE(evt.target.value) }}
-                                                    />
-                                                </div>
-
-                                                <div style={{ margin: "5px" }}>
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Minutes"
-                                                        value={minutesSUE}
-                                                        onChange={(evt) => { setMinutesSUE(evt.target.value) }}
-                                                    />
-                                                </div>
-                                            </Grid>
-
-
-                                           
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
-                                                <div style={{ margin: "0px" }}>
-                                                <h4 style={{color:"grey"}}>Services Code</h4>
-                                                    <Select
-                                                        value={serviceCodeSUE}
-                                                        onChange={(evt) => { setServiceCodeSUE(evt.target.value) }}
-                                                    >
-                                                        {serviceCodes.map((l, i) => (
-                                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </Grid>
-
-
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
-                                            </Grid>
-                                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
-                                                <div style={{ margin: "5px" }}>
-                                                    Hourly
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-
-                                    </div>
-                                </div>
-
-
-                                <div style={{ display: "flex", justifyContent: "center", marginTop: '20px', padding: '10px' }}>
-                                    <Button className="EditButton" variant="outlined"
-                                        onClick={() => {
-                                            editMasterWeek(
-                                                //masterWeekID
-                                                memberId,
-                                                fromDate,
-                                                toDate,
-
-                                                startTimeM,
-                                                endTimeM,
-                                                careGiverCodeM,
-                                                assIdM,
-                                                pocM,
-                                                hoursM,
-                                                minutesM,
-                                                secondsM,
-                                                serviceCodeM,
-                                                modeM,
-
-                                                startTimeT,
-                                                endTimeT,
-                                                careGiverCodeT,
-                                                assIdT,
-                                                pocT,
-                                                hoursT,
-                                                minutesT,
-                                                secondsT,
-                                                serviceCodeT,
-                                                modeT,
-
-                                                startTimeW,
-                                                endTimeW,
-                                                careGiverCodeW,
-                                                assIdW,
-                                                pocW,
-                                                hoursW,
-                                                minutesW,
-                                                secondsW,
-                                                serviceCodeW,
-                                                modeW,
-
-                                                startTimeTH,
-                                                endTimeTH,
-                                                careGiverCodeTH,
-                                                assIdTH,
-                                                pocTH,
-                                                hoursTH,
-                                                minutesTH,
-                                                secondsTH,
-                                                serviceCodeTH,
-                                                modeTH,
-
-                                                startTimeF,
-                                                endTimeF,
-                                                careGiverCodeF,
-                                                assIdF,
-                                                pocF,
-                                                hoursF,
-                                                minutesF,
-                                                secondsF,
-                                                serviceCodeF,
-                                                modeF,
-
-                                                startTimeST,
-                                                endTimeST,
-                                                careGiverCodeST,
-                                                assIdST,
-                                                pocST,
-                                                hoursST,
-                                                minutesST,
-                                                secondsST,
-                                                serviceCodeST,
-                                                modeST,
-
-                                                startTimeSU,
-                                                endTimeSU,
-                                                careGiverCodeSU,
-                                                assIdSU,
-                                                pocSU,
-                                                hoursSU,
-                                                minutesSU,
-                                                secondsSU,
-                                                serviceCodeSU,
-                                                modeSU,
-
-                                            ).then(res => {
-                                                if (res.data.result == "success") {
-                                                    showToastMessage();
-                                                }
-                                            });
+            <div>
+                <div>
+                    <CloseIcon className="crossIcon" onClick={handleCloseAddMasterWeek} />
+                    <h1 style={{ color: "grey", textAlign: "center" }}>ADD MASTER WEEK</h1>
+
+                    <div className="FieldsHolderMaster">
+                        <div style={{ margin: "5px" }}>
+                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="From Date"
+                                        value={fromDate}
+                                        onChange={(newValue) => {
+                                            setFromDate(newValue);
                                         }}
-                                    >
-                                        Save Changes in Master Week
-                                    </Button>
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+
+
+
+
+                        <div style={{ margin: "5px" }}>
+                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="To Date"
+                                        value={toDate}
+                                        onChange={(newValue) => {
+                                            setToDate(newValue);
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+
+                    </div>
+
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
+                        <Grid container spacing={2}>
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeM}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeM(newValue);
+
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
                                 </div>
 
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeM}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeM(newValue);
+                                                        if (startTimeM != null) {
+                                                            var val = dayjs(endTimeM);
+                                                            var st = dayjs(startTimeM);
+                                                            const diffInMinutes = val.diff(st, 'minute');
+                                                            const hours = Math.floor(diffInMinutes / 60);
+                                                            const minutes = diffInMinutes % 60;
+                                                            setHoursM(hours);
+                                                            setMinutesM(minutes)
+                                                        }
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
 
-                            </div>
-                                
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        variant="outlined"
+                                        value={careGiverCodeM}
+                                        onChange={(evt) => { setCareGiverCodeM(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        variant="outlined"
+                                        value={careGiverNameM}
+                                        onChange={(evt) => { setCareGiverNameM(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        variant="outlined"
+                                        value={assIdM}
+                                        onChange={(evt) => { setAssIdM(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <h4 style={{ color: "grey" }}>POC</h4>
+                                <div style={{ margin: "1px" }}>
+                                    <Select
+                                        value={pocM}
+                                        onChange={(evt) => { setPocM(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        variant="outlined"
+                                        value={hoursM}
+                                        onChange={(evt) => { setHoursM(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        variant="outlined"
+                                        value={minutesM}
+                                        onChange={(evt) => { setMinutesM(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <h4 style={{ color: "grey" }}>Services Code</h4>
+                                <div style={{ margin: "0px" }}>
+                                    <Select
+                                        value={serviceCodeM}
+                                        onChange={(evt) => { setServiceCodeM(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+
+
+
+
+
+
+
+                    <div>
+
+                        <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                            <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
+                            <Grid container spacing={2}>
+
+
+
+
+                                <Grid className="DataHolderGrid">
+                                    <div style={{ margin: "5px" }}>
+                                        <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                    <TimePicker
+                                                        label="Start Time"
+                                                        value={startTimeT}
+                                                        onChange={(newValue) => {
+                                                            setStartTimeT(newValue);
+                                                        }}
+                                                    />
+                                                </DemoContainer>
+                                            </LocalizationProvider>
+                                        </div>
+                                    </div>
+
+                                    <div style={{ margin: "5px" }}>
+                                        <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                    <TimePicker
+                                                        label="Start Time"
+                                                        value={endTimeT}
+                                                        onChange={(newValue) => {
+                                                            setEndTimeT(newValue);
+                                                            if (startTimeT != null) {
+                                                                // const diffInMinutes = endTimeT.diff(startTimeT, 'minute');
+                                                                // const diffInHours = endTimeT.diff(startTimeT, 'hour');
+                                                                // setHoursT(diffInHours);
+                                                                // setMinutesT(diffInMinutes)
+                                                            }
+                                                        }}
+                                                    />
+                                                </DemoContainer>
+                                            </LocalizationProvider>
+                                        </div>
+                                    </div>
+                                </Grid>
+
+
+
+                                <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                    <div style={{ margin: "5px" }}>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Care Giver Code"
+                                            value={careGiverCodeT}
+                                            onChange={(evt) => { setCareGiverCodeT(evt.target.value) }}
+                                        />
+                                    </div>
+
+                                    <div style={{ margin: "5px" }}>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Care Giver Name"
+                                            value={careGiverNameT}
+                                            onChange={(evt) => { setCareGiverNameT(evt.target.value) }}
+                                        />
+                                    </div>
+                                </Grid>
+
+
+                                <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                    <div style={{ margin: "5px" }}>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Ass. ID"
+                                            value={assIdT}
+                                            onChange={(evt) => { setAssIdT(evt.target.value) }}
+                                        />
+                                    </div>
+                                </Grid>
+
+
+
+                                <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                    <div style={{ margin: "0px" }}>
+                                        <h4 style={{ color: "grey" }}>POC</h4>
+                                        <Select
+                                            value={pocT}
+                                            onChange={(evt) => { setPocT(evt.target.value) }}
+                                        >
+                                            {pocIds.map((l, i) => (
+                                                <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </div>
+                                </Grid>
+
+
+
+                                <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                    <div style={{ margin: "5px" }}>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Hours"
+                                            value={hoursT}
+                                            onChange={(evt) => { setHoursT(evt.target.value) }}
+                                        />
+                                    </div>
+
+                                    <div style={{ margin: "5px" }}>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Minutes"
+                                            value={minutesT}
+                                            onChange={(evt) => { setMinutesT(evt.target.value) }}
+                                        />
+                                    </div>
+                                </Grid>
+
+
+
+                                <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                    <div style={{ margin: "0px" }}>
+                                        <h4 style={{ color: "grey" }}>Services Code</h4>
+                                        <Select
+                                            value={serviceCodeT}
+                                            onChange={(evt) => { setServiceCodeT(evt.target.value) }}
+                                        >
+                                            {serviceCodes.map((l, i) => (
+                                                <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </div>
+                                </Grid>
+
+
+                                <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                    <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                                </Grid>
+                                <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                    <div style={{ margin: "5px" }}>
+                                        Hourly
+                                    </div>
+                                </Grid>
+                            </Grid>
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Wednesday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeW}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeW(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeW}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeW(newValue);
+                                                        if (startTimeW != null) {
+                                                            // const diffInMinutes = endTimeW.diff(startTimeW, 'minute');
+                                                            // const diffInHours = endTimeW.diff(startTimeW, 'hour');
+                                                            // setHoursW(diffInHours);
+                                                            // setMinutesW(diffInMinutes)
+                                                        }
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeW}
+                                        onChange={(evt) => { setCareGiverCodeW(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameW}
+                                        onChange={(evt) => { setCareGiverNameW(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdW}
+                                        onChange={(evt) => { setAssIdW(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocW}
+                                        onChange={(evt) => { setPocW(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursW}
+                                        onChange={(evt) => { setHoursW(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesW}
+                                        onChange={(evt) => { setMinutesW(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeW}
+                                        onChange={(evt) => { setServiceCodeW(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Thursday</h1>
+                        <Grid container spacing={2}>
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeTH}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeTH(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeTH}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeTH(newValue);
+                                                        if (startTimeTH != null) {
+                                                            // const diffInMinutes = endTimeTH.diff(startTimeTH, 'minute');
+                                                            // const diffInHours = endTimeTH.diff(startTimeTH, 'hour');
+                                                            // setHoursTH(diffInHours);
+                                                            // setMinutesTH(diffInMinutes)
+                                                        }
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeTH}
+                                        onChange={(evt) => { setCareGiverCodeTH(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameTH}
+                                        onChange={(evt) => { setCareGiverNameTH(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdTH}
+                                        onChange={(evt) => { setAssIdTH(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocTH}
+                                        onChange={(evt) => { setPocTH(evt.target.value) }}
+                                    >{pocIds.map((l, i) => (
+                                        <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                    ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursTH}
+                                        onChange={(evt) => { setHoursTH(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesTH}
+                                        onChange={(evt) => { setMinutesTH(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeTH}
+                                        onChange={(evt) => { setServiceCodeTH(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Friday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeF}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeF(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeF}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeF(newValue);
+                                                        if (startTimeF != null) {
+                                                            // const diffInMinutes = endTimeF.diff(startTimeF, 'minute');
+                                                            // const diffInHours = endTimeF.diff(startTimeF, 'hour');
+                                                            // setHoursF(diffInHours);
+                                                            // setMinutesF(diffInMinutes)
+                                                        }
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        className="field"
+                                        id="outlined-basic"
+                                        label="Select Care Giver"
+                                        value={careGiverCodeME}
+                                        InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
+                                    >
+                                    </TextField>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameF}
+                                        onChange={(evt) => { setCareGiverNameF(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdF}
+                                        onChange={(evt) => { setAssIdF(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocF}
+                                        onChange={(evt) => { setPocF(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursF}
+                                        onChange={(evt) => { setHoursF(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesF}
+                                        onChange={(evt) => { setMinutesF(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeF}
+                                        onChange={(evt) => { setServiceCodeF(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Saturday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeST}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeST(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeST}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeST(newValue);
+                                                        if (startTimeST != null) {
+                                                            // const diffInMinutes = endTimeST.diff(startTimeST, 'minute');
+                                                            // const diffInHours = endTimeST.diff(startTimeST, 'hour');
+                                                            // setHoursST(diffInHours);
+                                                            // setMinutesST(diffInMinutes)
+                                                        }
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeST}
+                                        onChange={(evt) => { setCareGiverCodeST(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameST}
+                                        onChange={(evt) => { setCareGiverNameST(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdST}
+                                        onChange={(evt) => { setAssIdST(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocST}
+                                        onChange={(evt) => { setPocST(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursST}
+                                        onChange={(evt) => { setHoursST(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesST}
+                                        onChange={(evt) => { setMinutesST(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeST}
+                                        onChange={(evt) => { setServiceCodeST(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Sunday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeSU}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeSU(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeSU}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeSU(newValue);
+                                                        if (startTimeSU != null) {
+                                                            // const diffInMinutes = endTimeSU.diff(startTimeSU, 'minute');
+                                                            // const diffInHours = endTimeSU.diff(startTimeSU, 'hour');
+                                                            // setHoursSU(diffInHours);
+                                                            // setMinutesSU(diffInMinutes)
+                                                        }
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeSU}
+                                        onChange={(evt) => { setCareGiverCodeSU(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameSU}
+                                        onChange={(evt) => { setCareGiverNameSU(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdSU}
+                                        onChange={(evt) => { setAssIdSU(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocSU}
+                                        onChange={(evt) => { setPocSU(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursSU}
+                                        onChange={(evt) => { setHoursSU(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesSU}
+                                        onChange={(evt) => { setMinutesSU(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeSU}
+                                        onChange={(evt) => { setServiceCodeSU(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+
+                <div style={{ display: "flex", justifyContent: "center", marginTop: '20px', padding: '10px' }}>
+                    <Button className="EditButton" variant="outlined"
+                        onClick={() => {
+                            addMasterWeek(
+                                memberId,
+                                fromDate,
+                                toDate,
+
+                                startTimeM,
+                                endTimeM,
+                                careGiverCodeM,
+                                assIdM,
+                                pocM,
+                                hoursM,
+                                minutesM,
+                                secondsM,
+                                serviceCodeM,
+                                modeM,
+
+                                startTimeT,
+                                endTimeT,
+                                careGiverCodeT,
+                                assIdT,
+                                pocT,
+                                hoursT,
+                                minutesT,
+                                secondsT,
+                                serviceCodeT,
+                                modeT,
+
+                                startTimeW,
+                                endTimeW,
+                                careGiverCodeW,
+                                assIdW,
+                                pocW,
+                                hoursW,
+                                minutesW,
+                                secondsW,
+                                serviceCodeW,
+                                modeW,
+
+                                startTimeTH,
+                                endTimeTH,
+                                careGiverCodeTH,
+                                assIdTH,
+                                pocTH,
+                                hoursTH,
+                                minutesTH,
+                                secondsTH,
+                                serviceCodeTH,
+                                modeTH,
+
+                                startTimeF,
+                                endTimeF,
+                                careGiverCodeF,
+                                assIdF,
+                                pocF,
+                                hoursF,
+                                minutesF,
+                                secondsF,
+                                serviceCodeF,
+                                modeF,
+
+                                startTimeST,
+                                endTimeST,
+                                careGiverCodeST,
+                                assIdST,
+                                pocST,
+                                hoursST,
+                                minutesST,
+                                secondsST,
+                                serviceCodeST,
+                                modeST,
+
+                                startTimeSU,
+                                endTimeSU,
+                                careGiverCodeSU,
+                                assIdSU,
+                                pocSU,
+                                hoursSU,
+                                minutesSU,
+                                secondsSU,
+                                serviceCodeSU,
+                                modeSU,
+
+                            ).then(res => {
+                                if (res.data.result == "success") {
+                                    showToastMessage();
+                                }
+                            });
+                        }}
+                    >
+                        Create New Master Week
+                    </Button>
+                </div>
+
+
+            </div>
+        )
+    }
+
+    function handleCloseEditMasterWeek() {
+        setViewSelected(8);
+    }
+
+    const EditMasterWeekView = () => {
+        return (
+
+
+            //
+
+
+            <div>
+                <CloseIcon className="crossIcon" onClick={handleCloseEditMasterWeek} />
+                <h1 style={{ color: "grey", textAlign: "center" }}>Edit Master Week</h1>
+                <div>
+
+                    <div className="FieldsHolderMaster">
+                        <div style={{ margin: "5px" }}>
+                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="From Date"
+                                        value={fromDate}
+                                        onChange={(newValue) => {
+                                            setFromDate(newValue);
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+
+
+
+
+                        <div style={{ margin: "5px" }}>
+                            <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        label="To Date"
+                                        value={toDate}
+                                        onChange={(newValue) => {
+                                            setToDate(newValue);
+                                        }}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Monday</h1>
+                        <Grid container spacing={2}>
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeME}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeME(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeME}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeME(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        className="field"
+                                        id="outlined-basic"
+                                        label="Select Care Giver"
+                                        value={careGiverCodeME}
+                                        InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
+                                    >
+                                    </TextField>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        variant="outlined"
+                                        value={careGiverNameME}
+                                        onChange={(evt) => { setCareGiverNameME(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        variant="outlined"
+                                        value={assIdME}
+                                        onChange={(evt) => { setAssIdME(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocME}
+                                        onChange={(evt) => { setPocME(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        variant="outlined"
+                                        value={hoursME}
+                                        onChange={(evt) => { setHoursME(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        variant="outlined"
+                                        value={minutesME}
+                                        onChange={(evt) => { setMinutesME(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeME}
+                                        onChange={(evt) => { setServiceCodeME(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Tuesday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeTE}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeTE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeTE}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeTE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeTE}
+                                        onChange={(evt) => { setCareGiverCodeTE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameTE}
+                                        onChange={(evt) => { setCareGiverNameTE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdTE}
+                                        onChange={(evt) => { setAssIdTE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocTE}
+                                        onChange={(evt) => { setPocTE(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursTE}
+                                        onChange={(evt) => { setHoursTE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesTE}
+                                        onChange={(evt) => { setMinutesTE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeTE}
+                                        onChange={(evt) => { setServiceCodeTE(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Wednesday</h1>
+                        <Grid container spacing={2}>
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeWE}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeWE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeWE}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeWE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeWE}
+                                        onChange={(evt) => { setCareGiverCodeWE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameWE}
+                                        onChange={(evt) => { setCareGiverNameWE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdWE}
+                                        onChange={(evt) => { setAssIdWE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocWE}
+                                        onChange={(evt) => { setPocWE(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursWE}
+                                        onChange={(evt) => { setHoursWE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesWE}
+                                        onChange={(evt) => { setMinutesWE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeWE}
+                                        onChange={(evt) => { setServiceCodeWE(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Thursday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeTHE}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeTHE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeTHE}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeTHE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeTHE}
+                                        onChange={(evt) => { setCareGiverCodeTH(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameTHE}
+                                        onChange={(evt) => { setCareGiverNameTHE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdTHE}
+                                        onChange={(evt) => { setAssIdTHE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocTHE}
+                                        onChange={(evt) => { setPocTHE(evt.target.value) }}
+                                    >{pocIds.map((l, i) => (
+                                        <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                    ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursTHE}
+                                        onChange={(evt) => { setHoursTHE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesTHE}
+                                        onChange={(evt) => { setMinutesTHE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeTHE}
+                                        onChange={(evt) => { setServiceCodeTHE(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Friday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeFE}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeFE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeFE}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeFE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeFE}
+                                        onChange={(evt) => { setCareGiverCodeFE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameFE}
+                                        onChange={(evt) => { setCareGiverNameFE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdFE}
+                                        onChange={(evt) => { setAssIdFE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocFE}
+                                        onChange={(evt) => { setPocFE(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursFE}
+                                        onChange={(evt) => { setHoursFE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesFE}
+                                        onChange={(evt) => { setMinutesFE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeFE}
+                                        onChange={(evt) => { setServiceCodeFE(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Saturday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeSTE}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeSTE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeSTE}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeSTE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeSTE}
+                                        onChange={(evt) => { setCareGiverCodeSTE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameSTE}
+                                        onChange={(evt) => { setCareGiverNameSTE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdSTE}
+                                        onChange={(evt) => { setAssIdSTE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocSTE}
+                                        onChange={(evt) => { setPocSTE(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursSTE}
+                                        onChange={(evt) => { setHoursSTE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesSTE}
+                                        onChange={(evt) => { setMinutesSTE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeSTE}
+                                        onChange={(evt) => { setServiceCodeSTE(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+
+                <div>
+
+                    <div style={{ border: '0.5px solid grey', borderRadius: "10px", padding: '10px', margin: "2%", width: "90%" }}>
+                        <h1 style={{ color: "#564873", textAlign: "center" }}>Sunday</h1>
+                        <Grid container spacing={2}>
+
+
+
+                            <Grid className="DataHolderGrid">
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={startTimeSUE}
+                                                    onChange={(newValue) => {
+                                                        setStartTimeSUE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <div style={{ textAlign: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'grid', marginBottom: '30px' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DemoContainer components={['TimePicker', 'TimePicker']}>
+                                                <TimePicker
+                                                    label="Start Time"
+                                                    value={endTimeSUE}
+                                                    onChange={(newValue) => {
+                                                        setEndTimeSUE(newValue);
+                                                    }}
+                                                />
+                                            </DemoContainer>
+                                        </LocalizationProvider>
+                                    </div>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Code"
+                                        value={careGiverCodeSUE}
+                                        onChange={(evt) => { setCareGiverCodeSUE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Care Giver Name"
+                                        value={careGiverNameSUE}
+                                        onChange={(evt) => { setCareGiverNameSUE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Ass. ID"
+                                        value={assIdSUE}
+                                        onChange={(evt) => { setAssIdSUE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>POC</h4>
+                                    <Select
+                                        value={pocSUE}
+                                        onChange={(evt) => { setPocSUE(evt.target.value) }}
+                                    >
+                                        {pocIds.map((l, i) => (
+                                            <MenuItem value={l.task_id}>{l.task_id}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Hours"
+                                        value={hoursSUE}
+                                        onChange={(evt) => { setHoursSUE(evt.target.value) }}
+                                    />
+                                </div>
+
+                                <div style={{ margin: "5px" }}>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Minutes"
+                                        value={minutesSUE}
+                                        onChange={(evt) => { setMinutesSUE(evt.target.value) }}
+                                    />
+                                </div>
+                            </Grid>
+
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '0px' }}>
+                                <div style={{ margin: "0px" }}>
+                                    <h4 style={{ color: "grey" }}>Services Code</h4>
+                                    <Select
+                                        value={serviceCodeSUE}
+                                        onChange={(evt) => { setServiceCodeSUE(evt.target.value) }}
+                                    >
+                                        {serviceCodes.map((l, i) => (
+                                            <MenuItem value={l.service_code}>{l.service_code}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Grid>
+
+
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}><h2 style={{ color: "grey", fontSize: '15px' }}>Bill Type </h2></div>
+                            </Grid>
+                            <Grid className="DataHolderGrid" style={{ marginTop: '20px' }}>
+                                <div style={{ margin: "5px" }}>
+                                    Hourly
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </div>
+
+
+                <div style={{ display: "flex", justifyContent: "center", marginTop: '20px', padding: '10px' }}>
+                    <Button className="EditButton" variant="outlined"
+                        onClick={() => {
+                            editMasterWeek(
+                                //masterWeekID
+                                memberId,
+                                fromDate,
+                                toDate,
+
+                                startTimeM,
+                                endTimeM,
+                                careGiverCodeM,
+                                assIdM,
+                                pocM,
+                                hoursM,
+                                minutesM,
+                                secondsM,
+                                serviceCodeM,
+                                modeM,
+
+                                startTimeT,
+                                endTimeT,
+                                careGiverCodeT,
+                                assIdT,
+                                pocT,
+                                hoursT,
+                                minutesT,
+                                secondsT,
+                                serviceCodeT,
+                                modeT,
+
+                                startTimeW,
+                                endTimeW,
+                                careGiverCodeW,
+                                assIdW,
+                                pocW,
+                                hoursW,
+                                minutesW,
+                                secondsW,
+                                serviceCodeW,
+                                modeW,
+
+                                startTimeTH,
+                                endTimeTH,
+                                careGiverCodeTH,
+                                assIdTH,
+                                pocTH,
+                                hoursTH,
+                                minutesTH,
+                                secondsTH,
+                                serviceCodeTH,
+                                modeTH,
+
+                                startTimeF,
+                                endTimeF,
+                                careGiverCodeF,
+                                assIdF,
+                                pocF,
+                                hoursF,
+                                minutesF,
+                                secondsF,
+                                serviceCodeF,
+                                modeF,
+
+                                startTimeST,
+                                endTimeST,
+                                careGiverCodeST,
+                                assIdST,
+                                pocST,
+                                hoursST,
+                                minutesST,
+                                secondsST,
+                                serviceCodeST,
+                                modeST,
+
+                                startTimeSU,
+                                endTimeSU,
+                                careGiverCodeSU,
+                                assIdSU,
+                                pocSU,
+                                hoursSU,
+                                minutesSU,
+                                secondsSU,
+                                serviceCodeSU,
+                                modeSU,
+
+                            ).then(res => {
+                                if (res.data.result == "success") {
+                                    showToastMessage();
+                                }
+                            });
+                        }}
+                    >
+                        Save Changes in Master Week
+                    </Button>
+                </div>
+
+
+            </div>
+
         )
     }
 
@@ -7687,21 +7637,21 @@ return (
                     />
                 </div>
 
-          {/* //      <h1 style={{ color: "white",padding:10,backgroundColor:"grey", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)}>Add Master Week</h1>
+                {/* //      <h1 style={{ color: "white",padding:10,backgroundColor:"grey", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)}>Add Master Week</h1>
            ///     <h1 style={{ color: "white",padding:10,backgroundColor:"grey", textAlign: "center", cursor: 'pointer' }} onClick={() => setOpenAddMasterWeek(!openAddMasterWeek)}>Add Master Week</h1> */}
 
-<div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
+                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
 
 
-<div onClick={() => setViewSelected(44)} className="AddEditButton" >
-    <h3 style={{color:"#F2B90F",textAlign:"center"}}>Add Master Week</h3>
-</div>
+                    <div onClick={() => setViewSelected(44)} className="AddEditButton" >
+                        <h3 style={{ color: "#F2B90F", textAlign: "center" }}>Add Master Week</h3>
+                    </div>
 
 
-<div onClick={() => setViewSelected(33)} className="AddEditButton">
-    <h3 style={{color:"#F2B90F",textAlign:"center"}}>Edit Master Week</h3>
-</div>
-</div>
+                    <div onClick={() => setViewSelected(33)} className="AddEditButton">
+                        <h3 style={{ color: "#F2B90F", textAlign: "center" }}>Edit Master Week</h3>
+                    </div>
+                </div>
                 <div>
                     <div
                         className="bar"
@@ -7712,14 +7662,14 @@ return (
                             bottom: '0',
                             left: '0',
                             transition: 'height 0.3s ease-in-out',
-                            
+
                         }}
 
                     >
-         
+
 
                         {openAddMasterWeek &&
-                           <div></div>
+                            <div></div>
                         }
                     </div>
                 </div>
@@ -7734,13 +7684,13 @@ return (
                             pocition: 'relative',
                             bottom: '0',
                             left: '0',
-                           
+
                             transition: 'height 0.3s ease-in-out',
                             marginTop: '5%'
                         }}
 
                     >
-                  
+
                         {
                             openEditMasterWeek &&
 
@@ -7848,11 +7798,10 @@ return (
 
 
 
-                <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignContent:"center",alignItems:"center"}}>
+
                 <h1 style={{ color: "#564873", textAlign: "center" }}>POC</h1>
                 <div style={{ height: "45%", width: '100%', marginTop: "2%" }}>
-                <DataGrid
-                        className="datagrid"
+                    <DataGrid
                         rows={rowsPOC}
                         columns={columnsPOC}
                         pageSize={5}
@@ -7862,99 +7811,9 @@ return (
                 </div>
 
 
-                <div className="printDiv">
-                        <div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
-                         
-                            <div style={{display:"flex",flexDirection:"column",alignContent:"center",alignItems:"center",justifyContent:"center"}}>
-                            <h1 style={{fontSize:15,color:"blue",textAlign:"center",backgroundColor:"black"}}>ID</h1>
-                            <h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}>  {(getSelectedRowData(selectedRowPrint)).id}</h1>
-                            </div>
-                       
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>From Date </h1>  {(getSelectedRowData(selectedRowPrint)).fromDate}</h1>
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center",margin:"2.5%"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>To Date </h1>{(getSelectedRowData(selectedRowPrint)).toDate}</h1>
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Service Type :</h1>{(getSelectedRowData(selectedRowPrint)).serviceType}</h1>
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Service Code :</h1>{(getSelectedRowData(selectedRowPrint)).serviceCode}</h1>
-                       
-                        </div>
-
-                        <div style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
-                         
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Auth Type :</h1>{(getSelectedRowData(selectedRowPrint)).authType}</h1>
-                        
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}> <h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>MCO :</h1>{(getSelectedRowData(selectedRowPrint)).mco}</h1>
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Service Category :</h1>{(getSelectedRowData(selectedRowPrint)).serviceCat}</h1>
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}><h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Notes :</h1>{(getSelectedRowData(selectedRowPrint)).notes}</h1>
-                        
-                        <h1 style={{fontSize:15,color:"black",textAlign:"center"}}> <h1 style={{fontSize:15,color:"blue",textAlign:"center"}}>Visit :</h1>{(getSelectedRowData(selectedRowPrint)).visit}</h1>
-
-                     </div>
-
-
-
-                      
-                        
-                    </div>
-                    </div>
-
-
             </div>
         );
     };
-    
-
-
-    function getSelectedRowData(idToFind) {
-        if (idToFind) {
-          const foundData = rowsPOC.find(item => item.id === idToFind);
-          return foundData;
-        } else {
-          // Return a demo row data when no id is passed
-          const demoRowData = {
-            id: 0,
-            fromDate: "Demo Row",
-            toDate:"Demo",
-            serviceType:"demo",
-            serviceCode:"Demo",
-            authType:"demo"
-
-
-            // Add other properties as needed
-          };
-          return demoRowData;
-        }
-      }
-    //   {
-    //     field: 'id',
-    //     headerName: 'POC #',
-    //     sortable: false,
-    //     width: 150,
-    //     renderCell: (params) => (
-    //         <Button variant="contained" onClick={() => setViewSelected(22)}>
-    //             {params.value}
-    //         </Button>
-    //     ),
-    // },
-    // { field: 'fromDate', headerName: 'POC Start Date', width: 150 },
-    // { field: 'toDate', headerName: 'POC End Date', width: 150 },
-    // { field: 'serviceType', headerName: 'Created By', width: 150 },
-    // { field: 'serviceCode', headerName: 'Created Date', width: 150 },
-
-
-    // {
-    //     field: 'authType',
-    //     headerName: 'Authorization Type',
-    //     sortable: false,
-    //     width: 150,
-    //     renderCell: (params) => (
-    //         <Button variant="contained" onClick={() => {
-    //             setSelectedRowPrint(params.row.id);
-    //             PrintDocument();
-    //           }}>
-    //             Print
-    //           </Button>
-    //     ),
-    // },
-    
 
 
     const columnsVisitsMain = [
@@ -8066,51 +7925,51 @@ return (
 
 
                 <div className="holder" >
-                   
-                      <div style={{ width: "300px" }}>
-                            <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                                <DemoContainer components={['DatePicker']}>
-                                    <DatePicker
-                                        label="From Date"
-                                        value={selectedDate}
-                                        onChange={(newValue) => {
-                                            setSelectedDate(newValue);
-                                        }}
-                                    />
-                                </DemoContainer>
-                            </LocalizationProvider>
-                      </div>
 
-                      <div style={{ width: "300px" }}>
-                            <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                                <DemoContainer components={['DatePicker']}>
-                                    <DatePicker
-                                        label="To Date"
-                                        value={selectedDate}
-                                        onChange={(newValue) => {
-                                            setSelectedDate(newValue);
-                                        }}
-                                    />
-                                </DemoContainer>
-                            </LocalizationProvider>
-                            </div>
-                       
-                            <div style={{ width: "300px" }}>
-                            <FormControl style={{ width: "100%",marginTop:"0.5%" }} >
-                                <InputLabel>Action Taken</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={age}
-                                    label="Status"
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value={10}>ALL</MenuItem>
-                                    <MenuItem value={20}>Billed</MenuItem>
-                                    <MenuItem value={30}>NON-Billed</MenuItem>
-                                </Select>
-                            </FormControl>
-                            </div>
+                    <div style={{ width: "300px" }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker
+                                    label="From Date"
+                                    value={selectedDate}
+                                    onChange={(newValue) => {
+                                        setSelectedDate(newValue);
+                                    }}
+                                />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
+
+                    <div style={{ width: "300px" }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker
+                                    label="To Date"
+                                    value={selectedDate}
+                                    onChange={(newValue) => {
+                                        setSelectedDate(newValue);
+                                    }}
+                                />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
+
+                    <div style={{ width: "300px" }}>
+                        <FormControl style={{ width: "100%", marginTop: "0.5%" }} >
+                            <InputLabel>Action Taken</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={age}
+                                label="Status"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={10}>ALL</MenuItem>
+                                <MenuItem value={20}>Billed</MenuItem>
+                                <MenuItem value={30}>NON-Billed</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
                 </div>
 
 
@@ -8130,8 +7989,6 @@ return (
             </div>
         );
     };
-
-    const [selectedRowPrint, setSelectedRowPrint] = useState(null);
 
     const columnsPOC = [
         {
@@ -8157,33 +8014,32 @@ return (
             sortable: false,
             width: 150,
             renderCell: (params) => (
-                <Button variant="contained" onClick={() => {
-                   
-                    setRowPrint(params.row.id);
-                    PrintDocument();
-                  }}>
+                <Button variant="contained" onClick={() => PrintDocument({ content: document.getElementById("print-content").innerHTML })}>
                     Print
-                  </Button>
+                </Button>
             ),
         },
 
-    ];   
+    ];
 
-    function setRowPrint(value){
-        setSelectedRowPrint(value);
+    function PrintDocument(props) {
+        const windowContent = '<!DOCTYPE html><html><head><title>Print</title></head><body>' + props.content + '</body></html>';
+        const printWindow = window.open('', '', 'height=400,width=600');
+        printWindow.document.write(windowContent);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
     }
 
-    function PrintDocument() {
-        
-        window.print();
+    function PrintContent(props) {
+        return (
+            <div id="print-content">
+                <h1>{props.member.LastName}</h1>
+                <p>{props.member.Nurse}</p>
+            </div>
+        );
     }
-
-    // window.onafterprint = function() {
-    //     togglePrintArea();
-    // };
-    
-      
-      
 
     const rowsPOC = [
         {
@@ -8359,9 +8215,8 @@ return (
                     </React.Fragment>
                 ))}
             </div>
-            
+
             <div className="CardHolder">
-                
                 <Card className="TaskBar">
                     <UserName />
                     <hr />
@@ -8524,18 +8379,18 @@ return (
                     </div>
                 </Card>
 
-                <Card className="dataDisplay" style={{overflow:"auto"}}>
+                <Card className="dataDisplay" style={{ overflow: "auto" }}>
                     {isOverlayOpen && <Overlay />}
                     {isOverlayOpen2 && <Overlay2 />}
                     {isOverlayOpen3 && <Overlay3 />}
-                   
-                   
+
+
                     {visitClaimStatusOpen && <Overlay6 />}
                     {RenderViews()}
                 </Card>
             </div>
             <div className="GoBackButtonHolder">
-                <Button className="GoBackButton" variant="outlined"  onClick={GoBackButtonPressed} >Go Back</Button>
+                <Button className="GoBackButton" variant="outlined" onClick={GoBackButtonPressed} >Go Back</Button>
             </div>
 
             <Footer />
@@ -8554,59 +8409,6 @@ const Wrapper = styled.section`
     padding:5px;
     margin:1%;
   }
-  .AddEditButton:hover{
-    cursor: pointer;
-
-  }
-  .printDiv{
-    display:none;
-    
-
-  }
-  .datagrid{
-    height:250px;
-  }
-  .forPrinting{
-    height:550px;
-}
-  @media print {
-
-    .forPrinting{
-        display:none;
-    }
- 
-    .printDiv{
-        width:100%;
-        display:flex;
-        margin-top:0%;
-    flex-direction:column;
-    }
-
-    .TaskBar {
-      display:none;
-    }
-    .dataDisplay{
-    
-    }
-    .CardHolder{
-        justify-content:center;
-        align-items:center;
-        align-content:center;
-    }
-    .datagrid{
-        display:none;
-    }
-    .GoBackButton{
-        display:none;
-    }
-    .LogOutbutton{
-        display:none;
-    }
-    
-  }
- 
-
-
   .generalFields{
     display:flex;
     flex-direction:row;
@@ -8798,9 +8600,6 @@ const Wrapper = styled.section`
     margin-left: 2%;
     margin-top: 2%;
     color:black;
-  }
-  .crossIcon:hover {
-    cursor:pointer;
   }
   .searchFieldsDiv {
     display: grid;

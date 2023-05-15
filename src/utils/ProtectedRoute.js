@@ -14,8 +14,8 @@ const ProtectedRoute = ({
         if (loggedIn === true && loginType == 'admin') {
             return children ? children : <Outlet />;
         }
-        else{
-            return <Navigate to="/"/>
+        else {
+            return <Navigate to="/" />
         }
     }
 
@@ -24,8 +24,8 @@ const ProtectedRoute = ({
         if (loggedIn === true && loginType == 'caregiver') {
             return children ? children : <Outlet />;
         }
-        else{
-            return <Navigate to="/"/>
+        else {
+            return <Navigate to="/" />
         }
     }
 
@@ -34,8 +34,18 @@ const ProtectedRoute = ({
         if (loggedIn === true && loginType == 'patient') {
             return children ? children : <Outlet />;
         }
-        else{
-            return <Navigate to="/"/>
+        else {
+            return <Navigate to="/" />
+        }
+    }
+
+    if (routeType === 4) {
+        console.log("Hey")
+        if (loggedIn === true && loginType == 'sftp') {
+            return children ? children : <Outlet />;
+        }
+        else {
+            return <Navigate to="/" />
         }
     }
 };
