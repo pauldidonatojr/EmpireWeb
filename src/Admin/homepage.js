@@ -135,6 +135,7 @@ function Homepage() {
           <h3 onClick={BillingPressed} style={{ color: "#F2B90F" }} >Billings</h3>
           <h3 onClick={ReportPressed} style={{ color: "#F2B90F" }} >Report</h3>
           <h3 onClick={AdminPressed} style={{ color: "#F2B90F" }}>Admin</h3>
+         
         </div>
       </Box>
     </div>
@@ -165,7 +166,7 @@ function Homepage() {
   function AdminPressed() {
     navigate("/Admin");
 
-  }
+  } 
   function MemberPressed() {
     setViewSelected(1);
   }

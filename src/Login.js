@@ -81,7 +81,7 @@ function Login() {
             if (res.data.result == "success") {
               loginHandle(username, password, 'sftp');
               localStorage.setItem('LoggedInUser', JSON.stringify(res.data.data));
-              navigate("/AdminHome");
+              navigate("/SFTPHome");
               setLoginStatus('sucess');
             }
             if (res.data.result == "error") {
