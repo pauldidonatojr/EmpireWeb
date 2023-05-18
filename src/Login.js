@@ -12,9 +12,47 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getMCO } from "./API/mcoAPI";
+import { getMISC } from "./API/miscAPI";
+import { getCareGiver } from "./API/careGiverAPI";
+import { getVisit } from "./API/visitAPI";
 
 
 function Login() {
+
+
+  useEffect(() => {
+    getMCO().then(res => {
+      localStorage.setItem('MCOS', JSON.stringify(res.data));
+    })
+  }, [])
+
+
+  useEffect(() => {
+    getMISC().then(res => {
+      localStorage.setItem('MISC', JSON.stringify(res.data));
+    })
+  }, [])
+
+  // useEffect(() => {
+  //   localStorage.setItem('Members', JSON.stringify(res.data));
+  // }, []);
+
+  // useEffect(() => {
+  //   getVisit().then(res => {
+  //     localStorage.setItem('Visits', JSON.stringify(res.data));
+  //   })
+  // }, []);
+
+  useEffect(() => {
+    getCareGiver().then(res => {
+      localStorage.setItem('CareGivers', JSON.stringify(res.data));
+    })
+  }, [])
+
+
+
+
   const { signIn } = React.useContext(AuthContext);
   const [loginStatus, setLoginStatus] = useState(null);
   const navigate = useNavigate();
@@ -44,7 +82,6 @@ function Login() {
       case "Admin":
         if (username != null && password != null) {
           loginUser(username, password).then(res => {
-            console.log(res.data);
             if (res.data.result == "success") {
               loginHandle(username, password, 'admin');
               localStorage.setItem('LoggedInUser', JSON.stringify(res.data.data));

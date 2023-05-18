@@ -29,6 +29,8 @@ import CareGiverDetail from "./Admin/CareGiverDetail";
 import BatchDetails from "./Admin/BatchDetails";
 import InvoiceDetails from "./Admin/InvoiceDetails";
 import SFTPHome from './SFTP/Homepage'
+import MemberDetailsSFTP from "./SFTP/MemberDetails/MemberDetails";
+import CareGiverDetailSFTP from "./SFTP/CareGiverDetail";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -90,7 +92,7 @@ function App() {
         <Route path="/" element={<Login />} />
 
         <Route element={<ProtectedRoute routeType={1} loggedIn={loggedIn} loginType={loginState.userType} />}>
-          {/* <Route path="/AdminHome" element={<AdminHomePage />}></Route>
+          <Route path="/AdminHome" element={<AdminHomePage />}></Route>
           <Route path="/CareGiver" element={<CareGiver />}></Route>
           <Route path="/Visit" element={<Visits />}></Route>
           <Route path="/Action" element={<Action />}></Route>
@@ -110,7 +112,7 @@ function App() {
           <Route path="/MemberDetails" element={<MemberDetails />} />
           <Route path="/CareGiverDetail" element={<CareGiverDetail />} />
           <Route path="/BatchDetails" element={<BatchDetails />} />
-          <Route path="/InvoiceDetails" element={<InvoiceDetails />} /> */}
+          <Route path="/InvoiceDetails" element={<InvoiceDetails />} />
         </Route>
 
 
@@ -128,6 +130,8 @@ function App() {
 
         <Route element={<ProtectedRoute routeType={4} loggedIn={loggedIn} loginType={loginState.userType} />}>
           <Route path="/SFTPHome" element={<SFTPHome />}></Route>
+          <Route path="/CareGiverDetailSFTP" element={<CareGiverDetailSFTP />} />
+          <Route path="/MemberDetailsSFTP" element={<MemberDetailsSFTP />} />
         </Route>
 
 

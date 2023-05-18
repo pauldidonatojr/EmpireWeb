@@ -260,7 +260,7 @@ export const editCareGiver = async (
         "ReferralPerson": "",
         "ApplicationDate": "01/01/1900",
         "HiringStatus": "Employee",
-        "Status": Status,
+        "Status": 1,
         "Reference1": "",
         "Reference2": "",
         "TerminatedDate": "",

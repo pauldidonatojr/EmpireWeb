@@ -87,14 +87,14 @@ function Visit() {
   const [selectedCareGiverAllData, setSelectedCareGiverAllData] = useState(null);
 
   //Service Codes
-  const [serviceCodes, setServiceCodes] = useState(null);
-  const [selectedServiceCode, setSelectedServiceCode] = useState(null);
+  const [serviceCodes, setServiceCodes] = useState([]);
+  const [selectedServiceCode, setSelectedServiceCode] = useState('');
 
   //  
 
   //Service Codes
-  const [visitType, setVisitType] = useState(null);
-  const [selectedVisitType, setSelectedVisitType] = useState(null);
+  const [visitType, setVisitType] = useState([]);
+  const [selectedVisitType, setSelectedVisitType] = useState('null');
 
   //  
 
@@ -111,7 +111,7 @@ function Visit() {
   const [selectedDuty, setSelectedDuty] = useState('');
   const [scheduleID, setScheduleID] = useState('13252546');
   const [visitID, setVisitID] = useState('');
-  
+
   const [evvStartTime, setEvvStartTime] = useState(dayjs('2023-04-17T15:30'));
   const [evvEndTime, setEvvEndTime] = useState(dayjs('2023-04-17T15:30'));
 
@@ -659,7 +659,7 @@ function Visit() {
   }
 
 
-  
+
 
 
 
@@ -1479,7 +1479,7 @@ function Visit() {
 
         <div style={{ margin: "5px", width: '100%', textAlign: 'center' }}>
           <h2 style={{ color: "grey", fontSize: '15px' }}>Service Code:</h2>
-          {currVisit != null &&
+          {currVisit != null && serviceCodes != null &&
             <div>
               <Select
                 style={{ width: '50%' }}
@@ -1893,7 +1893,7 @@ function Visit() {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Box style={{ width: "75%", margin: "2%" }}>
             <FormControl fullWidth>
-              <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>New Reason</InputLabel>
+              <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>New Reason</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -1919,7 +1919,7 @@ function Visit() {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Box style={{ width: "75%", margin: "2%" }}>
             <FormControl fullWidth>
-              <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Action Taken</InputLabel>
+              <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Action Taken</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -2640,7 +2640,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >Cordinator</InputLabel>
+                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }} >Cordinator</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -2654,12 +2654,12 @@ function Visit() {
                   </FormControl>
                 </Box>
               </Grid>
-            
+
               <Grid className="griditem2">
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Member Team</InputLabel>
+                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Member Team</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -2676,12 +2676,12 @@ function Visit() {
                 </Box>
               </Grid>
 
-    
+
               <Grid className="griditem2">
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>MCO</InputLabel>
+                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>MCO</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -2700,7 +2700,7 @@ function Visit() {
                 </Box>
               </Grid>
 
-           
+
 
             </div>
 
@@ -2894,7 +2894,7 @@ function Visit() {
 
 
 
-  
+
   const [selectedPaidDate, setSelectedPaidDate] = useState(null);
   const VisitQuickSearchView = () => {
     return (
@@ -3014,7 +3014,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}} >MCO</InputLabel>
+                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }} >MCO</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -3079,7 +3079,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Status</InputLabel>
+                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Status</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -3134,7 +3134,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Member Team</InputLabel>
+                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Member Team</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -3155,7 +3155,7 @@ function Visit() {
 
                 <Box >
                   <FormControl fullWidth>
-                    <InputLabel style={{backgroundColor:"#f2f2f2",color:"grey"}}>Case Cordinator</InputLabel>
+                    <InputLabel style={{ backgroundColor: "#f2f2f2", color: "grey" }}>Case Cordinator</InputLabel>
                     <Select
 
                       labelId="demo-simple-select-label"
@@ -3242,7 +3242,7 @@ function Visit() {
               {memberForVisitName != null &&
                 <h1 style={{ textAlign: "center" }}>Create A New Visit for {memberForVisitName}</h1>
               }
-              <div   className="fieldsTable">
+              <div className="fieldsTable">
 
 
 
@@ -3286,23 +3286,23 @@ function Visit() {
                 <LocalizationProvider style={{ width: "300px" }} dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DatePicker']}>
                     <DatePicker
-                     label="End Date"
-                     value={selectedEndDate}
-                     onChange={(newValue) => {
-                       setSelectedEndDate(newValue);
-                     }}
+                      label="End Date"
+                      value={selectedEndDate}
+                      onChange={(newValue) => {
+                        setSelectedEndDate(newValue);
+                      }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
 
 
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}  style={{ width: '200px' }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} style={{ width: '200px' }}>
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
                       label="Schedule End Time"
                       value={scheduleEndTime}
-                     
+
                       onChange={(newValue) => {
                         const time = dayjs(newValue).format('HH:mm:ss');
                         const date = dayjs(selectedDate).format('YYYY-MM-DD');
@@ -3323,7 +3323,7 @@ function Visit() {
                 <FormControl>
                   <InputLabel>Service Codes</InputLabel>
                   <Select
-                  style={{ width: '350px' ,marginTop:"10px",marginBottom:"5px" }}
+                    style={{ width: '350px', marginTop: "10px", marginBottom: "5px" }}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={selectedServiceCode}
@@ -3343,25 +3343,25 @@ function Visit() {
                   label="Duration"
                   variant="outlined"
                   readOnly
-                  style={{ width:"350px",marginTop:"1%"}}
+                  style={{ width: "350px", marginTop: "1%" }}
                   value={duration}
                   onClick={() => { getTimeDuration(visitStartTime, visitEndTime) }}
                 />
 
-               
+
 
 
 
 
               </div>
-<div className="fieldsTable" >
-<TextField
+              <div className="fieldsTable" >
+                <TextField
                   className="field"
                   id="outlined-basic"
                   label="Select Care Giver"
-                  
+
                   value={careGiverForVisitName}
-                  style={{ width: '350px' ,marginLeft:"1px" }}
+                  style={{ width: '350px', marginLeft: "1px" }}
                   InputProps={{ startAdornment: (<PersonSearchIcon onClick={CareGiverIconClick} style={{ cursor: "pointer" }} />) }}
                 >
                   {/* <div  style={{ display: "flex", cursor: "pointer", justifyContent: "center", alignContent: "center", alignItems: "center" }}> */}
@@ -3369,7 +3369,7 @@ function Visit() {
                   {/* </div> */}
                 </TextField>
 
-                <FormControl style={{ width: '350px' ,marginTop:"1%",marginRight:"4px" }}>
+                <FormControl style={{ width: '350px', marginTop: "1%", marginRight: "4px" }}>
                   <InputLabel>Visit Type</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -3383,13 +3383,13 @@ function Visit() {
                     ))}
                   </Select>
                 </FormControl>
-</div>
+              </div>
 
               {/* =========================To Check======================= */}
               <div className="fieldsTable">
 
 
-             
+
                 {/*  */}
 
                 {/*======================================================== */}
@@ -3397,33 +3397,33 @@ function Visit() {
 
 
 
-                           
+
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
                       label="Visit Start Time"
                       value={visitStartTime}
-                      style={{marginLeft:"10px" ,width:"350px"}}
-                      onChange={(newValue)=>{
+                      style={{ marginLeft: "10px", width: "350px" }}
+                      onChange={(newValue) => {
                         setVisitStartTime(newValue);
                       }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
-              
-               
+
+
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['TimePicker', 'TimePicker']}>
                     <TimePicker
                       label="Visit End Time"
                       value={visitEndTime}
-                      onChange={(newValue)=>{
+                      onChange={(newValue) => {
                         setVisitEndTime(newValue);
                       }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
-            
+
 
               </div>
               {/* ======================================================== */}
@@ -3432,17 +3432,17 @@ function Visit() {
               <div className="fieldsTable">
 
 
-              
 
 
 
-                <LocalizationProvider dateAdapter={AdapterDayjs} style={{width: "350px"}}>
-                  <DemoContainer components={['TimePicker', 'TimePicker']} style={{width: "350px"}}> 
+
+                <LocalizationProvider dateAdapter={AdapterDayjs} style={{ width: "350px" }}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']} style={{ width: "350px" }}>
                     <TimePicker
                       label="EVV Start Time"
                       value={evvStartTime}
                       onChange={handleEvvStartTimeChange}
-                      style={{width: "350px"}}
+                      style={{ width: "350px" }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
@@ -3500,12 +3500,12 @@ function Visit() {
                   onChange={handleClockInLocationStateChange}
                   value={clockInLocationState}
                 />
-               
+
               </div>
               {/* ======================================================== */}
 
               <div className="fieldsTable">
-              <TextField
+                <TextField
                   className="field"
                   id="clock-in-zip-code"
                   label="Clock In Zip Code"
@@ -3514,16 +3514,16 @@ function Visit() {
                   onChange={handleClockInZipCodeChange}
                   value={clockInZipCode}
                 />
-                  <TextField
+                <TextField
                   className="field"
                   id="Authorization Number"
                   label="Member ID"
                   variant="outlined"
-                  style={{width: "350px"}}
+                  style={{ width: "350px" }}
                   value={memberId}
                   onChange={(event) => setMemberId(event.target.value)}
                 />
-                </div>
+              </div>
 
               {/* ======================================================== */}
               <div className="fieldsTable">
@@ -4049,18 +4049,18 @@ function Visit() {
                   value={totalPaidUnits}
                   onChange={handleTotalPaidUnitsChange}
                 />
-                
-      <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                                <DemoContainer components={['DatePicker']}>
-                                    <DatePicker
-                                        label="Paid Date"
-                                        value={selectedPaidDate}
-                                        onChange={(newValue) => {
-                                            setSelectedPaidDate(newValue);
-                                        }}
-                                    />
-                                </DemoContainer>
-                            </LocalizationProvider>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      label="Paid Date"
+                      value={selectedPaidDate}
+                      onChange={(newValue) => {
+                        setSelectedPaidDate(newValue);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
               </div>
               {/* ======================================================== */}
               <div className="fieldsTable">
