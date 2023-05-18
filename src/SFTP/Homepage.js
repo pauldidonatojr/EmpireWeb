@@ -896,6 +896,7 @@ function SFTPHomepage() {
 
     getVisit().then(res => {
       setVisits(res.data);
+      localStorage.setItem('Visits', JSON.stringify(res.data));
       var arr = [];
       var arr2 = [];
       var data = res.data;

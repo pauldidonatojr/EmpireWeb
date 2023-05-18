@@ -67,7 +67,7 @@ export const addCareGiver = async (
         "ReferralPerson": "",
         "ApplicationDate": "01/01/1900",
         "HiringStatus": "Employee",
-        "Status": Status,
+        "status": 1,
         "Reference1": "",
         "Reference2": "",
         "TerminatedDate": "",
@@ -166,7 +166,6 @@ export const addCareGiver = async (
     })
 }
 
-
 export const getCareGiver = async () => {
     var myHeaders = new Headers();
     // myHeaders.append("Authorization", "Bearer sIW4iLCJJta2w_PEc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybF0IjoxNjc2NjYmFtZSI6Ib7c32gxMFYzKvSHeyJhZSIfNmbGciOiJIUzI1NiJ9.eyJSb2kphdmFJblVzmV4cCI6MTY3NjY2NjQzOCwiaW2NDM4fQ.nuvs4fzaaeYFhiE4sx2oxlIjoiQWR");
@@ -189,8 +188,6 @@ export const getCareGiver = async () => {
         .catch(error => console.log('error', error));
 }
 
-
-
 export const editCareGiver = async (
     id,
     firstName,
@@ -206,7 +203,7 @@ export const editCareGiver = async (
     MobileDeviceID,
     PrimaryMemberTeam,
     NPINumber,
-    Rehire,//Yes/NO
+    Rehire,
     RehireDate,
     EmploymentType,
     Street1,
@@ -229,73 +226,72 @@ export const editCareGiver = async (
     EmergencyContact2Address,
     EmergencyContact2Phone1,
     EmergencyContact2Phone2,
-    user_id
 ) => {
 
     var data = JSON.stringify({
         "type":"updatecaregivers",
         "id": id,
+        "SSN": SSN,
+        "City": City,
+        "Zip4": "",
+        "Phone": Phone,
+        "State": State,
+        "Branch": "",
+        "CoCode": "",
+        "Gender": Gender,
+        "Phone2": Phone2,
+        "Phone3": "",
+        "status": "1",
+        "I9Notes": "",
+        "Sent105": "NO",
+        "ZipCode": Zip,
+        "Address1": Street1,
+        "Address2": Street2,
+        "AideCode": CareGiverCode,
         "FirstName": firstName,
         "LastName": lastName,
         "MiddleName": middleName,
-       
+        "Location": "",
+        "MobileID": CareGiverMobileID,
+        "PayCycle": "",
+        "RateType": "",
         "AideInitial": AideInitials,
-        "Gender": Gender,
         "DateofBirth": DOB,
-        "AideCode": CareGiverCode,
         "IVREmployee ID": "",
         "ALternateAideCode": "",
         "Ethnicity": "",
-        "SSN": SSN,
         "MaritalStatus": "",
         "Discipline": "",
         "Dependents": "",
         "AidePicture": "No",
         "CountryofBirth": "",
+        "member_status": 1,
         "RehireDate": RehireDate,
-        "MobileID": CareGiverMobileID,
         "MobileIDStatus": "",
         "CaregiverMobileAppAvailability": "No",
         "ReferralSource": "",
         "ReferralPerson": "",
         "ApplicationDate": "01/01/1900",
         "HiringStatus": "Employee",
-        "Status": 1,
         "Reference1": "",
         "Reference2": "",
         "TerminatedDate": "",
-        "Sent105": "NO",
         "FirstWorkDate": "03/21/2022",
         "LastWorkDate": "05/19/2022",
         "StateRegistry": "",
         "RegistryDate": "01/01/1900",
-        "Location": "",
-        "Branch": "",
         "CaregiverTeam": "",
         "Employee ID": "",
-        
-        "Address1": Street1,
-        "Address2": Street2,
-        "City": City,
-        "ZipCode": Zip,
-        "Phone": Phone,
-        "State": State,
-        "Phone2": Phone2,
-        "Phone3": "",
-        "Zip4": "",
-
         "Emergency1Name": EmergencyContact1Name,
         "Emergency1Relationship": EmergencyContact1Relation,
         "Emergency1Address": EmergencyContact1Address,
         "Emergency1Phone1": EmergencyContact1Phone1,
         "Emergency1phone2": EmergencyContact1Phone2,
-
         "Emergency2Name": EmergencyContact2Name,
         "Emergency2Relationship": EmergencyContact2Relation,
         "Emergency2Address": EmergencyContact2Address,
         "Emergency2Phone1": EmergencyContact2Phone1,
         "Emergency2Phone2": EmergencyContact2Phone2,
-
         "Language1": "",
         "Language2": "",
         "Language3": "",
@@ -303,7 +299,6 @@ export const editCareGiver = async (
         "DocumentAB": "",
         "DocumentC": "",
         "I9FormExpirationDate": "",
-        "I9Notes": "",
         "CriminalBackgroundSentOutDate": "",
         "CriminalBackgroundSentOutResult": "",
         "SentOutReceivedOn": "",
@@ -316,9 +311,7 @@ export const editCareGiver = async (
         "LastEmploymentAgency": "",
         "LastEmploymentDateFrom": "",
         "LastEmploymentDateTo": "",
-        "CoCode": "",
         "FedExemption": "",
-        "RateType": "",
         "PensionProfitSharing": "",
         "ExemptionFromOvertime": "",
         "DirectDeposit": "",
@@ -326,12 +319,10 @@ export const editCareGiver = async (
         "Employee1099": "",
         "UnionReduction": "",
         "MedicalDeductionCode": "",
-        "PayCycle": "",
         "PreferredContactMethod": "",
         "NotificationEmail": "",
         "NotificationTextMessaging": "",
         "NotificationVoiceMail": "",
-        "user_id": user_id
     });
 
     var config = {

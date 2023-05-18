@@ -885,6 +885,8 @@ function CareGiverDetailSFTP() {
       var memberData = currVisit.member_data
       memberData = JSON.parse(memberData);
       setMemberDataCV(memberData);
+
+      if(memberData != null){
       var memPOC = memberData.POC;
       var arrPOC = [];
       for (var key in memPOC) {
@@ -895,7 +897,7 @@ function CareGiverDetailSFTP() {
         }
         arrPOC.push(obj);
       }
-      setPocDutiesRowVS(arrPOC);
+      setPocDutiesRowVS(arrPOC);}
 
 
       // setCaregiverCodeEditVisit(currVisit.CaregiverCode)
@@ -1026,6 +1028,7 @@ function CareGiverDetailSFTP() {
       var arr2 = [];
       for (var key in visitData) {
         if (visitData[key].CaregiverFirstName + " " + visitData[key].CaregiverLastName == selectedMemberName) {
+          console.log(visitData[key])
           var myArray = visitData[key];
           getMemberByID(myArray.MemberID)
           var arr = [];
@@ -2820,8 +2823,8 @@ function CareGiverDetailSFTP() {
                     "",
                     "",
                     "",
-                    "",
-                    firstName.toLowerCase()
+                    ""//,
+                    // firstName.toLowerCase()
 
 
                   ).then(res => {
