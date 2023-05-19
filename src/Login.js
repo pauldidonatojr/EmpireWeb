@@ -16,6 +16,8 @@ import { getMCO } from "./API/mcoAPI";
 import { getMISC } from "./API/miscAPI";
 import { getCareGiver } from "./API/careGiverAPI";
 import { getVisit } from "./API/visitAPI";
+import { getMembers } from "./API/membersApi";
+import { Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
 
 
 function Login() {
@@ -32,11 +34,13 @@ function Login() {
     getMISC().then(res => {
       localStorage.setItem('MISC', JSON.stringify(res.data));
     })
+
+    getMembers().then(res => {
+      localStorage.setItem('Members', JSON.stringify(res.data));
+    })
   }, [])
 
-  // useEffect(() => {
-  //   localStorage.setItem('Members', JSON.stringify(res.data));
-  // }, []);
+
 
   // useEffect(() => {
   //   getVisit().then(res => {
@@ -59,6 +63,7 @@ function Login() {
   const [selectedRadio, setSelectedRadio] = useState("");
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [device, setDevice] = useState(false);
 
   const showToastMessage = () => {
     toast.error('Wrong Username or Password!', {
@@ -189,6 +194,7 @@ function Login() {
             <h1 style={{ fontSize: "35px" }}>SIGN IN</h1>
           </div>
 
+
           <div className="radioHolder">
             <div className="radioTextHolder" >
               <input
@@ -231,6 +237,27 @@ function Login() {
               />{" "}
               <h5 style={{ color: "#16232E", fontSize: "15px", marginLeft: "10%" }}>SFTP</h5>
             </div>
+          </div>
+
+
+          <div className="mobileChooseLogin">
+            <FormControl>
+              <InputLabel id="demo-simple-select-label">Choose Login Type</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedRadio}
+                onChange={(evt) => {
+                  setSelectedRadio(evt.target.value);
+                }}
+                style={{margin: 20}}
+              >
+                <MenuItem value={'Admin'}>Admin</MenuItem>
+                <MenuItem value={'Caregiver'}>Caregiver</MenuItem>
+                <MenuItem value={'Patient'}>Patient</MenuItem>
+                <MenuItem value={'SFTP'}>SFTP</MenuItem>
+              </Select>
+            </FormControl>
           </div>
 
           <TextField
@@ -313,6 +340,11 @@ const Wrapper = styled.section`
     border-width: thin;
     width: 100%;
   }
+
+  .mobileChooseLogin{
+    display: none;
+  }
+
   .radio{
     margin-top:5%;
   }
@@ -376,6 +408,16 @@ const Wrapper = styled.section`
         height: 40%;
         width: 40%;
       }
+      .radioHolder {
+      display: none
+    }
+
+  .mobileChooseLogin{
+      display: grid;
+      flex-direction: row;
+      border-width: thin;
+      width: 100%;
+    }
   }
 
 `

@@ -44,7 +44,7 @@ const Link = require("react-router-dom").Link;
 function SFTPHomepage() {
 
   const { signOut } = React.useContext(AuthContext);
-  const [ViewSelected, setViewSelected] = useState(1);
+  const [ViewSelected, setViewSelected] = useState(4);
 
   const navigate = useNavigate();
 
@@ -815,12 +815,14 @@ function SFTPHomepage() {
       headerName: 'Member Name',
       width: 250,
       renderCell: (params) => (
-        <div>
-          <Link to="/MemberDetailsSFTP" state={{ selectedMemberID: null, selectedMemberName: params.value }}
-          >
-            {params.value}
-          </Link>
-        </div>
+        <>{
+          <div>
+            <Link to="/MemberDetailsSFTP" state={{ selectedMemberID: null, selectedMemberName: params.value }}
+            >
+              {params.value}
+            </Link>
+          </div>
+        }</>
       )
     },
     { field: 'memberTeam', headerName: 'Member Team', width: 200 },
@@ -879,6 +881,7 @@ function SFTPHomepage() {
 
     getMembers().then(res => {
       setMembers(res.data)
+      localStorage.setItem('Members', JSON.stringify(res.data));
     })
 
     getMCO().then(res => {
@@ -2733,6 +2736,7 @@ function SFTPHomepage() {
         }
         {!open && !openTime &&
           <div style={{ height: "100%", width: '100%' }}>
+            <h1 style={{ color: "#564873", textAlign: "center" }}>Seach For Visits</h1>
             <DataGrid
               rows={visitsDataRow}
               columns={columns}
@@ -2888,32 +2892,14 @@ function SFTPHomepage() {
   ];
 
   function getTimeDuration(start, end) {
-    //   if (visitStart != null && visitEnd) {
-    //     var durationMinute;
-    //     var durationHour;
-    //     var durationTime;
-    //     var startTime = visitStart.split(':');
-    //     var endTime = visitEnd.split(':');
+    const startTime = dayjs(start);
+    const endTime = dayjs(end);
+    const dur = endTime.diff(startTime, 'minute');
 
-    //     startTime[0] = parseInt(startTime[0]);
-    //     startTime[1] = parseInt(startTime[1]);
+    const hours = Math.floor(dur / 60);
+    const minutes = dur % 60;
 
-    //     endTime[0] = parseInt(endTime[0]);
-    //     endTime[1] = parseInt(endTime[1]);
-
-    //     if (endTime[1] >= startTime[1]) {
-    //         durationMinute = endTime[1] - startTime[1];
-    //         durationHour = endTime[0] - startTime[0];
-    //         durationTime = durationHour + ' Hours and ' + durationMinute + ' Minutes';
-    //         setDuration(durationTime);
-    //     }
-    //     else if (endTime[1] < startTime[1]) {
-    //         durationMinute = (endTime[1] + 60) - startTime[1];
-    //         durationHour = (endTime[0] - 1) - startTime[0];
-    //         durationTime = durationHour + ' Hours and ' + durationMinute + ' Minutes';
-    //         setDuration(durationTime);
-    //     }
-    // }
+    setDuration(`${hours} hours ${minutes} minutes`);
   }
 
   const [selectedPaidDate, setSelectedPaidDate] = useState(null);
@@ -3243,6 +3229,7 @@ function SFTPHomepage() {
 
         {!open2 && !open3 && !open10 &&
           <div>
+            <h1 style={{ color: "#564873", textAlign: "center" }}>Create A New Visit</h1>
             <div>
               <div>
                 <h1 style={{ textAlign: "center" }}> Active Authorization (-90 Days)</h1>
@@ -3339,6 +3326,50 @@ function SFTPHomepage() {
 
               </div>
 
+              {/* =========================To Check======================= */}
+              <div className="fieldsTable">
+
+
+
+                {/*  */}
+
+                {/*======================================================== */}
+
+
+
+
+
+                <LocalizationProvider dateAdapter={AdapterDayjs} >
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="Visit Start Time"
+                      value={visitStartTime}
+                      style={{ marginLeft: "10px", width: "350px" }}
+                      onChange={(newValue) => {
+                        setVisitStartTime(newValue);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['TimePicker', 'TimePicker']}>
+                    <TimePicker
+                      label="Visit End Time"
+                      value={visitEndTime}
+                      onChange={(newValue) => {
+                        setVisitEndTime(newValue);
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+
+
+              </div>
+              {/* ======================================================== */}
+
+
               <div className="fieldsTable" >
 
 
@@ -3410,48 +3441,6 @@ function SFTPHomepage() {
                 </FormControl> */}
               </div>
 
-              {/* =========================To Check======================= */}
-              <div className="fieldsTable">
-
-
-
-                {/*  */}
-
-                {/*======================================================== */}
-
-
-
-
-
-                <LocalizationProvider dateAdapter={AdapterDayjs} >
-                  <DemoContainer components={['TimePicker', 'TimePicker']}>
-                    <TimePicker
-                      label="Visit Start Time"
-                      value={visitStartTime}
-                      style={{ marginLeft: "10px", width: "350px" }}
-                      onChange={(newValue) => {
-                        setVisitStartTime(newValue);
-                      }}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
-
-
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['TimePicker', 'TimePicker']}>
-                    <TimePicker
-                      label="Visit End Time"
-                      value={visitEndTime}
-                      onChange={(newValue) => {
-                        setVisitEndTime(newValue);
-                      }}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
-
-
-              </div>
-              {/* ======================================================== */}
 
               {/* ======================================================== */}
               <div className="fieldsTable">
@@ -4793,6 +4782,18 @@ export default SFTPHomepage;
 const Wrapper = styled.section`
 height: 100%;
 width: 100%;
+
+body::-webkit-scrollbar {
+  width: 10px;
+    }
+
+    body::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    }
+
+    body::-webkit-scrollbar-thumb {
+    background-color: #888;
+    }
 
 
 .DataHolderGrid{
