@@ -3228,7 +3228,7 @@ function CareGiverDetailSFTP() {
         <img
           className="headerImage"
           src="./EmpireHomeCareLogo.png"
-          onClick={() => navigate("/AdminHome")}
+          onClick={() => navigate("/SFTPHome")}
         />
 
         <Button className="LogOutbutton" variant="outlined">

@@ -8194,7 +8194,7 @@ function MemberDetailsSFTP() {
                     open={state["left"]}
                     onClose={toggleDrawer("left", false)}
                 ></MenuIcon>
-                <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() => navigate("/AdminHome")} />
+                <img className="headerImage" src="./EmpireHomeCareLogo.png" onClick={() => navigate("/SFTPHome")} />
 
                 <Button className="LogOutbutton" variant="outlined" onClick={signOut}>
                     Log Out
