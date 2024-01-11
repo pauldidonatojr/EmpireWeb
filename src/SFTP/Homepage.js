@@ -746,6 +746,10 @@ function SFTPHomepage() {
     });
   };
 
+  const notify = () => toast("Please Wait Data is Loading!");
+
+  const notify2 = () => toast("Please Press Multiple Times If Irresponsive!");
+
 
   function getCareGiverVisitSearch(careGiverName) {
     var obj = {};
@@ -762,7 +766,7 @@ function SFTPHomepage() {
 
   }
 
-
+  const [editNotif, setEditNotif] = useState(false);
 
   function handleNonSkilledVisit(event) {
     getVisitById(currSelectedRow.id)
@@ -851,6 +855,10 @@ function SFTPHomepage() {
       width: 150,
       renderCell: (params) => (
         <Button variant="contained" onClick={() => {
+          if (!editNotif) {
+            notify2();
+            setEditNotif(true);
+          }
           var cgMem = getMemberVisitSearch(currSelectedRow.memberName);
           var cgCG = getCareGiverVisitSearch(currSelectedRow.caregiverName);
           if (cgMem.Member != null) {
@@ -953,6 +961,7 @@ function SFTPHomepage() {
 
 
   useEffect(() => {
+    notify();
     var miscValuesString = localStorage.getItem("MISC");
     var miscValues = JSON.parse(miscValuesString)
     miscValues = miscValues.data;
@@ -2736,7 +2745,7 @@ function SFTPHomepage() {
         }
         {!open && !openTime &&
           <div style={{ height: "100%", width: '100%' }}>
-            <h1 style={{ color: "#564873", textAlign: "center" }}>Seach For Visits</h1>
+            <h1 style={{ color: "#564873", textAlign: "center" }}>Search For Visits</h1>
             <DataGrid
               rows={visitsDataRow}
               columns={columns}

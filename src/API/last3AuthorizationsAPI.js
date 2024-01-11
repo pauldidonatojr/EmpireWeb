@@ -19,7 +19,7 @@ export const getLast3Authorizations = async (memberID) => {
         redirect: 'follow'
     };
 
-    return fetch("https://projects.penntelco.com/empire/visit", requestOptions)
+    return fetch("https://api.empirehomecareagency.org/empire/visit", requestOptions)
         .then(response => response.json())
         .then(result => result)
         .catch(error => console.log('error', error));

@@ -14,7 +14,7 @@ export const addTeammember = async (
     var config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://projects.penntelco.com/empire/misc',
+        url: 'https://api.empirehomecareagency.org/empire/misc',
         // headers: {
         //     'Authorization': 'Bearer sIW4iLCJJta2w_PEc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybF0IjoxNjc2NjYmFtZSI6Ib7c32gxMFYzKvSHeyJhZSIfNmbGciOiJIUzI1NiJ9.eyJSb2kphdmFJblVzmV4cCI6MTY3NjY2NjQzOCwiaW2NDM4fQ.nuvs4fzaaeYFhiE4sx2oxlIjoiQWR', 
         //     'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export const getTeammember = async () => {
         redirect: 'follow'
     };
 
-    return fetch("https://projects.penntelco.com/empire/misc", requestOptions)
+    return fetch("https://api.empirehomecareagency.org/empire/misc", requestOptions)
         .then(response => response.json())
         .then(result => result)
         .catch(error => console.log('error', error));
