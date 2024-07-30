@@ -6288,7 +6288,7 @@ function MemberDetails() {
                     <Button className="EditButton" variant="outlined"
                         onClick={() => {
                             addMasterWeek(
-                                memberId,
+                                selectedMemberID,
                                 fromDate,
                                 toDate,
 
